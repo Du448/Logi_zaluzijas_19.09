@@ -64,6 +64,11 @@ const posts: Post[] = [
   },
 ]
 
+// Pre-generate all dynamic params for static export
+export function generateStaticParams() {
+  return posts.map((p) => ({ id: String(p.id) }))
+}
+
 export async function generateMetadata({ params }: { params: { id: string } }) {
   const id = Number(params.id)
   const post = posts.find((p) => p.id === id)
