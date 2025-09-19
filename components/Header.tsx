@@ -151,7 +151,7 @@ export default function Header(){
               </svg>
               <span className="hidden sm:inline">WhatsApp</span>
             </a>
-            <a href="/kontakti" className="inline-flex items-center rounded-md bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 text-xs font-semibold transition-colors">Bezmaksas konsultācija</a>
+            <a href="/kontakti" className="inline-flex items-center rounded-md bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 text-xs font-semibold transition-colors">Bezmaksas konsultācija</a>
           </div>
         </div>
       </div>
