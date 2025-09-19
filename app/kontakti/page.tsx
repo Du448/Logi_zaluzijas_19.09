@@ -1,7 +1,16 @@
 import ContactFormModern from '@/components/ContactFormModern'
 import Rekviziti from '@/components/Rekviziti'
+import ShareButton from '@/components/ShareButton'
+import type { Metadata } from 'next'
 
-export const metadata = { title: 'Kontakti' }
+export const metadata: Metadata = {
+  title: 'Kontakti — Vestalux',
+  description: 'Sazinieties ar mums: +371 20886650, info@vestalux.lv. PVC logi, žalūzijas un risinājumi jūsu mājoklim.',
+  openGraph: {
+    title: 'Kontakti — Vestalux',
+    description: 'Sazinieties ar mums: +371 20886650, info@vestalux.lv.',
+  }
+}
 
 export default function Page(){
   return (
@@ -16,11 +25,16 @@ export default function Page(){
           <div className="grid md:grid-cols-2 gap-10 items-start">
             {/* Left: Heading */}
             <div>
-              <h1 className="text-5xl md:text-7xl font-bold leading-tight tracking-tight">
-                Ir ideja?
-                <br />
-                <span className="text-white/90">Pastāstiet par to</span>
-              </h1>
+              <div className="flex items-center justify-between mb-4">
+                <h1 className="text-5xl md:text-7xl font-bold leading-tight tracking-tight">
+                  Ir ideja?
+                  <br />
+                  <span className="text-white/90">Pastāstiet par to</span>
+                </h1>
+                <div className="ml-4 hidden md:block">
+                  <ShareButton />
+                </div>
+              </div>
             </div>
 
             {/* Right: Company short intro */}

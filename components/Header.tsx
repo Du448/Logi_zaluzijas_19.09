@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useCart } from '@/lib/cart-context'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import ShareButton from '@/components/ShareButton'
 
 export default function Header(){
   const { count } = useCart()
@@ -141,6 +142,7 @@ export default function Header(){
           
           {/* Right: CTA */}
           <div className="flex items-center gap-2">
+            <ShareButton />
             <a
               href="https://wa.me/37120886650"
               aria-label="WhatsApp"

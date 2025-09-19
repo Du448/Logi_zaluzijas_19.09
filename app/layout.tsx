@@ -10,7 +10,7 @@ import ScrollReveal from '@/components/ScrollReveal'
 const roboto = Roboto({ subsets: ['latin'], weight: ['300','400','500','700'] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://example.com'),
+  metadataBase: new URL('https://vestalux.lv'),
   title: 'PVC logi, žalūzijas un piederumi | Augstas kvalitātes risinājumi jūsu mājoklim',
   description: 'PVC logi, žalūzijas un piederumi ar garantētu kvalitāti un ātru piegādi. Plaša izvēle, profesionāla uzstādīšana un draudzīgas cenas. Pasūti tiešsaistē jau šodien!',
   keywords: ['PVC logi','logu uzstādīšana','žalūzijas','logu piederumi','plastikāta logi','diena/nakts žalūzijas','moskītu tīkli','palodzes','logu rokturi'],
@@ -18,7 +18,24 @@ export const metadata: Metadata = {
     title: 'PVC logi, žalūzijas un piederumi',
     description: 'Augstas kvalitātes risinājumi jūsu mājoklim',
     type: 'website',
-    url: 'https://example.com'
+    url: 'https://vestalux.lv',
+    images: [
+      {
+        url: 'https://ik.imagekit.io/vbvwdejj5/22380411.jpg?updatedAt=1758275325013',
+        width: 1200,
+        height: 630,
+        alt: 'Vestalux — PVC logi, žalūzijas un piederumi'
+      }
+    ]
+  },
+  alternates: {
+    canonical: 'https://vestalux.lv'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PVC logi, žalūzijas un piederumi — Vestalux',
+    description: 'Augstas kvalitātes risinājumi jūsu mājoklim',
+    images: ['https://ik.imagekit.io/vbvwdejj5/22380411.jpg?updatedAt=1758275325013']
   },
   icons: {
     icon: 'https://ik.imagekit.io/vbvwdejj5/Untitled%20Design%20-%201%20-%20Edited%20-%20Edited.png?updatedAt=1758095814942',

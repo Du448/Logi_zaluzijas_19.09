@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useState, useCallback } from 'react'
+import ShareButton from '@/components/ShareButton'
 
 const images: { src: string; alt: string }[] = [
   { src: 'https://ik.imagekit.io/vbvwdejj5/Logu%20apdares%20foto/WhatsApp%20Image%202024-07-31%20at%2018.44.32_fe8a42f9.jpg?updatedAt=1755883972169', alt: 'Logu apdare 1' },
@@ -53,9 +54,16 @@ export default function Page() {
   return (
     <section className="section bg-white">
       <div className="container">
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Galerija — Logu apdares darbi</h1>
-          <p className="text-gray-600 mt-2">Reālu darbu foto no mūsu projektiem</p>
+        <div className="mb-8">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Galerija — Logu apdares darbi</h1>
+              <p className="text-gray-600 mt-2">Reālu darbu foto no mūsu projektiem</p>
+            </div>
+            <div className="hidden md:block">
+              <ShareButton />
+            </div>
+          </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

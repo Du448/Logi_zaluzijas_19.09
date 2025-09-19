@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import ShareButton from '@/components/ShareButton'
+import type { Metadata } from 'next'
 
 type Post = {
   id: number
@@ -69,10 +71,21 @@ export function generateStaticParams() {
   return posts.map((p) => ({ id: String(p.id) }))
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const id = Number(params.id)
   const post = posts.find((p) => p.id === id)
-  return { title: post ? post.title : 'Blogs 2' }
+  const title = post ? post.title : 'Blogs 2'
+  const description = post ? `Izlasi rakstu: ${post.title} — Vestalux blogs.` : 'Vestalux blogs'
+  const images = post?.image ? [{ url: post.image, width: 1200, height: 630, alt: post.title }] : undefined
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images
+    }
+  }
 }
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -86,13 +99,16 @@ export default function Page({ params }: { params: { id: string } }) {
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
             {post?.title ?? `Raksts #${id}`}
           </h1>
-          <Link
-            href="/blogs-2"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 transition"
-          >
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            <span>Atpakaļ</span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <ShareButton />
+            <Link
+              href="/blogs-2"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 transition"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <span>Atpakaļ</span>
+            </Link>
+          </div>
         </div>
 
         {post?.image && (
