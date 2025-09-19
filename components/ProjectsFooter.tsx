@@ -239,10 +239,10 @@ function CTA() {
               Sazināties
             </a>
             <a
-              href="tel:+37120000000"
+              href="tel:+37120886650"
               className="px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition font-semibold"
             >
-              Zvanīt: 20000000
+              Zvanīt: 20886650
             </a>
           </div>
         </div>

@@ -125,8 +125,7 @@ export default function ContactSection() {
               </div>
               <div>
                 <h4 className="font-semibold text-gray-900 mb-1">Tālrunis</h4>
-                <p className="text-emerald-700 font-medium">+371 20 000 000</p>
-                <p className="text-gray-600">+371 67 000 000</p>
+                <a href="tel:+37120886650" className="text-emerald-700 font-medium hover:underline">+371 20886650</a>
               </div>
             </div>
 
@@ -139,8 +138,7 @@ export default function ContactSection() {
               </div>
               <div>
                 <h4 className="font-semibold text-gray-900 mb-1">E-pasts</h4>
-                <p className="text-emerald-700 font-medium">info@pvc-logi.lv</p>
-                <p className="text-gray-600">pasutijumi@pvc-logi.lv</p>
+                <a href="mailto:info@vestalux.lv" className="text-emerald-700 font-medium hover:underline">info@vestalux.lv</a>
               </div>
             </div>
 
@@ -154,8 +152,7 @@ export default function ContactSection() {
               </div>
               <div>
                 <h4 className="font-semibold text-gray-900 mb-1">Adrese</h4>
-                <p className="text-gray-600">Brīvības iela 123</p>
-                <p className="text-gray-600">Rīga, LV-1001</p>
+                <p className="text-gray-600">Ozolciema 8-100, Rīga, LV-1058</p>
               </div>
             </div>
 

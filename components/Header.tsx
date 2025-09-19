@@ -388,6 +388,10 @@ export default function Header(){
                 <span>Bīdāmās sistēmas</span>
                 <div className="w-2 h-2 bg-gray-300 rounded-full" />
               </Link>
+              {/* Highlighted mobile link */}
+              <Link href="/iestiklot-lodziju" onClick={()=>{ setOpen(false); setHasInteracted(false); }} className="block px-4 py-3 rounded-xl mx-0 text-red-600 hover:text-red-700 hover:bg-red-50 transition-colors duration-200">
+                Vēlos iestiklot lodžiju
+              </Link>
             </div>
           )}
 
@@ -436,6 +440,16 @@ export default function Header(){
             <span className="text-lg font-medium group-hover:text-brand-teal">Kontakti</span>
             <div className="w-2 h-2 bg-gray-400 rounded-full group-hover:bg-brand-teal transition-colors duration-300"></div>
           </Link>
+
+          {/* Call action */}
+          <a 
+            href="tel:+37120886650"
+            onClick={() => { setOpen(false); setHasInteracted(false); }}
+            className="mt-2 inline-flex items-center justify-center gap-2 w-full p-4 rounded-2xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition-colors duration-300"
+          >
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Zvanīt: 20886650
+          </a>
         </nav>
       </div>
       )}
