@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --bg:#FFFFFF;
+  --text:#333333;
+  --muted:#F5F5F5;
+  --teal:#00A6A6;
+  --blue:#007ACC;
+  /* Soft grey for replacing white UIs (darker) */
+  --soft-grey-rgb: 229 231 235; /* #E5E7EB (Tailwind Gray 200) */
+}
+
+html, body { height: 100%; }
+/* Revert page background to the default (white via --bg) */
+body { background: var(--bg); color: var(--text); }
+
+.container { @apply max-w-7xl mx-auto px-4; }
+.btn { @apply inline-flex items-center justify-center rounded-md px-5 py-3 font-medium transition;
+  background-color: theme('colors.brand.teal'); color: white; }
+.btn:hover { background-color: theme('colors.brand.blue'); }
+.section { @apply py-12 md:py-16; }
+.card { @apply bg-white rounded-lg shadow-sm border border-gray-100; }
+.h1 { @apply text-3xl md:text-5xl font-bold; }
+.h2 { @apply text-2xl md:text-3xl font-semibold; }
+.h3 { @apply text-xl md:text-2xl font-semibold; }
+
+input, select, textarea { @apply w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-teal; }
+label { @apply text-sm font-medium text-gray-700; }
+
+/* Custom radio: empty circle -> filled when checked */
+.radio {
+  @apply appearance-none w-4 h-4 rounded-full border border-gray-400 align-middle;
+  box-shadow: inset 0 0 0 2px white;
+  background-color: white;
+}
+.radio:checked {
+  background-color: theme('colors.brand.teal');
+  border-color: theme('colors.brand.teal');
+  box-shadow: inset 0 0 0 3px white;
+}
+
+/* Animated border effect for project cards */
+@keyframes border-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Scroll-driven reveal (CSS-only). Progressive enhancement with view-timeline */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Default: visible (so unsupported browsers don't hide content) */
+.scroll-reveal { opacity: 1; transform: none; }
+
+/* Only apply scroll-driven animation if supported */
+@supports (animation-timeline: view()) {
+  .scroll-reveal {
+    opacity: 0;
+    animation: fade-up 0.8s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 20% cover 30%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+  .io-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* IO (IntersectionObserver) classes – visible by default (no-JS safe) */
+.io-reveal { opacity: 1; transform: none; transition: opacity .8s ease, transform .8s ease; }
+/* Only when JS is active and adds .io-setup to <html> do we start hidden */
+.io-setup .io-reveal { opacity: 0; transform: translateY(40px); }
+.io-reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* Additional IO reveal utilities for slide-in effects */
+/* Fallback: visible by default; only hidden when .io-setup is present */
+.io-slide-left { opacity: 1; transform: none; transition: opacity .8s ease-out, transform .8s ease-out; }
+.io-slide-right { opacity: 1; transform: none; transition: opacity .8s ease-out, transform .8s ease-out; }
+.io-fade-up { opacity: 1; transform: none; transition: opacity .8s ease-out, transform .8s ease-out; }
+
+.io-setup .io-slide-left { opacity: 0; transform: translateX(-30px); }
+.io-setup .io-slide-right { opacity: 0; transform: translateX(30px); }
+.io-setup .io-fade-up { opacity: 0; transform: translateY(30px); }
+
+.io-slide-left.is-visible, .io-slide-right.is-visible, .io-fade-up.is-visible { opacity: 1; transform: translate(0, 0); }
+
+/* Parallax helper using background-attachment fixed (CSS-only) */
+.parallax-hero { background-attachment: fixed; }

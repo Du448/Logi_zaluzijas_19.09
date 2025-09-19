@@ -1,0 +1,179 @@
+'use client'
+
+import Link from 'next/link'
+import { useMemo, useState } from 'react'
+import { motion } from 'framer-motion'
+
+export type CatalogCard = {
+  id: string
+  title: string
+  image: string
+  tag?: string
+}
+
+type Props = {
+  items: CatalogCard[]
+}
+
+const TAGS_ORDER = ['Visi', 'Iekštelpu', 'Āra', 'Motorizētas'] as const
+
+export default function ZaluzijasHeroAndGrid({ items }: Props) {
+  // Optional manual tag map. Unknown IDs fall back to no tag and appear under "Visi"
+  const tagMap: Record<string, string> = useMemo(
+    () => ({
+      // Example mapping (extend anytime)
+      'rullo': 'Iekštelpu',
+      'vertikalas': 'Iekštelpu',
+      'kasešu-rullo': 'Iekštelpu',
+      'plise': 'Iekštelpu',
+      'arejie-slegi': 'Āra',
+      'arejas-vertikalas': 'Āra',
+      'markizes': 'Āra',
+      'pergola': 'Āra',
+      'automatiskas': 'Motorizētas',
+    }),
+    []
+  )
+
+  const enriched = useMemo(
+    () => items.map((i) => ({ ...i, tag: tagMap[i.id] })),
+    [items, tagMap]
+  )
+
+  const [search, setSearch] = useState('')
+  const [selectedTag, setSelectedTag] = useState<'Visi' | 'Iekštelpu' | 'Āra' | 'Motorizētas'>('Visi')
+  const [sortBy, setSortBy] = useState<'az' | 'za'>('az')
+
+  const filtered = useMemo(() => {
+    let list = enriched
+      .filter((i) =>
+        selectedTag === 'Visi' ? true : i.tag === selectedTag
+      )
+      .filter((i) => i.title.toLowerCase().includes(search.toLowerCase()))
+
+    list.sort((a, b) =>
+      sortBy === 'az' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
+    )
+
+    return list
+  }, [enriched, selectedTag, search, sortBy])
+
+  return (
+    <div className="mt-6">
+      {/* Hero */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-50 to-gray-100 border border-gray-200">
+        <div className="grid grid-cols-2">
+          <div className="p-12">
+            <h1 className="text-4xl font-bold text-slate-800 mb-4">Žalūziju Katalogs</h1>
+            <p className="text-slate-600 max-w-xl">
+              Minimālistisks dizains, tīras līnijas un mūsdienīgi risinājumi mājām un birojam. 
+              Pārlūkojiet mūsu žalūziju klāstu un atrodiet piemērotāko interjeram.
+            </p>
+            <div className="mt-6 flex gap-3">
+              <a href="#katalogs" className="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition">Apskatīt katalogu</a>
+              <Link href="/kontakti" className="px-5 py-3 bg-white text-slate-800 border border-gray-200 rounded-lg font-semibold hover:bg-slate-50 transition">Konsultācija</Link>
+            </div>
+          </div>
+          <div className="relative">
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1596079890754-8d1c0319fb0f?q=80&w=1600&auto=format&fit=crop')] bg-cover bg-center" />
+            <div className="absolute inset-0 bg-white/40 backdrop-blur-[2px]" />
+          </div>
+        </div>
+      </section>
+
+      {/* Filter & Sort */}
+      <section className="mt-10 bg-white border border-gray-200 rounded-2xl p-6">
+        <div className="flex items-center justify-between gap-6">
+          <div className="flex flex-wrap gap-2">
+            {TAGS_ORDER.map((t) => (
+              <button
+                key={t}
+                onClick={() => setSelectedTag(t)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  selectedTag === t
+                    ? 'bg-blue-600 text-white shadow'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Meklēt pēc nosaukuma..."
+                className="px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as 'az' | 'za')}
+              className="px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="az">A–Z</option>
+              <option value="za">Z–A</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      {/* Grid */}
+      <section id="katalogs" className="mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {filtered.map((item, idx) => (
+            <motion.div
+              key={`catalog-card-${item.id}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
+              className="group bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition"
+            >
+              <Link href={`/zaluzijas/${item.id}`} className="block">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  {item.tag && (
+                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-semibold bg-white/90 backdrop-blur text-gray-800">
+                      {item.tag}
+                    </span>
+                  )}
+                  {/* Title overlay on image */}
+                  <div className="absolute inset-x-0 bottom-0">
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 via-black/30 to-transparent" aria-hidden="true" />
+                    <h3 className="relative z-[1] px-4 pb-3 font-semibold text-white drop-shadow-sm">
+                      {item.title}
+                    </h3>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Mini trust gallery / testimonials */}
+      <section className="mt-16 bg-white border border-gray-200 rounded-2xl p-8">
+        <h2 className="text-2xl font-bold text-slate-800 mb-6">Klienti uzticas</h2>
+        <div className="grid grid-cols-3 gap-4">
+          {['a','b','c'].map((s, i) => (
+            <div key={`mini-${i}`} className="relative rounded-lg overflow-hidden">
+              <div className={`absolute inset-0 bg-black/10`} />
+              {/* Decorative imagery */}
+              <div className={`h-40 bg-[url('https://picsum.photos/seed/zal${i}/600/400')] bg-cover bg-center`} />
+            </div>
+          ))}
+        </div>
+        <p className="text-sm text-slate-600 mt-4">Atsauksmes un piemēri no mūsu realizētajiem projektiem.</p>
+      </section>
+    </div>
+  )
+}
