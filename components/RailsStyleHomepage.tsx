@@ -121,10 +121,10 @@ export default function RailsStyleHomepage() {
                 <CheckIcon className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                15+ gadu pieredze
+                10+ gadu pieredze
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Vairāk nekā 15 gadu pieredze un tūkstošiem apmierinātu klientu visā Latvijā
+                Vairāk nekā 10 gadu pieredze un tūkstošiem apmierinātu klientu visā Latvijā
               </p>
             </div>
           </div>
@@ -140,7 +140,7 @@ export default function RailsStyleHomepage() {
               <div className="text-gray-300">Uzstādīti logi</div>
             </div>
             <div>
-              <div className="text-5xl font-bold text-blue-400 mb-2">15+</div>
+              <div className="text-5xl font-bold text-blue-400 mb-2">10+</div>
               <div className="text-gray-300">Gadu pieredze</div>
             </div>
             <div>

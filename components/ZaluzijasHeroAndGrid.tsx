@@ -62,8 +62,8 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
     <div className="mt-6">
       {/* Hero */}
       <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-50 to-gray-100 border border-gray-200">
-        <div className="grid grid-cols-2">
-          <div className="p-12">
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="p-6 md:p-12">
             <h1 className="text-4xl font-bold text-slate-800 mb-4">Žalūziju Katalogs</h1>
             <p className="text-slate-600 max-w-xl">
               Minimālistisks dizains, tīras līnijas un mūsdienīgi risinājumi mājām un birojam. 
@@ -74,9 +74,9 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
               <Link href="/kontakti" className="px-5 py-3 bg-white text-slate-800 border border-gray-200 rounded-lg font-semibold hover:bg-slate-50 transition">Konsultācija</Link>
             </div>
           </div>
-          <div className="relative">
+          <div className="relative h-48 md:h-auto">
             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1596079890754-8d1c0319fb0f?q=80&w=1600&auto=format&fit=crop')] bg-cover bg-center" />
-            <div className="absolute inset-0 bg-white/40 backdrop-blur-[2px]" />
+            <div className="absolute inset-0 bg-white/40 backdrop-blur-[2px] hidden md:block" />
           </div>
         </div>
       </section>

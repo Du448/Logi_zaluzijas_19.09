@@ -49,7 +49,7 @@ function OurProcess() {
     >
       <div className="bg-white border border-gray-200 rounded-2xl p-10">
         <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">Mūsu process</h2>
-        <div className="grid grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, i) => (
             <div key={`process-step-${i}`} className="text-center">
               <div className="mx-auto w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
@@ -118,7 +118,7 @@ function Testimonials() {
     >
       <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">Klientu atsauksmes</h2>
       <div className="bg-white border border-gray-200 rounded-2xl p-10">
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {items.map((t, i) => (
             <motion.div
               key={`testimonial-${i}`}
@@ -234,13 +234,13 @@ function CTA() {
           <div className="flex gap-3 justify-center">
             <a
               href="/kontakti"
-              className="px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 transition font-semibold"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 transition font-semibold"
             >
               Sazināties
             </a>
             <a
               href="tel:+37120886650"
-              className="px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition font-semibold"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition font-semibold"
             >
               Zvanīt: 20886650
             </a>
