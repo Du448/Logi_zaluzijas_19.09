@@ -209,7 +209,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "          </div>" +
       "          <h3 class='font-semibold text-gray-900 mb-3'>Mērījumi un materiāli</h3>" +
       "          <ul class='text-left list-disc list-inside space-y-2'>" +
-      "            <li>Mūsu meistars ar katalogiem izbrauc pie Jums (Rīga: <a href='tel:29995131' class='text-teal-600 hover:underline'>29995131</a>; Daugavpils: <a href='tel:20030522' class='text-teal-600 hover:underline'>20030522</a>; Rēzekne: <a href='tel:25882740' class='text-teal-600 hover:underline'>25882740</a>).</li>" +
+      "            <li>Mūsu meistars ar katalogiem izbrauc pie Jums (saziņai: <a href='tel:+37120886650' class='text-teal-600 hover:underline'>+371 20886650</a>).</li>" +
       "            <li>Varat pasūtīt izstrādājumus pēc saviem izmēriem, izvēloties materiālu no katalogiem mūsu birojos.</li>" +
       "          </ul>" +
       "        </div>" +
@@ -860,7 +860,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-3'>Mērījumi un materiāli</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-2 text-left max-w-xl mx-auto'>" +
-      "        <li>Mūsu meistars ar katalogiem izbrauc pie Jums (sazinai: <a href='tel:29995131' class='text-emerald-700 underline'>29995131</a> Rīgā; <a href='tel:20030522' class='text-emerald-700 underline'>20030522</a> Daugavpilī; <a href='tel:25882740' class='text-emerald-700 underline'>25882740</a> Rēzeknē).</li>" +
+      "        <li>Mūsu meistars ar katalogiem izbrauc pie Jums (saziņai: <a href='tel:+37120886650' class='text-emerald-700 underline'>+371 20886650</a>).</li>" +
       "        <li>Varat pasūtīt arī mūsu birojos, izvēloties materiālu no katalogiem (Gustava Zemgala gatve 83, Rīga un Saules ielā 64, Daugavpils).</li>" +
       "      </ul>" +
       "    </div>" +
@@ -1394,7 +1394,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Mērījumi un materiāli</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar katalogiem izbrauc pie Jums (saziņai Rīgā: 29995131 Daugavpilī: 20030522; Rēzeknē: 25882740).</p>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar katalogiem izbrauc pie Jums (saziņai: <a href='tel:+37120886650' class='text-emerald-700 underline'>+371 20886650</a>).</p>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto mt-2'>Jūs varat pasūtīt izstrādājumu pēc saviem izmēriem, izvēloties materiālu no katalogiem mūsu birojos (Gustava Zemgala gatve 83, Rīga un Saules ielā 64, Daugavpils).</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +

@@ -38,7 +38,7 @@ export default function PreFooterFeatures() {
           </div>
           <h3 className="text-lg font-semibold mb-2">Mērījumi un materiāli</h3>
           <ul className="list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto">
-            <li>Mūsu meistars ar katalogiem izbrauc pie Jums (sazināties Rīgā: <strong>29995131</strong>, Daugavpilī: <strong>20030522</strong>; Rēzeknē: <strong>25882740</strong>).</li>
+            <li>Mūsu meistars ar katalogiem izbrauc pie Jums (saziņai: <a href="tel:+37120886650" className="text-blue-600 hover:underline">+371 20886650</a>).</li>
             <li>Jūs varat pasūtīt izstrādājumu pēc saviem izmēriem, izvēloties materiālu no mūsu ofisiem (Gustava Zemgala gatve 93, Rīga; Saules iela 64, Daugavpils).</li>
           </ul>
         </div>
