@@ -170,7 +170,7 @@ export default function AboutPage() {
           <p className="text-emerald-100 max-w-2xl mx-auto mt-3">Pastāstiet par savu ieceri — palīdzēsim izvēlēties risinājumus un sagatavosim piedāvājumu.</p>
           <div className="mt-6 flex gap-3 justify-center">
             <Link href="/kontakti" className="px-6 py-3 rounded-lg bg-white text-emerald-700 font-semibold hover:bg-gray-50 transition">Sazināties</Link>
-            <a href="tel:+37129995131" className="px-6 py-3 rounded-lg bg-emerald-700 text-white font-semibold hover:bg-emerald-800 transition">Zvanīt: 29995131</a>
+            <a href="tel:+37120886650" className="px-6 py-3 rounded-lg bg-emerald-700 text-white font-semibold hover:bg-emerald-800 transition">Zvanīt: 20886650</a>
           </div>
         </div>
       </section>

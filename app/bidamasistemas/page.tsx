@@ -9,7 +9,6 @@ export default function Page(){
         <div className="container py-14 md:py-16">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <p className="uppercase tracking-widest text-xs text-gray-500 mb-3">Piederumi</p>
               <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
                 Bīdāmās sistēmas
               </h1>

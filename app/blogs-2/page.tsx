@@ -19,7 +19,7 @@ export default function Page() {
       id: 3,
       title: 'Trīskāršs Spēks: Kāpēc 3 Stikli ir Labāk par 2? Jūsu Mājokļa Jaunais Līmenis!',
       image:
-        'https://ik.imagekit.io/vbvwdejj5/Gemini_Generated_Image_cepfezcepfezcepf.png?updatedAt=1758009912020',
+        'https://ik.imagekit.io/vbvwdejj5/ezcepfe.png?updatedAt=1758360974880',
     },
     {
       id: 4,
@@ -37,13 +37,13 @@ export default function Page() {
       id: 6,
       title: 'Cīņa par Jūsu Logu: Parastais Moskītu Tīkls pret Supervaroni "Antikaķis"! 🥊',
       image:
-        'https://ik.imagekit.io/vbvwdejj5/5bowzf5bowzf5bow.png?updatedAt=1757935310660',
+        'https://ik.imagekit.io/vbvwdejj5/5bowzf5bow.png?updatedAt=1758360975048',
     },
     {
       id: 7,
       title: 'Logu Garderobe: Atrodi Savu Ideālo Žalūziju Stilu 2025! 🎨',
       image:
-        'https://ik.imagekit.io/vbvwdejj5/Gemini_Generated_Image_bp84ggbp84ggbp84.png?updatedAt=1758009310280',
+        'https://ik.imagekit.io/vbvwdejj5/ggbp84ggb.png?updatedAt=1758360974911',
     },
     {
       id: 8,
@@ -55,7 +55,7 @@ export default function Page() {
       id: 9,
       title: 'Stikla Paketes Noslēpumi: Atkodē Savu Logu un Iegūsti Super-Komfortu! 🕵️‍♂️',
       image:
-        'https://ik.imagekit.io/vbvwdejj5/Gemini_Generated_Image_4l3pno4l3pno4l3p.png?updatedAt=1758009911927',
+        'https://ik.imagekit.io/vbvwdejj5/pno4l3pno4l3.png?updatedAt=1758360974877',
     },
   ]
 

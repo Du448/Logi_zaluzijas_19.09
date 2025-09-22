@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
+import Script from 'next/script'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import PreFooterSwitcher from '@/components/PreFooterSwitcher'
@@ -47,6 +48,20 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="lv">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-E031E12KXG"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-E031E12KXG');
+          `}
+        </Script>
+      </head>
       <body className={roboto.className}>
         <CartProvider>
           <ScrollReveal />
