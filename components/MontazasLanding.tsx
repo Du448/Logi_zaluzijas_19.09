@@ -52,7 +52,7 @@ export default function MontazasLanding(){
         <div className="relative container py-16 md:py-24">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="io-fade-up">
-              <p className="uppercase tracking-widest text-xs text-gray-500 mb-3">Montāžas pakalpojumi</p>
+              <p className="uppercase tracking-widest text-xs text-gray-500 mb-3">Montāžas lietas</p>
               <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
                 Kvalitatīva <span className="text-brand-teal">logu, durvju un žalūziju</span> montāža
               </h1>
