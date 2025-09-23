@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
+import type SMTPTransport from 'nodemailer/lib/smtp-transport'
 
 // Types
 type ContactPayload = {
@@ -54,7 +55,7 @@ export async function POST(request: Request) {
     const ignoreTLS = process.env.SMTP_IGNORE_TLS === 'true'
     const requireTLS = process.env.SMTP_REQUIRE_TLS === 'true'
 
-    const transportOptions: nodemailer.TransportOptions = {
+    const transportOptions: SMTPTransport.Options = {
       host: SMTP_HOST,
       port: Number(SMTP_PORT),
       secure: SMTP_SECURE === 'true' || Number(SMTP_PORT) === 465,
@@ -62,16 +63,16 @@ export async function POST(request: Request) {
     }
 
     if (allowSelfSigned) {
-      ;(transportOptions as any).tls = {
-        ...(transportOptions as any).tls,
+      transportOptions.tls = {
+        ...(transportOptions.tls || {}),
         rejectUnauthorized: false,
       }
     }
     if (ignoreTLS) {
-      ;(transportOptions as any).ignoreTLS = true
+      transportOptions.ignoreTLS = true
     }
     if (requireTLS) {
-      ;(transportOptions as any).requireTLS = true
+      transportOptions.requireTLS = true
     }
 
     const transporter = nodemailer.createTransport(transportOptions)
