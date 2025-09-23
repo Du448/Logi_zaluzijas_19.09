@@ -13,6 +13,8 @@
 }
 
 html, body { height: 100%; }
+/* Enable smooth scrolling for in-page anchor links */
+html { scroll-behavior: smooth; }
 /* Revert page background to the default (white via --bg) */
 body { background: var(--bg); color: var(--text); }
 

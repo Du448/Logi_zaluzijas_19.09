@@ -205,13 +205,10 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "        </div>" +
       "        <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "          <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-teal-100 flex items-center justify-center'>" +
-      "            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8 text-teal-600'><path d='M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.93l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.02-.398-1.11-.94l-.149-.894c-.07-.424-.383-.764-.78-.93-.398-.164-.855-.142-1.205.108l-.737.527a1.125 1.125 0 0 1-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.107-1.204-.165-.397-.505-.71-.93-.78l-.893-.15C3.397 13.36 3 12.89 3 12.34v-1.094c0-.55.397-1.02.94-1.11l.893-.149c.425-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 0 1 .12-1.45l.774-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.806.272 1.203.107.397.165.71.505.781.93l.149.894Z'/></svg>" +
+      "            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8 text-teal-600'><path d='M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.93l-.149.894Z'/></svg>" +
       "          </div>" +
-      "          <h3 class='font-semibold text-gray-900 mb-3'>Mērījumi un materiāli</h3>" +
-      "          <ul class='text-left list-disc list-inside space-y-2'>" +
-      "            <li>Mūsu meistars ar katalogiem izbrauc pie Jums (saziņai: <a href='tel:+37120886650' class='text-teal-600 hover:underline'>+371 20886650</a>).</li>" +
-      "            <li>Varat pasūtīt izstrādājumus pēc saviem izmēriem, izvēloties materiālu no katalogiem mūsu birojos.</li>" +
-      "          </ul>" +
+      "          <h3 class='font-semibold text-gray-900 mb-3'>Izmēru veikšana</h3>" +
+      "          <p class='text-left text-gray-700 max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
       "        </div>" +
       "        <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "          <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-teal-100 flex items-center justify-center'>" +
@@ -317,8 +314,8 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-2'>Mērījumi un materiāli</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 2000000 un vienosim par izbraukuma laiku.</p>" +
+      "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
@@ -423,8 +420,8 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-2'>Mērījums</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 2000000 un vienosimies par izbraukuma laiku</p>" +
+      "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
@@ -525,26 +522,6 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M9.813 3.188a.75.75 0 0 1 1.374 0l.803 1.9a3 3 0 0 0 1.622 1.622l1.9.803a.75.75 0 0 1 0 1.374l-1.9.803a3 3 0 0 0-1.622 1.622l-.803 1.9a.75.75 0 0 1-1.374 0l-.803-1.9a3 3 0 0 0-1.622-1.622l-1.9-.803a.75.75 0 0 1 0-1.374l1.9-.803a3 3 0 0 0 1.622-1.622l.803-1.9Z'/><path d='M16.5 14.25a.75.75 0 0 1 1.384-.345l.362.69a2.25 2.25 0 0 0 .959.959l.69.362a.75.75 0 0 1 0 1.384l-.69.362a2.25 2.25 0 0 0-.959.959l-.362.69a.75.75 0 0 1-1.384 0l-.362-.69a2.25 2.25 0 0 0-.959-.959l-.69-.362a.75.75 0 0 1 0-1.384l.69-.362a2.25 2.25 0 0 0 .959-.959l.362-.69Z'/></svg>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Īpašības</h3>" +
-      "      <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto'>" +
-      "        <li><strong>Universāla funkcionalitāte</strong> Ar šīm žalūzijām jūs varat viegli mainīt telpas atmosfēru. Pielāgojot caurspīdīgās un necaurspīdīgās auduma joslas, varat iegūt maigu, izkliedētu dienasgaismu, kas atgādina plānu aizkaru efektu, vai arī nodrošināt pilnīgu privātumu un tumsu naktī.</li>" +
-      "        <li><strong>Ērta kopšana</strong> Aizmirstiet par mazgāšanu un gludināšanu! Šo žalūziju audumi ir viegli kopjami un paredzēti ilgstošai lietošanai.</li>" +
-      "        <li><strong>Daudzveidīga izvēle</strong> Lai pielāgotos jūsu interjeram, piedāvājam plašu krāsu un faktūru klāstu. Jūs varat izvēlēties audumus, kas harmoniski iekļaujas esošajā dizainā vai kļūst par spilgtu akcentu telpā.</li>" +
-      "      </ul>" +
-      "    </div>" +
-      "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
-      "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
-      "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-2'>Mērījumi un materiāli</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mērījums: Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 2000000 un vienosimies par izbraukuma laiku</p>" +
-      "    </div>" +
-      "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
-      "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 6.75A2.25 2.25 0 0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 19.5 19.5h-15A2.25 2.25 0 0 1 2.25 17.25V6.75Z'/></svg>" +
-      "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-2'>Apmaksas veidi</h3>" +
-      "      <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto'>" +
-      "        <li>Avansa maksājums</li>" +
       "        <li>Pēcapmaksa skaidrā naudā</li>" +
       "        <li>Pēcapmaksa ar bankas pārskaitījumu</li>" +
       "      </ul>" +
@@ -632,8 +609,8 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-2'>Mērījumi un materiāli</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mērījums: Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 2000000 un vienosimies par izbraukuma laiku</p>" +
+      "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
@@ -740,8 +717,8 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-2'>Mērījumi un materiāli</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 2000000 un vienosiesm par izbraukuma laiku</p>" +
+      "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
@@ -858,11 +835,8 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M6.75 3a.75.75 0 0 1 .75.75v2.69a2.25 2.25 0 0 0 1.31 2.05l2.62 1.17a2.25 2.25 0 0 1 1.29 2.05v4.88a2.25 2.25 0 0 0 1.29 2.05l.36.16a.75.75 0 1 1-.58 1.38l-.36-.16a3.75 3.75 0 0 1-2.16-3.43v-4.88a.75.75 0 0 0-.43-.68l-2.9-1.33A3.75 3.75 0 0 1 6.75 7.19V3.75A.75.75 0 0 1 7.5 3h-.75Z'/></svg>" +
       "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-3'>Mērījumi un materiāli</h3>" +
-      "      <ul class='list-disc list-inside text-gray-700 space-y-2 text-left max-w-xl mx-auto'>" +
-      "        <li>Mūsu meistars ar katalogiem izbrauc pie Jums (saziņai: <a href='tel:+37120886650' class='text-emerald-700 underline'>+371 20886650</a>).</li>" +
-      "        <li>Varat pasūtīt arī mūsu birojos, izvēloties materiālu no katalogiem (Gustava Zemgala gatve 83, Rīga un Saules ielā 64, Daugavpils).</li>" +
-      "      </ul>" +
+      "      <h3 class='text-lg font-semibold mb-3'>Izmēru veikšana</h3>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
@@ -986,8 +960,8 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "        <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
       "          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "        </div>" +
-      "        <h3 class='text-lg font-semibold mb-2'>Mērījums</h3>" +
-      "        <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 2000000 un vienosimies par izbraukuma laiku.</p>" +
+      "        <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
+      "        <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
       "      </div>" +
       "      <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "        <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
@@ -1080,10 +1054,10 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
+      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0  0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-2'>Mērījums</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 2000000 un vienosimies par izbraukuma laiku</p>" +
+      "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
@@ -1212,10 +1186,10 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
+      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0  0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-3'>Mērījums</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 2000000 un vienosimies par izbraukuma laiku.</p>" +
+      "      <h3 class='text-lg font-semibold mb-3'>Izmēru veikšana</h3>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
@@ -1328,8 +1302,8 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-2'>Mērījumi un materiāli</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 2000000 un vienosimies par izbraukuma laiku.</p>" +
+      "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
@@ -1393,9 +1367,8 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-2'>Mērījumi un materiāli</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar katalogiem izbrauc pie Jums (saziņai: <a href='tel:+37120886650' class='text-emerald-700 underline'>+371 20886650</a>).</p>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto mt-2'>Jūs varat pasūtīt izstrādājumu pēc saviem izmēriem, izvēloties materiālu no katalogiem mūsu birojos (Gustava Zemgala gatve 83, Rīga un Saules ielā 64, Daugavpils).</p>" +
+      "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
@@ -1545,8 +1518,8 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-2'>Mērījums</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 2000000 un vienosimies par izbraukuma laiku</p>" +
+      "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
@@ -1615,8 +1588,8 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-2'>Mērījumi un materiāli</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 2000000 un vienosimies par izbraukuma laiku.</p>" +
+      "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
@@ -1679,10 +1652,10 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-orange-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
+      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0  0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-3'>Mērījums</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 2000000 un vienosimies par izbraukuma laiku.</p>" +
+      "      <h3 class='text-lg font-semibold mb-3'>Izmēru veikšana</h3>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-orange-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
@@ -1784,8 +1757,8 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0  0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
       "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-2'>Mērījums</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 2000000 un vienosimies par izbraukuma laiku.</p>" +
+      "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
+      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +

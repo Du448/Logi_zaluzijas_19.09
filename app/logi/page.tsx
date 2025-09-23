@@ -195,7 +195,7 @@ export default function Page(){
                 images={[
                   'https://ik.imagekit.io/vbvwdejj5/Random/Screwing_the_bottom_PVC_window_profile.jpeg?updatedAt=1757777130376',
                   'https://ik.imagekit.io/vbvwdejj5/182186.jpg?updatedAt=1758260288040',
-                  'https://ik.imagekit.io/vbvwdejj5/Random/images%20(1).jpeg?updatedAt=1757777129231',
+                  'https://ik.imagekit.io/vbvwdejj5/Random/upvc-window.png?updatedAt=1757777130468',
                 ]}
               />
             </div>
@@ -205,7 +205,7 @@ export default function Page(){
                 alt="Dzīvokļu projekts"
                 images={[
                   'https://ik.imagekit.io/vbvwdejj5/Random/istockphoto-1434178970-612x612.jpg?updatedAt=1757777129204',
-                  'https://ik.imagekit.io/vbvwdejj5/Random/fintecnic-aluminium-window-manufacturer-modern-aluminium-windows-glasscorner-winchester-assembly-raw-glass-corner-pillar-windows-from-poland.jpeg?updatedAt=1757777130360',
+                  'https://ik.imagekit.io/vbvwdejj5/M%C4%81ju%20projektu%20bildes/Dz%C4%ABvok%C4%BCu%20s%C4%93rijas%20BIldes%2015.09.25/%C4%8Cehu.png?updatedAt=1757947629059',
                   'https://ik.imagekit.io/vbvwdejj5/Random/upvc-window-stack.webp?updatedAt=1757777129739',
                 ]}
               />

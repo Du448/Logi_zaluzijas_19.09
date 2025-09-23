@@ -15,46 +15,35 @@ export default function AluplastBenefits() {
 
 function HeroSection() {
   return (
-    <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-16 md:py-20">
-      <div className="container">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Kāpēc izvēlēties mūsu logus?
-          </motion.h1>
-          <motion.p 
-            className="text-xl text-gray-600 mb-8 leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Aluplast 4000 profilu sistēma apvieno <strong>augstāko kvalitāti</strong>, <strong>energoefektivitāti</strong> un <strong>ilgmūžību</strong>. 
-            Izvēlieties risinājumu, kas nodrošinās komfortu un ietaupījumus gadiem ilgi.
-          </motion.p>
-          <motion.div
-            className="flex flex-wrap justify-center gap-6 text-sm text-gray-500"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-brand-teal rounded-full"></div>
-              <span>15+ gadu pieredze</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-brand-teal rounded-full"></div>
-              <span>1000+ apmierināti klienti</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-brand-teal rounded-full"></div>
-              <span>10 gadu garantija</span>
-            </div>
-          </motion.div>
-        </div>
+    <section className="relative overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-white">
+      <div className="pointer-events-none absolute inset-x-0 -top-24 h-64 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(59,130,246,0.12),transparent_70%)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-72 bg-[radial-gradient(60%_60%_at_50%_100%,rgba(16,185,129,0.08),transparent_70%)]" aria-hidden="true" />
+      <div className="container py-16 md:py-20 text-center">
+        <motion.h1 
+          className="text-4xl md:text-5xl font-bold tracking-tight"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Aluplast 4000 — Kāpēc izvēlēties mūsu logus?
+        </motion.h1>
+        <motion.p 
+          className="mt-4 max-w-3xl mx-auto text-white/80 text-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Aluplast 4000 profilu sistēma apvieno <strong>augstāko kvalitāti</strong>, <strong>energoefektivitāti</strong> un <strong>ilgmūžību</strong>. Izvēlieties risinājumu, kas nodrošinās komfortu un ietaupījumus gadiem ilgi.
+        </motion.p>
+        <motion.div
+          className="mt-8 flex flex-col sm:flex-row gap-3 justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <a href="#benefits" className="inline-flex items-center justify-center rounded-md bg-blue-600 hover:bg-blue-500 px-6 py-3 font-semibold text-white transition">Apskatīt īpašības</a>
+          <Link href="/kontakti" className="inline-flex items-center justify-center rounded-md bg-white/10 hover:bg-white/20 px-6 py-3 font-semibold text-white transition">Saņemt piedāvājumu</Link>
+        </motion.div>
       </div>
     </section>
   )
@@ -128,7 +117,7 @@ function BenefitsGrid() {
   ]
 
   return (
-    <section className="py-16 md:py-20">
+    <section id="benefits" className="py-16 md:py-20">
       <div className="container">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {benefits.map((benefit, index) => (
@@ -140,12 +129,12 @@ function BenefitsGrid() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <div className="h-full p-6 rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 group-hover:border-brand-teal/30">
-                <div className="w-14 h-14 rounded-xl bg-brand-teal/10 text-brand-teal grid place-items-center mb-4 group-hover:bg-brand-teal/20 transition-colors">
+              <div className="h-full p-6 rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="w-14 h-14 rounded-xl bg-blue-600/10 text-blue-600 grid place-items-center mb-4">
                   {benefit.icon}
                 </div>
                 
-                <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-brand-teal transition-colors">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
                   {benefit.title}
                 </h3>
                 
@@ -156,7 +145,7 @@ function BenefitsGrid() {
                 <ul className="space-y-2">
                   {benefit.highlights.map((highlight, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
-                      <div className="w-1.5 h-1.5 bg-brand-teal rounded-full flex-shrink-0"></div>
+                      <div className="w-1.5 h-1.5 bg-blue-600 rounded-full flex-shrink-0"></div>
                       <span className="font-medium">{highlight}</span>
                     </li>
                   ))}
@@ -172,7 +161,7 @@ function BenefitsGrid() {
 
 function CTASection() {
   return (
-    <section className="bg-gradient-to-br from-brand-teal to-teal-600 py-16 md:py-20">
+    <section className="bg-gradient-to-br from-blue-600 to-sky-600 py-16 md:py-20">
       <div className="container">
         <div className="max-w-4xl mx-auto text-center text-white">
           <motion.h2 

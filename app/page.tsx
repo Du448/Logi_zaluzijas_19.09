@@ -1,6 +1,5 @@
 import RailsStyleHomepage from '@/components/RailsStyleHomepage'
 import Testimonials from '@/components/Testimonials'
-import ContactSection from '@/components/ContactSection'
 import PreFooterCTA from '@/components/PreFooterCTA'
 import FooterQuick from '@/components/FooterQuick'
 
@@ -156,7 +155,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <ContactSection />
       <FooterQuick />
     </>
   )

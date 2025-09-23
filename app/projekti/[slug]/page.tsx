@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { series } from '@/lib/series'
 // Removed SeriesConfigurator and ProfileSidebarPreview
 import Gallery from '@/components/Gallery'
-import SeriesPricingGrid from '@/components/SeriesPricingGrid'
+import SeriesPricingGrid, { defaultSections } from '@/components/SeriesPricingGrid'
 
 export const dynamic = process.env.NODE_ENV !== 'production' ? 'force-dynamic' : 'force-static'
 export const dynamicParams = false
@@ -20,6 +20,177 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
 export default function Page({ params }: { params: { slug: string } }){
   const item = series.find(s => s.slug === params.slug)
   if (!item) return null
+
+  // Prepare SeriesPricingGrid sections per slug (deep copy to avoid mutation)
+  const baseSections = defaultSections.map(s => ({
+    ...s,
+    items: s.items.map(i => ({ ...i })),
+  }))
+  let gridSections = baseSections
+
+  // Custom overrides per series
+  if (item.slug === 'pvc-logi-104-serija') {
+    // Logi virtuvei (second card)
+    gridSections[0].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104v2.png?updatedAt=1758648772718'
+    // Logi virtuvei (third card)
+    gridSections[0].items[2].image = 'https://ik.imagekit.io/vbvwdejj5/103v3.png?updatedAt=1758649829661'
+
+    // Logi istabai (first two cards)
+    gridSections[1].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104i1.png?updatedAt=1758648772705'
+    gridSections[1].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104i2.png?updatedAt=1758648772637'
+    // Logi istabai (third card)
+    gridSections[1].items[2].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104i3.png?updatedAt=1758648772662'
+
+    // Balkonu logi (first two cards) and remove the third card
+    gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104b1.png?updatedAt=1758648772665'
+    gridSections[2].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104b2.png?updatedAt=1758648772734'
+    gridSections[2].items = gridSections[2].items.slice(0, 2)
+  } else if (item.slug === 'pvc-logi-119-serija') {
+    // 119. sērija overrides
+    // Logi virtuvei: remove third card
+    gridSections[0].items = gridSections[0].items.slice(0, 2)
+
+    // Logi istabai (first two cards), remove third
+    gridSections[1].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/119/119i1.png?updatedAt=1758650872505'
+    gridSections[1].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/119/119i2.png?updatedAt=1758650872576'
+    gridSections[1].items = gridSections[1].items.slice(0, 2)
+
+    // Balkonu logi (first two cards), remove third
+    gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/119/119b1.png?updatedAt=1758650872580'
+    gridSections[2].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/119/119b2.png?updatedAt=1758650872707'
+    gridSections[2].items = gridSections[2].items.slice(0, 2)
+  } else if (item.slug === 'pvc-logi-467-serija') {
+    // 467. sērija overrides
+    // Logi virtuvei: set first card; remove others
+    gridSections[0].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/467/467v1,%20i1.png?updatedAt=1758651649313'
+    gridSections[0].items = gridSections[0].items.slice(0, 1)
+
+    // Logi istabai: set first two; remove third
+    gridSections[1].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/467/467v1,%20i1.png?updatedAt=1758651649313'
+    gridSections[1].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/467/467i2.png?updatedAt=1758651649272'
+    gridSections[1].items = gridSections[1].items.slice(0, 2)
+
+    // Balkonu logi: set first; remove others
+    gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/467/467b1.png?updatedAt=1758651649438'
+    gridSections[2].items = gridSections[2].items.slice(0, 1)
+  } else if (item.slug === 'pvc-logi-602-serija') {
+    // 602. sērija overrides
+    // Logi virtuvei: set first; remove others
+    gridSections[0].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/602/104vi,i1.png?updatedAt=1758652437287'
+    gridSections[0].items = gridSections[0].items.slice(0, 1)
+
+    // Logi istabai: set first two; remove third
+    gridSections[1].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/602/104vi,i1.png?updatedAt=1758652437287'
+    gridSections[1].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/602/104i2.png?updatedAt=1758652437317'
+    gridSections[1].items = gridSections[1].items.slice(0, 2)
+
+    // Balkonu logi: set first two; remove third
+    gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/602/104b1.png?updatedAt=1758652437335'
+    gridSections[2].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/602/104b2.png?updatedAt=1758652437320'
+    gridSections[2].items = gridSections[2].items.slice(0, 2)
+  } else if (item.slug === 'pvc-logi-hruscova-kiegelu-projekts') {
+    // Hruščova ķieģeļu projekts overrides
+    // Logi virtuvei: set first; remove others
+    gridSections[0].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/hrus.k/hrus.k1.png?updatedAt=1758653076793'
+    gridSections[0].items = gridSections[0].items.slice(0, 1)
+
+    // Logi istabai: set first two; remove third
+    gridSections[1].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/hrus.k/hrus.k1.png?updatedAt=1758653076793'
+    gridSections[1].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/hrus.k/hrus.k2.png?updatedAt=1758653076740'
+    gridSections[1].items = gridSections[1].items.slice(0, 2)
+
+    // Balkonu logi: set first; remove others
+    gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/hrus.k/hrus.k3.png?updatedAt=1758653076758'
+    gridSections[2].items = gridSections[2].items.slice(0, 1)
+  } else if (item.slug === 'pvc-logi-hruscova-panelu-projekts') {
+    // Hruščova paneļu projekts overrides
+    // Logi virtuvei: set first; remove others
+    gridSections[0].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/Hrus.%20p/hrus.p.png?updatedAt=1758653688655'
+    gridSections[0].items = gridSections[0].items.slice(0, 1)
+
+    // Logi istabai: set first two; remove third
+    gridSections[1].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/Hrus.%20p/hrus.p.png?updatedAt=1758653688655'
+    gridSections[1].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/Hrus.%20p/hrus.p1.png?updatedAt=1758653688565'
+    gridSections[1].items = gridSections[1].items.slice(0, 2)
+
+    // Balkonu logi: set first; remove others
+    gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/Hrus.%20p/hrus.p2.png?updatedAt=1758653688601'
+    gridSections[2].items = gridSections[2].items.slice(0, 1)
+  } else if (item.slug === 'pvc-logi-jaunais-lietuviesu-projekts') {
+    // Jaunais lietuviešu projekts overrides
+    // Logi virtuvei: set first two; remove third
+    gridSections[0].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/liet.%20jaunais%20/liet.j.png?updatedAt=1758654314546'
+    gridSections[0].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/liet.%20jaunais%20/liet.j1.png?updatedAt=1758654314469'
+    gridSections[0].items = gridSections[0].items.slice(0, 2)
+
+    // Logi istabai: set first two; remove third
+    gridSections[1].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/liet.%20jaunais%20/liet.j1.png?updatedAt=1758654314469'
+    gridSections[1].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/liet.%20jaunais%20/liet.j2.png?updatedAt=1758654314516'
+    gridSections[1].items = gridSections[1].items.slice(0, 2)
+
+    // Balkonu logi: set first; remove others
+    gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/liet.%20jaunais%20/liet.j3.png?updatedAt=1758654314495'
+    gridSections[2].items = gridSections[2].items.slice(0, 1)
+  } else if (item.slug === 'pvc-logi-mazgimenu-projekts') {
+    // Mazģimeņu projekts overrides
+    // Logi virtuvei: set first; remove others
+    gridSections[0].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/mazdz./mazdz..png?updatedAt=1758654909297'
+    gridSections[0].items = gridSections[0].items.slice(0, 1)
+
+    // Logi istabai: set first; remove others
+    gridSections[1].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/mazdz./mazdz.1.png?updatedAt=1758654909368'
+    gridSections[1].items = gridSections[1].items.slice(0, 1)
+
+    // Balkonu logi: set first; remove others
+    gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/mazdz./mazdz.2.png?updatedAt=1758654909348'
+    gridSections[2].items = gridSections[2].items.slice(0, 1)
+  } else if (item.slug === 'pvc-logi-vecais-lietuviesu-projekts') {
+    // Vecais Lietuviešu projekts: enforce explicit 1/2/1 sections
+    gridSections = [
+      {
+        title: baseSections[0].title,
+        items: [
+          { ...baseSections[0].items[0], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/liet.%20v/liet.%20v.png?updatedAt=1758655454975' },
+        ],
+      },
+      {
+        title: baseSections[1].title,
+        items: [
+          { ...baseSections[1].items[0], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/liet.%20v/liet.%20v1.png?updatedAt=1758655455030' },
+          { ...baseSections[1].items[1], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/liet.%20v/liet.%20v2.png?updatedAt=1758655454960' },
+        ],
+      },
+      {
+        title: baseSections[2].title,
+        items: [
+          { ...baseSections[2].items[0], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/liet.%20v/liet.%20v3.png?updatedAt=1758655455013' },
+        ],
+      },
+    ]
+  } else if (item.slug === 'pvc-logi-cehu-projekts') {
+    // Čehu projekts: enforce explicit 1/2/1 sections
+    gridSections = [
+      {
+        title: baseSections[0].title,
+        items: [
+          { ...baseSections[0].items[0], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/%C4%8Dehu/liet.%20v1.png?updatedAt=1758655997120' },
+        ],
+      },
+      {
+        title: baseSections[1].title,
+        items: [
+          { ...baseSections[1].items[0], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/%C4%8Dehu/liet.j1.png?updatedAt=1758655866292' },
+          { ...baseSections[1].items[1], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/%C4%8Dehu/hrus.p1.png?updatedAt=1758655904364' },
+        ],
+      },
+      {
+        title: baseSections[2].title,
+        items: [
+          { ...baseSections[2].items[0], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/%C4%8Dehu/liet.%20v3.png?updatedAt=1758656012099' },
+        ],
+      },
+    ]
+  }
 
   return (
     <section className="section">
@@ -505,11 +676,10 @@ export default function Page({ params }: { params: { slug: string } }){
               </div>
             )}
 
-            {item.slug === 'pvc-logi-103-serija' && (
-              <div className="mt-8">
-                <SeriesPricingGrid />
-              </div>
-            )}
+            <div className="mt-8">
+              <SeriesPricingGrid sections={gridSections} />
+            </div>
+
           </div>
 
           <aside>

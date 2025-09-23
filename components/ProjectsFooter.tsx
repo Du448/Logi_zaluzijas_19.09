@@ -48,7 +48,7 @@ function OurProcess() {
       className=""
     >
       <div className="bg-white border border-gray-200 rounded-2xl p-10">
-        <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">Mūsu process</h2>
+        <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">Pasūtījuma veikšanas process</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, i) => (
             <div key={`process-step-${i}`} className="text-center">
