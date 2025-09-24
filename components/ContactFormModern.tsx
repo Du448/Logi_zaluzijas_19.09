@@ -285,11 +285,7 @@ export default function ContactFormModern(){
       </div>
 
       {/* Row 4: Policy + Submit */}
-      <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-        <label className="inline-flex items-center gap-3 text-white/80 text-sm select-none">
-          <input type="checkbox" className="appearance-none w-5 h-5 border border-white/40 rounded-sm grid place-items-center checked:bg-white/90 checked:border-white transition-colors" />
-          <span>Mani dati netiks nodoti trešajām personām.</span>
-        </label>
+      <div className="mt-8 flex items-center justify-start">
         <button
           type="submit"
           className={`inline-flex items-center justify-center px-6 py-3 rounded-md text-white font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${

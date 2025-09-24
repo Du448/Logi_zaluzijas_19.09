@@ -3,6 +3,11 @@ import { series } from '@/lib/series'
 // Removed SeriesConfigurator and ProfileSidebarPreview
 import Gallery from '@/components/Gallery'
 import SeriesPricingGrid, { defaultSections } from '@/components/SeriesPricingGrid'
+import { SeriesHero } from '@/components/SeriesHero'
+import Highlights from '@/components/Highlights'
+import InfoCards from '@/components/InfoCards'
+import FAQ from '@/components/FAQ'
+import StickyCTA from '@/components/StickyCTA'
 
 export const dynamic = process.env.NODE_ENV !== 'production' ? 'force-dynamic' : 'force-static'
 export const dynamicParams = false
@@ -30,78 +35,110 @@ export default function Page({ params }: { params: { slug: string } }){
 
   // Custom overrides per series
   if (item.slug === 'pvc-logi-104-serija') {
-    // Logi virtuvei (second card)
-    gridSections[0].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104v2.png?updatedAt=1758648772718'
-    // Logi virtuvei (third card)
-    gridSections[0].items[2].image = 'https://ik.imagekit.io/vbvwdejj5/103v3.png?updatedAt=1758649829661'
+    // Logi virtuvei: remove the 2nd image (104v2) and keep only 1st and 3rd with new prices 192, 186
+    gridSections[0].items = [
+      { ...gridSections[0].items[0], priceFrom: 192 },
+      { ...gridSections[0].items[2], priceFrom: 186 },
+    ]
 
-    // Logi istabai (first two cards)
-    gridSections[1].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104i1.png?updatedAt=1758648772705'
-    gridSections[1].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104i2.png?updatedAt=1758648772637'
-    // Logi istabai (third card)
-    gridSections[1].items[2].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104i3.png?updatedAt=1758648772662'
+    // Logi istabai: enforce 3 cards with specific images and prices 295, 295, 353
+    gridSections[1].items = [
+      { ...gridSections[1].items[0], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104i1.png?updatedAt=1758648772705', priceFrom: 295 },
+      { ...gridSections[1].items[1], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104i2.png?updatedAt=1758648772637', priceFrom: 295 },
+      { ...gridSections[1].items[1], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104i3.png?updatedAt=1758648772662', priceFrom: 353 },
+    ]
 
-    // Balkonu logi (first two cards) and remove the third card
-    gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104b1.png?updatedAt=1758648772665'
-    gridSections[2].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104b2.png?updatedAt=1758648772734'
+    // Balkonu logi: set images and prices 323, 295; only 2 items
+    gridSections[2].items[0] = {
+      ...gridSections[2].items[0],
+      image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104b1.png?updatedAt=1758648772665',
+      priceFrom: 323,
+    }
+    gridSections[2].items[1] = {
+      ...gridSections[2].items[1],
+      image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/104/104b2.png?updatedAt=1758648772734',
+      priceFrom: 295,
+    }
     gridSections[2].items = gridSections[2].items.slice(0, 2)
   } else if (item.slug === 'pvc-logi-119-serija') {
     // 119. sērija overrides
     // Logi virtuvei: remove third card
     gridSections[0].items = gridSections[0].items.slice(0, 2)
+    // Set prices: 192, 186
+    gridSections[0].items[0].priceFrom = 192
+    gridSections[0].items[1].priceFrom = 186
 
     // Logi istabai (first two cards), remove third
     gridSections[1].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/119/119i1.png?updatedAt=1758650872505'
     gridSections[1].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/119/119i2.png?updatedAt=1758650872576'
     gridSections[1].items = gridSections[1].items.slice(0, 2)
+    // Set prices: 353, 353
+    gridSections[1].items[0].priceFrom = 353
+    gridSections[1].items[1].priceFrom = 353
 
     // Balkonu logi (first two cards), remove third
     gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/119/119b1.png?updatedAt=1758650872580'
     gridSections[2].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/119/119b2.png?updatedAt=1758650872707'
     gridSections[2].items = gridSections[2].items.slice(0, 2)
+    // Set prices: 323, 365
+    gridSections[2].items[0].priceFrom = 323
+    gridSections[2].items[1].priceFrom = 365
   } else if (item.slug === 'pvc-logi-467-serija') {
     // 467. sērija overrides
     // Logi virtuvei: set first card; remove others
     gridSections[0].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/467/467v1,%20i1.png?updatedAt=1758651649313'
     gridSections[0].items = gridSections[0].items.slice(0, 1)
+    gridSections[0].items[0].priceFrom = 251
 
     // Logi istabai: set first two; remove third
     gridSections[1].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/467/467v1,%20i1.png?updatedAt=1758651649313'
     gridSections[1].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/467/467i2.png?updatedAt=1758651649272'
     gridSections[1].items = gridSections[1].items.slice(0, 2)
+    gridSections[1].items[0].priceFrom = 251
+    gridSections[1].items[1].priceFrom = 312
 
     // Balkonu logi: set first; remove others
     gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/467/467b1.png?updatedAt=1758651649438'
     gridSections[2].items = gridSections[2].items.slice(0, 1)
+    gridSections[2].items[0].priceFrom = 396
   } else if (item.slug === 'pvc-logi-602-serija') {
     // 602. sērija overrides
     // Logi virtuvei: set first; remove others
     gridSections[0].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/602/104vi,i1.png?updatedAt=1758652437287'
     gridSections[0].items = gridSections[0].items.slice(0, 1)
+    gridSections[0].items[0].priceFrom = 236
 
     // Logi istabai: set first two; remove third
     gridSections[1].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/602/104vi,i1.png?updatedAt=1758652437287'
     gridSections[1].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/602/104i2.png?updatedAt=1758652437317'
     gridSections[1].items = gridSections[1].items.slice(0, 2)
+    gridSections[1].items[0].priceFrom = 236
+    gridSections[1].items[1].priceFrom = 292
 
     // Balkonu logi: set first two; remove third
     gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/602/104b1.png?updatedAt=1758652437335'
     gridSections[2].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/602/104b2.png?updatedAt=1758652437320'
     gridSections[2].items = gridSections[2].items.slice(0, 2)
+    gridSections[2].items[0].priceFrom = 316
+    gridSections[2].items[1].priceFrom = 358
   } else if (item.slug === 'pvc-logi-hruscova-kiegelu-projekts') {
     // Hruščova ķieģeļu projekts overrides
     // Logi virtuvei: set first; remove others
     gridSections[0].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/hrus.k/hrus.k1.png?updatedAt=1758653076793'
     gridSections[0].items = gridSections[0].items.slice(0, 1)
+    gridSections[0].items[0].priceFrom = 248
 
     // Logi istabai: set first two; remove third
     gridSections[1].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/hrus.k/hrus.k1.png?updatedAt=1758653076793'
     gridSections[1].items[1].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/hrus.k/hrus.k2.png?updatedAt=1758653076740'
     gridSections[1].items = gridSections[1].items.slice(0, 2)
+    gridSections[1].items[0].priceFrom = 248
+    gridSections[1].items[1].priceFrom = 318
 
     // Balkonu logi: set first; remove others
     gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/hrus.k/hrus.k3.png?updatedAt=1758653076758'
     gridSections[2].items = gridSections[2].items.slice(0, 1)
+    gridSections[2].items[0].priceFrom = 392
   } else if (item.slug === 'pvc-logi-hruscova-panelu-projekts') {
     // Hruščova paneļu projekts overrides
     // Logi virtuvei: set first; remove others
@@ -144,7 +181,11 @@ export default function Page({ params }: { params: { slug: string } }){
     // Balkonu logi: set first; remove others
     gridSections[2].items[0].image = 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/mazdz./mazdz.2.png?updatedAt=1758654909348'
     gridSections[2].items = gridSections[2].items.slice(0, 1)
-  } else if (item.slug === 'pvc-logi-vecais-lietuviesu-projekts') {
+    gridSections[0].items[0].priceFrom = 192
+    gridSections[0].items[0].priceFrom = 225
+    gridSections[1].items[0].priceFrom = 296
+    gridSections[2].items[0].priceFrom = 368
+} else if (item.slug === 'pvc-logi-vecais-lietuviesu-projekts') {
     // Vecais Lietuviešu projekts: enforce explicit 1/2/1 sections
     gridSections = [
       {
@@ -167,26 +208,30 @@ export default function Page({ params }: { params: { slug: string } }){
         ],
       },
     ]
-  } else if (item.slug === 'pvc-logi-cehu-projekts') {
+    gridSections[0].items[0].priceFrom = 232
+    gridSections[1].items[0].priceFrom = 264
+    gridSections[1].items[1].priceFrom = 315
+    gridSections[2].items[0].priceFrom = 312
+} else if (item.slug === 'pvc-logi-cehu-projekts') {
     // Čehu projekts: enforce explicit 1/2/1 sections
     gridSections = [
       {
         title: baseSections[0].title,
         items: [
-          { ...baseSections[0].items[0], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/%C4%8Dehu/liet.%20v1.png?updatedAt=1758655997120' },
+          { ...baseSections[0].items[0], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/%C4%8Dehu/liet.%20v1.png?updatedAt=1758655997120', priceFrom: 219 },
         ],
       },
       {
         title: baseSections[1].title,
         items: [
-          { ...baseSections[1].items[0], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/%C4%8Dehu/liet.j1.png?updatedAt=1758655866292' },
-          { ...baseSections[1].items[1], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/%C4%8Dehu/hrus.p1.png?updatedAt=1758655904364' },
+          { ...baseSections[1].items[0], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/%C4%8Dehu/liet.j1.png?updatedAt=1758655866292', priceFrom: 251 },
+          { ...baseSections[1].items[1], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/%C4%8Dehu/hrus.p1.png?updatedAt=1758655904364', priceFrom: 323 },
         ],
       },
       {
         title: baseSections[2].title,
         items: [
-          { ...baseSections[2].items[0], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/%C4%8Dehu/liet.%20v3.png?updatedAt=1758656012099' },
+          { ...baseSections[2].items[0], image: 'https://ik.imagekit.io/vbvwdejj5/LOGI%20AR%20IZM%C4%92RIEM/%C4%8Dehu/liet.%20v3.png?updatedAt=1758656012099', priceFrom: 328 },
         ],
       },
     ]
@@ -195,60 +240,62 @@ export default function Page({ params }: { params: { slug: string } }){
   return (
     <section className="section">
       <div className="container">
-        <div className="mb-4 text-sm">
-          <Link href="/projekti" className="text-brand-teal hover:underline">← Atpakaļ uz projektiem</Link>
-        </div>
-        <h1 className="h1 mb-4">{item.title}</h1>
-        <div className="rounded-lg overflow-hidden shadow-sm border border-gray-100 mb-8">
-          <div
-            className="h-72 md:h-96 bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${item.slug === 'pvc-logi-103-serija'
-                ? 'https://ik.imagekit.io/vbvwdejj5/M%C4%81ju%20projektu%20bildes/Dz%C4%ABvok%C4%BCu%20s%C4%93rijas%20BIldes%2015.09.25/103.png?updatedAt=1757947618324'
-                : item.image})`,
-            }}
-          />
-        </div>
+        {item.slug === 'pvc-logi-103-serija' ? (
+          <div className="mb-8">
+            <SeriesHero
+              title={item.title}
+              subtitle="Energoefektīvi, droši un estētiski risinājumi. Bez maksas konsultācija un precīza tāme 1 darba dienā."
+              imageUrl="https://ik.imagekit.io/vbvwdejj5/M%C4%81ju%20projektu%20bildes/Dz%C4%ABvok%C4%BCu%20s%C4%93rijas%20BIldes%2015.09.25/103.png?updatedAt=1757947618324"
+            />
+          </div>
+        ) : (
+          <>
+            <div className="mb-4 text-sm">
+              <Link href="/projekti" className="text-brand-teal hover:underline">← Atpakaļ uz projektiem</Link>
+            </div>
+            <h1 className="h1 mb-4">{item.title}</h1>
+            <div className="rounded-lg overflow-hidden shadow-sm border border-gray-100 mb-8">
+              <div
+                className="h-72 md:h-96 bg-cover bg-center"
+                style={{ backgroundImage: `url(${item.image})` }}
+              />
+            </div>
+          </>
+        )}
 
         <div className="grid md:grid-cols-3 gap-8">
           <div className="md:col-span-2">
             {item.slug === 'pvc-logi-103-serija' ? (
-              <div className="space-y-4 text-gray-800">
-                <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
-                  <p><strong>Būvniecības periods:</strong> 1970.–1990. gads</p>
+              <>
+                <Highlights
+                  items={[
+                    '5 gadu garantija',
+                    'Montāža 7–10 dienās',
+                    'Bezprocentu līzings',
+                    'A++ stiklojums',
+                    'Kvalitatīva furnitūra',
+                  ]}
+                />
+
+                <div className="mt-6">
+                  <InfoCards
+                    cards={[
+                      { title: 'Būvniecības periods', content: '1970.–1990. gads' },
+                      { title: 'Stāvu skaits', content: '5' },
+                      {
+                        title: 'Konstrukcija un materiāli',
+                        content:
+                          'Jaukta tipa ēkas ar nesošām šķērssienām; gāzbetona/keramzītbetona paneļi un dobto dzelzsbetona paneļu pārsegumi.',
+                      },
+                      { title: 'Īpašās iezīmes', content: 'Ērtas un funkcionālas telpu plānojuma variācijas.' },
+                      { title: 'Plānojums', content: 'Plašas, labi sadalītas istabas.' },
+                      { title: 'Atrašanās vieta', content: 'Rīga – Teika, Dārzciems, Bolderāja, Purvciems, Daugavgrīva u.c.' },
+                    ]}
+                  />
                 </div>
-                <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 20h4v-4h4v-4h4V8h4"/></svg>
-                  <p><strong>Stāvu skaits:</strong> 5</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-                  <p><strong>Konstrukcija un materiāli:</strong> Jaukta tipa ēkas ar nesošām šķērssienām no sarkano vai dzelteno apdares ķieģeļu mūra. Ārsienas veidotas no gāzbetona vai keramzītbetona paneļiem, savukārt starpstāvu pārsegumos izmantoti dobto dzelzsbetona paneļu risinājumi.</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <p><strong>Īpašās iezīmes:</strong> Ērtas un funkcionālas telpu plānojuma variācijas.</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 8v8M15 8v8M3 12h18"/></svg>
-                  <p><strong>Plānojums:</strong> Plašas, labi sadalītas istabas.</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M12 21s-6-4.35-6-10a6 6 0 1 1 12 0c0 5.65-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg>
-                  <p><strong>Atrašanās vieta:</strong> Rīga – Teika, Dārzciems, Bolderāja, Purvciems, Daugavgrīva, kā arī citi galvaspilsētas mikrorajoni.</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M14 9V5a3 3 0 1 0-6 0v4H5v10h14V9h-5zM9 9h6"/></svg>
-                  <div>
-                    <p><strong>Priekšrocības:</strong></p>
-                    <ul className="list-disc pl-5 mt-1 space-y-1">
-                      <li>Pārdomāts, praktisks dzīvokļu plānojums ar izolētām istabām</li>
-                      <li>Laba siltumizolācija, kas nodrošina komfortu visu gadu</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+
+                {/* FAQ moved below, above footer */}
+              </>
             ) : item.slug === 'pvc-logi-104-serija' ? (
               <div className="space-y-4 text-gray-800">
                 <div className="flex items-start gap-3">
@@ -683,12 +730,36 @@ export default function Page({ params }: { params: { slug: string } }){
           </div>
 
           <aside>
-            <Link href="/kontakti" className="btn w-full text-center">
-              {item.ctaText ?? 'Sazināties'}
-            </Link>
+            <div className="flex items-center gap-2">
+              <a
+                href={`https://wa.me/37120886650`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn w-full text-center"
+                aria-label="Rakstīt WhatsApp"
+              >
+                <svg className="w-4 h-4 inline-block mr-1 align-[-2px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20.52 3.48A11.94 11.94 0 0012.01 0C5.39 0 .02 5.37.02 12c0 2.1.55 4.08 1.5 5.79L0 24l6.36-1.64A11.96 11.96 0 0012 24c6.63 0 12-5.37 12-12 0-3.19-1.25-6.19-3.48-8.52zM12 21.82c-1.84 0-3.55-.5-5.02-1.36l-.36-.21-3.77.97.99-3.68-.23-.38A9.77 9.77 0 012.2 12 9.8 9.8 0 1112 21.82zm5.62-7.37c-.31-.16-1.81-.89-2.09-.99-.28-.1-.49-.16-.7.16-.21.31-.8.99-.98 1.2-.18.21-.36.23-.67.08-.31-.16-1.29-.48-2.45-1.53-.9-.8-1.51-1.78-1.69-2.08-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.21-.31.31-.52.1-.21.05-.39-.03-.54-.08-.16-.7-1.68-.96-2.3-.25-.6-.5-.52-.7-.53l-.6-.01c-.21 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.56 0 1.51 1.11 2.97 1.27 3.18.16.21 2.19 3.34 5.3 4.69.74.32 1.32.5 1.77.64.74.23 1.41.2 1.94.12.59-.09 1.81-.74 2.07-1.45.26-.71.26-1.32.18-1.45-.08-.13-.28-.21-.59-.37z"/>
+                </svg>
+                WhatsApp
+              </a>
+            </div>
           </aside>
         </div>
       </div>
+      {item.slug === 'pvc-logi-103-serija' && (
+        <FAQ
+          className="mt-10"
+          items={[
+            { q: 'Cik ilgā laikā notiek montāža?', a: 'Parasti 7–10 darba dienas pēc mērījumiem.' },
+            { q: 'Vai nodrošināt mērīšanu un konsultāciju?', a: 'Jā, bez maksas Rīgā un Pierīgā.' },
+            { q: 'Kāda ir garantija?', a: '5 gadu garantija logiem un montāžai.' },
+            { q: 'Kādi stiklojuma un furnitūras varianti pieejami?', a: 'Piedāvājam A++ stiklojumu, bērnu drošības un pretuzlaušanas furnitūru.' },
+            { q: 'Vai ir iespējams līzings?', a: 'Jā, bezprocentu līzings ar elastīgu grafiku.' },
+          ]}
+        />
+      )}
+      {item.slug === 'pvc-logi-103-serija' && <StickyCTA />}
     </section>
   )
 }

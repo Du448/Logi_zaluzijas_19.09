@@ -1,6 +1,5 @@
 import ContactFormModern from '@/components/ContactFormModern'
 import Rekviziti from '@/components/Rekviziti'
-import ShareButton from '@/components/ShareButton'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -25,15 +24,11 @@ export default function Page(){
           <div className="grid md:grid-cols-2 gap-10 items-start">
             {/* Left: Heading */}
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <h1 className="text-5xl md:text-7xl font-bold leading-tight tracking-tight">
-                  Ir ideja?
-                  <br />
-                  <span className="text-white/90">Pastāstiet par to</span>
+              <div className="mb-4">
+                <h1 className="text-2xl md:text-4xl font-bold leading-snug tracking-tight max-w-4xl">
+                  <span className="block">Vēlies uzzināt mūsu piedāvātās produkcijas cenas tavam projektam vai ir citi jautājumi?</span>
+                  <span className="block mt-3">Aizpildi zemāk redzamo formu un mēs atbildēsim 1 darba dienas laikā.</span>
                 </h1>
-                <div className="ml-4 hidden md:block">
-                  <ShareButton />
-                </div>
               </div>
             </div>
 
