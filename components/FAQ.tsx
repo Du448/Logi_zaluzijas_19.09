@@ -1,12 +1,14 @@
+import type { ReactNode } from 'react'
+
 type FAQItem = {
   q: string
-  a: string | React.ReactNode
+  a: string | ReactNode
 }
 
 export default function FAQ({ items, className }: { items: FAQItem[]; className?: string }) {
   return (
-    <section className={"mt-10 " + (className ?? "")}>
-      <h2 className="text-2xl font-bold mb-4">BUJ</h2>
+    <section className={"mt-10 max-w-3xl mx-auto " + (className ?? "")}>
+      <h2 className="text-2xl font-bold mb-4 text-center">BUJ</h2>
       <div className="divide-y divide-gray-200 rounded-xl border border-gray-200 bg-white">
         {items.map((it, idx) => (
           <details key={idx} className="group p-4 open:bg-gray-50 first:rounded-t-xl last:rounded-b-xl">

@@ -18,7 +18,7 @@ export default function Header(){
   const [searchQuery, setSearchQuery] = useState('')
   const pathname = usePathname()
   const [bpKey, setBpKey] = useState<'mobile'|'desktop'>(()=>
-    typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(min-width: 768px)').matches ? 'desktop' : 'mobile'
+    typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(min-width: 1024px)').matches ? 'desktop' : 'mobile'
   )
   const [hasInteracted, setHasInteracted] = useState(false)
 
@@ -48,8 +48,8 @@ export default function Header(){
     let raf = 0
     const calc = () => {
       const vh = window.innerHeight
-      const isMd = window.matchMedia('(min-width: 768px)').matches
-      const threshold = vh * (isMd ? 1 : 0.7)
+      const isLg = window.matchMedia('(min-width: 1024px)').matches
+      const threshold = vh * (isLg ? 1 : 0.7)
       const y = window.scrollY
       const next = Math.max(0, Math.min(1, 1 - y / threshold))
       setOpacity(next)
@@ -77,7 +77,7 @@ export default function Header(){
     window.addEventListener('resize', onResize)
     window.addEventListener('orientationchange', onOrient as any)
     // Also close when crossing md breakpoint using matchMedia change events
-    const mq = window.matchMedia('(min-width: 768px)')
+    const mq = window.matchMedia('(min-width: 1024px)')
     const onMq = () => {
       setBpKey(mq.matches ? 'desktop' : 'mobile')
       setHasInteracted(false)
@@ -111,7 +111,7 @@ export default function Header(){
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  const headerHeight = scrolled ? 'h-[56px] md:h-[68px]' : 'h-[64px] md:h-[80px]'
+  const headerHeight = 'h-[64px] md:h-[80px]'
   const isSheetOpen = open && hasInteracted
   const onSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -174,7 +174,7 @@ export default function Header(){
             <span className="sr-only">InterjeraRisinājumi</span>
           </Link>
           {/* Desktop nav */}
-          <nav className="hidden md:flex gap-3 md:gap-4 text-lg text-white font-semibold">
+          <nav className="hidden lg:flex gap-3 lg:gap-4 text-lg text-white font-semibold">
           {/* Produkts dropdown */}
           <div className="relative inline-block group">
             <button className="relative overflow-hidden px-4 py-2.5 rounded-xl inline-flex items-center gap-1 hover:text-brand-teal transition-all duration-500" aria-haspopup="true" aria-expanded="false">
@@ -187,8 +187,8 @@ export default function Header(){
               <Link href="/zaluzijas" className="block px-4 py-3 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-lg mx-2">Žalūzijas</Link>
               <Link href="/piederumi" className="block px-4 py-3 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-lg mx-2">Piederumi</Link>
               <Link href="/bidamasistemas" className="block px-4 py-3 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-lg mx-2">Bīdāmās sistēmas</Link>
-              <div className="my-2 mx-2 h-px bg-gray-100" aria-hidden="true"></div>
               <Link href="/iestiklot-lodziju" className="block px-4 py-3 rounded-lg mx-2 text-red-600 hover:text-red-700 hover:bg-red-50 transition-colors duration-200">Vēlos iestiklot lodžiju</Link>
+              <div className="my-2 mx-2 h-px bg-gray-100" aria-hidden="true"></div>
             </div>
           </div>
           {/* Pakalpojumi (direct link) */}
@@ -216,7 +216,7 @@ export default function Header(){
           {/* Right side actions */}
           <div className="flex items-center gap-4">
           {/* Search */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-2">
             <button
               onClick={() => setShowSearch(v => !v)}
               className="p-2 rounded-full hover:bg-white/10 transition-colors"
@@ -239,7 +239,7 @@ export default function Header(){
           </div>
           {/* Mobile menu button */}
           <button
-            className="md:hidden flex items-center gap-2 px-4 py-2 bg-transparent hover:bg-transparent rounded-full transition-all duration-300 text-white"
+            className="lg:hidden flex items-center gap-2 px-4 py-2 bg-transparent hover:bg-transparent rounded-full transition-all duration-300 text-white"
             aria-label="Atvērt izvēlni"
             aria-expanded={isSheetOpen}
             onClick={()=>{
@@ -269,7 +269,7 @@ export default function Header(){
           </button>
 
           {/* Cart */}
-          <Link href="/grozs" className="relative group hidden md:flex text-white" aria-label="Grozs">
+          <Link href="/grozs" className="relative group hidden lg:flex text-white" aria-label="Grozs">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -340,7 +340,7 @@ export default function Header(){
       {isSheetOpen && (
         <div
           key={bpKey}
-          className={`fixed left-0 right-0 ${scrolled ? 'top-[48px] md:top-[56px]' : 'top-[52px] md:top-[64px]'} bg-white rounded-b-3xl shadow-2xl z-50 md:hidden transform transition-all duration-300 ease-out translate-y-0 overflow-y-auto ${scrolled ? 'max-h-[calc(100vh-48px)] md:max-h-[calc(100vh-56px)]' : 'max-h-[calc(100vh-52px)] md:max-h-[calc(100vh-64px)]'}`}
+          className={`fixed left-0 right-0 ${scrolled ? 'top-[48px] lg:top-[56px]' : 'top-[52px] lg:top-[64px]'} bg-white rounded-b-3xl shadow-2xl z-50 lg:hidden transform transition-all duration-300 ease-out translate-y-0 overflow-y-auto ${scrolled ? 'max-h-[calc(100vh-48px)] lg:max-h-[calc(100vh-56px)]' : 'max-h-[calc(100vh-52px)] lg:max-h-[calc(100vh-64px)]'}`}
         >
         {/* Menu header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
@@ -391,7 +391,7 @@ export default function Header(){
                 <div className="w-2 h-2 bg-gray-300 rounded-full" />
               </Link>
               {/* Highlighted mobile link */}
-              <Link href="/iestiklot-lodziju" onClick={()=>{ setOpen(false); setHasInteracted(false); }} className="block px-4 py-3 rounded-xl mx-0 text-red-600 hover:text-red-700 hover:bg-red-50 transition-colors duration-200">
+              <Link href="/iestiklot-lodziju" onClick={()=>{ setOpen(false); setHasInteracted(false); }} className="flex items-center justify-between p-3 rounded-xl text-red-600 hover:text-red-700 hover:bg-red-50 transition-all duration-300">
                 Vēlos iestiklot lodžiju
               </Link>
             </div>

@@ -35,9 +35,8 @@ export function SeriesHero({ title, subtitle, imageUrl }: SeriesHeroProps) {
         {/* Trust badges */}
         <div className="mt-6 flex flex-wrap gap-2">
           {[
-            '5 gadu garantija',
-            'Montāža 7–10 dienās',
-            'Bezprocentu līzings',
+            '2 gadu garantija',
+            'Līzings',
             'A++ stiklojums',
           ].map((label) => (
             <span

@@ -241,23 +241,41 @@ export default function Page({ params }: { params: { slug: string } }){
     <section className="section">
       <div className="container">
         {item.slug === 'pvc-logi-103-serija' ? (
-          <div className="mb-8">
+          <>
+            <div className="mb-3 text-sm">
+              <Link href="/projekti" className="text-brand-teal hover:underline">← Atpakaļ uz projektiem</Link>
+            </div>
+            <div className="mb-8">
             <SeriesHero
               title={item.title}
               subtitle="Energoefektīvi, droši un estētiski risinājumi. Bez maksas konsultācija un precīza tāme 1 darba dienā."
               imageUrl="https://ik.imagekit.io/vbvwdejj5/M%C4%81ju%20projektu%20bildes/Dz%C4%ABvok%C4%BCu%20s%C4%93rijas%20BIldes%2015.09.25/103.png?updatedAt=1757947618324"
             />
-          </div>
-        ) : (
+            </div>
+          </>
+        ) : item.slug === 'pvc-logi-104-serija' ? (
           <>
-            <div className="mb-4 text-sm">
+            <div className="mb-3 text-sm">
               <Link href="/projekti" className="text-brand-teal hover:underline">← Atpakaļ uz projektiem</Link>
             </div>
-            <h1 className="h1 mb-4">{item.title}</h1>
-            <div className="rounded-lg overflow-hidden shadow-sm border border-gray-100 mb-8">
-              <div
-                className="h-72 md:h-96 bg-cover bg-center"
-                style={{ backgroundImage: `url(${item.image})` }}
+            <div className="mb-8">
+              <SeriesHero
+                title={item.title}
+                subtitle="Energoefektīvi, droši un estētiski risinājumi. Bez maksas konsultācija un precīza tāme 1 darba dienā."
+                imageUrl={item.image}
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="mb-3 text-sm">
+              <Link href="/projekti" className="text-brand-teal hover:underline">← Atpakaļ uz projektiem</Link>
+            </div>
+            <div className="mb-8">
+              <SeriesHero
+                title={item.title}
+                subtitle="Energoefektīvi, droši un estētiski risinājumi. Bez maksas konsultācija un precīza tāme 1 darba dienā."
+                imageUrl={item.image}
               />
             </div>
           </>
@@ -267,31 +285,45 @@ export default function Page({ params }: { params: { slug: string } }){
           <div className="md:col-span-2">
             {item.slug === 'pvc-logi-103-serija' ? (
               <>
-                <Highlights
-                  items={[
-                    '5 gadu garantija',
-                    'Montāža 7–10 dienās',
-                    'Bezprocentu līzings',
-                    'A++ stiklojums',
-                    'Kvalitatīva furnitūra',
-                  ]}
-                />
-
-                <div className="mt-6">
-                  <InfoCards
-                    cards={[
-                      { title: 'Būvniecības periods', content: '1970.–1990. gads' },
-                      { title: 'Stāvu skaits', content: '5' },
-                      {
-                        title: 'Konstrukcija un materiāli',
-                        content:
-                          'Jaukta tipa ēkas ar nesošām šķērssienām; gāzbetona/keramzītbetona paneļi un dobto dzelzsbetona paneļu pārsegumi.',
-                      },
-                      { title: 'Īpašās iezīmes', content: 'Ērtas un funkcionālas telpu plānojuma variācijas.' },
-                      { title: 'Plānojums', content: 'Plašas, labi sadalītas istabas.' },
-                      { title: 'Atrašanās vieta', content: 'Rīga – Teika, Dārzciems, Bolderāja, Purvciems, Daugavgrīva u.c.' },
-                    ]}
-                  />
+                <div className="space-y-4 text-gray-800">
+                  <div className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
+                    <p><strong>Būvniecības periods:</strong> 1970.–1990. gads</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 20h4v-4h4v-4h4V8h4"/></svg>
+                    <p><strong>Stāvu skaits:</strong> 5</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    <p><strong>Konstrukcija un materiāli:</strong> Jaukta tipa ēkas ar nesošām šķērssienām; gāzbetona/keramzītbetona paneļi un dobto dzelzsbetona paneļu pārsegumi.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <p><strong>Īpašās iezīmes:</strong> Ērtas un funkcionālas telpu plānojuma variācijas.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 8v8M15 8v8M3 12h18"/></svg>
+                    <p><strong>Plānojums:</strong> Plašas, labi sadalītas istabas.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M12 21s-6-4.35-6-10a6 6 0 1 1 12 0c0 5.65-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg>
+                    <p><strong>Atrašanās vieta:</strong> Rīga – Teika, Dārzciems, Bolderāja, Purvciems, Daugavgrīva u.c.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-gray-700 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M14 9V5a3 3 0 1 0-6 0v4H5v10h14V9h-5zM9 9h6"/></svg>
+                    <div>
+                      <p><strong>Priekšrocības:</strong></p>
+                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                        <li>
+                          Plašas lodžijas visā dzīvokļa garumā, kuras, aizstiklojot, iespējams pārvērst par vasaras verandu. (
+                          <a href="/iestiklot-lodziju" className="text-brand-teal hover:underline">Apskatīt galeriju</a>
+                          )
+                        </li>
+                        <li>Visu dzīvokļu istabas ir izolētas, nodrošinot privātumu un ērtu dzīvošanu.</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
 
                 {/* FAQ moved below, above footer */}
@@ -727,39 +759,79 @@ export default function Page({ params }: { params: { slug: string } }){
               <SeriesPricingGrid sections={gridSections} />
             </div>
 
+            {item.slug === 'pvc-logi-103-serija' && (
+              <FAQ
+                className="mt-10"
+                items={[
+                  { q: 'Cik ilgā laikā pēc pasūtījuma veikšanas notiek montāža?', a: 'Parasti 4-6 nedēļu laikā.' },
+                  { q: 'Vai nodrošināt mērīšanu un konsultāciju?', a: 'Jā veicam mērīšanas darbus Rīgā un Pierīgā, bet varam organizēt piegādes arī ārpus Rīgas.' },
+                  { q: 'Kāda ir garantija?', a: '2 gadu garantija logiem un montāžai.' },
+                  { q: 'Vai ir iespējams līzings?', a: 'Jā, iespējams noformēt līzingu ar izdevīgiem nosacījumiem.' },
+                ]}
+              />
+            )}
+
+            {item.slug === 'pvc-logi-104-serija' && (
+              <FAQ
+                className="mt-10"
+                items={[
+                  { q: 'Cik ilgā laikā pēc pasūtījuma veikšanas notiek montāža?', a: 'Parasti 4-6 nedēļu laikā.' },
+                  { q: 'Vai nodrošināt mērīšanu un konsultāciju?', a: 'Jā, mērīšana un konsultācijas Rīgā un Pierīgā; iespējamas piegādes arī ārpus Rīgas.' },
+                  { q: 'Kāda ir garantija?', a: '2 gadu garantija logiem un montāžai.' },
+                  { q: 'Vai ir iespējams līzings?', a: 'Jā, iespējams noformēt līzingu ar izdevīgiem nosacījumiem.' },
+                ]}
+              />
+            )}
+
+            {item.slug !== 'pvc-logi-103-serija' && item.slug !== 'pvc-logi-104-serija' && (
+              <FAQ
+                className="mt-10"
+                items={[
+                  { q: 'Cik ilgā laikā pēc pasūtījuma veikšanas notiek montāža?', a: 'Parasti 4-6 nedēļu laikā.' },
+                  { q: 'Vai nodrošināt mērīšanu un konsultāciju?', a: 'Jā veicam mērīšanas darbus Rīgā un Pierīgā, bet varam organizēt piegādes arī ārpus Rīgas.' },
+                  { q: 'Kāda ir garantija?', a: '2 gadu garantija logiem un montāžai.' },
+                  { q: 'Vai ir iespējams līzings?', a: 'Jā, iespējams noformēt līzingu ar izdevīgiem nosacījumiem.' },
+                ]}
+              />
+            )}
+
           </div>
 
           <aside>
-            <div className="flex items-center gap-2">
+            <div className="mb-3 rounded-lg border border-border bg-background p-3 text-center">
+              <p className="text-sm font-semibold text-foreground">
+                Vēlies uzzināt cik izmaksās nomainīt logus tavā projektā?{' '}
+                <span className="text-primary">Sūtī ziņu uz:</span>
+              </p>
+            </div>
+            <div className="flex flex-col items-stretch gap-2">
               <a
                 href={`https://wa.me/37120886650`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn w-full text-center"
+                className="inline-flex items-center justify-center gap-1 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1.5 text-xs font-semibold transition-colors w-full"
                 aria-label="Rakstīt WhatsApp"
               >
-                <svg className="w-4 h-4 inline-block mr-1 align-[-2px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M20.52 3.48A11.94 11.94 0 0012.01 0C5.39 0 .02 5.37.02 12c0 2.1.55 4.08 1.5 5.79L0 24l6.36-1.64A11.96 11.96 0 0012 24c6.63 0 12-5.37 12-12 0-3.19-1.25-6.19-3.48-8.52zM12 21.82c-1.84 0-3.55-.5-5.02-1.36l-.36-.21-3.77.97.99-3.68-.23-.38A9.77 9.77 0 012.2 12 9.8 9.8 0 1112 21.82zm5.62-7.37c-.31-.16-1.81-.89-2.09-.99-.28-.1-.49-.16-.7.16-.21.31-.8.99-.98 1.2-.18.21-.36.23-.67.08-.31-.16-1.29-.48-2.45-1.53-.9-.8-1.51-1.78-1.69-2.08-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.21-.31.31-.52.1-.21.05-.39-.03-.54-.08-.16-.7-1.68-.96-2.3-.25-.6-.5-.52-.7-.53l-.6-.01c-.21 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.56 0 1.51 1.11 2.97 1.27 3.18.16.21 2.19 3.34 5.3 4.69.74.32 1.32.5 1.77.64.74.23 1.41.2 1.94.12.59-.09 1.81-.74 2.07-1.45.26-.71.26-1.32.18-1.45-.08-.13-.28-.21-.59-.37z"/>
                 </svg>
-                WhatsApp
+                <span>WhatsApp</span>
+              </a>
+              <div className="rounded-lg border border-border bg-background p-3 text-center">
+                <p className="text-sm font-semibold text-foreground m-0">vai zvani</p>
+              </div>
+              <a
+                href={`tel:+37120886650`}
+                className="btn w-full inline-flex items-center justify-center text-center px-3 py-1.5 text-xs font-semibold"
+                aria-label="Zvanīt +371 20886650"
+              >
+                20886650
               </a>
             </div>
           </aside>
         </div>
       </div>
-      {item.slug === 'pvc-logi-103-serija' && (
-        <FAQ
-          className="mt-10"
-          items={[
-            { q: 'Cik ilgā laikā notiek montāža?', a: 'Parasti 7–10 darba dienas pēc mērījumiem.' },
-            { q: 'Vai nodrošināt mērīšanu un konsultāciju?', a: 'Jā, bez maksas Rīgā un Pierīgā.' },
-            { q: 'Kāda ir garantija?', a: '5 gadu garantija logiem un montāžai.' },
-            { q: 'Kādi stiklojuma un furnitūras varianti pieejami?', a: 'Piedāvājam A++ stiklojumu, bērnu drošības un pretuzlaušanas furnitūru.' },
-            { q: 'Vai ir iespējams līzings?', a: 'Jā, bezprocentu līzings ar elastīgu grafiku.' },
-          ]}
-        />
-      )}
-      {item.slug === 'pvc-logi-103-serija' && <StickyCTA />}
+      <StickyCTA />
     </section>
   )
 }

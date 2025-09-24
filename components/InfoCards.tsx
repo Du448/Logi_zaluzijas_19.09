@@ -10,7 +10,7 @@ export default function InfoCards({ cards }: { cards: Card[] }) {
   return (
     <div className="grid md:grid-cols-2 gap-4 md:gap-6">
       {cards.map((c, i) => (
-        <div key={i} className="rounded-xl border border-border bg-background p-5 shadow-sm transition-shadow hover:shadow-md">
+        <div key={i} className="rounded-xl border border-border bg-muted/40 p-5 shadow-sm transition-all hover:shadow-md hover:bg-muted/60">
           <div className="flex items-start gap-3">
             {c.icon}
             <div>
