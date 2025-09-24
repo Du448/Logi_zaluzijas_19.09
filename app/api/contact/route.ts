@@ -11,6 +11,26 @@ type ContactPayload = {
   company?: string
 }
 
+// Basic CORS headers (safe defaults; adjust origin if needed)
+const CORS_HEADERS: Record<string, string> = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST,OPTIONS,GET',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+}
+
+export function OPTIONS() {
+  return new Response(null, { status: 204, headers: CORS_HEADERS })
+}
+
+export function GET() {
+  // Health-check endpoint so external monitors/tests using GET won't hit 405
+  return NextResponse.json({ ok: true, endpoint: 'contact' }, { headers: CORS_HEADERS })
+}
+
+export function HEAD() {
+  return new Response(null, { status: 204, headers: CORS_HEADERS })
+}
+
 function isValidEmail(email: string): boolean {
   return /[^\s@]+@[^\s@]+\.[^\s@]+/.test(email)
 }
@@ -23,12 +43,12 @@ export async function POST(request: Request) {
     if (!body?.name || !body?.email || !body?.message) {
       return NextResponse.json(
         { error: 'Trūkst obligātie lauki: vārds, e-pasts, ziņa.' },
-        { status: 400 }
+        { status: 400, headers: CORS_HEADERS }
       )
     }
 
     if (!isValidEmail(body.email)) {
-      return NextResponse.json({ error: 'Nederīgs e-pasts.' }, { status: 400 })
+      return NextResponse.json({ error: 'Nederīgs e-pasts.' }, { status: 400, headers: CORS_HEADERS })
     }
 
     // Env configuration
@@ -45,7 +65,7 @@ export async function POST(request: Request) {
     if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS) {
       return NextResponse.json(
         { error: 'Nav konfigurēts e-pasta SMTP (SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS).' },
-        { status: 500 }
+        { status: 500, headers: CORS_HEADERS }
       )
     }
 
@@ -76,6 +96,29 @@ export async function POST(request: Request) {
     }
 
     const transporter = nodemailer.createTransport(transportOptions)
+
+    // Verify SMTP connectivity and credentials before attempting to send
+    try {
+      await transporter.verify()
+    } catch (e) {
+      const err = e as any
+      const details = {
+        name: err?.name,
+        code: err?.code,
+        command: err?.command,
+        response: err?.response,
+        responseCode: err?.responseCode,
+        message: err?.message,
+      }
+      console.error('SMTP verify failed:', details)
+      return NextResponse.json(
+        {
+          error: 'SMTP verify failed',
+          details: process.env.DEBUG_SMTP === 'true' ? details : undefined,
+        },
+        { status: 500, headers: CORS_HEADERS }
+      )
+    }
 
     const to = CONTACT_TO_EMAIL || 'info@vestalux.lv'
     const from = CONTACT_FROM_EMAIL || `Vestalux <${SMTP_USER}>`
@@ -108,9 +151,24 @@ export async function POST(request: Request) {
 
     await transporter.sendMail({ from, to, subject, text, html })
 
-    return NextResponse.json({ ok: true })
+    return NextResponse.json({ ok: true }, { headers: CORS_HEADERS })
   } catch (err) {
-    console.error('Contact form error:', err)
-    return NextResponse.json({ error: 'Neizdevās nosūtīt ziņu.' }, { status: 500 })
+    const e = err as any
+    const details = {
+      name: e?.name,
+      code: e?.code,
+      command: e?.command,
+      response: e?.response,
+      responseCode: e?.responseCode,
+      message: e?.message,
+    }
+    console.error('Contact form error:', details)
+    return NextResponse.json(
+      {
+        error: 'Neizdevās nosūtīt ziņu.',
+        details: process.env.DEBUG_SMTP === 'true' ? details : undefined,
+      },
+      { status: 500, headers: CORS_HEADERS }
+    )
   }
 }
