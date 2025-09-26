@@ -88,60 +88,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="bg-gray-50 border-y border-gray-200">
-        <div className="container py-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Laika līnija</h2>
-          <div className="grid md:grid-cols-2 gap-10 items-start">
-            {/* Left: Collage */}
-            <div className="relative">
-              <div className="relative mx-auto max-w-md h-[680px]">
-                {/* Large top-left */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={gallery[0].src} alt={gallery[0].alt} className="absolute top-0 left-0 w-[68%] h-[42%] object-cover rounded-xl shadow-md" />
-                {/* Small top-right */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={gallery[1].src} alt={gallery[1].alt} className="absolute top-2 left-[72%] w-[28%] h-[20%] object-cover rounded-xl shadow-md" />
-                {/* Mid-right wide */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={gallery[2].src} alt={gallery[2].alt} className="absolute top-[28%] right-0 w-[60%] h-[30%] object-cover rounded-xl shadow-md" />
-                {/* Mid-left small */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={gallery[3].src} alt={gallery[3].alt} className="absolute top-[46%] left-[22%] w-[36%] h-[20%] object-cover rounded-xl shadow-md" />
-                {/* Bottom-left small */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={gallery[4].src} alt={gallery[4].alt} className="absolute top-[68%] left-[4%] w-[32%] h-[22%] object-cover rounded-xl shadow-md" />
-                {/* Bottom-right large */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={gallery[5].src} alt={gallery[5].alt} className="absolute top-[58%] left-[40%] w-[58%] h-[38%] object-cover rounded-xl shadow-md" />
-              </div>
-            </div>
-
-            {/* Right: Timeline */}
-            <div className="relative">
-              <div className="absolute left-4 md:left-4 top-0 bottom-0 w-0.5 bg-gray-200" />
-              <ul className="space-y-8">
-                {[
-                  { year: "2014", text: "Dibināts uzņēmums un pirmie projekti Rīgā" },
-                  { year: "2017", text: "Paplašinām ražošanu un montāžas brigādes" },
-                  { year: "2020", text: "Ieviešam modernus profilu risinājumus un žalūziju sistēmas" },
-                  { year: "2024", text: "Vairāk nekā 2000 uzstādītu logu un simtiem apmierinātu klientu" },
-                ].map((e) => (
-                  <li key={e.year} className="relative pl-16">
-                    <div className="absolute left-4 w-3 h-3 rounded-full bg-emerald-600 top-1.5" />
-                    <div>
-                      <div className="inline-flex items-center gap-3 rounded-full bg-white border border-gray-200 px-4 py-2 shadow-sm">
-                        <span className="text-sm font-semibold text-emerald-700">{e.year}</span>
-                        <span className="text-gray-700">{e.text}</span>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Stats */}
       <section className="bg-white">
