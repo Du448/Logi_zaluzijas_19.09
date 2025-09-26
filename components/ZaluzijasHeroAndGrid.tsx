@@ -159,21 +159,6 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
           ))}
         </div>
       </section>
-
-      {/* Mini trust gallery / testimonials */}
-      <section className="mt-16 bg-white border border-gray-200 rounded-2xl p-8">
-        <h2 className="text-2xl font-bold text-slate-800 mb-6">Klienti uzticas</h2>
-        <div className="grid grid-cols-3 gap-4">
-          {['a','b','c'].map((s, i) => (
-            <div key={`mini-${i}`} className="relative rounded-lg overflow-hidden">
-              <div className={`absolute inset-0 bg-black/10`} />
-              {/* Decorative imagery */}
-              <div className={`h-40 bg-[url('https://picsum.photos/seed/zal${i}/600/400')] bg-cover bg-center`} />
-            </div>
-          ))}
-        </div>
-        <p className="text-sm text-slate-600 mt-4">Atsauksmes un piemēri no mūsu realizētajiem projektiem.</p>
-      </section>
     </div>
   )
 }

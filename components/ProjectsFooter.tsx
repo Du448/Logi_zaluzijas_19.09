@@ -78,8 +78,8 @@ function OurProcess() {
 function Testimonials() {
   const items = [
     {
-      name: "Jānis",
-      role: "Dzīvokļa īpašnieks",
+      name: "Jana",
+      role: "Dzīvokļa īpašniece",
       photo:
         "https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=400&auto=format&fit=crop",
       quote:
