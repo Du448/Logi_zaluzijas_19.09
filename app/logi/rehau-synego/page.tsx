@@ -1,6 +1,11 @@
 import Reveal from '@/components/Reveal'
+import type { Metadata } from 'next'
 
-export const metadata = { title: 'REHAU SYNEGO — PVC logi' }
+export const metadata: Metadata = {
+  title: 'REHAU SYNEGO PVC logi | Vidusblīvējuma sistēma',
+  description:
+    'REHAU SYNEGO logi ar vidusblīvējumu nodrošina maksimālu hermētiskumu, energoefektivitāti un drošību gan jaunbūvēs, gan renovācijās.',
+}
 
 export default function Page() {
   return (

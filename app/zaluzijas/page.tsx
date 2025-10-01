@@ -2,8 +2,13 @@
 import ProjectsFooter from '@/components/ProjectsFooter'
 import ZaluzijasHeroAndGrid from '@/components/ZaluzijasHeroAndGrid'
 import { catalogItems, getProduct } from '@/lib/zaluzijas'
+import type { Metadata } from 'next'
 
-export const metadata = { title: 'Žalūzijas — Katalogs' }
+export const metadata: Metadata = {
+  title: 'Žalūziju katalogs mājām un birojam | Vestalux',
+  description:
+    'Apskati kasešu, rullo, plisētu un koka žalūziju risinājumus ar profesionālu uzmērīšanu, uzstādīšanu un plašu audumu izvēli.',
+}
 
 export default function Page(){
   // Non-destructively hide specific catalog entries by ID.

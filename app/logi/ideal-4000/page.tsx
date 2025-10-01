@@ -1,8 +1,10 @@
 import AluplastBenefits from '@/components/AluplastBenefits'
+import type { Metadata } from 'next'
 
-export const metadata = {
-  title: 'Aluplast 4000 priekšrocības — Kāpēc izvēlēties mūsu logus?',
-  description: 'Uzziniet par Aluplast 4000 PVC logu galvenajām priekšrocībām: energoefektivitāte, drošība, skaņas komforts un dizaina daudzveidība.'
+export const metadata: Metadata = {
+  title: 'Aluplast Ideal 4000 PVC logi | Energoefektīvi risinājumi',
+  description:
+    'Uzzini par Aluplast Ideal 4000 PVC logu priekšrocībām – trīskāršs stiklojums, droša furnitūra un individuāli pielāgojumi Latvijas klimatam.',
 }
 
 export default function Page() {

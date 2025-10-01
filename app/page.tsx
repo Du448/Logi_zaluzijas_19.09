@@ -2,6 +2,13 @@ import RailsStyleHomepage from '@/components/RailsStyleHomepage'
 import Testimonials from '@/components/Testimonials'
 import PreFooterCTA from '@/components/PreFooterCTA'
 import FooterQuick from '@/components/FooterQuick'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'PVC logi, žalūzijas un montāža Rīgā | Vestalux',
+  description:
+    'Pasūti energoefektīvus PVC logus, žalūzijas un montāžas pakalpojumus Vestalux – individuāli risinājumi mājām un birojiem visā Latvijā.',
+}
 
 function CheckIcon(){
   return (

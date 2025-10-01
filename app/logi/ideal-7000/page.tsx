@@ -1,6 +1,11 @@
 import Reveal from '@/components/Reveal'
+import type { Metadata } from 'next'
 
-export const metadata = { title: 'Aluplast Intertec 85 — PVC logi' }
+export const metadata: Metadata = {
+  title: 'Aluplast Intertec 85 logi | Premium PVC profils',
+  description:
+    'Atklāj Aluplast Intertec 85 profila iespējas – augsta skaņas izolācija, siltuma efektivitāte un premium dizains privātmājām un dzīvokļiem.',
+}
 
 export default function Page() {
   return (

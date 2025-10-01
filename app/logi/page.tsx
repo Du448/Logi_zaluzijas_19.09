@@ -1,8 +1,13 @@
 import ImagesGridWithLightbox from '@/components/ImagesGridWithLightbox'
 import ZoomImage from '@/components/ZoomImage'
 import ShowcaseCarousel from '@/components/ShowcaseCarousel'
+import type { Metadata } from 'next'
 
-export const metadata = { title: 'PVC Logi — Katalogs' }
+export const metadata: Metadata = {
+  title: 'PVC logu katalogs un profili | Vestalux',
+  description:
+    'Izvēlies PVC logu profilus ar augstu siltumizolāciju, drošu furnitūru un profesionālu uzstādīšanu no Vestalux komandas.',
+}
 
 export default function Page(){
   return (

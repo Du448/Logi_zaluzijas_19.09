@@ -2,11 +2,27 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getAllIds, getProduct } from '@/lib/zaluzijas'
 import LightboxGallery from '@/components/LightboxGallery'
+import type { Metadata } from 'next'
 
 export const dynamicParams = false
 
 export async function generateStaticParams() {
   return getAllIds().map((id) => ({ id }))
+}
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const product = getProduct(params.id)
+  if (!product) {
+    return {
+      title: 'Žalūzijas | Vestalux',
+      description: 'Individuāli žalūziju risinājumi ar profesionālu uzmērīšanu un uzstādīšanu visā Latvijā.',
+    }
+  }
+
+  return {
+    title: `${product.title} | Žalūzijas Vestalux`,
+    description: `Individuāli pielāgotas ${product.title} – audumi, izmēri un uzstādīšana ar Vestalux speciālistiem visā Latvijā.`,
+  }
 }
 
 export default function Page({ params }: { params: { id: string } }) {

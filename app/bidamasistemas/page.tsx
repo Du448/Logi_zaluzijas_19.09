@@ -1,5 +1,11 @@
 import RightArrowCarousel from '@/components/RightArrowCarousel'
-export const metadata = { title: 'Bīdāmās sistēmas' }
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Bīdāmās stikla sistēmas terasēm un lodžijām | Vestalux',
+  description:
+    'Pielāgo bīdāmās stikla un alumīnija sistēmas terasēm, balkoniem un interjeriem – kvalitatīva montāža, dizaina variācijas un ātra piegāde.',
+}
 
 export default function Page(){
   return (

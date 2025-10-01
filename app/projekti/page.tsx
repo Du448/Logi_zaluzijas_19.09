@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useState, useMemo, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { series } from '@/lib/series'
-
 type SortOption = 'title'
 
 export default function Page(){

@@ -1,4 +1,10 @@
-export const metadata = { title: 'Blogs — Viss par PVC logiem' }
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Blogs par PVC logiem un žalūzijām | Vestalux',
+  description:
+    'Lasiet padomus par PVC logu izvēli, žalūziju tendencēm un mājokļa energoefektivitāti Vestalux blogā.',
+}
 
 export default function BlogsPage() {
   return (

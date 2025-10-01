@@ -1,7 +1,12 @@
 import LightboxGallery from '@/components/LightboxGallery'
 import { OverlayLightboxGrid } from '@/components/OverlayLightboxGrid'
+import type { Metadata } from 'next'
 
-export const metadata = { title: 'Vēlos iestiklot lodžiju' }
+export const metadata: Metadata = {
+  title: 'Lodžijas iestiklošana un siltināšana | Vestalux',
+  description:
+    'Atklāj siltus un aukstus lodžijas iestiklošanas risinājumus, izvēlies drošu konstrukciju un saņem profesionālu montāžu ar garantiju.',
+}
 
 export default function Page(){
   const images = [
