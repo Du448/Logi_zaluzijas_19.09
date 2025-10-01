@@ -164,7 +164,7 @@ export default function Header(){
           {/* Logo image */}
           <Link href="/" className="flex items-center gap-3 group" aria-label="InterjeraRisinājumi">
             <Image
-              src="https://ik.imagekit.io/vbvwdejj5/Gemini_Generated_Image_2a6uln2a6uln2a6u%20-%20Edited.png?updatedAt=1759309413381"
+              src="https://ik.imagekit.io/vbvwdejj5/d2fc288a-5a27-4ac6-aa38-230cb5a6ac40.png?updatedAt=1759311317310"
               alt="InterjeraRisinājumi logo"
               width={200}
               height={48}
