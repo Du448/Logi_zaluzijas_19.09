@@ -9,11 +9,16 @@ type Props = {
 }
 
 export default function LightboxGallery({ images, title = "", className = "" }: Props) {
+  const [isMounted, setIsMounted] = useState(false)
   const [open, setOpen] = useState(false)
   const [index, setIndex] = useState(0)
 
   const total = images?.length || 0
   const safeImages = useMemo(() => images?.filter(Boolean) ?? [], [images])
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const openAt = useCallback((i: number) => {
     setIndex(i)
@@ -35,6 +40,10 @@ export default function LightboxGallery({ images, title = "", className = "" }: 
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
   }, [open, prev, next, close])
+
+  if (!isMounted) {
+    return <div className={className} />
+  }
 
   return (
     <div className={className}>

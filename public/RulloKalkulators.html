@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Žalūziju Cenas Kalkulators</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        /* Custom styles for range slider to match the screenshot */
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .2s;
+        }
+        input[type=range]:hover {
+            opacity: 1;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #14b8a6; /* Teal color from screenshot */
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        input[type=range]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #14b8a6;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        .custom-select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        #download-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 sm:p-10 rounded-2xl shadow-lg w-full max-w-4xl">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-gray-800">
+                Cenas kalkulators <span id="version-display" class="text-lg font-medium text-gray-400 align-middle"></span>
+            </h1>
+            <p class="text-md text-gray-600 mt-1">(Rullo, Rullo kasešu, dienas-nakts, dienas-nakts kasešu, screen, foto)</p>
+            <div class="inline-block w-16 h-1 bg-teal-500 mt-2 rounded"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            <!-- Left Side: Controls -->
+            <div class="space-y-6">
+                <div>
+                    <label for="material-select" class="block text-sm font-medium text-gray-700 mb-1">Izvēlieties materiāla veidu:</label>
+                    <select id="material-select" class="custom-select mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md shadow-sm">
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div>
+                    <label for="system-select" class="block text-sm font-medium text-gray-700 mb-1">Izvēlieties sistēmu:</label>
+                    <select id="system-select" class="custom-select mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md shadow-sm">
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="width-input" class="block text-sm font-medium text-gray-700">Platums (mm):</label>
+                    <div class="flex items-center space-x-4 mt-2">
+                        <input type="range" id="width-slider" min="300" max="2200" value="1000" class="w-full">
+                        <input type="number" id="width-input" min="300" max="2200" value="1000" class="w-24 text-center border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="height-input" class="block text-sm font-medium text-gray-700">Augstums (mm):</label>
+                    <div class="flex items-center space-x-4 mt-2">
+                        <input type="range" id="height-slider" min="300" max="3000" value="1000" class="w-full">
+                        <input type="number" id="height-input" min="300" max="3000" value="1000" class="w-24 text-center border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500">
+                    </div>
+                </div>
+
+                <div class="flex items-center pt-2">
+                    <input id="montaza" name="montaza" type="checkbox" class="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500">
+                    <label for="montaza" class="ml-2 block text-sm font-medium text-gray-700">Montāžas pakalpojumi (+20.00 €)</label>
+                </div>
+            </div>
+
+            <!-- Right Side: Price Display -->
+            <div class="flex flex-col items-center justify-center bg-gray-50 rounded-lg p-6">
+                <div class="border-2 border-teal-500 rounded-lg w-full text-center py-8 mb-6">
+                    <p id="price-label" class="text-xl text-gray-600">Cena €:</p>
+                    <p id="price-display" class="text-4xl font-bold text-gray-800 mt-2">0.00</p>
+                </div>
+                <button id="download-button" class="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300 shadow-md">
+                    Lejupielādēt aprēķinu
+                </button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const APP_VERSION = '2.8'; // Update version
+    // Data extracted from the provided PDF file "2024_sept_Cenas_Rullo_Kasetes_Diena Nakts_Foto.pdf"
+    // Modified to show only materials and systems from the provided images.
+    const priceData = {
+        "t/m": { // Price per running meter
+            "NEUTRAL": { "VARIO 13 Kasete (balta)": 23.00, "VARIO 13 Kasete (krāsaina)": 26.00, "VARIO 17 Kasete (balts)": 28.00, "VARIO 17 Kasete (krāsaina)": 30.00, "VARIO Uprofils Kasete (balts)": 29.00, "VARIO Uprofils Kasete (krāsains)": 31.00 },
+            "EASTER": { "VARIO 13 Kasete (balta)": 25.00, "VARIO 13 Kasete (krāsaina)": 28.00, "VARIO 17 Kasete (balts)": 30.00, "VARIO 17 Kasete (krāsaina)": 32.00, "VARIO Uprofils Kasete (balts)": 31.00, "VARIO Uprofils Kasete (krāsains)": 33.00 },
+            "VAN GOGH": { "VARIO 13 Kasete (balta)": 25.00, "VARIO 13 Kasete (krāsaina)": 28.00, "VARIO 17 Kasete (balts)": 30.00, "VARIO 17 Kasete (krāsaina)": 32.00, "VARIO Uprofils Kasete (balts)": 31.00, "VARIO Uprofils Kasete (krāsains)": 33.00 },
+            "WATER": { "VARIO 13 Kasete (balta)": 24.00, "VARIO 13 Kasete (krāsaina)": 27.00, "VARIO 17 Kasete (balts)": 29.00, "VARIO 17 Kasete (krāsaina)": 31.00, "VARIO Uprofils Kasete (balts)": 30.00, "VARIO Uprofils Kasete (krāsains)": 32.00 },
+            "FLOWER": { "VARIO 13 Kasete (balta)": 25.00, "VARIO 13 Kasete (krāsaina)": 28.00, "VARIO 17 Kasete (balts)": 30.00, "VARIO 17 Kasete (krāsaina)": 32.00, "VARIO Uprofils Kasete (balts)": 31.00, "VARIO Uprofils Kasete (krāsains)": 33.00 },
+            "LUNA": { "VARIO 13 Kasete (balta)": 24.00, "VARIO 13 Kasete (krāsaina)": 27.00, "VARIO 17 Kasete (balts)": 29.00, "VARIO 17 Kasete (krāsaina)": 31.00, "VARIO Uprofils Kasete (balts)": 30.00, "VARIO Uprofils Kasete (krāsains)": 32.00 },
+            "TOPAZ": { "VARIO 13 Kasete (balta)": 24.00, "VARIO 13 Kasete (krāsaina)": 27.00, "VARIO 17 Kasete (balts)": 29.00, "VARIO 17 Kasete (krāsaina)": 31.00, "VARIO Uprofils Kasete (balts)": 30.00, "VARIO Uprofils Kasete (krāsains)": 32.00 },
+            "ARABESKA": { "VARIO 13 Kasete (balta)": 24.00, "VARIO 13 Kasete (krāsaina)": 27.00, "VARIO 17 Kasete (balts)": 29.00, "VARIO 17 Kasete (krāsaina)": 31.00, "VARIO Uprofils Kasete (balts)": 30.00, "VARIO Uprofils Kasete (krāsains)": 32.00 },
+            "JASPER": { "VARIO 13 Kasete (balta)": 24.00, "VARIO 13 Kasete (krāsaina)": 27.00, "VARIO 17 Kasete (balts)": 29.00, "VARIO 17 Kasete (krāsaina)": 31.00, "VARIO Uprofils Kasete (balts)": 30.00, "VARIO Uprofils Kasete (krāsains)": 32.00 },
+            "TALIA": { "VARIO 13 Kasete (balta)": 24.00, "VARIO 13 Kasete (krāsaina)": 27.00, "VARIO 17 Kasete (balts)": 29.00, "VARIO 17 Kasete (krāsaina)": 31.00, "VARIO Uprofils Kasete (balts)": 30.00, "VARIO Uprofils Kasete (krāsains)": 32.00 },
+            "FLOWER (LT)": { "VARIO 13 Kasete (balta)": 25.00, "VARIO 13 Kasete (krāsaina)": 28.00, "VARIO 17 Kasete (balts)": 30.00, "VARIO 17 Kasete (krāsaina)": 32.00, "VARIO Uprofils Kasete (balts)": 31.00, "VARIO Uprofils Kasete (krāsains)": 33.00 },
+            "CHAD": { "VARIO 13 Kasete (balta)": 26.00, "VARIO 13 Kasete (krāsaina)": 29.00, "VARIO 17 Kasete (balts)": 31.00, "VARIO 17 Kasete (krāsaina)": 33.00, "VARIO Uprofils Kasete (balts)": 32.00, "VARIO Uprofils Kasete (krāsains)": 34.00 },
+            "NATURAL": { "VARIO 13 Kasete (balta)": 31.00, "VARIO 13 Kasete (krāsaina)": 34.00, "VARIO 17 Kasete (balts)": 36.00, "VARIO 17 Kasete (krāsaina)": 38.00, "VARIO Uprofils Kasete (balts)": 37.00, "VARIO Uprofils Kasete (krāsains)": 39.00 },
+            "ROYAL": { "VARIO 13 Kasete (balta)": 25.00, "VARIO 13 Kasete (krāsaina)": 28.00, "VARIO 17 Kasete (balts)": 30.00, "VARIO 17 Kasete (krāsaina)": 32.00, "VARIO Uprofils Kasete (balts)": 31.00, "VARIO Uprofils Kasete (krāsains)": 33.00 },
+            "SEVILA THERMO": { "VARIO 13 Kasete (balta)": 32.00, "VARIO 13 Kasete (krāsaina)": 35.00, "VARIO 17 Kasete (balts)": 37.00, "VARIO 17 Kasete (krāsaina)": 39.00, "VARIO Uprofils Kasete (balts)": 38.00, "VARIO Uprofils Kasete (krāsains)": 40.00 },
+            "BLACK OUT": { "VARIO 13 Kasete (balta)": 26.00, "VARIO 13 Kasete (krāsaina)": 29.00, "VARIO 17 Kasete (balts)": 31.00, "VARIO 17 Kasete (krāsaina)": 33.00, "VARIO Uprofils Kasete (balts)": 32.00, "VARIO Uprofils Kasete (krāsains)": 34.00 },
+            "BLACK OUT SILVER": { "VARIO 13 Kasete (balta)": 27.00, "VARIO 13 Kasete (krāsaina)": 30.00, "VARIO 17 Kasete (balts)": 32.00, "VARIO 17 Kasete (krāsaina)": 34.00, "VARIO Uprofils Kasete (balts)": 33.00, "VARIO Uprofils Kasete (krāsains)": 35.00 },
+            "BMS Melange Silver": { "VARIO 13 Kasete (balta)": 27.00, "VARIO 13 Kasete (krāsaina)": 30.00, "VARIO 17 Kasete (balts)": 32.00, "VARIO 17 Kasete (krāsaina)": 34.00, "VARIO Uprofils Kasete (balts)": 33.00, "VARIO Uprofils Kasete (krāsains)": 35.00 },
+            "METALIC": { "VARIO 13 Kasete (balta)": 27.00, "VARIO 13 Kasete (krāsaina)": 30.00, "VARIO 17 Kasete (balts)": 32.00, "VARIO 17 Kasete (krāsaina)": 34.00, "VARIO Uprofils Kasete (balts)": 33.00, "VARIO Uprofils Kasete (krāsains)": 35.00 },
+            /*
+            "SCREEN": { "VARIO 13 Kasete (balta)": 32.00, "VARIO 13 Kasete (krāsaina)": 35.00, "VARIO 17 Kasete (balts)": 37.00, "VARIO 17 Kasete (krāsaina)": 39.00, "VARIO Uprofils Kasete (balts)": 38.00, "VARIO Uprofils Kasete (krāsains)": 40.00, "VARIO 25 Rullo (balts)": 39.00, "VARIO 25 Rullo (krāsains)": 42.00, "Vario 32 Rullo (balts)": 42.00, "Vario 32 Rullo (krāsains)": 45.00 },
+            "Albedo 8920": { "VARIO 13 Kasete (balta)": 28.00, "VARIO 13 Kasete (krāsaina)": 31.00, "VARIO 17 Kasete (balts)": 33.00, "VARIO 17 Kasete (krāsaina)": 35.00, "VARIO Uprofils Kasete (balts)": 34.00, "VARIO Uprofils Kasete (krāsains)": 36.00, "VARIO 25 Rullo (balts)": 34.00, "VARIO 25 Rullo (krāsains)": 37.00, "Vario 32 Rullo (balts)": 37.00, "Vario 32 Rullo (krāsains)": 40.00 },
+            "Albedo 8921": { "VARIO 13 Kasete (balta)": 28.00, "VARIO 13 Kasete (krāsaina)": 31.00, "VARIO 17 Kasete (balts)": 33.00, "VARIO 17 Kasete (krāsaina)": 35.00, "VARIO Uprofils Kasete (balts)": 34.00, "VARIO Uprofils Kasete (krāsains)": 36.00, "VARIO 25 Rullo (balts)": 34.00, "VARIO 25 Rullo (krāsains)": 37.00, "Vario 32 Rullo (balts)": 37.00, "Vario 32 Rullo (krāsains)": 40.00 },
+            "BO Charlotte 511": { "VARIO 13 Kasete (balta)": 41.00, "VARIO 13 Kasete (krāsaina)": 44.00, "VARIO 17 Kasete (balts)": 46.00, "VARIO 17 Kasete (krāsaina)": 48.00, "VARIO Uprofils Kasete (balts)": 47.00, "VARIO Uprofils Kasete (krāsains)": 48.00, "VARIO 25 Rullo (balts)": 47.00, "VARIO 25 Rullo (krāsains)": 50.00, "Vario 32 Rullo (balts)": 50.00, "Vario 32 Rullo (krāsains)": 53.00 },
+            "BO Charlotte 522": { "VARIO 13 Kasete (balta)": 41.00, "VARIO 13 Kasete (krāsaina)": 44.00, "VARIO 17 Kasete (balts)": 46.00, "VARIO 17 Kasete (krāsaina)": 48.00, "VARIO Uprofils Kasete (balts)": 47.00, "VARIO Uprofils Kasete (krāsains)": 48.00, "VARIO 25 Rullo (balts)": 47.00, "VARIO 25 Rullo (krāsains)": 50.00, "Vario 32 Rullo (balts)": 50.00, "Vario 32 Rullo (krāsains)": 53.00 },
+            "BO Charlotte 524": { "VARIO 13 Kasete (balta)": 41.00, "VARIO 13 Kasete (krāsaina)": 44.00, "VARIO 17 Kasete (balts)": 46.00, "VARIO 17 Kasete (krāsaina)": 48.00, "VARIO Uprofils Kasete (balts)": 47.00, "VARIO Uprofils Kasete (krāsains)": 48.00, "VARIO 25 Rullo (balts)": 47.00, "VARIO 25 Rullo (krāsains)": 50.00, "Vario 32 Rullo (balts)": 50.00, "Vario 32 Rullo (krāsains)": 53.00 },
+            "BH 1300/1800": { "VARIO 13 Kasete (balta)": 27.00, "VARIO 13 Kasete (krāsaina)": 30.00, "VARIO 17 Kasete (balts)": 32.00, "VARIO 17 Kasete (krāsaina)": 34.00, "VARIO Uprofils Kasete (balts)": 33.00, "VARIO Uprofils Kasete (krāsains)": 35.00, "VARIO 25 Rullo (balts)": 34.00, "VARIO 25 Rullo (krāsains)": 37.00, "Vario 32 Rullo (balts)": 37.00, "Vario 32 Rullo (krāsains)": 40.00 },
+            "BH 1500": { "VARIO 13 Kasete (balta)": 33.00, "VARIO 13 Kasete (krāsaina)": 36.00, "VARIO 17 Kasete (balts)": 38.00, "VARIO 17 Kasete (krāsaina)": 40.00, "VARIO Uprofils Kasete (balts)": 39.00, "VARIO Uprofils Kasete (krāsains)": 41.00, "VARIO 25 Rullo (balts)": 40.00, "VARIO 25 Rullo (krāsains)": 43.00, "Vario 32 Rullo (balts)": 43.00, "Vario 32 Rullo (krāsains)": 46.00 },
+            "BH10": { "VARIO 13 Kasete (balta)": 31.00, "VARIO 13 Kasete (krāsaina)": 34.00, "VARIO 17 Kasete (balts)": 36.00, "VARIO 17 Kasete (krāsaina)": 38.00, "VARIO Uprofils Kasete (balts)": 37.00, "VARIO Uprofils Kasete (krāsains)": 39.00, "VARIO 25 Rullo (balts)": 38.00, "VARIO 25 Rullo (krāsains)": 41.00, "Vario 32 Rullo (balts)": 41.00, "Vario 32 Rullo (krāsains)": 44.00 },
+            "BH (DK)": { "VARIO 13 Kasete (balta)": 26.00, "VARIO 13 Kasete (krāsaina)": 29.00, "VARIO 17 Kasete (balts)": 31.00, "VARIO 17 Kasete (krāsaina)": 33.00, "VARIO Uprofils Kasete (balts)": 32.00, "VARIO Uprofils Kasete (krāsains)": 34.00, "VARIO 25 Rullo (balts)": 33.00, "VARIO 25 Rullo (krāsains)": 36.00, "Vario 32 Rullo (balts)": 36.00, "Vario 32 Rullo (krāsains)": 39.00 },
+            "BON": { "VARIO 13 Kasete (balta)": 41.00, "VARIO 13 Kasete (krāsaina)": 44.00, "VARIO 17 Kasete (balts)": 46.00, "VARIO 17 Kasete (krāsaina)": 48.00, "VARIO Uprofils Kasete (balts)": 47.00, "VARIO Uprofils Kasete (krāsains)": 49.00, "VARIO 25 Rullo (balts)": 48.00, "VARIO 25 Rullo (krāsains)": 51.00, "Vario 32 Rullo (balts)": 51.00, "Vario 32 Rullo (krāsains)": 54.00 },
+            "ZEBRA 3100-3104": { "VARIO 13 Kasete (balta)": 32.00, "VARIO 13 Kasete (krāsaina)": 35.00, "VARIO 17 Kasete (balts)": 37.00, "VARIO 17 Kasete (krāsaina)": 39.00, "VARIO Uprofils Kasete (balts)": 38.00, "VARIO Uprofils Kasete (krāsains)": 40.00, "VARIO 25 Rullo (balts)": 39.00, "VARIO 25 Rullo (krāsains)": 42.00, "Vario 32 Rullo (balts)": 42.00, "Vario 32 Rullo (krāsains)": 45.00 },
+            "ZEBRA 3105-3200": { "VARIO 13 Kasete (balta)": 39.00, "VARIO 13 Kasete (krāsaina)": 42.00, "VARIO 17 Kasete (balts)": 44.00, "VARIO 17 Kasete (krāsaina)": 46.00, "VARIO Uprofils Kasete (balts)": 45.00, "VARIO Uprofils Kasete (krāsains)": 47.00, "VARIO 25 Rullo (balts)": 46.00, "VARIO 25 Rullo (krāsains)": 49.00, "Vario 32 Rullo (balts)": 49.00, "Vario 32 Rullo (krāsains)": 52.00 },
+            "ZEBRA BO": { "VARIO 13 Kasete (balta)": 48.00, "VARIO 13 Kasete (krāsaina)": 51.00, "VARIO 17 Kasete (balts)": 53.00, "VARIO 17 Kasete (krāsaina)": 55.00, "VARIO Uprofils Kasete (balts)": 54.00, "VARIO Uprofils Kasete (krāsains)": 56.00, "VARIO 25 Rullo (balts)": 55.00, "VARIO 25 Rullo (krāsains)": 58.00, "Vario 32 Rullo (balts)": 58.00, "Vario 32 Rullo (krāsains)": 61.00 },
+            "LIVELLO": { "VARIO 13 Kasete (balta)": 55.00, "VARIO 13 Kasete (krāsaina)": 58.00, "VARIO 17 Kasete (balts)": 60.00, "VARIO 17 Kasete (krāsaina)": 62.00, "VARIO Uprofils Kasete (balts)": 61.00, "VARIO Uprofils Kasete (krāsains)": 63.00, "VARIO 25 Rullo (balts)": 62.00, "VARIO 25 Rullo (krāsains)": 65.00, "Vario 32 Rullo (balts)": 65.00, "Vario 32 Rullo (krāsains)": 68.00 },
+            "BO Poem DN 721": { "VARIO 13 Kasete (balta)": 40.00, "VARIO 13 Kasete (krāsaina)": 43.00, "VARIO 17 Kasete (balts)": 45.00, "VARIO 17 Kasete (krāsaina)": 47.00, "VARIO Uprofils Kasete (balts)": 46.00, "VARIO Uprofils Kasete (krāsains)": 48.00, "VARIO 25 Rullo (balts)": 47.00, "VARIO 25 Rullo (krāsains)": 50.00, "Vario 32 Rullo (balts)": 50.00, "Vario 32 Rullo (krāsains)": 53.00 },
+            "BO Sunset DN 753": { "VARIO 13 Kasete (balta)": 40.00, "VARIO 13 Kasete (krāsaina)": 43.00, "VARIO 17 Kasete (balts)": 45.00, "VARIO 17 Kasete (krāsaina)": 47.00, "VARIO Uprofils Kasete (balts)": 46.00, "VARIO Uprofils Kasete (krāsains)": 48.00, "VARIO 25 Rullo (balts)": 47.00, "VARIO 25 Rullo (krāsains)": 50.00, "Vario 32 Rullo (balts)": 50.00, "Vario 32 Rullo (krāsains)": 53.00 },
+            "Albedo Chik DN 6003": { "VARIO 13 Kasete (balta)": 40.00, "VARIO 13 Kasete (krāsaina)": 43.00, "VARIO 17 Kasete (balts)": 45.00, "VARIO 17 Kasete (krāsaina)": 47.00, "VARIO Uprofils Kasete (balts)": 46.00, "VARIO Uprofils Kasete (krāsains)": 48.00, "VARIO 25 Rullo (balts)": 47.00, "VARIO 25 Rullo (krāsains)": 50.00, "Vario 32 Rullo (balts)": 50.00, "Vario 32 Rullo (krāsains)": 53.00 },
+            "Albedo Chik DN 6009": { "VARIO 13 Kasete (balta)": 40.00, "VARIO 13 Kasete (krāsaina)": 43.00, "VARIO 17 Kasete (balts)": 45.00, "VARIO 17 Kasete (krāsaina)": 47.00, "VARIO Uprofils Kasete (balts)": 46.00, "VARIO Uprofils Kasete (krāsains)": 48.00, "VARIO 25 Rullo (balts)": 47.00, "VARIO 25 Rullo (krāsains)": 50.00, "Vario 32 Rullo (balts)": 50.00, "Vario 32 Rullo (krāsains)": 53.00 },
+            */
+        },
+        /* "m2": { // Price per square meter
+            "Foto žalūzijas": { "VARIO 13 Kasete (balta)": 70.00, "VARIO 13 Kasete (krāsaina)": 92.00, "VARIO 17 Kasete (balts)": 86.00, "VARIO 17 Kasete (krāsaina)": 96.00, "VARIO Uprofils Kasete (balts)": 92.00, "VARIO Uprofils Kasete (krāsains)": 102.00 }
+        } */
+    };
+
+    // System dimension constraints (in meters), derived from PDF.
+    const systemConstraints = {
+        rullo: {
+            "VARIO 13 Kasete (balta)": { maxWidth: 1.5, maxHeight: 1.3 },
+            "VARIO 13 Kasete (krāsaina)": { maxWidth: 1.5, maxHeight: 1.3 },
+            "VARIO 17 Kasete (balts)": { maxWidth: 1.6, maxHeight: 2.0 },
+            "VARIO 17 Kasete (krāsaina)": { maxWidth: 1.6, maxHeight: 2.0 },
+            "VARIO Uprofils Kasete (balts)": { maxWidth: 1.6, maxHeight: 2.0 },
+            "VARIO Uprofils Kasete (krāsains)": { maxWidth: 1.6, maxHeight: 2.0 },
+            // "VARIO 25 Rullo (balts)": { maxWidth: 2.2, maxHeight: 3.0 },
+            // "VARIO 25 Rullo (krāsains)": { maxWidth: 2.2, maxHeight: 3.0 },
+            // "Vario 32 Rullo (balts)": { maxWidth: 2.2, maxHeight: 2.7 },
+            // "Vario 32 Rullo (krāsains)": { maxWidth: 2.2, maxHeight: 2.7 },
+        },
+        dienaNakts: { // This group is currently unused as all Diena-Nakts materials are hidden
+            "VARIO 13 Kasete (balta)": { maxWidth: 1.5, maxHeight: 1.0 },
+            "VARIO 13 Kasete (krāsaina)": { maxWidth: 1.5, maxHeight: 1.0 },
+            "VARIO 17 Kasete (balts)": { maxWidth: 1.6, maxHeight: 1.8 },
+            "VARIO 17 Kasete (krāsaina)": { maxWidth: 1.6, maxHeight: 1.8 },
+            "VARIO Uprofils Kasete (balts)": { maxWidth: 1.6, maxHeight: 1.8 },
+            "VARIO Uprofils Kasete (krāsains)": { maxWidth: 1.6, maxHeight: 1.8 },
+        },
+        /* foto: {
+            "VARIO 13 Kasete (balta)": { maxWidth: 1.4, maxHeight: 1.3 },
+            "VARIO 13 Kasete (krāsaina)": { maxWidth: 1.4, maxHeight: 1.3 },
+            "VARIO 17 Kasete (balts)": { maxWidth: 1.4, maxHeight: 2.0 },
+            "VARIO 17 Kasete (krāsaina)": { maxWidth: 1.4, maxHeight: 2.0 },
+            "VARIO Uprofils Kasete (balts)": { maxWidth: 1.4, maxHeight: 2.0 },
+            "VARIO Uprofils Kasete (krāsains)": { maxWidth: 1.4, maxHeight: 2.0 },
+            // "VARIO 25 Rullo (balts)": { maxWidth: 1.4, maxHeight: 3.0 },
+            // "VARIO 25 Rullo (krāsains)": { maxWidth: 1.4, maxHeight: 3.0 },
+            // "Vario 32 Rullo (balts)": { maxWidth: 1.4, maxHeight: 2.7 },
+            // "Vario 32 Rullo (krāsains)": { maxWidth: 1.4, maxHeight: 2.7 },
+        } */
+    };
+
+    // Material groups to determine which constraints to apply
+    const materialGroups = {
+        rullo: ["NEUTRAL", "EASTER", "VAN GOGH", "WATER", "FLOWER", "LUNA", "TOPAZ", "ARABESKA", "JASPER", "TALIA", "FLOWER (LT)", "CHAD", "NATURAL", "ROYAL", "SEVILA THERMO", "BLACK OUT", "BLACK OUT SILVER", "BMS Melange Silver", "METALIC"],
+        dienaNakts: [], // All "Diena-Nakts" materials are currently hidden
+    };
+
+    // DOM Elements
+    const materialSelect = document.getElementById('material-select');
+    const systemSelect = document.getElementById('system-select');
+    const widthSlider = document.getElementById('width-slider');
+    const widthInput = document.getElementById('width-input');
+    const heightSlider = document.getElementById('height-slider');
+    const heightInput = document.getElementById('height-input');
+    const priceDisplay = document.getElementById('price-display');
+    const priceLabel = document.getElementById('price-label');
+    const versionDisplay = document.getElementById('version-display');
+    const downloadButton = document.getElementById('download-button');
+    const montazaCheckbox = document.getElementById('montaza');
+
+    // --- Functions ---
+
+    function populateMaterials() {
+        const materialBlackoutInfo = {
+            "BLACK OUT": "(100%)", "EASTER": "(60%)", "FLOWER": "(62%)",
+            "FLOWER (LT)": "(62%)", "LUNA": "(62%)", "NEUTRAL": "(60%)",
+            "VAN GOGH": "(60–68%)", "WATER": "(68%)"
+        };
+        materialSelect.innerHTML = ''; 
+
+        const groupRullo = document.createElement('optgroup');
+        groupRullo.label = 'Rullo žalūzijas (cena par t/m)';
+        materialSelect.appendChild(groupRullo);
+
+        /* const groupDienaNakts = document.createElement('optgroup');
+        groupDienaNakts.label = 'Diena-Nakts žalūzijas (cena par t/m)';
+        materialSelect.appendChild(groupDienaNakts); */
+        
+        Object.keys(priceData['t/m']).sort().forEach(material => {
+            const option = document.createElement('option');
+            option.value = material;
+            const blackoutInfo = materialBlackoutInfo[material] ? ` ${materialBlackoutInfo[material]}` : '';
+            let displayText = `${material}${blackoutInfo}`;
+
+            if (materialGroups.rullo.includes(material)) {
+                option.textContent = displayText;
+                groupRullo.appendChild(option);
+            } else if (materialGroups.dienaNakts.includes(material)) {
+                // This part is currently not reachable as dienaNakts group is empty
+                displayText += " - Diena-Nakts";
+                option.textContent = displayText;
+                // groupDienaNakts.appendChild(option);
+            }
+        });
+
+        /* const groupM2 = document.createElement('optgroup');
+        groupM2.label = 'Foto žalūzijas (cena par m²)';
+        materialSelect.appendChild(groupM2);
+        
+        Object.keys(priceData['m2']).sort().forEach(material => {
+            const option = document.createElement('option');
+            option.value = material;
+            option.textContent = material;
+            groupM2.appendChild(option);
+        }); */
+    }
+
+    function updateSystems() {
+        const selectedMaterial = materialSelect.value;
+        const currentWidth = parseInt(widthInput.value, 10) / 1000;
+        const currentHeight = parseInt(heightInput.value, 10) / 1000;
+        const previouslySelectedSystem = systemSelect.value;
+
+        let systems = {};
+        let constraints = {};
+
+        if (priceData['m2'] && priceData['m2'][selectedMaterial]) {
+            systems = priceData['m2'][selectedMaterial];
+            constraints = systemConstraints.foto;
+        } else if (priceData['t/m'][selectedMaterial]) {
+            systems = priceData['t/m'][selectedMaterial];
+            constraints = materialGroups.dienaNakts.includes(selectedMaterial) 
+                ? systemConstraints.dienaNakts 
+                : systemConstraints.rullo;
+        }
+        
+        systemSelect.innerHTML = '';
+        let hasValidOptions = false;
+        
+        Object.keys(systems).forEach(system => {
+            const systemLimit = constraints[system];
+            if (systemLimit && currentWidth <= systemLimit.maxWidth && currentHeight <= systemLimit.maxHeight) {
+                const option = document.createElement('option');
+                option.value = system;
+                option.textContent = system;
+                systemSelect.appendChild(option);
+                hasValidOptions = true;
+            }
+        });
+
+        if (!hasValidOptions) {
+            const option = document.createElement('option');
+            option.value = "";
+            option.textContent = "Nav piemērotu sistēmu";
+            option.disabled = true;
+            systemSelect.appendChild(option);
+        } else {
+            if ([...systemSelect.options].some(o => o.value === previouslySelectedSystem)) {
+                systemSelect.value = previouslySelectedSystem;
+            }
+        }
+    }
+
+    function calculatePrice() {
+        const material = materialSelect.value;
+        const system = systemSelect.value;
+        const width = parseInt(widthInput.value, 10) / 1000; // mm to m
+        const height = parseInt(heightInput.value, 10) / 1000; // mm to m
+
+        if (!material || !system) {
+            priceDisplay.textContent = '0.00';
+            return;
+        }
+
+        let basePrice = 0;
+        let calculationType = '';
+
+        if (priceData['t/m'][material]?.[system]) {
+            basePrice = priceData['t/m'][material][system];
+            calculationType = 't/m';
+        } else if (priceData['m2'] && priceData['m2'][material]?.[system]) {
+            basePrice = priceData['m2'][material][system];
+            calculationType = 'm2';
+        }
+
+        if (basePrice === 0) {
+            priceDisplay.textContent = 'N/A';
+            return;
+        }
+
+        let cost = 0;
+
+        if (calculationType === 't/m') {
+            const chargeableWidth = Math.max(width, 0.5); // Minimum 0.5 t/m
+            cost = chargeableWidth * basePrice;
+            if (height > 2.0) cost *= 1.5; // +50%
+            else if (height > 1.5) cost *= 1.2; // +20%
+        } else if (calculationType === 'm2') {
+            const area = width * height;
+            const chargeableArea = Math.max(area, 0.75); // Minimum 0.75 m2
+            cost = chargeableArea * basePrice;
+            if (height > 2.0) cost *= 2.0; // +100%
+            else if (height > 1.5) cost *= 1.2; // +20%
+        }
+
+        let finalCost = cost;
+        finalCost *= 2.5; // Apply 150% markup
+        finalCost *= 1.21; // Always include 21% PVN
+        
+        if (montazaCheckbox.checked) {
+            finalCost += 20; // Add 20 EUR for assembly
+        }
+
+        const roundedCost = Math.round(finalCost);
+
+        priceLabel.textContent = 'Cena € ar PVN:';
+        priceDisplay.textContent = roundedCost.toFixed(2);
+    }
+
+    // --- Event Listeners ---
+    function syncAndCalculate(source, target, value) {
+        if(document.activeElement !== target) {
+            target.value = value;
+        }
+        updateSystems();
+        calculatePrice();
+    }
+
+    widthSlider.addEventListener('input', (e) => syncAndCalculate(widthSlider, widthInput, e.target.value));
+    widthInput.addEventListener('input', (e) => syncAndCalculate(widthInput, widthSlider, e.target.value));
+    heightSlider.addEventListener('input', (e) => syncAndCalculate(heightSlider, heightInput, e.target.value));
+    heightInput.addEventListener('input', (e) => syncAndCalculate(heightInput, heightSlider, e.target.value));
+
+    const validateNumberInput = (e) => {
+        let value = parseInt(e.target.value, 10);
+        const min = parseInt(e.target.min, 10);
+        const max = parseInt(e.target.max, 10);
+        if (isNaN(value) || value < min) value = min;
+        if (value > max) value = max;
+        e.target.value = value;
+        syncAndCalculate(e.target, e.target.id === 'width-input' ? widthSlider : heightSlider, value);
+    };
+
+    widthInput.addEventListener('blur', validateNumberInput);
+    heightInput.addEventListener('blur', validateNumberInput);
+    
+    materialSelect.addEventListener('change', () => {
+        updateSystems();
+        calculatePrice();
+    });
+    systemSelect.addEventListener('change', calculatePrice);
+    montazaCheckbox.addEventListener('change', calculatePrice);
+
+    // PDF Download Logic
+    downloadButton.addEventListener('click', () => {
+        if (typeof window.jspdf === 'undefined' || typeof window.html2canvas === 'undefined') {
+            console.error('Required PDF generation libraries not loaded.');
+            alert('Nevarēja izveidot PDF. Lūdzu, pārlādējiet lapu un mēģiniet vēlāk.');
+            return;
+        }
+
+        const materialText = materialSelect.options[materialSelect.selectedIndex].text;
+        const systemText = systemSelect.value;
+        const widthText = `${widthInput.value} mm`;
+        const heightText = `${heightInput.value} mm`;
+        const finalPrice = parseFloat(priceDisplay.textContent);
+        const montazaChecked = montazaCheckbox.checked;
+
+        if (!systemText) {
+            alert("Lūdzu, izvēlieties derīgu sistēmu pirms aprēķina veidošanas.");
+            return;
+        }
+        
+        const originalButtonText = downloadButton.textContent;
+        downloadButton.textContent = 'Ģenerē PDF...';
+        downloadButton.disabled = true;
+
+        const totalLabel = 'Kopējā cena ar PVN:';
+        
+        const pdfContent = document.createElement('div');
+        pdfContent.style.position = 'absolute';
+        pdfContent.style.left = '-9999px';
+        pdfContent.style.width = '794px'; 
+        pdfContent.style.padding = '40px';
+        pdfContent.style.fontFamily = 'Montserrat, sans-serif';
+        pdfContent.style.color = '#333';
+        pdfContent.style.background = 'white';
+
+        let montazaRowHtml = '';
+        if (montazaChecked) {
+            montazaRowHtml = `
+                <tr style="border-bottom: 1px solid #f0f0f0;">
+                    <td style="padding: 10px; font-weight: 600;">Montāžas pakalpojumi:</td>
+                    <td style="padding: 10px;">Iekļauts</td>
+                </tr>
+            `;
+        }
+
+        pdfContent.innerHTML = `
+            <div style="text-align: center; border-bottom: 1px solid #ccc; padding-bottom: 20px; margin-bottom: 20px;">
+                <h1 style="font-size: 28px; font-weight: bold; margin: 0;">Cenas Aprēķins</h1>
+                <p style="font-size: 14px; margin-top: 5px;">Žalūziju cenas kalkulators v${APP_VERSION}</p>
+            </div>
+            <p style="font-size: 14px;">Datums: ${new Date().toLocaleDateString('lv-LV')}</p>
+            <h2 style="font-size: 18px; font-weight: bold; margin-top: 30px; border-bottom: 1px solid #eee; padding-bottom: 5px;">Specifikācija:</h2>
+            <table style="width: 100%; margin-top: 15px; font-size: 14px; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 10px; font-weight: 600;">Materiāls:</td><td style="padding: 10px;">${materialText}</td></tr>
+                <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 10px; font-weight: 600;">Sistēma:</td><td style="padding: 10px;">${systemText}</td></tr>
+                <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 10px; font-weight: 600;">Platums:</td><td style="padding: 10px;">${widthText}</td></tr>
+                <tr ${montazaChecked ? 'style="border-bottom: 1px solid #f0f0f0;"' : ''}><td style="padding: 10px; font-weight: 600;">Augstums:</td><td style="padding: 10px;">${heightText}</td></tr>
+                ${montazaRowHtml}
+            </table>
+            <div style="margin-top: 40px; text-align: right; padding-top: 20px; border-top: 1px solid #ccc;">
+                <table style="width: 100%; max-width: 400px; font-size: 16px; border-collapse: collapse; float: right;">
+                    <tr style="font-weight: bold; border-top: 2px solid #333;">
+                        <td style="padding: 12px; text-transform: uppercase;">${totalLabel}</td>
+                        <td style="padding: 12px; text-align: right; font-size: 28px; color: #14b8a6;">${finalPrice.toFixed(2)} €</td>
+                    </tr>
+                </table>
+            </div>
+            <div style="clear: both; font-size: 10px; color: #777; position: absolute; bottom: 40px; left: 40px;">
+                <p>* Šis ir informatīvs cenas aprēķins. Gala cena var atšķirties.</p>
+                <p>* Montāžas pakalpojumi nav iekļauti cenā.</p>
+            </div>
+        `;
+        document.body.appendChild(pdfContent);
+
+        html2canvas(pdfContent, { scale: 2 }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const ratio = canvas.width / canvas.height;
+            const imgHeight = (pdfWidth - 20) / ratio;
+            pdf.addImage(imgData, 'PNG', 10, 10, pdfWidth - 20, imgHeight);
+            pdf.save(`zaluziju-aprekins-${new Date().toISOString().slice(0,10)}.pdf`);
+        }).catch(err => {
+            console.error("PDF generation failed:", err);
+            alert("Kļūda ģenerējot PDF.");
+        }).finally(() => {
+            document.body.removeChild(pdfContent);
+            downloadButton.textContent = originalButtonText;
+            downloadButton.disabled = false;
+        });
+    });
+
+    // --- Initialization ---
+    document.addEventListener('DOMContentLoaded', () => {
+        versionDisplay.textContent = `v${APP_VERSION}`;
+        populateMaterials();
+        const defaultMaterial = "ARABESKA";
+        if ([...materialSelect.options].some(o => o.value === defaultMaterial)) {
+            materialSelect.value = defaultMaterial;
+        }
+        updateSystems();
+        calculatePrice();
+    });
+
+</script>
+</body>
+</html>
+
+
+
+
+
