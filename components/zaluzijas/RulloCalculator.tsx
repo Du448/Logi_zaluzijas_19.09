@@ -1,6 +1,9 @@
 "use client"
 
+import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
+
+import { cn } from "@/lib/utils"
 
 const APP_VERSION = "2.8"
 
@@ -11,14 +14,92 @@ const MAX_HEIGHT_MM = 3000
 
 const MATERIAL_BLACKOUT_INFO: Record<string, string> = {
   "BLACK OUT": "(100%)",
-  "EASTER": "(60%)",
+  "ESTER": "(60%)",
   "FLOWER": "(62%)",
   "FLOWER (LT)": "(62%)",
   "LUNA": "(62%)",
+  "METALIC": "(62%)",
+  "LIVELLO": "(62%)",
+  "ALBEDO": "(62%)",
+  "ARABESKA": "(62%)",
+  "ROYAL": "(62%)",
+  "TALIA": "(62%)",
+  "TOPAZ": "(62%)",
+  "ZEBRA 3100-3104": "(62%)",
+  "ZEBRA 3105-3200": "(62%)",
+  "ZEBRA BO": "(62%)",
+  "ESTER (70%)": "",
+  "Easter Mint 023": "(70%)",
+  "METALIC WHITE": "(72%)",
+  "Neutral Gold 024": "(62%)",
+  "NATURAL": "(70%)",
+  "SEVILA THERMO": "(70%)",
   "NEUTRAL": "(60%)",
-  "VAN GOGH": "(60–68%)",
+  "VAN GOGH": "(60%)",
+  "VAN GOGH (68%)": "",
   "WATER": "(68%)",
 }
+
+const SYSTEM_IMAGE_INFO: Record<string, { label: string; image: string }> = {
+  "VARIO 13 Kasete (balta)": {
+    label: "Vario 13",
+    image: "https://ik.imagekit.io/vbvwdejj5/VARIO%2013.jpg?updatedAt=1759775255507",
+  },
+  "VARIO 13 Kasete (krāsaina)": {
+    label: "Vario 13",
+    image: "https://ik.imagekit.io/vbvwdejj5/VARIO%2013.jpg?updatedAt=1759775255507",
+  },
+  "VARIO 17 Kasete (balts)": {
+    label: "Vario 17",
+    image: "https://ik.imagekit.io/vbvwdejj5/Vario%2017.jpg?updatedAt=1759775255627",
+  },
+  "VARIO 17 Kasete (krāsaina)": {
+    label: "Vario 17",
+    image: "https://ik.imagekit.io/vbvwdejj5/Vario%2017.jpg?updatedAt=1759775255627",
+  },
+  "VARIO Uprofils Kasete (balts)": {
+    label: "U profils",
+    image: "https://ik.imagekit.io/vbvwdejj5/U%20profile.jpg?updatedAt=1759775255787",
+  },
+  "VARIO Uprofils Kasete (krāsains)": {
+    label: "U profils",
+    image: "https://ik.imagekit.io/vbvwdejj5/U%20profile.jpg?updatedAt=1759775255787",
+  },
+}
+
+const MATERIAL_BLACKOUT_LEVELS: Record<string, number[]> = {
+  "BLACK OUT": [100],
+  "ESTER": [60],
+  "FLOWER": [62],
+  "FLOWER (LT)": [62],
+  "LUNA": [62],
+  "METALIC": [62],
+  "LIVELLO": [62],
+  "ALBEDO": [62],
+  "ARABESKA": [62],
+  "ROYAL": [62],
+  "TALIA": [62],
+  "TOPAZ": [62],
+  "ESTER (70%)": [70],
+  "Easter Mint 023": [70],
+  "METALIC WHITE": [72],
+  "Neutral Gold 024": [62],
+  "ZEBRA 3100-3104": [62],
+  "ZEBRA 3105-3200": [62],
+  "ZEBRA BO": [62],
+  "NATURAL": [70],
+  "SEVILA THERMO": [70],
+  "NEUTRAL": [60],
+  "VAN GOGH": [60],
+  "VAN GOGH (68%)": [68],
+  "WATER": [68],
+}
+const DARKENING_LEVELS = Array.from(
+  new Set(
+    Object.values(MATERIAL_BLACKOUT_LEVELS).flat(),
+  ),
+)
+  .sort((a, b) => a - b)
 
 type PriceTable = Record<string, Record<string, number>>
 
@@ -31,7 +112,39 @@ const TM_PRICE_DATA: PriceTable = {
     "VARIO Uprofils Kasete (balts)": 29,
     "VARIO Uprofils Kasete (krāsains)": 31,
   },
-  EASTER: {
+  "Neutral Gold 024": {
+    "VARIO 13 Kasete (balta)": 23,
+    "VARIO 13 Kasete (krāsaina)": 26,
+    "VARIO 17 Kasete (balts)": 28,
+    "VARIO 17 Kasete (krāsaina)": 30,
+    "VARIO Uprofils Kasete (balts)": 29,
+    "VARIO Uprofils Kasete (krāsains)": 31,
+  },
+  "VAN GOGH (68%)": {
+    "VARIO 13 Kasete (balta)": 25,
+    "VARIO 13 Kasete (krāsaina)": 28,
+    "VARIO 17 Kasete (balts)": 30,
+    "VARIO 17 Kasete (krāsaina)": 32,
+    "VARIO Uprofils Kasete (balts)": 31,
+    "VARIO Uprofils Kasete (krāsains)": 33,
+  },
+  ESTER: {
+    "VARIO 13 Kasete (balta)": 25,
+    "VARIO 13 Kasete (krāsaina)": 28,
+    "VARIO 17 Kasete (balts)": 30,
+    "VARIO 17 Kasete (krāsaina)": 32,
+    "VARIO Uprofils Kasete (balts)": 31,
+    "VARIO Uprofils Kasete (krāsains)": 33,
+  },
+  "ESTER (70%)": {
+    "VARIO 13 Kasete (balta)": 25,
+    "VARIO 13 Kasete (krāsaina)": 28,
+    "VARIO 17 Kasete (balts)": 30,
+    "VARIO 17 Kasete (krāsaina)": 32,
+    "VARIO Uprofils Kasete (balts)": 31,
+    "VARIO Uprofils Kasete (krāsains)": 33,
+  },
+  "Easter Mint 023": {
     "VARIO 13 Kasete (balta)": 25,
     "VARIO 13 Kasete (krāsaina)": 28,
     "VARIO 17 Kasete (balts)": 30,
@@ -87,14 +200,6 @@ const TM_PRICE_DATA: PriceTable = {
     "VARIO Uprofils Kasete (balts)": 30,
     "VARIO Uprofils Kasete (krāsains)": 32,
   },
-  JASPER: {
-    "VARIO 13 Kasete (balta)": 24,
-    "VARIO 13 Kasete (krāsaina)": 27,
-    "VARIO 17 Kasete (balts)": 29,
-    "VARIO 17 Kasete (krāsaina)": 31,
-    "VARIO Uprofils Kasete (balts)": 30,
-    "VARIO Uprofils Kasete (krāsains)": 32,
-  },
   TALIA: {
     "VARIO 13 Kasete (balta)": 24,
     "VARIO 13 Kasete (krāsaina)": 27,
@@ -110,14 +215,6 @@ const TM_PRICE_DATA: PriceTable = {
     "VARIO 17 Kasete (krāsaina)": 32,
     "VARIO Uprofils Kasete (balts)": 31,
     "VARIO Uprofils Kasete (krāsains)": 33,
-  },
-  CHAD: {
-    "VARIO 13 Kasete (balta)": 26,
-    "VARIO 13 Kasete (krāsaina)": 29,
-    "VARIO 17 Kasete (balts)": 31,
-    "VARIO 17 Kasete (krāsaina)": 33,
-    "VARIO Uprofils Kasete (balts)": 32,
-    "VARIO Uprofils Kasete (krāsains)": 34,
   },
   NATURAL: {
     "VARIO 13 Kasete (balta)": 31,
@@ -151,22 +248,6 @@ const TM_PRICE_DATA: PriceTable = {
     "VARIO Uprofils Kasete (balts)": 32,
     "VARIO Uprofils Kasete (krāsains)": 34,
   },
-  "BLACK OUT SILVER": {
-    "VARIO 13 Kasete (balta)": 27,
-    "VARIO 13 Kasete (krāsaina)": 30,
-    "VARIO 17 Kasete (balts)": 32,
-    "VARIO 17 Kasete (krāsaina)": 34,
-    "VARIO Uprofils Kasete (balts)": 33,
-    "VARIO Uprofils Kasete (krāsains)": 35,
-  },
-  "BMS Melange Silver": {
-    "VARIO 13 Kasete (balta)": 27,
-    "VARIO 13 Kasete (krāsaina)": 30,
-    "VARIO 17 Kasete (balts)": 32,
-    "VARIO 17 Kasete (krāsaina)": 34,
-    "VARIO Uprofils Kasete (balts)": 33,
-    "VARIO Uprofils Kasete (krāsains)": 35,
-  },
   METALIC: {
     "VARIO 13 Kasete (balta)": 27,
     "VARIO 13 Kasete (krāsaina)": 30,
@@ -175,6 +256,308 @@ const TM_PRICE_DATA: PriceTable = {
     "VARIO Uprofils Kasete (balts)": 33,
     "VARIO Uprofils Kasete (krāsains)": 35,
   },
+  "METALIC WHITE": {
+    "VARIO 13 Kasete (balta)": 27,
+    "VARIO 13 Kasete (krāsaina)": 30,
+    "VARIO 17 Kasete (balts)": 32,
+    "VARIO 17 Kasete (krāsaina)": 34,
+    "VARIO Uprofils Kasete (balts)": 33,
+    "VARIO Uprofils Kasete (krāsains)": 35,
+  },
+  "ZEBRA 3100-3104": {
+    "VARIO 13 Kasete (balta)": 32,
+    "VARIO 13 Kasete (krāsaina)": 35,
+    "VARIO 17 Kasete (balts)": 37,
+    "VARIO 17 Kasete (krāsaina)": 39,
+    "VARIO Uprofils Kasete (balts)": 38,
+    "VARIO Uprofils Kasete (krāsains)": 40,
+  },
+  "ZEBRA 3105-3200": {
+    "VARIO 13 Kasete (balta)": 39,
+    "VARIO 13 Kasete (krāsaina)": 42,
+    "VARIO 17 Kasete (balts)": 44,
+    "VARIO 17 Kasete (krāsaina)": 46,
+    "VARIO Uprofils Kasete (balts)": 45,
+    "VARIO Uprofils Kasete (krāsains)": 47,
+  },
+  "ZEBRA BO": {
+    "VARIO 13 Kasete (balta)": 48,
+    "VARIO 13 Kasete (krāsaina)": 51,
+    "VARIO 17 Kasete (balts)": 53,
+    "VARIO 17 Kasete (krāsaina)": 55,
+    "VARIO Uprofils Kasete (balts)": 54,
+    "VARIO Uprofils Kasete (krāsains)": 56,
+  },
+  ALBEDO: {
+    "VARIO 13 Kasete (balta)": 40,
+    "VARIO 13 Kasete (krāsaina)": 43,
+    "VARIO 17 Kasete (balts)": 45,
+    "VARIO 17 Kasete (krāsaina)": 47,
+    "VARIO Uprofils Kasete (balts)": 46,
+    "VARIO Uprofils Kasete (krāsains)": 48,
+  },
+  LIVELLO: {
+    "VARIO 13 Kasete (balta)": 55,
+    "VARIO 13 Kasete (krāsaina)": 58,
+    "VARIO 17 Kasete (balts)": 60,
+    "VARIO 17 Kasete (krāsaina)": 62,
+    "VARIO Uprofils Kasete (balts)": 61,
+    "VARIO Uprofils Kasete (krāsains)": 63,
+  },
+}
+
+const ALL_MATERIAL_OPTIONS = Object.keys(TM_PRICE_DATA).sort()
+
+type ToneOption = {
+  id: string
+  label: string
+  description: string
+  image?: string
+}
+
+const TONE_OPTIONS: Record<string, ToneOption[]> = {
+  "BLACK OUT": [
+    { id: "black-out-b001", label: "Black Out B001", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Black%20out%20B001.png?updatedAt=1759766391696" },
+    { id: "black-out-b001s", label: "Black Out B001s", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Black%20out%20B001s.png?updatedAt=1759766391690" },
+    { id: "blackout-b0012s", label: "Black Out B0012S", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B0012S_Aptumšojums_100_.png" },
+    { id: "blackout-b002", label: "Black Out B002", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B002_Aptumšojums_100_.png" },
+    { id: "blackout-b002s", label: "Black Out B002S", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B002S_Aptumšojums_100_.png" },
+    { id: "blackout-b003", label: "Black Out B003", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B003_Aptumšojums_100_.png" },
+    { id: "blackout-b003s", label: "Black Out B003S", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B003S_Aptumšojums_100_.png" },
+    { id: "blackout-b004", label: "Black Out B004", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B004_Aptumšojums_100_.png" },
+    { id: "blackout-b004s", label: "Black Out B004S", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B004S_Aptumšojums_100_.png" },
+    { id: "blackout-b005", label: "Black Out B005", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B005_Aptumšojums_100_.png" },
+    { id: "blackout-b005s", label: "Black Out B005S", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B005S_Aptumšojums_100_.png" },
+    { id: "blackout-b006", label: "Black Out B006", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B006_Aptumšojums_100_.png" },
+    { id: "blackout-b007", label: "Black Out B007", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B007_Aptumšojums_100_.png" },
+    { id: "blackout-b008", label: "Black Out B008", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B008_Aptumšojums_100_.png" },
+    { id: "blackout-b008s", label: "Black Out B008S", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B008S_Aptumšojums_100_.png" },
+    { id: "blackout-b009", label: "Black Out B009", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B009_Aptumšojums_100_.png" },
+    { id: "blackout-b010", label: "Black Out B010", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B010_Aptumšojums_100_.png" },
+    { id: "blackout-b010s", label: "Black Out B010S", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B010S_Aptumšojums_100_.png" },
+    { id: "blackout-b012", label: "Black Out B012", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B012_Aptumšojums_100_.png" },
+    { id: "blackout-b013", label: "Black Out B013", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B013_Aptumšojums_100_.png" },
+    { id: "blackout-b013s", label: "Black Out B013S", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B013S_Aptumšojums_100_.png" },
+    { id: "blackout-b014", label: "Black Out B014", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B014_Aptumšojums_100_.png" },
+    { id: "blackout-b014s", label: "Black Out B014S", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_B014S_Aptumšojums_100_.png" },
+    { id: "blackout-black", label: "Black Out Black", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Black_Out_Black_Aptumšojums_100__.png" },
+    { id: "blackout-bo11", label: "Black Out BO11", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/BLACK_OUT_BO11_Aptumšojums_100_.png" },
+    { id: "blackout-charlotte-524", label: "Black out Charlotte 524", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Black_Out_Charlo_tte_524_Aptumšojums_100__.png" },
+    { id: "blackout-charlotte-551", label: "Black out Charlotte 551", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Black_Out_Charlotte_5_51_Aptumšojums_100__.png" },
+    { id: "blackout-charlotte-552", label: "Black out Charlotte 552", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Black_Out_Charlotte_552_Aptumšojums_100__.png" },
+    { id: "blackout-sunset-dn753", label: "Black out Sunset DN753", description: "Aptumšojums: 100%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Black_Out_Sunset_DN753_Aptumšojums_100__.png" },
+  ],
+  "VAN GOGH": [
+    { id: "van-gogh-v003", label: "VAN GOGH V003", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/VAN_GOGH_V00_3_Aptumšojums_60__.png" },
+    { id: "van-gogh-v001", label: "VAN GOGH V001", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/VAN_GOGH_V001_Aptumšojums_60__.png" },
+  ],
+
+  // NATURAL tones (70%)
+  NATURAL: [
+    { id: "natural-2", label: "Natural 2", description: "Aptumšojums: 70%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Natural_2_Aptumšojums_70__.png" },
+    { id: "natural-3", label: "Natural 3", description: "Aptumšojums: 70%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Natural_3_Aptumšojums_70__.png" },
+    { id: "natural-6", label: "Natural 6", description: "Aptumšojums: 70%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Natural_6_Aptumšojums_70__.png" },
+  ],
+
+  // SEVILA THERMO tones (70%)
+  "SEVILA THERMO": [
+    { id: "sevila-thermo-agua", label: "Sevila Thermo Agua", description: "Aptumšojums: 70%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Sevila_Thermo_Agua_Aptumšojums_70__.png" },
+    { id: "sevila-thermo-beige", label: "Sevila Thermo Beige", description: "Aptumšojums: 70%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Sevila_Thermo_Beige_Aptumšojums_7_0__.png" },
+    { id: "sevila-thermo-black", label: "Sevila Thermo Black", description: "Aptumšojums: 70%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Sevila_Thermo_Black_Aptumšojums_70__.png" },
+    { id: "sevila-thermo-brown", label: "Sevila Thermo Brown", description: "Aptumšojums: 70%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Sevila_Thermo_Brown_Aptumšojums_70__.png" },
+    { id: "sevila-thermo-grey", label: "Sevila Thermo Grey", description: "Aptumšojums: 70%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Sevila_Thermo_Grey_Aptumšojums_70__.png" },
+    { id: "sevila-thermo-white", label: "Sevila Thermo White", description: "Aptumšojums: 70%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Sevila_Thermo_White_Aptumšojums_70__.png" },
+  ],
+  ESTER: [
+    { id: "ester-201", label: "ESTER 201", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_201_Aptumšojums_6_0_.png" },
+    { id: "ester-217", label: "ESTER 217", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_217_Aptumšojums_6_0_.png" },
+    { id: "ester-218", label: "ESTER 218", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_218_Aptumšojums_6_0_.png" },
+    { id: "ester-223", label: "ESTER 223", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_223_Aptumšojums_6_0_.png" },
+    { id: "ester-226", label: "ESTER 226", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_226_Aptumšojums_6_0_.png" },
+    { id: "ester-e003", label: "ESTER E003", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E00_3_Aptumšojums_6_0_.png" },
+    { id: "ester-e004", label: "ESTER E004", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E00_4_Aptumšojums_6_0_.png" },
+    { id: "ester-e005", label: "ESTER E005", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E00_5_Aptumšojums_6_0_.png" },
+    { id: "ester-e006", label: "ESTER E006", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E00_6_Aptumšojums_6_0_.png" },
+    { id: "ester-e007", label: "ESTER E007", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E00_7_Aptumšojums_6_0_.png" },
+    { id: "ester-e009", label: "ESTER E009", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E00_9_Aptumšojums_6_0_.png" },
+    { id: "ester-e002", label: "ESTER E002", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E002_Aptumšojums_6_0_.png" },
+    { id: "ester-e015", label: "ESTER E015", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E01_5_Aptumšojums_6_0_.png" },
+    { id: "ester-e016", label: "ESTER E016", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E01_6_Aptumšojums_6_0_.png" },
+    { id: "ester-e011-190", label: "ESTER E011 190", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E011_190_Aptumšojums_6_0_.png" },
+    { id: "ester-e012", label: "ESTER E012", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E012_Aptumšojums_6_0_.png" },
+    { id: "ester-e020-200", label: "ESTER E020 200", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E020_200_Aptumšojums_6_0_.png" },
+    { id: "ester-e021", label: "ESTER E021", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E021_Aptumšojums_6_0_.png" },
+    { id: "ester-e022", label: "ESTER E022", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E022_Aptumšojums_6_0_.png" },
+    { id: "ester-e024-190", label: "ESTER E024 190", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E024_190_Aptumšojums_6_0_.png" },
+    { id: "ester-e033", label: "ESTER E033", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/ESTER_E033_Aptumšojums_6_0_.png" },
+  ],
+  "ESTER (70%)": [
+    { id: "ester-desert-e217", label: "Ester Desert E217", description: "Aptumšojums: 70%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Ester_Desert_E217_Aptumšojums_70__.png" },
+    { id: "ester-earthy-e218", label: "Ester Earthy E218", description: "Aptumšojums: 70%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Ester_Earthy_E218_Aptumšojums_70__.png" },
+    { id: "ester-graphit-e226", label: "Ester Graphit E 226", description: "Aptumšojums: 70%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Ester_Graphit_E_226_Aptumšojums_7_0__.png" },
+  ],
+  "Easter Mint 023": [
+    { id: "easter-mint-023", label: "Easter Mint 023", description: "Aptumšojums: 70%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Easter_Mint_023_Aptumšojums_70__.png" },
+  ],
+  FLOWER: [
+    { id: "flower-f010", label: "FLOWER F010", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/FLOWER_F0_10_Aptumšojums_62__.png" },
+    { id: "flower-f011", label: "FLOWER F011", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/FLOWER_F0_11_Aptumšojums_62__.png" },
+    { id: "flower-f012", label: "FLOWER F012", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/FLOWER_F0_12_Aptumšojums_62__.png" },
+    { id: "flower-f001", label: "FLOWER F001", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/FLOWER_F00_1_Aptumšojums_6_2__.png" },
+    { id: "flower-f002", label: "FLOWER F002", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/FLOWER_F00_2_Aptumšojums_6_2__.png" },
+    { id: "flower-f003", label: "FLOWER F003", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/FLOWER_F00_3_Aptumšojums_6_2__.png" },
+    { id: "flower-f004", label: "FLOWER F004", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/FLOWER_F00_4_Aptumšojums_6_2__.png" },
+    { id: "flower-f005", label: "FLOWER F005", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/FLOWER_F00_5_Aptumšojums_6_2__.png" },
+    { id: "flower-f006", label: "FLOWER F006", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/FLOWER_F00_6_Aptumšojums_6_2__.png" },
+    { id: "flower-f007", label: "FLOWER F007", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/FLOWER_F00_7_Aptumšojums_6_2__.png" },
+    { id: "flower-f008", label: "FLOWER F008", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/FLOWER_F00_8_Aptumšojums_6_2__.png" },
+    { id: "flower-f009", label: "FLOWER F009", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/FLOWER_F00_9_Aptumšojums_6_2__.png" },
+  ],
+  "FLOWER (LT)": [
+    { id: "flower-lt-blance", label: "Flower (LT) Blance", description: "", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Flower_(LT)_Blance_Aptumšojums__.png" },
+    { id: "flower-lt-dark", label: "Flower (LT) Dark", description: "", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Flower_(LT)_Dark_Aptumšojums__.png" },
+    { id: "flower-lt-dull", label: "Flower (LT) Dull", description: "", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Flower_(LT)_Dull_Aptumšojums__.png" },
+    { id: "flower-lt-ice", label: "Flower (LT) Ice", description: "", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Flower_(LT)_Ice_Aptumšojums__.png" },
+  ],
+  LUNA: [
+    { id: "luna-l010", label: "LUNA L010", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/LUNA_L0_10_Aptumšojums_62__.png" },
+    { id: "luna-l011", label: "LUNA L011", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/LUNA_L0_11_Aptumšojums_62__.png" },
+    { id: "luna-l012", label: "LUNA L012", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/LUNA_L0_12_Aptumšojums_62__.png" },
+    { id: "luna-l002", label: "LUNA L002", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/LUNA_L00_2_Aptumšojums_62__.png" },
+    { id: "luna-l003", label: "LUNA L003", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/LUNA_L00_3_Aptumšojums_62__.png" },
+    { id: "luna-l004", label: "LUNA L004", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/LUNA_L00_4_Aptumšojums_62__.png" },
+    { id: "luna-l005", label: "LUNA L005", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/LUNA_L00_5_Aptumšojums_62__.png" },
+    { id: "luna-l006", label: "LUNA L006", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/LUNA_L00_6_Aptumšojums_62__.png" },
+    { id: "luna-l007", label: "LUNA L007", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/LUNA_L00_7_Aptumšojums_62__.png" },
+    { id: "luna-l008", label: "LUNA L008", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/LUNA_L00_8_Aptumšojums_62__.png" },
+    { id: "luna-l009", label: "LUNA L009", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/LUNA_L00_9_Aptumšojums_62__.png" },
+    { id: "luna-l001", label: "LUNA L001", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/LUNA_L001_Aptumšojums_62__.png" },
+  ],
+  NEUTRAL: [
+    { id: "neutral-n015", label: "NEUTRAL N015", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_1_5_Aptumšojums_60__.png" },
+    { id: "neutral-n016", label: "NEUTRAL N016", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_1_6_Aptumšojums_60__.png" },
+    { id: "neutral-n019", label: "NEUTRAL N019", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_1_9_Aptumšojums_60__.png" },
+    { id: "neutral-n010", label: "NEUTRAL N010", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_10_Aptumšojums_6_0__.png" },
+    { id: "neutral-n011", label: "NEUTRAL N011", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_11_Aptumšojums_6_0__.png" },
+    { id: "neutral-n012", label: "NEUTRAL N012", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_12_Aptumšojums_60__.png" },
+    { id: "neutral-n013", label: "NEUTRAL N013", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_13_Aptumšojums_60__.png" },
+    { id: "neutral-n014", label: "NEUTRAL N014", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_14_Aptumšojums_60__.png" },
+    { id: "neutral-n017", label: "NEUTRAL N017", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_17_Aptumšojums_60__.png" },
+    { id: "neutral-n018", label: "NEUTRAL N018", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_18_Aptumšojums_60__.png" },
+    { id: "neutral-n023", label: "NEUTRAL N023", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_2_3_Aptumšojums_60__.png" },
+    { id: "neutral-n020", label: "NEUTRAL N020", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_20_Aptumšojums_60__.png" },
+    { id: "neutral-n028", label: "NEUTRAL N028", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_28_Aptumšojums_60__.png" },
+    { id: "neutral-n029", label: "NEUTRAL N029", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N0_29_Aptumšojums_60__.png" },
+    { id: "neutral-n003", label: "NEUTRAL N003", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N00_3_Aptumšojums_6_0__.png" },
+    { id: "neutral-n004", label: "NEUTRAL N004", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N00_4_Aptumšojums_6_0__.png" },
+    { id: "neutral-n005", label: "NEUTRAL N005", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N00_5_Aptumšojums_6_0__.png" },
+    { id: "neutral-n006", label: "NEUTRAL N006", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N00_6_Aptumšojums_6_0__.png" },
+    { id: "neutral-n008", label: "NEUTRAL N008", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N00_8_Aptumšojums_6_0__.png" },
+    { id: "neutral-n009", label: "NEUTRAL N009", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N00_9_Aptumšojums_6_0__.png" },
+    { id: "neutral-n002", label: "NEUTRAL N002", description: "Aptumšojums: 60%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/NEUTRAL_N002_Aptumšojums_6_0__.png" },
+  ],
+  "VAN GOGH (68%)": [
+    { id: "van-gogh-v008", label: "VAN GOGH V008", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/VAN_GOGH_V0_08_Aptumšojums_6_8__.png" },
+    { id: "van-gogh-v011", label: "VAN GOGH V011", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/VAN_GOGH_V0_1_1_Aptumšojums_6_8__.png" },
+    { id: "van-gogh-v012", label: "VAN GOGH V012", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/VAN_GOGH_V0_12_Aptumšojums_6_8__.png" },
+    { id: "van-gogh-v004", label: "VAN GOGH V004", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/VAN_GOGH_V00_4_Aptumšojums_6_8__.png" },
+    { id: "van-gogh-v005", label: "VAN GOGH V005", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/VAN_GOGH_V00_5_Aptumšojums_6_8__.png" },
+    { id: "van-gogh-v006", label: "VAN GOGH V006", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/VAN_GOGH_V00_6_Aptumšojums_6_8__.png" },
+    { id: "van-gogh-v007", label: "VAN GOGH V007", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/VAN_GOGH_V00_7_Aptumšojums_6_8__.png" },
+    { id: "van-gogh-v009", label: "VAN GOGH V009", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/VAN_GOGH_V00_9_Aptumšojums_6_8__.png" },
+    { id: "van-gogh-v010", label: "VAN GOGH V010", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/VAN_GOGH_V01_0_Aptumšojums_6_8__.png" },
+  ],
+  WATER: [
+    { id: "water-w010", label: "WATER W010", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/WATER_W0_10_Aptumšojums_68__.png" },
+    { id: "water-w011", label: "WATER W011", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/WATER_W0_11_Aptumšojums_68__.png" },
+    { id: "water-w012", label: "WATER W012", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/WATER_W0_12_Aptumšojums_68__.png" },
+    { id: "water-w002", label: "WATER W002", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/WATER_W00_2_Aptumšojums_68__.png" },
+    { id: "water-w003", label: "WATER W003", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/WATER_W00_3_Aptumšojums_68__.png" },
+    { id: "water-w004", label: "WATER W004", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/WATER_W00_4_Aptumšojums_68__.png" },
+    { id: "water-w005", label: "WATER W005", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/WATER_W00_5_Aptumšojums_68__.png" },
+    { id: "water-w006", label: "WATER W006", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/WATER_W00_6_Aptumšojums_68__.png" },
+    { id: "water-w007", label: "WATER W007", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/WATER_W00_7_Aptumšojums_68__.png" },
+    { id: "water-w008", label: "WATER W008", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/WATER_W00_8_Aptumšojums_68__.png" },
+    { id: "water-w009", label: "WATER W009", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/WATER_W00_9_Aptumšojums_68__.png" },
+    { id: "water-w001", label: "WATER W001", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/WATER_W001_Aptumšojums_68__.png" },
+  ],
+
+  // New tone group for LIVELLO (will show only if 'LIVELLO' exists in TM_PRICE_DATA)
+  LIVELLO: [
+    { id: "livello-dna-054", label: "Livello DNA 054", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Livello_DN_A05_4_Aptumšojums_6_2__.png" },
+  ],
+
+  // Update METALIC tones to include Metalic Cream
+  METALIC: [
+    { id: "metalic-cream", label: "Metalic Cream", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Metalic_Cream_Aptumšojums_62__.png" },
+  ],
+
+  // METALIC WHITE (72%) tone group
+  "METALIC WHITE": [
+    { id: "metalic-white", label: "Metalic White", description: "Aptumšojums: 72%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Metalic_White_Aptumšojums_7_2__.png" },
+  ],
+
+  // Neutral Gold 024 (62%) tone group
+  "Neutral Gold 024": [
+    { id: "neutral-gold-024", label: "Neutral Gold 024", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Neutral_Gold_024_Aptumšojums_62__.png" },
+  ],
+
+  // New tones for ALBEDO
+  ALBEDO: [
+    { id: "albedo-chik-dn6009", label: "Albedo Chik DN6009", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Albedo_Chik_DN600_9_Aptumšojums_6_2__.png" },
+    { id: "albedo-chik-dn6003", label: "Albedo Chik DN6003", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Albedo_Chik_DN6003_Aptumšojums_6_2__.png" },
+  ],
+
+  // Updated tones for ARABESKA
+  ARABESKA: [
+    { id: "arabeska-cream", label: "Arabeska Cream", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Arabeska_Crea_m_Aptumšojums_6_2__.png" },
+    { id: "arabeska-rose", label: "Arabeska Rose", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Arabeska_Rose_Aptumšojums_6_2__.png" },
+  ],
+
+  // Updated tones for ROYAL
+  ROYAL: [
+    { id: "royal-light-grey", label: "Royal Light Grey", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Royal_Light_Grey_Aptumšojums_62__.png" },
+    { id: "royal-vanila", label: "Royal Vanila", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Royal_Vanila_Aptumšojums_62__.png" },
+    { id: "royal-white", label: "Royal White", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Royal_White_Aptumšojums_62__.png" },
+  ],
+
+  // Updated tones for TALIA
+  TALIA: [
+    { id: "talia-brown", label: "Talia Brown", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Talia_Brown_Aptumšojums_62__.png" },
+    { id: "talia-grey", label: "Talia Grey", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Talia_Grey_Aptumšojums_62__.png" },
+    { id: "talia-peah", label: "Talia Peah", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Talia_Pea_h_Aptumšojums_62__.png" },
+    { id: "talia-white", label: "Talia White", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Talia_White_Aptumšojums_62__.png" },
+  ],
+
+  // Updated tones for TOPAZ
+  TOPAZ: [
+    { id: "topaz-arena", label: "Topaz Arena", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Topaz_Arena_Aptumšojums_62__.png" },
+    { id: "topaz-coral", label: "Topaz Coral", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Topaz_Coral_Aptumšojums_62__.png" },
+    { id: "topaz-green", label: "Topaz Green", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Topaz_Green_Aptumšojums_62__.png" },
+  ],
+
+  // New tones for ZEBRA
+  ZEBRA: [
+    { id: "zebra-dn-3103", label: "Zebra DN 3103", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Zebra_DN_3103_Aptumšojums_62__.png" },
+    { id: "zebra-dn-3105", label: "Zebra DN 3105", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Zebra_DN_3105_Aptumšojums_62__.png" },
+    { id: "zebra-dn-3606", label: "Zebra DN 3606", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Zebra_DN_3606_Aptumšojums_62__.png" },
+  ],
+  // Map ZEBRA tones to each ZEBRA material group so tones appear when those materials are selected
+  "ZEBRA 3100-3104": [
+    { id: "zebra-dn-3103", label: "Zebra DN 3103", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Zebra_DN_3103_Aptumšojums_62__.png" },
+    { id: "zebra-dn-3105", label: "Zebra DN 3105", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Zebra_DN_3105_Aptumšojums_62__.png" },
+    { id: "zebra-dn-3606", label: "Zebra DN 3606", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Zebra_DN_3606_Aptumšojums_62__.png" },
+  ],
+  "ZEBRA 3105-3200": [
+    { id: "zebra-dn-3103", label: "Zebra DN 3103", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Zebra_DN_3103_Aptumšojums_62__.png" },
+    { id: "zebra-dn-3105", label: "Zebra DN 3105", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Zebra_DN_3105_Aptumšojums_62__.png" },
+    { id: "zebra-dn-3606", label: "Zebra DN 3606", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Zebra_DN_3606_Aptumšojums_62__.png" },
+  ],
+  "ZEBRA BO": [
+    { id: "zebra-dn-3103", label: "Zebra DN 3103", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Zebra_DN_3103_Aptumšojums_62__.png" },
+    { id: "zebra-dn-3105", label: "Zebra DN 3105", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Zebra_DN_3105_Aptumšojums_62__.png" },
+    { id: "zebra-dn-3606", label: "Zebra DN 3606", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Zebra_DN_3606_Aptumšojums_62__.png" },
+  ],
 }
 
 type Constraint = {
@@ -191,15 +574,24 @@ const SYSTEM_CONSTRAINTS_RULLO: Record<string, Constraint> = {
   "VARIO Uprofils Kasete (krāsains)": { maxWidth: 1.6, maxHeight: 2 },
 }
 
+type PriceBreakdown = {
+  product: number
+  installation: number
+  total: number
+}
+
 type CalculationResult = {
   price: string
   isValid: boolean
+  breakdown: PriceBreakdown | null
 }
 
 const numberFormatter = new Intl.NumberFormat("lv-LV", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 })
+
+const INSTALLATION_FEE = 20
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max)
@@ -227,12 +619,12 @@ function calculatePrice(
   includeInstallation: boolean,
 ): CalculationResult {
   if (!material || !system) {
-    return { price: "0,00", isValid: false }
+    return { price: "0,00", isValid: false, breakdown: null }
   }
 
   const basePrice = TM_PRICE_DATA[material]?.[system]
   if (!basePrice) {
-    return { price: "0,00", isValid: false }
+    return { price: "0,00", isValid: false, breakdown: null }
   }
 
   const widthM = widthMm / 1000
@@ -247,27 +639,31 @@ function calculatePrice(
     cost *= 1.2
   }
 
-  let finalCost = cost * 2.5
-  finalCost *= 1.21
+  const productCost = Math.round(cost * 2.5 * 1.21)
+  const installationCost = includeInstallation ? INSTALLATION_FEE : 0
+  const totalRounded = productCost + installationCost
 
-  if (includeInstallation) {
-    finalCost += 20
+  return {
+    price: numberFormatter.format(totalRounded),
+    isValid: true,
+    breakdown: {
+      product: productCost,
+      installation: installationCost,
+      total: totalRounded,
+    },
   }
-
-  const rounded = Math.round(finalCost)
-
-  return { price: numberFormatter.format(rounded), isValid: true }
 }
 
 export default function RulloCalculator() {
-  const materialOptions = useMemo(() => Object.keys(TM_PRICE_DATA).sort(), [])
-  const [material, setMaterial] = useState(materialOptions[0] ?? "")
+  const [material, setMaterial] = useState(ALL_MATERIAL_OPTIONS[0] ?? "")
   const [width, setWidth] = useState(1000)
   const [height, setHeight] = useState(1000)
   const [system, setSystem] = useState("")
   const [includeInstallation, setIncludeInstallation] = useState(false)
   const [downloadPending, setDownloadPending] = useState(false)
   const [downloadError, setDownloadError] = useState<string | null>(null)
+  const [toneId, setToneId] = useState("")
+  const [darkening, setDarkening] = useState<number | null>(null)
 
   const calculatorRef = useRef<HTMLDivElement>(null)
 
@@ -275,6 +671,63 @@ export default function RulloCalculator() {
     () => getAvailableSystems(material, width, height),
     [material, width, height],
   )
+
+  const activeMaxWidthMm = useMemo(() => {
+    if (!system) {
+      return MAX_WIDTH_MM
+    }
+    const constraint = SYSTEM_CONSTRAINTS_RULLO[system]
+    if (!constraint) {
+      return MAX_WIDTH_MM
+    }
+    return Math.min(Math.floor(constraint.maxWidth * 1000), MAX_WIDTH_MM)
+  }, [system])
+
+  const activeMaxHeightMm = useMemo(() => {
+    if (!system) {
+      return MAX_HEIGHT_MM
+    }
+    const constraint = SYSTEM_CONSTRAINTS_RULLO[system]
+    if (!constraint) {
+      return MAX_HEIGHT_MM
+    }
+    return Math.min(Math.floor(constraint.maxHeight * 1000), MAX_HEIGHT_MM)
+  }, [system])
+
+  const filteredMaterialOptions = useMemo(() => {
+    if (darkening === null) {
+      return ALL_MATERIAL_OPTIONS
+    }
+    return ALL_MATERIAL_OPTIONS.filter((option) => {
+      const levels = MATERIAL_BLACKOUT_LEVELS[option]
+      if (!levels) return false
+      return levels.includes(darkening)
+    })
+  }, [darkening])
+
+  const toneOptions = useMemo(() => TONE_OPTIONS[material] ?? [], [material])
+
+  useEffect(() => {
+    if (filteredMaterialOptions.length === 0) {
+      setMaterial("")
+      return
+    }
+    setMaterial((current) => {
+      if (current && filteredMaterialOptions.includes(current)) {
+        return current
+      }
+      return filteredMaterialOptions[0]
+    })
+  }, [filteredMaterialOptions])
+
+  useEffect(() => {
+    setToneId((current) => {
+      if (current && toneOptions.some((tone) => tone.id === current)) {
+        return current
+      }
+      return toneOptions[0]?.id ?? ""
+    })
+  }, [toneOptions])
 
   useEffect(() => {
     setSystem((current) => {
@@ -285,17 +738,31 @@ export default function RulloCalculator() {
     })
   }, [systemOptions])
 
+  useEffect(() => {
+    setWidth((current) => clamp(current, MIN_WIDTH_MM, activeMaxWidthMm))
+  }, [activeMaxWidthMm])
+
+  useEffect(() => {
+    setHeight((current) => clamp(current, MIN_HEIGHT_MM, activeMaxHeightMm))
+  }, [activeMaxHeightMm])
+
   const result = useMemo(
     () => calculatePrice(material, system, width, height, includeInstallation),
     [material, system, width, height, includeInstallation],
   )
 
+  const formatCurrency = (value: number) => `${numberFormatter.format(value)} €`
+  const selectedTone = useMemo(
+    () => toneOptions.find((tone) => tone.id === toneId) ?? null,
+    [toneId, toneOptions],
+  )
+
   const handleWidthChange = (value: number) => {
-    setWidth(clamp(Math.round(value), MIN_WIDTH_MM, MAX_WIDTH_MM))
+    setWidth(clamp(Math.round(value), MIN_WIDTH_MM, activeMaxWidthMm))
   }
 
   const handleHeightChange = (value: number) => {
-    setHeight(clamp(Math.round(value), MIN_HEIGHT_MM, MAX_HEIGHT_MM))
+    setHeight(clamp(Math.round(value), MIN_HEIGHT_MM, activeMaxHeightMm))
   }
 
   const handleDownload = async () => {
@@ -367,6 +834,104 @@ export default function RulloCalculator() {
         notesLines.push({ text: '* Montāžas pakalpojumi nav iekļauti cenā.', style: 'notes', margin: [0, 0, 0, 0] })
       }
 
+      // Try to embed selected tone image into the PDF (pdfmake requires data URL/base64)
+      let toneImageDataUrl: string | null = null
+      if (selectedTone && selectedTone.image) {
+        try {
+          const res = await fetch(selectedTone.image)
+          if (res.ok) {
+            const blob = await res.blob()
+            toneImageDataUrl = await new Promise<string>((resolve, reject) => {
+              const reader = new FileReader()
+              reader.onloadend = () => resolve(reader.result as string)
+              reader.onerror = reject
+              reader.readAsDataURL(blob)
+            })
+          }
+        } catch (_) {
+          toneImageDataUrl = null
+        }
+      }
+
+      const content: any[] = [
+        { text: 'Cenas Aprēķins', style: 'h1' },
+        { text: `Žalūziju cenas kalkulators v${APP_VERSION}`, style: 'sub' },
+        { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, lineColor: '#e5e7eb' }] },
+        { text: `\nDatums: ${dateStr}`, margin: [0, 14, 0, 0] },
+        { text: 'Specifikācija:', style: 'sectionTitle' },
+        {
+          table: {
+            widths: [100, '*'],
+            body: [
+              [{ text: 'Aptumšošana:', style: 'label' }, darkening ? `${darkening}%` : 'Visi' ],
+              [{ text: 'Materiāls:', style: 'label' }, material || 'Nav izvēlēts'],
+              [{ text: 'Sistēma:', style: 'label' }, system || '' ],
+              [{ text: 'Tonis:', style: 'label' }, selectedTone ? `${selectedTone.label} — ${selectedTone.description}` : 'Nav izvēlēts' ],
+              [{ text: 'Platums:', style: 'label' }, `${width} mm`],
+              [{ text: 'Augstums:', style: 'label' }, `${height} mm`],
+            ],
+          },
+          layout: {
+            hLineColor: () => '#e5e7eb',
+            vLineColor: () => '#ffffff',
+            paddingLeft: () => 0,
+            paddingRight: () => 0,
+            paddingTop: () => 6,
+            paddingBottom: () => 6,
+          },
+        },
+      ]
+
+      if (result.breakdown) {
+        const { product, installation, total } = result.breakdown
+        const installationText =
+          installation > 0
+            ? `+${numberFormatter.format(installation)} €`
+            : `${numberFormatter.format(installation)} €`
+
+        content.push({ text: 'Cenas sadalījums:', style: 'sectionTitle', margin: [0, 16, 0, 6] })
+        content.push({
+          table: {
+            widths: ['*', 'auto'],
+            body: [
+              [{ text: 'Žalūzijas cena:', style: 'label' }, `${numberFormatter.format(product)} €`],
+              [{ text: 'Montāža:', style: 'label' }, installationText],
+              [
+                { text: 'Kopā ar PVN:', style: 'label' },
+                { text: `${numberFormatter.format(total)} €`, bold: true },
+              ],
+            ],
+          },
+          layout: {
+            hLineColor: () => '#e5e7eb',
+            vLineColor: () => '#ffffff',
+            paddingLeft: () => 0,
+            paddingRight: () => 0,
+            paddingTop: () => 6,
+            paddingBottom: () => 6,
+          },
+        })
+      }
+
+      if (toneImageDataUrl) {
+        content.push({ text: 'Materiāla toņa paraugs:', style: 'sectionTitle', margin: [0, 10, 0, 6] })
+        content.push({ image: toneImageDataUrl, width: 140, margin: [0, 0, 0, 4] })
+      }
+
+      content.push({ text: '\n' })
+      content.push({ canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.8, lineColor: '#e5e7eb' }] })
+      content.push({
+        columns: [
+          notesLines,
+          [
+            { text: 'KOPĒJĀ CENA AR PVN:', style: 'totalLabel', margin: [0, 0, 0, 4] },
+            { text: prettyPrice, style: 'totalValue' },
+          ],
+        ],
+        columnGap: 12,
+        margin: [0, 10, 0, 0],
+      })
+
       const docDefinition: any = {
         pageMargins: [40, 40, 40, 60],
         defaultStyle: { font: 'Roboto', fontSize: 11, color: '#1f2937' },
@@ -379,45 +944,7 @@ export default function RulloCalculator() {
           totalLabel: { bold: true, alignment: 'right' },
           totalValue: { color: '#14b8a6', bold: true, fontSize: 20, alignment: 'right' },
         },
-        content: [
-          { text: 'Cenas Aprēķins', style: 'h1' },
-          { text: `Žalūziju cenas kalkulators v${APP_VERSION}`, style: 'sub' },
-          { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, lineColor: '#e5e7eb' }] },
-          { text: `\nDatums: ${dateStr}`, margin: [0, 14, 0, 0] },
-          { text: 'Specifikācija:', style: 'sectionTitle' },
-          {
-            table: {
-              widths: [100, '*'],
-              body: [
-                [{ text: 'Materiāls:', style: 'label' }, material],
-                [{ text: 'Sistēma:', style: 'label' }, system || '' ],
-                [{ text: 'Platums:', style: 'label' }, `${width} mm`],
-                [{ text: 'Augstums:', style: 'label' }, `${height} mm`],
-              ],
-            },
-            layout: {
-              hLineColor: () => '#e5e7eb',
-              vLineColor: () => '#ffffff',
-              paddingLeft: () => 0,
-              paddingRight: () => 0,
-              paddingTop: () => 6,
-              paddingBottom: () => 6,
-            },
-          },
-          { text: '\n' },
-          { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.8, lineColor: '#e5e7eb' }] },
-          {
-            columns: [
-              notesLines,
-              [
-                { text: 'KOPĒJĀ CENA AR PVN:', style: 'totalLabel', margin: [0, 0, 0, 4] },
-                { text: prettyPrice, style: 'totalValue' },
-              ],
-            ],
-            columnGap: 12,
-            margin: [0, 10, 0, 0],
-          },
-        ],
+        content,
       }
 
       pdfMake.createPdf(docDefinition).download(`zaluziju-cenas-aprekins-${Date.now()}.pdf`)
@@ -438,6 +965,42 @@ export default function RulloCalculator() {
       <div ref={calculatorRef} className="mt-10 grid gap-8 md:grid-cols-2 md:gap-12">
         <div className="space-y-6">
           <div>
+            <p className="text-sm font-medium text-gray-700">Izvēlieties aptumšošanas līmeni</p>
+            <p className="mt-1 text-xs text-gray-500">Tas filtrēs pieejamos materiālus pēc aptumšošanas procentiem.</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => setDarkening(null)}
+                className={cn(
+                  "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition",
+                  darkening === null
+                    ? "border-sky-500 bg-sky-50 text-sky-700"
+                    : "border-gray-200 bg-white text-gray-700 hover:border-sky-400 hover:text-sky-700",
+                )}
+                aria-pressed={darkening === null}
+              >
+                Visi
+              </button>
+              {DARKENING_LEVELS.map((level) => (
+                <button
+                  type="button"
+                  key={level}
+                  onClick={() => setDarkening(level)}
+                  className={cn(
+                    "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition",
+                    darkening === level
+                      ? "border-sky-500 bg-sky-50 text-sky-700"
+                      : "border-gray-200 bg-white text-gray-700 hover:border-sky-400 hover:text-sky-700",
+                  )}
+                  aria-pressed={darkening === level}
+                >
+                  {level}%
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
             <label htmlFor="material" className="block text-sm font-medium text-gray-700">
               Izvēlieties materiālu
             </label>
@@ -446,17 +1009,65 @@ export default function RulloCalculator() {
               value={material}
               onChange={(event) => setMaterial(event.target.value)}
               className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              disabled={filteredMaterialOptions.length === 0}
             >
-              {materialOptions.map((option) => {
-                const blackout = MATERIAL_BLACKOUT_INFO[option]
-                const label = blackout ? `${option} ${blackout}` : option
-                return (
-                  <option key={option} value={option}>
-                    {label}
-                  </option>
-                )
-              })}
+              {filteredMaterialOptions.length === 0 ? (
+                <option value="">Nav pieejamu materiālu izvēlētajam aptumšojumam</option>
+              ) : (
+                filteredMaterialOptions.map((option) => {
+                  const blackout = MATERIAL_BLACKOUT_INFO[option]
+                  const label = blackout ? `${option} ${blackout}` : option
+                  return (
+                    <option key={option} value={option}>
+                      {label}
+                    </option>
+                  )
+                })
+              )}
             </select>
+
+            {filteredMaterialOptions.length === 0 && (
+              <p className="mt-2 text-sm text-red-600">Izvēlētajam aptumšošanas līmenim nav pieejamu materiālu. Lūdzu, mēģiniet citu līmeni.</p>
+            )}
+
+            {toneOptions.length > 0 && filteredMaterialOptions.length > 0 && (
+              <div className="mt-6">
+                <p className="text-sm font-medium text-gray-700">Izvēlieties materiāla toni</p>
+                <p className="mt-1 text-xs text-gray-500">Klikšķiniet uz toņa, lai apskatītu lielāku paraugu un iekļautu to PDF aprēķinā.</p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {toneOptions.map((tone) => (
+                    <button
+                      type="button"
+                      key={tone.id}
+                      onClick={() => setToneId(tone.id)}
+                      className={cn(
+                        "flex w-full items-center gap-3 rounded-xl border px-3 py-3 text-left transition shadow-sm",
+                        toneId === tone.id
+                          ? "border-sky-500 bg-sky-50"
+                          : "border-gray-200 bg-white hover:border-sky-400 hover:bg-sky-50/60",
+                      )}
+                      aria-pressed={toneId === tone.id}
+                    >
+                      {tone.image ? (
+                        <img
+                          src={tone.image}
+                          alt={`${tone.label} paraugs`}
+                          className="h-10 w-10 rounded-lg object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-200 text-[0.65rem] font-semibold text-slate-600">
+                          Tone
+                        </div>
+                      )}
+                      <div>
+                        <div className="text-sm font-semibold text-gray-800">{tone.label}</div>
+                        <div className="text-xs text-gray-500">{tone.description}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           <div>
@@ -485,6 +1096,19 @@ export default function RulloCalculator() {
                 Izvēlētie izmēri pārsniedz pieejamos sistēmu parametrus.
               </p>
             )}
+            {system && SYSTEM_IMAGE_INFO[system] && (
+              <div className="mt-6 flex items-center gap-4 rounded-2xl border border-sky-100 bg-white p-4 shadow-sm">
+                <img
+                  src={SYSTEM_IMAGE_INFO[system].image}
+                  alt={`${SYSTEM_IMAGE_INFO[system].label} sistēmas paraugs`}
+                  className="h-28 w-40 rounded-xl object-cover shadow-sm"
+                />
+                <div>
+                  <p className="text-sm font-medium text-sky-600">Izvēlētā sistēma</p>
+                  <h3 className="mt-1 text-lg font-semibold text-gray-900">{SYSTEM_IMAGE_INFO[system].label}</h3>
+                </div>
+              </div>
+            )}
           </div>
 
           <div>
@@ -496,7 +1120,7 @@ export default function RulloCalculator() {
                 id="width"
                 type="range"
                 min={MIN_WIDTH_MM}
-                max={MAX_WIDTH_MM}
+                max={activeMaxWidthMm}
                 step={10}
                 value={width}
                 onChange={(event) => handleWidthChange(Number(event.target.value))}
@@ -505,7 +1129,7 @@ export default function RulloCalculator() {
               <input
                 type="number"
                 min={MIN_WIDTH_MM}
-                max={MAX_WIDTH_MM}
+                max={activeMaxWidthMm}
                 value={width}
                 onChange={(event) => {
                   if (event.target.value === "") return
@@ -515,7 +1139,7 @@ export default function RulloCalculator() {
               />
             </div>
             <p className="mt-1 text-xs text-gray-500">
-              Pieejamais diapazons: {MIN_WIDTH_MM}–{MAX_WIDTH_MM} mm
+              Pieejamais diapazons: {MIN_WIDTH_MM}–{activeMaxWidthMm} mm
             </p>
           </div>
 
@@ -528,7 +1152,7 @@ export default function RulloCalculator() {
                 id="height"
                 type="range"
                 min={MIN_HEIGHT_MM}
-                max={MAX_HEIGHT_MM}
+                max={activeMaxHeightMm}
                 step={10}
                 value={height}
                 onChange={(event) => handleHeightChange(Number(event.target.value))}
@@ -537,7 +1161,7 @@ export default function RulloCalculator() {
               <input
                 type="number"
                 min={MIN_HEIGHT_MM}
-                max={MAX_HEIGHT_MM}
+                max={activeMaxHeightMm}
                 value={height}
                 onChange={(event) => {
                   if (event.target.value === "") return
@@ -547,7 +1171,7 @@ export default function RulloCalculator() {
               />
             </div>
             <p className="mt-1 text-xs text-gray-500">
-              Pieejamais diapazons: {MIN_HEIGHT_MM}–{MAX_HEIGHT_MM} mm
+              Pieejamais diapazons: {MIN_HEIGHT_MM}–{activeMaxHeightMm} mm
             </p>
           </div>
 
@@ -558,7 +1182,7 @@ export default function RulloCalculator() {
               onChange={(event) => setIncludeInstallation(event.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-500"
             />
-            Montāžas pakalpojumi (+20,00 €)
+            Montāžas pakalpojumi (+{numberFormatter.format(INSTALLATION_FEE)} €)
           </label>
         </div>
 
@@ -567,6 +1191,28 @@ export default function RulloCalculator() {
             <p className="text-base font-medium text-gray-600">Cena € ar PVN:</p>
             <p className="mt-3 text-4xl font-bold text-gray-900 sm:text-5xl">{result.price}</p>
           </div>
+          {result.breakdown && (
+            <div className="mt-4 w-full rounded-xl border border-gray-200 bg-white/80 px-5 py-4 text-sm text-gray-700 shadow-inner">
+              <dl className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <dt className="font-medium">Žalūzijas cena</dt>
+                  <dd>{formatCurrency(result.breakdown.product)}</dd>
+                </div>
+                <div className="flex items-center justify-between">
+                  <dt className="font-medium">Montāža</dt>
+                  <dd>
+                    {result.breakdown.installation > 0
+                      ? `+${numberFormatter.format(result.breakdown.installation)} €`
+                      : `${numberFormatter.format(result.breakdown.installation)} €`}
+                  </dd>
+                </div>
+                <div className="flex items-center justify-between border-t border-gray-200 pt-2">
+                  <dt className="font-semibold text-gray-900">Kopā ar PVN</dt>
+                  <dd className="font-semibold text-gray-900">{formatCurrency(result.breakdown.total)}</dd>
+                </div>
+              </dl>
+            </div>
+          )}
           <button
             type="button"
             onClick={handleDownload}
@@ -575,6 +1221,12 @@ export default function RulloCalculator() {
           >
             {downloadPending ? "Gatavo PDF..." : "Lejupielādēt aprēķinu"}
           </button>
+          <Link
+            href="http://127.0.0.1:62003/kontakti"
+            className="mt-3 inline-flex w-full items-center justify-center rounded-xl border border-sky-500 px-4 py-3 text-sm font-semibold text-sky-600 shadow-sm transition hover:bg-sky-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+          >
+            Aizpildīt pieteikumu
+          </Link>
           {downloadError && <p className="mt-3 text-sm text-red-600">{downloadError}</p>}
           <p className="mt-4 w-full text-left text-xs text-gray-500" data-component-name="RulloCalculator">
             *kalkulatorā norādītā cena ir informatīva,<br />
@@ -582,6 +1234,27 @@ export default function RulloCalculator() {
           </p>
         </div>
       </div>
+
+      {selectedTone && (
+        <div className="mt-10 rounded-3xl border border-sky-100 bg-white p-8 shadow-sm">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center">
+            {selectedTone.image ? (
+              <img
+                src={selectedTone.image}
+                alt={`${selectedTone.label} paraugs`}
+                className="h-40 w-full max-w-[280px] rounded-2xl object-cover md:h-48"
+              />
+            ) : (
+              <div className="h-40 w-full max-w-[280px] rounded-2xl bg-slate-200 md:h-48" aria-hidden="true" />
+            )}
+            <div>
+              <p className="text-sm font-medium text-sky-600">Izvēlētais tonis</p>
+              <h3 className="mt-2 text-2xl font-semibold text-gray-900">{selectedTone.label}</h3>
+              <p className="mt-1 text-sm text-gray-600">{selectedTone.description}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
