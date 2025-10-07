@@ -1378,12 +1378,31 @@ export default function RulloCalculator() {
               </dl>
             </div>
           )}
-          <Link
-            href="http://127.0.0.1:62003/kontakti"
-            className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-sky-500 px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
-          >
-            Aizpildīt pieteikumu
-          </Link>
+          {(() => {
+            const toneLabel = selectedTone?.label || "—"
+            const install = includeInstallation ? "Jā" : "Nē"
+            const priceText = result?.breakdown?.total
+              ? `${formatCurrency(result.breakdown.total)}`
+              : `${result?.price ?? "—"}`
+            const lines = [
+              `Aprēķins (rullo):`,
+              `• Materiāla tonis: ${toneLabel}`,
+              `• Sistēma: ${system || "—"}`,
+              `• Izmērs (mm): ${width} x ${height}`,
+              `• Montāža: ${install}`,
+              `• Kopā ar PVN: ${priceText}`,
+            ]
+            const summary = lines.join("\n")
+            const href = `/kontakti?calc=${encodeURIComponent(summary)}`
+            return (
+              <Link
+                href={href}
+                className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-sky-500 px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+              >
+                Aizpildīt pieteikumu
+              </Link>
+            )
+          })()}
           <p className="mt-2 text-xs text-gray-600">
             Pēc pieteikuma nosūtīšanas mūsu menedžeris ar Jums sazināsies 1 darba dienas laikā.
           </p>

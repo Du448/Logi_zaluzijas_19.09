@@ -1,9 +1,12 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from "react"
+import { useSearchParams } from "next/navigation"
 type Status = "idle" | "loading" | "success" | "error"
 
 export default function ContactFormModern(){
+  const searchParams = useSearchParams()
+  const calcPrefill = searchParams?.get("calc") ?? ""
   const [status, setStatus] = useState<Status>("idle")
   const [message, setMessage] = useState<string>("")
   const [files, setFiles] = useState<File[]>([])
@@ -206,12 +209,12 @@ export default function ContactFormModern(){
             required
             rows={5}
             placeholder="Pastāstiet īsumā par savu ideju vai vajadzībām"
+            defaultValue={calcPrefill ? `${calcPrefill}\n\n` : undefined}
             className="w-full bg-transparent text-white placeholder-white/50 border-0 border-b border-white/30 focus:border-white outline-none py-2 resize-none"
             aria-required="true"
           />
         </label>
       </div>
-
       {/* Row 4: Files */}
       <div className="mt-10">
         <div
