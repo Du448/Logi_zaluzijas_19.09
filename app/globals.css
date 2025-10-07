@@ -10,6 +10,8 @@
   --blue:#007ACC;
   /* Soft grey for replacing white UIs (darker) */
   --soft-grey-rgb: 229 231 235; /* #E5E7EB (Tailwind Gray 200) */
+  /* Default sticky header offset used for scroll margins and sticky panels */
+  --header-offset: 8rem;
 }
 
 html, body { height: 100%; }

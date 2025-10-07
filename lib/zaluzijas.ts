@@ -59,7 +59,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "<div class='mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6'>" +
       "  <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
       "    <div class='font-medium mb-2'>Audumu katalogs</div>" +
-      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABzijas/Kr%C4%81sas/Audumu%20katalogs.pdf?updatedAt=1756741676496' target='_blank' rel='noopener noreferrer' class='mt-1 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
+      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABzijas/Kr%C4%81sas/ZF_0_zf_rullo_zalzijas_katalogs.pdf.pdf?updatedAt=1759843802547' target='_blank' rel='noopener noreferrer' class='mt-1 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "  </div>" +
       "  <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
       "    <div class='font-medium mb-2'>Kasešu krāsas</div>" +
@@ -68,7 +68,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "</div>" +
       "<div class='mt-12 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
       "  <div class='text-center max-w-6xl mx-auto px-4'>" +
-      "  <h2 class='text-3xl md:text-4xl font-bold'>Uzstādīšanas instrukcijas</h2>" +
+      "  <h2 class='text-3xl md:text-4xl font-bold'>Nomērīšanas un uzstādīšanas instrukcijas</h2>" +
       "  <div class='mx-auto mt-3 text-sky-600' aria-hidden='true'>" +
       "    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 16' fill='currentColor' class='w-10 h-4 mx-auto'>" +
       "      <rect x='12' y='2' width='40' height='2' rx='1'/><rect x='18' y='7' width='28' height='2' rx='1'/><rect x='24' y='12' width='16' height='2' rx='1'/>" +
@@ -134,19 +134,19 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "</div>",
     features: "",
     images: [
-      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/East%20Hampton%20Somfy%20Roller%20Shades%20with%20Black%20Fascia.jpg?updatedAt=1756983460192',
-      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/What%20a%20pleasure%20to%20finish%20off%20our%20clients_.jpg?updatedAt=1756983460167',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/b_ZF_4_.jpg?updatedAt=1756983418099',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/b_ZF_6_.jpg?updatedAt=1756983418113',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario25_uprof_rieksts.png?updatedAt=1759842315200',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/b_ZF_roleta_vario_25.jpg?updatedAt=1756983418082',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario13_rieksts.png?updatedAt=1759842314637',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/b_ZF_2a.jpg?updatedAt=1756983418046',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vadulas_rieksts.png%20-%20Edited.png?updatedAt=1759842315761',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/b_ZF_roleta_materialowa_vario_17_2.jpg?updatedAt=1756983418010',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario17_rieksts.png?updatedAt=1759842314022',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/b_ZF_roleta_materialowa_vario_17_.jpg?updatedAt=1756983418102',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/Upgrade%20your%20Light-Filtering%20Roller%20Blinds%20into%20a_.jpg?updatedAt=1756983460157',
-      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/Voile%20roller%20blinds%20are%20the%20perfect%20blind%20for_.jpg?updatedAt=1756983460141',
-      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/Elevate%20the%20elegance%20of%20our%20classic%20Blackout_.jpg?updatedAt=1756983460142',
-      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/Soma%20Steel%20Grey%20Blackout%20Cassette%20Roller_.jpg?updatedAt=1756983460145',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/Tailor%20your%20Light-Filtering%20Roller%20Blinds%20to%20your_.jpg?updatedAt=1756983460146',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/Bella%20Vine%20Green%20Blackout%20Cassette%20Motorised_.jpg?updatedAt=1756983460147',
-      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/Vivi%20Glow%20Multi%20Coloured%20_%20Yellow%20_%20Grey%20Light_.jpg?updatedAt=1756983460148',
-      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/Screen%203_%20Roller%20Shades%20with%20Cassette%20Track.jpg?updatedAt=1756983460150',
-      "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/Motorized%20roller%20shades%20aren't%20just%20for%20small%20or_.jpg?updatedAt=1756983460117",
-      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/Our%20classic%20Blackout%20Roller%20Blinds%20get%20a%20stylish_.jpg?updatedAt=1756983460115',
-      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/Ducato%20Night%20Black%20Light%20Filtering%20Cassette%20Roller_.jpg?updatedAt=1756983460113',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Jaunas%20bildes%20m%C4%81jaslapai/Our%20classic%20Blackout%20Roller%20Blinds%20get%20a%20stylish_%20(1).jpg?updatedAt=1756983460064'
     ],
     thumbnail:
@@ -168,7 +168,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "</div>" +
       "<div class='mt-12 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
       "  <div class='text-center max-w-6xl mx-auto px-4'>" +
-      "  <h2 class='text-3xl md:text-4xl font-bold'>Uzstādīšanas instrukcijas</h2>" +
+      "  <h2 class='text-3xl md:text-4xl font-bold'>Nomērīšanas un uzstādīšanas instrukcijas</h2>" +
       "  <div class='mx-auto mt-3 text-sky-600' aria-hidden='true'>" +
       "    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 16' fill='currentColor' class='w-10 h-4 mx-auto'>" +
       "      <rect x='12' y='2' width='40' height='2' rx='1'/><rect x='18' y='7' width='28' height='2' rx='1'/><rect x='24' y='12' width='16' height='2' rx='1'/>" +
@@ -472,7 +472,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "</div>" +
       "<div class='mt-12 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
       "  <div class='text-center max-w-6xl mx-auto px-4'>" +
-      "    <h2 class='text-3xl md:text-4xl font-bold'>Uzstādīšanas instrukcijas</h2>" +
+      "    <h2 class='text-3xl md:text-4xl font-bold'>Nomērīšanas un uzstādīšanas instrukcijas</h2>" +
       "    <div class='mx-auto mt-3 text-sky-600' aria-hidden='true'>" +
       "      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 16' fill='currentColor' class='w-10 h-4 mx-auto'><rect x='12' y='2' width='40' height='2' rx='1'/><rect x='18' y='7' width='28' height='2' rx='1'/><rect x='24' y='12' width='16' height='2' rx='1'/></svg>" +
       "    </div>" +
@@ -823,7 +823,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "<div class='mt-12 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
       "  <div class='w-full'>" +
       "    <div class='text-center max-w-6xl mx-auto px-4'>" +
-      "      <h2 class='text-3xl md:text-4xl font-bold'>Uzstādīšanas instrukcijas</h2>" +
+      "      <h2 class='text-3xl md:text-4xl font-bold'>Nomērīšanas un uzstādīšanas instrukcijas</h2>" +
       "      <div class='mx-auto mt-3 text-sky-600' aria-hidden='true'>" +
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 16' fill='currentColor' class='w-10 h-4 mx-auto'><rect x='12' y='2' width='40' height='2' rx='1'/><rect x='18' y='7' width='28' height='2' rx='1'/><rect x='24' y='12' width='16' height='2' rx='1'/></svg>" +
       "      </div>" +
@@ -1621,7 +1621,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "</div>" +
       "<div class='mt-12 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
       "  <div class='max-w-[76.8rem] mx-auto px-4 md:px-8'>" +
-      "    <h2 class='text-2xl font-semibold mb-6 text-center'>Uzstādīšanas instrukcijas</h2>" +
+      "    <h2 class='text-2xl font-semibold mb-6 text-center'>Nomērīšanas un uzstādīšanas instrukcijas</h2>" +
       "    <div class='grid grid-cols-1 md:grid-cols-3 gap-6'>" +
       "      <a href='/pdf/zaluzijas/moskitu/merijumi-moskitu-tikli.pdf' target='_blank' rel='noopener noreferrer' class='block group p-6 rounded-xl border border-gray-200 bg-white hover:shadow-lg hover:border-sky-200 transition'>" +
       "        <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center group-hover:scale-105 transition' aria-hidden='true'>" +

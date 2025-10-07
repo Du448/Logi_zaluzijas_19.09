@@ -47,7 +47,7 @@ const SYSTEM_IMAGE_INFO: Record<string, { label: string; image: string }> = {
   },
   "VARIO 13 Kasete (krāsaina)": {
     label: "Vario 13",
-    image: "https://ik.imagekit.io/vbvwdejj5/VARIO%2013.jpg?updatedAt=1759775255507",
+    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario13_rieksts.png?updatedAt=1759842314637",
   },
   "VARIO 17 Kasete (balts)": {
     label: "Vario 17",
@@ -55,7 +55,7 @@ const SYSTEM_IMAGE_INFO: Record<string, { label: string; image: string }> = {
   },
   "VARIO 17 Kasete (krāsaina)": {
     label: "Vario 17",
-    image: "https://ik.imagekit.io/vbvwdejj5/Vario%2017.jpg?updatedAt=1759775255627",
+    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario17_rieksts.png?updatedAt=1759842314022",
   },
   "VARIO Uprofils Kasete (balts)": {
     label: "U profils",
@@ -63,7 +63,7 @@ const SYSTEM_IMAGE_INFO: Record<string, { label: string; image: string }> = {
   },
   "VARIO Uprofils Kasete (krāsains)": {
     label: "U profils",
-    image: "https://ik.imagekit.io/vbvwdejj5/U%20profile.jpg?updatedAt=1759775255787",
+    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario25_uprof_rieksts.png?updatedAt=1759842315200",
   },
 }
 
@@ -655,7 +655,7 @@ function calculatePrice(
 }
 
 export default function RulloCalculator() {
-  const [material, setMaterial] = useState(ALL_MATERIAL_OPTIONS[0] ?? "")
+  const [material, setMaterial] = useState("")
   const [width, setWidth] = useState(1000)
   const [height, setHeight] = useState(1000)
   const [system, setSystem] = useState("")
@@ -665,7 +665,28 @@ export default function RulloCalculator() {
   const [toneId, setToneId] = useState("")
   const [darkening, setDarkening] = useState<number | null>(null)
 
+  // Progressive unlocking flags
+  const [hasChosenDarkening, setHasChosenDarkening] = useState(false)
+  const [hasChosenMaterial, setHasChosenMaterial] = useState(false)
+  const [hasChosenTone, setHasChosenTone] = useState(false)
+  const [hasChosenSystem, setHasChosenSystem] = useState(false)
+  const [isMaxSizesOpen, setIsMaxSizesOpen] = useState(false)
+
   const calculatorRef = useRef<HTMLDivElement>(null)
+  const sectionRefs = {
+    darkening: useRef<HTMLDivElement>(null),
+    material: useRef<HTMLDivElement>(null),
+    tone: useRef<HTMLDivElement>(null),
+    system: useRef<HTMLDivElement>(null),
+    width: useRef<HTMLDivElement>(null),
+    height: useRef<HTMLDivElement>(null),
+  }
+
+  const scrollTo = (ref: React.RefObject<HTMLElement>) => {
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+  }
 
   const systemOptions = useMemo(
     () => getAvailableSystems(material, width, height),
@@ -705,37 +726,45 @@ export default function RulloCalculator() {
     })
   }, [darkening])
 
+  // Reset downstream selections when an earlier choice changes
+  useEffect(() => {
+    // Darkening changed -> require re-confirming later steps
+    setHasChosenMaterial(false)
+    setToneId("")
+    setHasChosenTone(false)
+    setSystem("")
+    setHasChosenSystem(false)
+  }, [darkening])
+
+  useEffect(() => {
+    // Material changed -> reset tone and system
+    setToneId("")
+    setHasChosenTone(false)
+    setSystem("")
+    setHasChosenSystem(false)
+  }, [material])
+
+  useEffect(() => {
+    // Tone changed -> reset system confirmation
+    setSystem("")
+    setHasChosenSystem(false)
+  }, [toneId])
+
   const toneOptions = useMemo(() => TONE_OPTIONS[material] ?? [], [material])
 
   useEffect(() => {
-    if (filteredMaterialOptions.length === 0) {
-      setMaterial("")
-      return
-    }
-    setMaterial((current) => {
-      if (current && filteredMaterialOptions.includes(current)) {
-        return current
-      }
-      return filteredMaterialOptions[0]
-    })
+    // Keep current material if still valid; otherwise clear it.
+    setMaterial((current) => (current && filteredMaterialOptions.includes(current) ? current : ""))
   }, [filteredMaterialOptions])
 
   useEffect(() => {
-    setToneId((current) => {
-      if (current && toneOptions.some((tone) => tone.id === current)) {
-        return current
-      }
-      return toneOptions[0]?.id ?? ""
-    })
+    // Only preserve tone if still valid; do not auto-select a default.
+    setToneId((current) => (current && toneOptions.some((tone) => tone.id === current) ? current : ""))
   }, [toneOptions])
 
   useEffect(() => {
-    setSystem((current) => {
-      if (current && systemOptions.includes(current)) {
-        return current
-      }
-      return systemOptions[0] ?? ""
-    })
+    // Only preserve system if still valid; do not auto-select a default.
+    setSystem((current) => (current && systemOptions.includes(current) ? current : ""))
   }, [systemOptions])
 
   useEffect(() => {
@@ -824,6 +853,8 @@ export default function RulloCalculator() {
       const dateStr = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}.`
       const prettyPrice = `${result.price} €`
 
+      const selectedSystemInfo = system ? SYSTEM_IMAGE_INFO[system] : null
+
       const notesLines = [
         { text: '* Šis ir informatīvs cenas aprēķins. Gala cena var atšķirties.', style: 'notes', margin: [0, 10, 0, 2] },
       ]
@@ -832,6 +863,24 @@ export default function RulloCalculator() {
         notesLines.push({ text: '* Cenas aprēķinā iekļauti montāžas pakalpojumi.', style: 'notes', margin: [0, 0, 0, 0] })
       } else {
         notesLines.push({ text: '* Montāžas pakalpojumi nav iekļauti cenā.', style: 'notes', margin: [0, 0, 0, 0] })
+      }
+
+      let systemImageDataUrl: string | null = null
+      if (selectedSystemInfo?.image) {
+        try {
+          const res = await fetch(selectedSystemInfo.image)
+          if (res.ok) {
+            const blob = await res.blob()
+            systemImageDataUrl = await new Promise<string>((resolve, reject) => {
+              const reader = new FileReader()
+              reader.onloadend = () => resolve(reader.result as string)
+              reader.onerror = reject
+              reader.readAsDataURL(blob)
+            })
+          }
+        } catch (_) {
+          systemImageDataUrl = null
+        }
       }
 
       // Try to embed selected tone image into the PDF (pdfmake requires data URL/base64)
@@ -853,6 +902,15 @@ export default function RulloCalculator() {
         }
       }
 
+      const formatToneValueForPdf = (toneOption?: ToneOption | null) => {
+        if (!toneOption) {
+          return 'Nav izvēlēts'
+        }
+        const numericMatches = toneOption.description.match(/\d+(?:[.,]\d+)?/g)
+        const numericPart = numericMatches && numericMatches.length > 0 ? numericMatches.join(' ') : ''
+        return numericPart ? `${toneOption.label} ${numericPart}` : toneOption.label
+      }
+
       const content: any[] = [
         { text: 'Cenas Aprēķins', style: 'h1' },
         { text: `Žalūziju cenas kalkulators v${APP_VERSION}`, style: 'sub' },
@@ -865,8 +923,8 @@ export default function RulloCalculator() {
             body: [
               [{ text: 'Aptumšošana:', style: 'label' }, darkening ? `${darkening}%` : 'Visi' ],
               [{ text: 'Materiāls:', style: 'label' }, material || 'Nav izvēlēts'],
-              [{ text: 'Sistēma:', style: 'label' }, system || '' ],
-              [{ text: 'Tonis:', style: 'label' }, selectedTone ? `${selectedTone.label} — ${selectedTone.description}` : 'Nav izvēlēts' ],
+              [{ text: 'Sistēma:', style: 'label' }, system || 'Nav izvēlēta' ],
+              [{ text: 'Tonis:', style: 'label' }, formatToneValueForPdf(selectedTone) ],
               [{ text: 'Platums:', style: 'label' }, `${width} mm`],
               [{ text: 'Augstums:', style: 'label' }, `${height} mm`],
             ],
@@ -881,6 +939,14 @@ export default function RulloCalculator() {
           },
         },
       ]
+
+      if (system && systemImageDataUrl) {
+        const columns: any[] = [{ image: systemImageDataUrl, width: 160 }]
+        if (toneImageDataUrl) {
+          columns.push({ image: toneImageDataUrl, width: 120 })
+        }
+        content.push({ columns, columnGap: 24, margin: [0, 12, 0, 6] })
+      }
 
       if (result.breakdown) {
         const { product, installation, total } = result.breakdown
@@ -913,9 +979,8 @@ export default function RulloCalculator() {
         })
       }
 
-      if (toneImageDataUrl) {
-        content.push({ text: 'Materiāla toņa paraugs:', style: 'sectionTitle', margin: [0, 10, 0, 6] })
-        content.push({ image: toneImageDataUrl, width: 140, margin: [0, 0, 0, 4] })
+      if (toneImageDataUrl && !(system && systemImageDataUrl)) {
+        content.push({ image: toneImageDataUrl, width: 140, margin: [0, 10, 0, 4] })
       }
 
       content.push({ text: '\n' })
@@ -943,6 +1008,8 @@ export default function RulloCalculator() {
           notes: { fontSize: 9, color: '#6b7280' },
           totalLabel: { bold: true, alignment: 'right' },
           totalValue: { color: '#14b8a6', bold: true, fontSize: 20, alignment: 'right' },
+          systemTitle: { fontSize: 13, bold: true, color: '#0f172a' },
+          systemSubtitle: { fontSize: 10, color: '#4b5563' },
         },
         content,
       }
@@ -960,7 +1027,45 @@ export default function RulloCalculator() {
     <div className="w-full rounded-3xl bg-sky-50 p-6 shadow-sm sm:p-10">
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Cenas kalkulators</h2>
-      </div>
+        {/* Maksimālie izmēri Modal */}
+      {isMaxSizesOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="max-sizes-title"
+        >
+          <div className="absolute inset-0 bg-black/50" onClick={() => setIsMaxSizesOpen(false)} />
+          <div className="relative z-10 w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+            <div className="flex items-start justify-between">
+              <h3 id="max-sizes-title" className="text-lg font-semibold text-gray-900">Maksimālie izmēri</h3>
+              <button
+                type="button"
+                onClick={() => setIsMaxSizesOpen(false)}
+                className="ml-4 inline-flex h-8 w-8 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                aria-label="Aizvērt"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="mt-4 space-y-2 text-sm text-gray-700">
+              <p>mak. izmērs - P1500xA1300 (Vario 13)</p>
+              <p>mak. izmērs - P1600xA2000 (Vario 17)</p>
+              <p>mak. izmērs - P1600xA2000 (Vario 25)</p>
+            </div>
+            <div className="mt-6 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setIsMaxSizesOpen(false)}
+                className="inline-flex items-center rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+              >
+                Aizvērt
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
 
       <div ref={calculatorRef} className="mt-10 grid gap-8 md:grid-cols-2 md:gap-12">
         <div className="space-y-6">
@@ -970,7 +1075,11 @@ export default function RulloCalculator() {
             <div className="mt-3 flex flex-wrap gap-2">
               <button
                 type="button"
-                onClick={() => setDarkening(null)}
+                onClick={() => {
+                  setDarkening(null)
+                  setHasChosenDarkening(true)
+                  scrollTo(sectionRefs.material)
+                }}
                 className={cn(
                   "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition",
                   darkening === null
@@ -985,7 +1094,11 @@ export default function RulloCalculator() {
                 <button
                   type="button"
                   key={level}
-                  onClick={() => setDarkening(level)}
+                  onClick={() => {
+                    setDarkening(level)
+                    setHasChosenDarkening(true)
+                    scrollTo(sectionRefs.material)
+                  }}
                   className={cn(
                     "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition",
                     darkening === level
@@ -1000,21 +1113,30 @@ export default function RulloCalculator() {
             </div>
           </div>
 
-          <div>
+          <div className={cn(!hasChosenDarkening && "pointer-events-none opacity-50")}> 
             <label htmlFor="material" className="block text-sm font-medium text-gray-700">
               Izvēlieties materiālu
             </label>
             <select
               id="material"
               value={material}
-              onChange={(event) => setMaterial(event.target.value)}
+              onChange={(event) => {
+                const v = event.target.value
+                setMaterial(v)
+                setHasChosenMaterial(!!v)
+                if (v) {
+                  scrollTo(sectionRefs.tone)
+                }
+              }}
               className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
-              disabled={filteredMaterialOptions.length === 0}
+              disabled={!hasChosenDarkening || filteredMaterialOptions.length === 0}
             >
               {filteredMaterialOptions.length === 0 ? (
                 <option value="">Nav pieejamu materiālu izvēlētajam aptumšojumam</option>
               ) : (
-                filteredMaterialOptions.map((option) => {
+                <>
+                  <option value="">Izvēlieties materiālu</option>
+                  {filteredMaterialOptions.map((option) => {
                   const blackout = MATERIAL_BLACKOUT_INFO[option]
                   const label = blackout ? `${option} ${blackout}` : option
                   return (
@@ -1022,7 +1144,8 @@ export default function RulloCalculator() {
                       {label}
                     </option>
                   )
-                })
+                  })}
+                </>
               )}
             </select>
 
@@ -1030,7 +1153,11 @@ export default function RulloCalculator() {
               <p className="mt-2 text-sm text-red-600">Izvēlētajam aptumšošanas līmenim nav pieejamu materiālu. Lūdzu, mēģiniet citu līmeni.</p>
             )}
 
-            {toneOptions.length > 0 && filteredMaterialOptions.length > 0 && (
+            {!hasChosenDarkening && (
+              <p className="mt-2 text-xs text-gray-500">Virspriekš, izvēlieties aptumšošanas līmeni, lai aktivizētu materiālu izvēli.</p>
+            )}
+
+            {hasChosenMaterial && toneOptions.length > 0 && filteredMaterialOptions.length > 0 && (
               <div className="mt-6">
                 <p className="text-sm font-medium text-gray-700">Izvēlieties materiāla toni</p>
                 <p className="mt-1 text-xs text-gray-500">Klikšķiniet uz toņa, lai apskatītu lielāku paraugu un iekļautu to PDF aprēķinā.</p>
@@ -1039,7 +1166,11 @@ export default function RulloCalculator() {
                     <button
                       type="button"
                       key={tone.id}
-                      onClick={() => setToneId(tone.id)}
+                      onClick={() => {
+                        setToneId(tone.id)
+                        setHasChosenTone(true)
+                        scrollTo(sectionRefs.system)
+                      }}
                       className={cn(
                         "flex w-full items-center gap-3 rounded-xl border px-3 py-3 text-left transition shadow-sm",
                         toneId === tone.id
@@ -1068,30 +1199,52 @@ export default function RulloCalculator() {
                 </div>
               </div>
             )}
+            {!hasChosenMaterial && (
+              <p className="mt-3 text-xs text-gray-500">Virspriekš, izvēlieties materiālu, lai turpinātu ar toņa izvēli.</p>
+            )}
           </div>
 
-          <div>
-            <label htmlFor="system" className="block text-sm font-medium text-gray-700">
-              Izvēlieties sistēmu
-            </label>
+          <div className={cn(!hasChosenTone && "pointer-events-none opacity-50")}>
+            <div className="flex items-center justify-between">
+              <label htmlFor="system" className="block text-sm font-medium text-gray-700">
+                Izvēlieties sistēmu
+              </label>
+              <button
+                type="button"
+                onClick={() => setIsMaxSizesOpen(true)}
+                className="text-xs font-medium text-sky-600 hover:text-sky-700 underline underline-offset-2"
+              >
+                Maksimālie izmēri
+              </button>
+            </div>
             <select
               id="system"
               value={system}
-              onChange={(event) => setSystem(event.target.value)}
+              onChange={(event) => {
+                const v = event.target.value
+                setSystem(v)
+                setHasChosenSystem(!!v)
+                if (v) {
+                  scrollTo(sectionRefs.width)
+                }
+              }}
               className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
-              disabled={systemOptions.length === 0}
+              disabled={!hasChosenTone || systemOptions.length === 0}
             >
               {systemOptions.length === 0 ? (
                 <option value="">Nav piemērotu sistēmu</option>
               ) : (
-                systemOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))
+                <>
+                  <option value="">Izvēlieties sistēmu</option>
+                  {systemOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </>
               )}
             </select>
-            {systemOptions.length === 0 && (
+            {systemOptions.length === 0 && hasChosenSystem && (
               <p className="mt-2 text-sm text-red-600">
                 Izvēlētie izmēri pārsniedz pieejamos sistēmu parametrus.
               </p>
@@ -1109,9 +1262,12 @@ export default function RulloCalculator() {
                 </div>
               </div>
             )}
+            {!hasChosenTone && (
+              <p className="mt-2 text-xs text-gray-500">Virspriekš, izvēlieties materiāla toni, lai aktivizētu sistēmas izvēli.</p>
+            )}
           </div>
 
-          <div>
+          <div className={cn(!hasChosenSystem && "pointer-events-none opacity-50")}> 
             <label htmlFor="width" className="block text-sm font-medium text-gray-700">
               Platums (mm)
             </label>
@@ -1141,9 +1297,12 @@ export default function RulloCalculator() {
             <p className="mt-1 text-xs text-gray-500">
               Pieejamais diapazons: {MIN_WIDTH_MM}–{activeMaxWidthMm} mm
             </p>
+            {!hasChosenSystem && (
+              <p className="mt-2 text-xs text-gray-500">Virspriekš, izvēlieties sistēmu, lai norādītu izmērus.</p>
+            )}
           </div>
 
-          <div>
+          <div className={cn(!hasChosenSystem && "pointer-events-none opacity-50")}> 
             <label htmlFor="height" className="block text-sm font-medium text-gray-700">
               Augstums (mm)
             </label>
@@ -1173,9 +1332,12 @@ export default function RulloCalculator() {
             <p className="mt-1 text-xs text-gray-500">
               Pieejamais diapazons: {MIN_HEIGHT_MM}–{activeMaxHeightMm} mm
             </p>
+            {!hasChosenSystem && (
+              <p className="mt-2 text-xs text-gray-500">Virspriekš, izvēlieties sistēmu, lai norādītu izmērus.</p>
+            )}
           </div>
 
-          <label className="inline-flex items-center gap-2 text-sm text-gray-700">
+          <label className={cn("inline-flex items-center gap-2 text-sm text-gray-700", !hasChosenSystem && "pointer-events-none opacity-50")}> 
             <input
               type="checkbox"
               checked={includeInstallation}
@@ -1186,7 +1348,10 @@ export default function RulloCalculator() {
           </label>
         </div>
 
-        <div className="flex flex-col items-center justify-center rounded-2xl bg-gray-50 p-6 text-center">
+        <div
+          className="self-start flex flex-col items-center justify-center rounded-2xl bg-gray-50 p-6 text-center"
+          style={{ position: "sticky", top: "var(--header-offset)" }}
+        >
           <div className="w-full rounded-2xl border-2 border-sky-500 bg-white px-6 py-10 shadow-sm">
             <p className="text-base font-medium text-gray-600">Cena € ar PVN:</p>
             <p className="mt-3 text-4xl font-bold text-gray-900 sm:text-5xl">{result.price}</p>
@@ -1198,14 +1363,14 @@ export default function RulloCalculator() {
                   <dt className="font-medium">Žalūzijas cena</dt>
                   <dd>{formatCurrency(result.breakdown.product)}</dd>
                 </div>
-                <div className="flex items-center justify-between">
-                  <dt className="font-medium">Montāža</dt>
-                  <dd>
-                    {result.breakdown.installation > 0
-                      ? `+${numberFormatter.format(result.breakdown.installation)} €`
-                      : `${numberFormatter.format(result.breakdown.installation)} €`}
-                  </dd>
-                </div>
+                {includeInstallation && (
+                  <div className="flex items-center justify-between">
+                    <dt className="font-medium">Montāža</dt>
+                    <dd>
+                      {`+${numberFormatter.format(result.breakdown.installation)} €`}
+                    </dd>
+                  </div>
+                )}
                 <div className="flex items-center justify-between border-t border-gray-200 pt-2">
                   <dt className="font-semibold text-gray-900">Kopā ar PVN</dt>
                   <dd className="font-semibold text-gray-900">{formatCurrency(result.breakdown.total)}</dd>
@@ -1213,20 +1378,23 @@ export default function RulloCalculator() {
               </dl>
             </div>
           )}
+          <Link
+            href="http://127.0.0.1:62003/kontakti"
+            className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-sky-500 px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+          >
+            Aizpildīt pieteikumu
+          </Link>
+          <p className="mt-2 text-xs text-gray-600">
+            Pēc pieteikuma nosūtīšanas mūsu menedžeris ar Jums sazināsies 1 darba dienas laikā.
+          </p>
           <button
             type="button"
             onClick={handleDownload}
             disabled={!result.isValid || downloadPending}
-            className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-sky-500 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-300"
+            className="mt-4 inline-flex w-full items-center justify-center rounded-xl border border-sky-400 bg-white px-4 py-3 text-sm font-semibold text-sky-600 shadow-sm transition hover:bg-sky-50 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:border-gray-200 disabled:text-gray-400"
           >
             {downloadPending ? "Gatavo PDF..." : "Lejupielādēt aprēķinu"}
           </button>
-          <Link
-            href="http://127.0.0.1:62003/kontakti"
-            className="mt-3 inline-flex w-full items-center justify-center rounded-xl border border-sky-500 px-4 py-3 text-sm font-semibold text-sky-600 shadow-sm transition hover:bg-sky-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
-          >
-            Aizpildīt pieteikumu
-          </Link>
           {downloadError && <p className="mt-3 text-sm text-red-600">{downloadError}</p>}
           <p className="mt-4 w-full text-left text-xs text-gray-500" data-component-name="RulloCalculator">
             *kalkulatorā norādītā cena ir informatīva,<br />
