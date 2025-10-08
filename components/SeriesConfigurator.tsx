@@ -1,5 +1,5 @@
 "use client"
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useCart } from '@/lib/cart-context'
 import type { Product } from '@/lib/data'
 import { setSelectedProfile } from '@/lib/selection-store'
@@ -58,11 +58,9 @@ export default function SeriesConfigurator({
     520, // Rehau SYNEGO MD - 3
   ]
 
-  const price = useMemo(()=>{
-    const base = profilePrices[selectedProfileIdx] ?? basePrice
-    const extrasAdd = Object.values(selectedExtras).filter(Boolean).length * 5
-    return base + extrasAdd
-  },[selectedProfileIdx, selectedExtras, basePrice])
+  const baseProfilePrice = profilePrices[selectedProfileIdx] ?? basePrice
+  const extrasAdd = Object.values(selectedExtras).filter(Boolean).length * 5
+  const price = baseProfilePrice + extrasAdd
 
   const { add } = useCart()
 

@@ -54,7 +54,7 @@ export default function Page() {
                     <span className="relative inline-block group">
                       <em className="mx-1 underline decoration-dotted decoration-blue-400 cursor-help">Bonding Inside</em>
                       <span role="tooltip" className="pointer-events-none absolute left-1/2 z-20 mt-2 w-80 -translate-x-1/2 rounded-xl border border-gray-200 bg-white text-gray-700 shadow-xl p-3 text-sm opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition">
-                        "Bonding Inside" ir tehnoloģija, kurā stikla paketi ielīmē tieši loga rāmī, nevis tikai ievieto. Šis process padara logu ievērojami stabilāku, siltumnoturīgāku un drošāku pret ielaušanos.
+                        “Bonding Inside” ir tehnoloģija, kurā stikla paketi ielīmē tieši loga rāmī, nevis tikai ievieto. Šis process padara logu ievērojami stabilāku, siltumnoturīgāku un drošāku pret ielaušanos.
                       </span>
                     </span>
                     tehnoloģija.
@@ -132,7 +132,7 @@ export default function Page() {
                     <span className="relative inline-block group">
                       <em className="mx-1 underline decoration-dotted decoration-blue-400 cursor-help">Bonding Inside</em>
                       <span role="tooltip" className="pointer-events-none absolute left-1/2 z-20 mt-2 w-80 -translate-x-1/2 rounded-xl border border-gray-200 bg-white text-gray-700 shadow-xl p-3 text-sm opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition">
-                        "Bonding Inside" ir tehnoloģija, kurā stikla paketi ielīmē tieši loga rāmī, nevis tikai ievieto. Šis process padara logu ievērojami stabilāku, siltumnoturīgāku un drošāku pret ielaušanos.
+                        “Bonding Inside” ir tehnoloģija, kurā stikla paketi ielīmē tieši loga rāmī, nevis tikai ievieto. Šis process padara logu ievērojami stabilāku, siltumnoturīgāku un drošāku pret ielaušanos.
                       </span>
                     </span>
                     tehnoloģiju, kas nodrošina logu stabilitāti pat lielos izmēros.

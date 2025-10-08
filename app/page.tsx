@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import RailsStyleHomepage from '@/components/RailsStyleHomepage'
 import Testimonials from '@/components/Testimonials'
 import PreFooterCTA from '@/components/PreFooterCTA'
@@ -128,21 +129,24 @@ export default function Home() {
       <section className="relative py-20 overflow-hidden text-white">
         {/* Background image */}
         <div className="absolute inset-0" aria-hidden="true">
-          <img
+          <Image
             src="https://ik.imagekit.io/vbvwdejj5/mh6f19mh6f19mh6f%20-%20Edited.png?updatedAt=1758040235289"
             alt="CTA fona attēls"
-            className="w-full h-full object-cover"
-            loading="lazy"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
           />
         </div>
         {/* Overlay image (replaces black overlay) */}
         <div className="absolute inset-0" aria-hidden="true">
-          <img
+          <Image
             src="https://ik.imagekit.io/vbvwdejj5/Rings_19873.jpg?updatedAt=1758100979993"
             alt=""
-            className="w-full h-full object-cover"
-            loading="lazy"
-            decoding="async"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
           />
         </div>
         <div className="relative z-10 container mx-auto px-6 text-center py-16 md:py-24">

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 export const metadata = { title: 'Blogs 2' }
 
@@ -72,11 +73,14 @@ export default function Page() {
               key={p.id}
               className="group rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition overflow-hidden flex flex-col"
             >
-              <div className="aspect-[16/10] overflow-hidden bg-gray-100">
-                <img
+              <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                <Image
                   src={p.image}
                   alt={p.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  priority={p.id === 1}
                 />
               </div>
               <div className="p-5 flex-1 flex flex-col">

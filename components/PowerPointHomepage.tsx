@@ -1,5 +1,6 @@
 "use client"
 
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -28,7 +29,9 @@ export default function PowerPointHomepage() {
       <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center">
-            <img src="/ADEstate_logo.png" alt="Logo" className="h-8 w-auto" />
+            <div className="relative h-8 w-24">
+              <Image src="/ADEstate_logo.png" alt="Logo" fill className="object-contain" priority />
+            </div>
             <span className="ml-3 text-xl font-bold text-slate-800">Logi Jums</span>
           </div>
           <div className="hidden md:flex items-center space-x-8">
@@ -124,8 +127,15 @@ function HeroSlide() {
             <Link href="/projekti" className="border-2 border-slate-300 hover:border-slate-400 text-slate-700 px-8 py-4 rounded-lg font-semibold text-lg transition">Apskatīt projektus</Link>
           </div>
         </motion.div>
-        <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="relative">
-          <img src="https://ik.imagekit.io/vbvwdejj5/dzivoklis-1024x601.jpg?updatedAt=1756230772951" alt="PVC logi" className="rounded-2xl shadow-2xl" />
+        <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="relative h-full min-h-[240px]">
+          <Image
+            src="https://ik.imagekit.io/vbvwdejj5/dzivoklis-1024x601.jpg?updatedAt=1756230772951"
+            alt="PVC logi"
+            fill
+            className="rounded-2xl object-cover shadow-2xl"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            priority
+          />
         </motion.div>
       </div>
     </section>
@@ -148,8 +158,14 @@ function ProductsSlide() {
         <div className="grid md:grid-cols-3 gap-8">
           {products.map((product, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.1 }} className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition group">
-              <div className="aspect-[4/3] overflow-hidden">
-                <img src={product.image} alt={product.title} className="w-full h-full object-cover group-hover:scale-105 transition" />
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  fill
+                  className="object-cover transition group-hover:scale-105"
+                  sizes="(min-width: 1024px) 30vw, 100vw"
+                />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-slate-800 mb-2">{product.title}</h3>
@@ -193,8 +209,24 @@ function AboutSlide() {
           </div>
         </motion.div>
         <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="grid grid-cols-2 gap-4">
-          <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=400" alt="Darbnīca" className="rounded-lg" />
-          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=400" alt="Uzstādīšana" className="rounded-lg mt-8" />
+          <div className="relative h-40 rounded-lg overflow-hidden">
+            <Image
+              src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=400"
+              alt="Darbnīca"
+              fill
+              className="object-cover"
+              sizes="(min-width: 768px) 20vw, 50vw"
+            />
+          </div>
+          <div className="relative h-40 rounded-lg overflow-hidden mt-8">
+            <Image
+              src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=400"
+              alt="Uzstādīšana"
+              fill
+              className="object-cover"
+              sizes="(min-width: 768px) 20vw, 50vw"
+            />
+          </div>
         </motion.div>
       </div>
     </section>

@@ -149,7 +149,7 @@ export default function PiederumiLanding() {
                 setTouchDeltaX(0)
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {/* eslint-disable-next-line @next/next/no-img-element -- swipe gestures require native <img> to update without Next.js layout reflow */}
               <img
                 src={heroImages[heroIndex]}
                 alt="Piederumu galerija"
@@ -192,7 +192,7 @@ export default function PiederumiLanding() {
             {categories.map((c) => (
               <a key={c.id} href={`#${c.id}`} className="group block rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
                 <div className="h-32 bg-gray-100">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  {/* eslint-disable-next-line @next/next/no-img-element -- category cards reuse cached thumbnails via native <img> for instant hover */}
                   <img src={c.image} alt={c.title} className="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <div className="p-5">
@@ -228,7 +228,7 @@ export default function PiederumiLanding() {
                 </div>
               </div>
               <div className={idx % 2 === 0 ? 'io-slide-right order-2' : 'io-slide-right md:order-1'}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
+                {/* eslint-disable-next-line @next/next/no-img-element -- alternating ScrollReveal animation uses intrinsic measurements */}
                 <img src={c.image} alt={c.title} className="w-full rounded-2xl shadow" loading="lazy" />
               </div>
             </div>

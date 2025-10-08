@@ -1,5 +1,6 @@
 "use client"
 
+import Image from 'next/image'
 import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -21,7 +22,16 @@ function Hero(){
   const bg = "https://images.unsplash.com/photo-1600566752355-35792bedcfea?q=80&w=1600"
   return (
     <section className="relative h-[70vh] md:h-[88vh] overflow-hidden">
-      <img src={bg} alt="Māja ar lieliem logiem un žalūzijām" className="absolute inset-0 w-full h-full object-cover" />
+      <div className="absolute inset-0">
+        <Image
+          src={bg}
+          alt="Māja ar lieliem logiem un žalūzijām"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+      </div>
       <div className="absolute inset-0 bg-black/40" />
       <div className="relative h-full">
         <div className="container h-full flex items-end pb-12">
@@ -156,7 +166,15 @@ function RealGallery(){
         <div className="grid md:grid-cols-3 gap-6">
           {items.map((it, i) => (
             <figure key={i} className="rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
-              <img src={it.src} alt={it.cap} className="w-full h-56 object-cover" />
+              <div className="relative h-56">
+                <Image
+                  src={it.src}
+                  alt={it.cap}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                />
+              </div>
               <figcaption className="p-4 text-gray-700">{it.cap}</figcaption>
             </figure>
           ))}

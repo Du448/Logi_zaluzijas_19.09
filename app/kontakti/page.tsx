@@ -1,6 +1,22 @@
 import ContactFormModern from '@/components/ContactFormModern'
 import Rekviziti from '@/components/Rekviziti'
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
+
+function ContactFormFallback(){
+  return (
+    <div className="mt-10 space-y-6">
+      <div className="grid gap-6 md:grid-cols-2">
+        {[1, 2, 3, 4].map((key) => (
+          <div key={key} className="h-16 rounded-md bg-white/10 animate-pulse" />
+        ))}
+      </div>
+      <div className="h-36 rounded-md bg-white/10 animate-pulse" />
+      <div className="h-20 rounded-md bg-white/10 animate-pulse" />
+      <div className="h-12 w-40 rounded-md bg-white/10 animate-pulse" />
+    </div>
+  )
+}
 
 export const metadata: Metadata = {
   title: 'Kontakti — Vestalux',
@@ -50,7 +66,9 @@ export default function Page(){
           </div>
 
           {/* Form */}
-          <ContactFormModern />
+          <Suspense fallback={<ContactFormFallback />}>
+            <ContactFormModern />
+          </Suspense>
         </div>
       </section>
 

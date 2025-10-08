@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useState } from "react"
 
 export type ShowcaseCarouselProps = {
@@ -20,7 +21,7 @@ export default function ShowcaseCarousel({ images, label, title, description, cl
     <article className={`relative overflow-hidden rounded-2xl bg-blue-800 text-white min-h-[48vh] lg:min-h-[60vh] ${className ?? ''}`}>
       {/* Background image */}
       <div className="absolute inset-0" aria-hidden="true">
-        <img src={current} alt="Showcase" className="w-full h-full object-cover" loading="lazy" />
+        <Image src={current} alt="Showcase" fill className="object-cover" sizes="100vw" priority />
       </div>
 
       {/* Text content */}

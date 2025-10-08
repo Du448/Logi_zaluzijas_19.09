@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -173,8 +174,14 @@ function PopularProductsCarousel() {
           >
             {products.map((product, i) => (
               <div key={i} className="min-w-[300px] bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img src={product.image} alt={product.name} className="w-full h-full object-cover hover:scale-105 transition" />
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover transition hover:scale-105"
+                    sizes="(min-width: 1024px) 25vw, 80vw"
+                  />
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold text-slate-800 mb-2">{product.name}</h3>
@@ -234,8 +241,14 @@ function BlindsTypesCarousel() {
           >
             {blindsTypes.map((type, i) => (
               <div key={i} className="min-w-[300px] bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img src={type.image} alt={type.name} className="w-full h-full object-cover hover:scale-105 transition" />
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={type.image}
+                    alt={type.name}
+                    fill
+                    className="object-cover transition hover:scale-105"
+                    sizes="(min-width: 1024px) 25vw, 80vw"
+                  />
                 </div>
                 <div className="p-6">
                   <h3 className="font-semibold text-slate-800 mb-2">{type.name}</h3>

@@ -17,7 +17,7 @@ export default function PakalpojumiSlider() {
 
       <div className="track flex items-center gap-0 will-change-transform">
         {loop.map((src, i) => (
-          // eslint-disable-next-line @next/next/no-img-element
+          // eslint-disable-next-line @next/next/no-img-element -- native <img> keeps marquee width calculation stable for infinite scrolling animation
           <img
             key={`pakalpojumi-slide-${i}`}
             src={src}

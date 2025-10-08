@@ -65,7 +65,7 @@ export default function MontazasLanding(){
               </div>
             </div>
             <div className="io-slide-right">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {/* eslint-disable-next-line @next/next/no-img-element -- parallax utility expects background-swapping via native <img> */}
               <img src="https://ik.imagekit.io/vbvwdejj5/PAKALPOJUMU%20LAPA/Gluing_of_extended_protruding_window_profile.jpeg?updatedAt=1757082006698" alt="Montāžas darbu ilustrācija" className="w-full rounded-2xl shadow-lg" loading="lazy" />
             </div>
           </div>
@@ -108,7 +108,7 @@ export default function MontazasLanding(){
               </ol>
             </div>
             <div className="io-slide-right">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {/* eslint-disable-next-line @next/next/no-img-element -- ScrollReveal animates intrinsic sizes without layout shift */}
               <img src="https://ik.imagekit.io/vbvwdejj5/fukasqf.png?updatedAt=1758215780968" alt="Montāžas process" className="w-full rounded-2xl shadow" loading="lazy" />
             </div>
           </div>
@@ -118,7 +118,7 @@ export default function MontazasLanding(){
       {/* Image above CTA */}
       <section className="bg-white">
         <div className="container py-10 io-fade-up">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+          {/* eslint-disable-next-line @next/next/no-img-element -- hero overlay styling relies on CSS background toggles with native image */}
           <img
             src="https://ik.imagekit.io/vbvwdejj5/apuqc3apuq%20-.png?updatedAt=1758216707831"
             alt="Montāžas darbu paraugs"

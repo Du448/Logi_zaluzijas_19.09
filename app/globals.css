@@ -1,3 +1,4 @@
+/* stylelint-disable at-rule-no-unknown, scss/at-rule-no-unknown */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -116,3 +117,5 @@ label { @apply text-sm font-medium text-gray-700; }
 
 /* Parallax helper using background-attachment fixed (CSS-only) */
 .parallax-hero { background-attachment: fixed; }
+
+/* stylelint-enable at-rule-no-unknown, scss/at-rule-no-unknown */

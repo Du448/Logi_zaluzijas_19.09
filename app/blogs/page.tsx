@@ -127,7 +127,7 @@ export default function BlogsPage() {
           <p>Mūsdienu logi piedāvā daudz vairāk par gaismu un siltumu.</p>
           <ul>
             <li><strong>Preti uzlaušanas drošība:</strong> Logus var aprīkot ar īpašu furnitūru un triecienizturīgām stikla paketēm (rūdīts stikls, triplekss), kas pasargās jūsu mājokli no nevēlamiem viesiem.</li>
-            <li><strong>Bērnu drošība:</strong> Lai pasargātu pašus mazākos, iespējams uzstādīt rokturus ar atslēgu vai īpašas "bērnu slēdzenes", kas ļauj vērtni atvērt tikai vēdināšanas režīmā.</li>
+            <li><strong>Bērnu drošība:</strong> Lai pasargātu pašus mazākos, iespējams uzstādīt rokturus ar atslēgu vai īpašas “bērnu slēdzenes”, kas ļauj vērtni atvērt tikai vēdināšanas režīmā.</li>
             <li><strong>Mikrovēdināšana:</strong> Īpašs furnitūras režīms, kas nodrošina pastāvīgu svaiga gaisa pieplūdi telpā bez caurvēja radīšanas.</li>
           </ul>
 

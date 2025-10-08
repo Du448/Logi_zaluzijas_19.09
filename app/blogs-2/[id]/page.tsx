@@ -42,7 +42,7 @@ const posts: Post[] = [
   },
   {
     id: 6,
-    title: 'Cīņa par Jūsu Logu: Parastais Moskītu Tīkls pret Supervaroni "Antikaķis"! 🥊',
+    title: 'Cīņa par Jūsu Logu: Parastais Moskītu Tīkls pret Supervaroni “Antikaķis”! 🥊',
     image:
       'https://ik.imagekit.io/vbvwdejj5/5bowzf5bow.png?updatedAt=1758360975048',
   },
@@ -127,15 +127,15 @@ export default function Page({ params }: { params: { id: string } }) {
                 Aizmirstiet garlaicīgos paskaidrojumus, ienirsim radošā un kompaktā apkopojumā!
               </p>
 
-              <h3>💧 Kāpēc Tavi Logi "Raud"?</h3>
+              <h3>💧 Kāpēc Tavi Logi “Raud”?</h3>
               <p>
                 Iedomājies savu logu kā vēsu dzēriena glāzi karstā vasaras dienā. Tieši tāpat kā uz glāzes, arī uz loga stikla veidojas kondensāts,
                 kad siltais un mitrais iekštelpu gaiss sastopas ar auksto stikla virsmu.
               </p>
-              <p><strong>Galvenie "Vaininieki":</strong></p>
+              <p><strong>Galvenie “Vaininieki”:</strong></p>
               <ul>
                 <li>♨️ <strong>Pārāk daudz mitruma</strong>: Vārīšana, duša, veļas žāvēšana un pat elpošana — tas viss rada tvaiku.</li>
-                <li>🌬️ <strong>Slikta ventilācija</strong>: Ja gaiss "iestāvas", mitrums nekur nepazūd un meklē aukstāko vietu, kur "nosēsties".</li>
+                <li>🌬️ <strong>Slikta ventilācija</strong>: Ja gaiss “iestāvas”, mitrums nekur nepazūd un meklē aukstāko vietu, kur “nosēsties”.</li>
                 <li>❄️ <strong>Aukstuma tilti</strong>: Nekvalitatīvi logi vai slikti nosiltinātas logu ailes ir kā atvērtas durvis aukstumam un kondensātam.</li>
               </ul>
 
@@ -143,7 +143,7 @@ export default function Page({ params }: { params: { id: string } }) {
               <p>Aizmirsti par vienkāršu lupatiņu! Pievienosim šim procesam nedaudz radošuma:</p>
               <ul>
                 <li>
-                  🌬️ <strong>"Vētras" Misija (Vēdināšana)</strong>:
+                  🌬️ <strong>“Vētras” Misija (Vēdināšana)</strong>:
                   <ul>
                     <li><strong>Šoka terapija</strong>: Atver logus plaši vaļā uz 5–10 minūtēm vairākas reizes dienā. Svaigais gaiss kā supervaronis izdzen veco un mitro!</li>
                     <li><strong>Mikro-elpa</strong>: Izmanto logu mikroventilācijas režīmu pastāvīgai, nelielai gaisa apmaiņai.</li>
@@ -159,7 +159,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 <li>
                   💧 <strong>Mitruma Medības (Mitruma Samazināšana)</strong>:
                   <ul>
-                    <li><strong>Gatavo ar "kapuci"</strong>: Vienmēr izmanto tvaika nosūcēju, gatavojot ēst.</li>
+                    <li><strong>Gatavo ar “kapuci”</strong>: Vienmēr izmanto tvaika nosūcēju, gatavojot ēst.</li>
                     <li><strong>Durvis ciet!</strong> Dušā vai vannā ejot, aizver vannasistabas durvis, lai mitrums neizplatās.</li>
                     <li><strong>Augu oāze ar mēru</strong>: Augi izdala mitrumu — nepārspīlē ar daudzumu.</li>
                     <li><strong>Sāls spēks</strong>: Izveido gaisa sausinātāju — rupjo sāli traukā uz palodzes. Vari pievienot pāris tējas koka vai lavandas eļļas pilienus.</li>
@@ -192,40 +192,40 @@ export default function Page({ params }: { params: { id: string } }) {
               <h3>Apsūdzēto Sols: Kas ir Galvenie Vaininieki?</h3>
               <p>Pirms ķerties pie rīkiem, noskaidrosim, kurš ir atbildīgs par šo vēja invāziju.</p>
               <ul>
-                <li>🕵️‍♂️ <strong>Aģents "Nogurusī Gumija"</strong>: Blīvējuma gumijas ir kā jūsu logu apsardze. Laika gaitā tās nogurst, kļūst cietas, saplaisā un vairs nespēj aizturēt aukstumu.</li>
-                <li>🔧 <strong>Aģents "Izregulētais Mehānisms"</strong>: Furnitūra ar laiku var izsisties no regulējuma, un vērtne vairs nepieguļ pietiekami cieši.</li>
-                <li>🏗️ <strong>Aģents "Būvniecības Grēks"</strong>: Neprecīza montāža vai aizmirsta siltināšana starp logu un sienu.</li>
+                <li>🕵️‍♂️ <strong>Aģents “Nogurusī Gumija”</strong>: Blīvējuma gumijas ir kā jūsu logu apsardze. Laika gaitā tās nogurst, kļūst cietas, saplaisā un vairs nespēj aizturēt aukstumu.</li>
+                <li>🔧 <strong>Aģents “Izregulētais Mehānisms”</strong>: Furnitūra ar laiku var izsisties no regulējuma, un vērtne vairs nepieguļ pietiekami cieši.</li>
+                <li>🏗️ <strong>Aģents “Būvniecības Grēks”</strong>: Neprecīza montāža vai aizmirsta siltināšana starp logu un sienu.</li>
               </ul>
 
               <h3>Glābšanas Operācija: Jūsu Rīcības Plāns soli pa solim</h3>
               <p>Esat gatavs kļūt par savu logu varoni? Uz priekšu!</p>
               <ul>
                 <li>
-                  🛡️ <strong>Misija "Apsardzes Maiņa" (Blīvējumu Pārbaude)</strong>
+                  🛡️ <strong>Misija “Apsardzes Maiņa” (Blīvējumu Pārbaude)</strong>
                   <ul>
                     <li><strong>Ko darīt?</strong> Aptaustiet un apskatiet gumijas. Vai tās ir elastīgas? Vai redzat plaisas?</li>
                     <li><strong>Risinājums:</strong> Ja gumijas ir cietas vai bojātas, tās jāmaina pašu spēkiem vai ar meistara palīdzību.</li>
                   </ul>
                 </li>
                 <li>
-                  ⚙️ <strong>Misija "Precīzā Pielāgošana" (Regulēšana)</strong>
+                  ⚙️ <strong>Misija “Precīzā Pielāgošana” (Regulēšana)</strong>
                   <ul>
                     <li><strong>Ko darīt?</strong> Pārbaudiet piegulumu ar papīra lapas testu; ja lapu var viegli izvilkt, vajag regulēšanu.</li>
                     <li><strong>Risinājums:</strong> Neliels regulācijas skrūvju pagrieziens ar seškanti bieži palīdz. Ja neesat drošs — aiciniet speciālistu.</li>
                   </ul>
                 </li>
                 <li>
-                  🔍 <strong>Misija "Perimetra Pārbaude" (Montāžas Šuves)</strong>
+                  🔍 <strong>Misija “Perimetra Pārbaude” (Montāžas Šuves)</strong>
                   <ul>
                     <li><strong>Ko darīt?</strong> Sveces vai sērkociņa liesmas tests gar loga un sienas savienojumu; ja liesma kustas — ir sprauga.</li>
                     <li><strong>Risinājums:</strong> Aizpildiet spraugas ar montāžas putām vai hermētiķi.</li>
                   </ul>
                 </li>
                 <li>
-                  🩹 <strong>Misija "Ātrā Palīdzība" (Papildu Blīvējums)</strong>
+                  🩹 <strong>Misija “Ātrā Palīdzība” (Papildu Blīvējums)</strong>
                   <ul>
                     <li><strong>Ko darīt?</strong> Nepieciešams ātrs, pagaidu risinājums.</li>
-                    <li><strong>Risinājums:</strong> Pašlīmējošās blīvējuma lentes ziemas sezonai — kā "plāksteris" mazām noplūdēm.</li>
+                    <li><strong>Risinājums:</strong> Pašlīmējošās blīvējuma lentes ziemas sezonai — kā “plāksteris” mazām noplūdēm.</li>
                   </ul>
                 </li>
               </ul>
@@ -402,44 +402,44 @@ export default function Page({ params }: { params: { id: string } }) {
             </>
           ) : id === 6 ? (
             <>
-              <h2>Cīņa par Jūsu Logu: Parastais Moskītu Tīkls pret Supervaroni "Antikaķis"! 🥊</h2>
+              <h2>Cīņa par Jūsu Logu: Parastais Moskītu Tīkls pret Supervaroni “Antikaķis”! 🥊</h2>
               <p>
                 Kad vasara klauvē pie durvīm, cīņa pret odiem un mušām ir neizbēgama. Jūsu pirmais aizsargs? Parastais moskītu tīkls. Bet ko darīt, ja jūsu mājās dzīvo
-                pūkains un ziņkārīgs supervaronis ar asiem nagiem? Tad arēnā iznāk smagsvars – tīkls "Antikaķis"! Kurš no viņiem uzvarēs cīņā par jūsu logu? Noskaidrosim to 5 raundos!
+                pūkains un ziņkārīgs supervaronis ar asiem nagiem? Tad arēnā iznāk smagsvars – tīkls “Antikaķis”! Kurš no viņiem uzvarēs cīņā par jūsu logu? Noskaidrosim to 5 raundos!
               </p>
 
               <h3>Round 1: Izturības Tests 💪</h3>
               <p><strong>Parastais Tīkls:</strong> Viegls un gaisīgs cīnītājs – lieliski tiek galā ar odiem, bet kaķa naga priekšā viegli plīst.</p>
-              <p><strong>"Antikaķis":</strong> Tīklu pasaules Terminators – pastiprināti diegi atvaira nagu cirtienus un mēģinājumus uzrāpties.</p>
-              <p><strong>Uzvarētājs:</strong> Viennozīmīgi "Antikaķis"!</p>
+              <p><strong>“Antikaķis”:</strong> Tīklu pasaules Terminators – pastiprināti diegi atvaira nagu cirtienus un mēģinājumus uzrāpties.</p>
+              <p><strong>Uzvarētājs:</strong> Viennozīmīgi “Antikaķis”!</p>
 
               <h3>Round 2: Bēgšanas Spēle 🐾</h3>
               <p><strong>Parastais Tīkls:</strong> Dod iluzoru drošību – mājdzīvnieks to var izspiest vai pārplēst.</p>
-              <p><strong>"Antikaķis":</strong> Robusts miesassargs – neļaus mīlulim nejauši izkrist pa logu, drošai telpu vēdināšanai.</p>
-              <p><strong>Uzvarētājs:</strong> "Antikaķis" parūpējas par jūsu sirdsmieru!</p>
+              <p><strong>“Antikaķis”:</strong> Robusts miesassargs – neļaus mīlulim nejauši izkrist pa logu, drošai telpu vēdināšanai.</p>
+              <p><strong>Uzvarētājs:</strong> “Antikaķis” parūpējas par jūsu sirdsmieru!</p>
 
               <h3>Round 3: Svaiga Gaisa Duelis 🌬️</h3>
               <p><strong>Parastais Tīkls:</strong> Plāns un gandrīz neietekmē gaisa plūsmu.</p>
-              <p><strong>"Antikaķis":</strong> Biezāks, bet gudri izstrādāts pinums nodrošina lielisku gaisa caurlaidību – atšķirība minimāla.</p>
+              <p><strong>“Antikaķis”:</strong> Biezāks, bet gudri izstrādāts pinums nodrošina lielisku gaisa caurlaidību – atšķirība minimāla.</p>
               <p><strong>Uzvarētājs:</strong> Neizšķirts – abi tiek galā lieliski.</p>
 
               <h3>Round 4: Ilgmūžības Maratons ⏳</h3>
-              <p><strong>Parastais Tīkls:</strong> "Sprinteris" – pēc 1–2 sezonām bieži jāmaina UV un bojājumu dēļ.</p>
-              <p><strong>"Antikaķis":</strong> Ilgdzīvotājs – noturīgs pret UV un mehāniskiem bojājumiem, kalpos daudzus gadus.</p>
-              <p><strong>Uzvarētājs:</strong> "Antikaķis" ar pārsvaru.</p>
+              <p><strong>Parastais Tīkls:</strong> “Sprinteris” – pēc 1–2 sezonām bieži jāmaina UV un bojājumu dēļ.</p>
+              <p><strong>“Antikaķis”:</strong> Ilgdzīvotājs – noturīgs pret UV un mehāniskiem bojājumiem, kalpos daudzus gadus.</p>
+              <p><strong>Uzvarētājs:</strong> “Antikaķis” ar pārsvaru.</p>
 
               <h3>Round 5: Cenas Cīņa 💰</h3>
               <p><strong>Parastais Tīkls:</strong> Sākotnēji lētāks – ātra palīdzība pret insektiem.</p>
-              <p><strong>"Antikaķis":</strong> Augstāka sākuma investīcija, bet ilgtermiņā ekonomiskāks un drošāks risinājums.</p>
-              <p><strong>Uzvarētājs:</strong> Ilgtermiņā – "Antikaķis".</p>
+              <p><strong>“Antikaķis”:</strong> Augstāka sākuma investīcija, bet ilgtermiņā ekonomiskāks un drošāks risinājums.</p>
+              <p><strong>Uzvarētājs:</strong> Ilgtermiņā – “Antikaķis”.</p>
 
               <h3>Spriedums: Kurš Tīkls Ir Jūsu Čempions?</h3>
               <ul>
                 <li><strong>Izvēlieties parasto tīklu</strong>, ja nav mājdzīvnieku un mērķis ir tikai aizsardzība pret insektiem.</li>
-                <li><strong>Izvēlieties "Antikaķi"</strong>, ja mājās ir kaķis, suns vai putni un vajadzīga drošība un ilgmūžība.</li>
+                <li><strong>Izvēlieties “Antikaķi”</strong>, ja mājās ir kaķis, suns vai putni un vajadzīga drošība un ilgmūžība.</li>
               </ul>
               <p>
-                "Antikaķis" nav tikai moskītu siets – tā ir drošības sistēma jūsu mīlulim un gudrs ieguldījums mājokļa komfortā.
+                “Antikaķis” nav tikai moskītu siets – tā ir drošības sistēma jūsu mīlulim un gudrs ieguldījums mājokļa komfortā.
               </p>
             </>
           ) : id === 8 ? (
@@ -447,11 +447,11 @@ export default function Page({ params }: { params: { id: string } }) {
               <h2>Jūsu 119. sērijas Lodžija: Pārvērtību Ceļvedis un Cenas 2025. Gadā! 🏡</h2>
               <p>
                 Vai jūsu 119. sērijas lodžija joprojām ir tikai vieta vecu mantu glabāšanai? Ir pēdējais laiks to pārvērst par vērtīgu un mājīgu telpu!
-                Iestiklošana ir viens no labākajiem veidiem, kā to izdarīt, bet kuru variantu izvēlēties – vieglo "vasaras versiju" vai pamatīgo "ziemas cietoksni"?
+                Iestiklošana ir viens no labākajiem veidiem, kā to izdarīt, bet kuru variantu izvēlēties – vieglo “vasaras versiju” vai pamatīgo “ziemas cietoksni”?
                 Apskatīsim abus scenārijus un to aktuālās iespējas Rīgā.
               </p>
 
-              <h3>Scenārijs A: "Vasarīgais Vairogs" (Aukstais Iestiklojums) 🛡️</h3>
+              <h3>Scenārijs A: “Vasarīgais Vairogs” (Aukstais Iestiklojums) 🛡️</h3>
               <p>
                 Šis ir ātrs un budžetam draudzīgs veids, kā pasargāt savu lodžiju no Latvijas mainīgajiem laikapstākļiem – lietus, vēja, sniega un putekļiem.
                 Tiek izmantotas vieglas, bīdāmas alumīnija konstrukcijas.
@@ -466,7 +466,7 @@ export default function Page({ params }: { params: { id: string } }) {
               <p><strong>Galvenais mīnuss:</strong> Ziemā lodžija paliks auksta — temperatūra būs tikai dažus grādus augstāka nekā ārā.</p>
               <p><strong>Ideāli piemērots, ja:</strong> jūs plānojat lodžiju izmantot kā vasaras terasi, vietu veļas žāvēšanai vai vienkārši kārtīgu un tīru mantu glabātuvi.</p>
 
-              <h3>Scenārijs B: "Siltais Komforts" (Siltais Iestiklojums) 🔥</h3>
+              <h3>Scenārijs B: “Siltais Komforts” (Siltais Iestiklojums) 🔥</h3>
               <p>
                 Šis ir pamatīgs jauninājums, kas pārvērš jūsu lodžiju par pilnvērtīgu istabas daļu. Tiek izmantoti silti PVC logu profili un divu vai trīs stiklu paketes –
                 tāpat kā istabās.
@@ -494,11 +494,11 @@ export default function Page({ params }: { params: { id: string } }) {
             <>
               <h2>Stikla Paketes Noslēpumi: Atkodē Savu Logu un Iegūsti Super-Komfortu! 🕵️‍♂️</h2>
               <p>
-                Logs ir kas vairāk par rāmi. Tā sirds un dvēsele ir stikla pakete – augsto tehnoloģiju "sendvičs", kas nosaka, cik silts, kluss un komfortabls būs tavs mājoklis.
+                Logs ir kas vairāk par rāmi. Tā sirds un dvēsele ir stikla pakete – augsto tehnoloģiju “sendvičs”, kas nosaka, cik silts, kluss un komfortabls būs tavs mājoklis.
                 Ienirsim tās noslēpumos un atkodēsim galvenos elementus!
               </p>
 
-              <h3>1. Līmeņi: Cik Stāvu Tavā "Sendvičā"? (Kameru skaits)</h3>
+              <h3>1. Līmeņi: Cik Stāvu Tavā “Sendvičā”? (Kameru skaits)</h3>
               <p>Iztēlojies stikla paketi kā daudzstāvu ēku. Jo vairāk stāvu (stiklu), jo labāka aizsardzība.</p>
               <ul>
                 <li><strong>1 kamera (2 stikli):</strong> Pamata līmenis. Piemērots vasarnīcām vai mazāk svarīgām telpām.</li>
@@ -509,7 +509,7 @@ export default function Page({ params }: { params: { id: string } }) {
               <h3>2. Bruņu Biezums: Cik stipri ir Mūri? (Stikla biezums)</h3>
               <p>
                 Stikla biezums ir galvenais ierocis cīņā pret troksni. Standarts – 4 mm. Dzīvojot pie rosīgas ielas, apsver 6 mm vai 8 mm.
-                Gudrs triks ir izmantot dažāda biezuma stiklus vienā paketē – tas labāk "salauž" skaņas viļņus.
+                Gudrs triks ir izmantot dažāda biezuma stiklus vienā paketē – tas labāk “salauž” skaņas viļņus.
               </p>
 
               <h3>3. Maģiskais Pildījums: Kas ir Starp Stikliem? (Argona gāze)</h3>
@@ -547,35 +547,35 @@ export default function Page({ params }: { params: { id: string } }) {
             <>
               <h2>Logu Garderobe: Atrodi Savu Ideālo Žalūziju Stilu 2025! 🎨</h2>
               <p>
-                Žalūzijas nav tikai veids, kā paslēpties no saules. Tā ir jūsu logu "garderobe", kas telpai piešķir raksturu, noskaņu un funkcionalitāti.
-                Aizmirstiet par garlaicīgām izvēlēm! Ieskatīsimies karstākajās tendencēs un atradīsim jūsu logiem perfektu "tērpu".
+                Žalūzijas nav tikai veids, kā paslēpties no saules. Tā ir jūsu logu “garderobe”, kas telpai piešķir raksturu, noskaņu un funkcionalitāti.
+                Aizmirstiet par garlaicīgām izvēlēm! Ieskatīsimies karstākajās tendencēs un atradīsim jūsu logiem perfektu “tērpu”.
               </p>
 
               <h3>1. Fasonu Pielaikotava: Izvēlies Savu Siluetu</h3>
-              <p>Katram logam un telpai piestāv savs "griezums". Kurš būs tavējais?</p>
+              <p>Katram logam un telpai piestāv savs “griezums”. Kurš būs tavējais?</p>
               <ul>
                 <li>
                   <strong>Klasiskais Kostīms (Horizontālās žalūzijas):</strong> Mūžīga vērtība. Kā labi piegriezts uzvalks, tās ir elegantas, funkcionālas un piestāv gandrīz visur.
-                  Perfekti ļauj kontrolēt gaismas "aksesuārus" telpā. <em>Ikona:</em> 👔
+                  Perfekti ļauj kontrolēt gaismas “aksesuārus” telpā. <em>Ikona:</em> 👔
                 </li>
                 <li>
-                  <strong>Greznais Vakartērps (Vertikālās žalūzijas):</strong> Ideāls risinājums "liela auguma" logiem un durvīm. Tās vizuāli paaugstina griestus un piešķir telpai elegantu
+                  <strong>Greznais Vakartērps (Vertikālās žalūzijas):</strong> Ideāls risinājums “liela auguma” logiem un durvīm. Tās vizuāli paaugstina griestus un piešķir telpai elegantu
                   un plūstošu siluetu. <em>Ikona:</em> 👗
                 </li>
                 <li>
-                  <strong>Modernais Minimālisms (Rullo žalūzijas):</strong> Kā lakonisks "T-krekls" logu modē. Aizņem maz vietas, ir viegli lietojamas un pieejamas tūkstošiem dizainos –
-                  no vienkrāsainiem līdz drosmīgām apdrukām. Īpaši populāras ir "Diena‑Nakts" versijas, kas ļauj spēlēties ar gaismu kā nekad agrāk. <em>Ikona:</em> 👕
+                  <strong>Modernais Minimālisms (Rullo žalūzijas):</strong> Kā lakonisks “T-krekls” logu modē. Aizņem maz vietas, ir viegli lietojamas un pieejamas tūkstošiem dizainos –
+                  no vienkrāsainiem līdz drosmīgām apdrukām. Īpaši populāras ir “Diena‑Nakts” versijas, kas ļauj spēlēties ar gaismu kā nekad agrāk. <em>Ikona:</em> 👕
                 </li>
                 <li>
                   <strong>Avangarda Dizains (Plisē žalūzijas):</strong> Tiem, kas nebaidās izcelties. Unikālā krokojuma struktūra rada interesantu gaismas un ēnu spēli,
-                  piešķirot interjeram īpašu "odziņu". <em>Ikona:</em> 🎀
+                  piešķirot interjeram īpašu “odziņu”. <em>Ikona:</em> 🎀
                 </li>
               </ul>
 
               <h3>2. Auduma Izvēle: Materiālam ir Nozīme</h3>
-              <p>Materiāls nosaka ne tikai izskatu, bet arī "tērpa" praktiskumu.</p>
+              <p>Materiāls nosaka ne tikai izskatu, bet arī “tērpa” praktiskumu.</p>
               <ul>
-                <li><strong>Alumīnijs (Metālisks Spīdums):</strong> Izturīgs, viegli tīrāms un nebaidās no mitruma. Ideāls "darba apģērbs" virtuvei un vannasistabai.</li>
+                <li><strong>Alumīnijs (Metālisks Spīdums):</strong> Izturīgs, viegli tīrāms un nebaidās no mitruma. Ideāls “darba apģērbs” virtuvei un vannasistabai.</li>
                 <li><strong>Koks (Dabas Siltums):</strong> Ienes telpā mājīgumu un dabas pieskārienu. Kā kvalitatīvs kašmira džemperis – prasa rūpes, bet sniedz nepārspējamu komfortu.</li>
                 <li><strong>Tekstils (Mājīgā Tekstūra):</strong> Plašākā krāsu un rakstu pasaule. Ļauj radīt mīkstu un aicinošu atmosfēru. Lieliski piemērots guļamistabai un viesistabai.</li>
               </ul>
@@ -587,9 +587,9 @@ export default function Page({ params }: { params: { id: string } }) {
                 <li><strong>Saules Atstarotāji:</strong> Īpaši pārklājumi, kas vasarā atstaro saules starus, palīdzot uzturēt patīkamu vēsumu telpā.</li>
               </ul>
 
-              <h3>4. Kā "Valkāt": Uzstādīšanas Veidi</h3>
+              <h3>4. Kā “Valkāt”: Uzstādīšanas Veidi</h3>
               <ul>
-                <li><strong>Loga rāmī:</strong> Glīts un kompakts risinājums, kas "pieguļ" logam kā cimds.</li>
+                <li><strong>Loga rāmī:</strong> Glīts un kompakts risinājums, kas “pieguļ” logam kā cimds.</li>
                 <li><strong>Pie sienas (virs ailes):</strong> Klasika, kas ļauj pilnībā atvērt logu, kad žalūzijas ir paceltas.</li>
                 <li><strong>Pie griestiem:</strong> Vizuāls triks, kas liek telpai izskatīties augstākai.</li>
               </ul>
@@ -597,7 +597,7 @@ export default function Page({ params }: { params: { id: string } }) {
               <h3>Secinājums</h3>
               <p>
                 Žalūziju izvēle ir aizraujošs process. Nedomājiet par tām kā par nepieciešamību, bet gan kā par iespēju atsvaidzināt interjeru un piešķirt tam unikālu rokrakstu.
-                Kombinējiet stilus, materiālus un tehnoloģijas, lai radītu savu perfekto logu "tēlu"!
+                Kombinējiet stilus, materiālus un tehnoloģijas, lai radītu savu perfekto logu “tēlu”!
               </p>
             </>
           ) : (
@@ -606,7 +606,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 Šeit būs bloga raksta saturs. Vari brīvi aizstāt šo tekstu ar savu — virsraksti, rindkopas, saraksti, attēli.
               </p>
               <p>
-                Lai atgrieztos pie rakstu saraksta, spied pogu "Atpakaļ" augšpusē vai dodies uz lapu{' '}
+                Lai atgrieztos pie rakstu saraksta, spied pogu “Atpakaļ” augšpusē vai dodies uz lapu{' '}
                 <Link href="/blogs-2" className="text-brand-blue hover:underline">Blogs 2</Link>.
               </p>
             </>

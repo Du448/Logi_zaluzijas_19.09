@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -6,13 +7,18 @@ export default function Hero(){
   const [imgSrc, setImgSrc] = useState<string>("https://ik.imagekit.io/vbvwdejj5/pexels-sabeel-ahammed-15010-68357.jpg?updatedAt=1756641869797")
   return (
     <section className="relative h-[70vh] md:h-screen overflow-hidden">
-      {/* Background image using <img> with object-cover */}
-      <img
-        src={imgSrc}
-        alt="Moderni PVC logi mājas interjerā ar dabīgo gaismu"
-        className="absolute inset-0 w-full h-full object-cover"
-        onError={() => setImgSrc("https://ik.imagekit.io/vbvwdejj5/patio-sliders-raum-aluminium-1024x1024.jpg?updatedAt=1756637316712")}
-      />
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <Image
+          src={imgSrc}
+          alt="Moderni PVC logi mājas interjerā ar dabīgo gaismu"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+          onError={() => setImgSrc("https://ik.imagekit.io/vbvwdejj5/patio-sliders-raum-aluminium-1024x1024.jpg?updatedAt=1756637316712")}
+        />
+      </div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/15 to-black/40" />
 
       {/* Bottom-left content */}
