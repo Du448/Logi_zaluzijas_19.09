@@ -66,7 +66,9 @@ export default function Page({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          {(id === 'rullo-kasetu' || id === 'rullo') && <RulloCalculatorSection />}
+          {(id === 'rullo-kasetu' || id === 'rullo') && (
+            <RulloCalculatorSection context={id === 'rullo-kasetu' ? 'rullo-kasetu' : 'rullo'} />
+          )}
         </div>
       </section>
 

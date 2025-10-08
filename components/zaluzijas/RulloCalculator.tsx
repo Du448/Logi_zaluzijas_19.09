@@ -40,7 +40,9 @@ const MATERIAL_BLACKOUT_INFO: Record<string, string> = {
   "WATER": "(68%)",
 }
 
-const SYSTEM_IMAGE_INFO: Record<string, { label: string; image: string }> = {
+type SystemVisual = { label: string; image: string }
+
+const SYSTEM_IMAGE_INFO_KASETU: Record<string, SystemVisual> = {
   "VARIO 13 Kasete (balta)": {
     label: "Vario 13",
     image: "https://ik.imagekit.io/vbvwdejj5/VARIO%2013.jpg?updatedAt=1759775255507",
@@ -64,6 +66,52 @@ const SYSTEM_IMAGE_INFO: Record<string, { label: string; image: string }> = {
   "VARIO Uprofils Kasete (krāsains)": {
     label: "U profils",
     image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario25_uprof_rieksts.png?updatedAt=1759842315200",
+  },
+}
+
+const TONE_PRICE_OVERRIDES_RULLO: Record<string, Record<string, number>> = {
+  "blackout-charlotte-524": {
+    "VARIO 25 Rullo (balts)": 47,
+    "VARIO 25 Rullo (krāsains)": 50,
+    "VARIO 32 Rullo (balts)": 50,
+    "VARIO 32 Rullo (krāsains)": 53,
+  },
+  "blackout-charlotte-552": {
+    "VARIO 25 Rullo (balts)": 47,
+    "VARIO 25 Rullo (krāsains)": 50,
+    "VARIO 32 Rullo (balts)": 50,
+    "VARIO 32 Rullo (krāsains)": 53,
+  },
+  "blackout-charlotte-551": {
+    "VARIO 25 Rullo (balts)": 47,
+    "VARIO 25 Rullo (krāsains)": 50,
+    "VARIO 32 Rullo (balts)": 50,
+    "VARIO 32 Rullo (krāsains)": 53,
+  },
+  "blackout-sunset-dn753": {
+    "VARIO 25 Rullo (balts)": 47,
+    "VARIO 25 Rullo (krāsains)": 50,
+    "VARIO 32 Rullo (balts)": 50,
+    "VARIO 32 Rullo (krāsains)": 53,
+  },
+}
+
+const SYSTEM_IMAGE_INFO_RULLO: Record<string, SystemVisual> = {
+  "VARIO 25 Rullo (balts)": {
+    label: "Vario 25",
+    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario25_rieksts.png?updatedAt=1759842315200",
+  },
+  "VARIO 25 Rullo (krāsains)": {
+    label: "Vario 25",
+    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario25_rieksts.png?updatedAt=1759842315200",
+  },
+  "VARIO 32 Rullo (balts)": {
+    label: "Vario 32",
+    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario32_balts.png?updatedAt=1759842315200",
+  },
+  "VARIO 32 Rullo (krāsains)": {
+    label: "Vario 32",
+    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario32_krasains.png?updatedAt=1759842315200",
   },
 }
 
@@ -103,7 +151,7 @@ const DARKENING_LEVELS = Array.from(
 
 type PriceTable = Record<string, Record<string, number>>
 
-const TM_PRICE_DATA: PriceTable = {
+const TM_PRICE_DATA_KASETU: PriceTable = {
   NEUTRAL: {
     "VARIO 13 Kasete (balta)": 23,
     "VARIO 13 Kasete (krāsaina)": 26,
@@ -306,7 +354,197 @@ const TM_PRICE_DATA: PriceTable = {
   },
 }
 
-const ALL_MATERIAL_OPTIONS = Object.keys(TM_PRICE_DATA).sort()
+const TM_PRICE_DATA_RULLO: PriceTable = {
+  NEUTRAL: {
+    "VARIO 25 Rullo (balts)": 29,
+    "VARIO 25 Rullo (krāsains)": 32,
+    "VARIO 32 Rullo (balts)": 32,
+    "VARIO 32 Rullo (krāsains)": 35,
+  },
+  "Neutral Gold 024": {
+    "VARIO 25 Rullo (balts)": 29,
+    "VARIO 25 Rullo (krāsains)": 32,
+    "VARIO 32 Rullo (balts)": 32,
+    "VARIO 32 Rullo (krāsains)": 35,
+  },
+  ESTER: {
+    "VARIO 25 Rullo (balts)": 31,
+    "VARIO 25 Rullo (krāsains)": 34,
+    "VARIO 32 Rullo (balts)": 34,
+    "VARIO 32 Rullo (krāsains)": 37,
+  },
+  "ESTER (70%)": {
+    "VARIO 25 Rullo (balts)": 31,
+    "VARIO 25 Rullo (krāsains)": 34,
+    "VARIO 32 Rullo (balts)": 34,
+    "VARIO 32 Rullo (krāsains)": 37,
+  },
+  "Easter Mint 023": {
+    "VARIO 25 Rullo (balts)": 31,
+    "VARIO 25 Rullo (krāsains)": 34,
+    "VARIO 32 Rullo (balts)": 34,
+    "VARIO 32 Rullo (krāsains)": 37,
+  },
+  "VAN GOGH": {
+    "VARIO 25 Rullo (balts)": 31,
+    "VARIO 25 Rullo (krāsains)": 34,
+    "VARIO 32 Rullo (balts)": 34,
+    "VARIO 32 Rullo (krāsains)": 37,
+  },
+  "VAN GOGH (68%)": {
+    "VARIO 25 Rullo (balts)": 31,
+    "VARIO 25 Rullo (krāsains)": 34,
+    "VARIO 32 Rullo (balts)": 34,
+    "VARIO 32 Rullo (krāsains)": 37,
+  },
+  WATER: {
+    "VARIO 25 Rullo (balts)": 30,
+    "VARIO 25 Rullo (krāsains)": 33,
+    "VARIO 32 Rullo (balts)": 33,
+    "VARIO 32 Rullo (krāsains)": 36,
+  },
+  FLOWER: {
+    "VARIO 25 Rullo (balts)": 31,
+    "VARIO 25 Rullo (krāsains)": 34,
+    "VARIO 32 Rullo (balts)": 34,
+    "VARIO 32 Rullo (krāsains)": 37,
+  },
+  LUNA: {
+    "VARIO 25 Rullo (balts)": 30,
+    "VARIO 25 Rullo (krāsains)": 33,
+    "VARIO 32 Rullo (balts)": 33,
+    "VARIO 32 Rullo (krāsains)": 36,
+  },
+  TOPAZ: {
+    "VARIO 25 Rullo (balts)": 30,
+    "VARIO 25 Rullo (krāsains)": 33,
+    "VARIO 32 Rullo (balts)": 33,
+    "VARIO 32 Rullo (krāsains)": 36,
+  },
+  ARABESKA: {
+    "VARIO 25 Rullo (balts)": 30,
+    "VARIO 25 Rullo (krāsains)": 33,
+    "VARIO 32 Rullo (balts)": 33,
+    "VARIO 32 Rullo (krāsains)": 36,
+  },
+  TALIA: {
+    "VARIO 25 Rullo (balts)": 30,
+    "VARIO 25 Rullo (krāsains)": 33,
+    "VARIO 32 Rullo (balts)": 33,
+    "VARIO 32 Rullo (krāsains)": 36,
+  },
+  "FLOWER (LT)": {
+    "VARIO 25 Rullo (balts)": 29,
+    "VARIO 25 Rullo (krāsains)": 32,
+    "VARIO 32 Rullo (balts)": 32,
+    "VARIO 32 Rullo (krāsains)": 35,
+  },
+  NATURAL: {
+    "VARIO 25 Rullo (balts)": 37,
+    "VARIO 25 Rullo (krāsains)": 39,
+    "VARIO 32 Rullo (balts)": 39,
+    "VARIO 32 Rullo (krāsains)": 42,
+  },
+  ROYAL: {
+    "VARIO 25 Rullo (balts)": 37,
+    "VARIO 25 Rullo (krāsains)": 39,
+    "VARIO 32 Rullo (balts)": 39,
+    "VARIO 32 Rullo (krāsains)": 42,
+  },
+  "SEVILA THERMO": {
+    "VARIO 25 Rullo (balts)": 38,
+    "VARIO 25 Rullo (krāsains)": 41,
+    "VARIO 32 Rullo (balts)": 41,
+    "VARIO 32 Rullo (krāsains)": 43,
+  },
+  "BLACK OUT": {
+    "VARIO 25 Rullo (balts)": 38,
+    "VARIO 25 Rullo (krāsains)": 41,
+    "VARIO 32 Rullo (balts)": 41,
+    "VARIO 32 Rullo (krāsains)": 43,
+  },
+  METALIC: {
+    "VARIO 25 Rullo (balts)": 38,
+    "VARIO 25 Rullo (krāsains)": 40,
+    "VARIO 32 Rullo (balts)": 40,
+    "VARIO 32 Rullo (krāsains)": 43,
+  },
+  "METALIC WHITE": {
+    "VARIO 25 Rullo (balts)": 38,
+    "VARIO 25 Rullo (krāsains)": 40,
+    "VARIO 32 Rullo (balts)": 40,
+    "VARIO 32 Rullo (krāsains)": 43,
+  },
+  "ZEBRA 3100-3104": {
+    "VARIO 25 Rullo (balts)": 39,
+    "VARIO 25 Rullo (krāsains)": 42,
+    "VARIO 32 Rullo (balts)": 42,
+    "VARIO 32 Rullo (krāsains)": 45,
+  },
+  "ZEBRA 3105-3200": {
+    "VARIO 25 Rullo (balts)": 46,
+    "VARIO 25 Rullo (krāsains)": 49,
+    "VARIO 32 Rullo (balts)": 49,
+    "VARIO 32 Rullo (krāsains)": 52,
+  },
+  "ZEBRA BO": {
+    "VARIO 25 Rullo (balts)": 55,
+    "VARIO 25 Rullo (krāsains)": 58,
+    "VARIO 32 Rullo (balts)": 58,
+    "VARIO 32 Rullo (krāsains)": 61,
+  },
+  ALBEDO: {
+    "VARIO 25 Rullo (balts)": 47,
+    "VARIO 25 Rullo (krāsains)": 50,
+    "VARIO 32 Rullo (balts)": 50,
+    "VARIO 32 Rullo (krāsains)": 53,
+  },
+  LIVELLO: {
+    "VARIO 25 Rullo (balts)": 62,
+    "VARIO 25 Rullo (krāsains)": 65,
+    "VARIO 32 Rullo (balts)": 65,
+    "VARIO 32 Rullo (krāsains)": 68,
+  },
+}
+
+const TONE_PRICE_OVERRIDES_KASETU: Record<string, Record<string, number>> = {
+  "blackout-charlotte-524": {
+    "VARIO 13 Kasete (balta)": 41,
+    "VARIO 13 Kasete (krāsaina)": 44,
+    "VARIO 17 Kasete (balts)": 46,
+    "VARIO 17 Kasete (krāsaina)": 48,
+    "VARIO Uprofils Kasete (balts)": 47,
+    "VARIO Uprofils Kasete (krāsains)": 48,
+  },
+  "blackout-charlotte-552": {
+    "VARIO 13 Kasete (balta)": 41,
+    "VARIO 13 Kasete (krāsaina)": 44,
+    "VARIO 17 Kasete (balts)": 46,
+    "VARIO 17 Kasete (krāsaina)": 48,
+    "VARIO Uprofils Kasete (balts)": 47,
+    "VARIO Uprofils Kasete (krāsains)": 48,
+  },
+  "blackout-charlotte-551": {
+    "VARIO 13 Kasete (balta)": 41,
+    "VARIO 13 Kasete (krāsaina)": 44,
+    "VARIO 17 Kasete (balts)": 46,
+    "VARIO 17 Kasete (krāsaina)": 48,
+    "VARIO Uprofils Kasete (balts)": 47,
+    "VARIO Uprofils Kasete (krāsains)": 48,
+  },
+  "blackout-sunset-dn753": {
+    "VARIO 13 Kasete (balta)": 40,
+    "VARIO 13 Kasete (krāsaina)": 43,
+    "VARIO 17 Kasete (balts)": 45,
+    "VARIO 17 Kasete (krāsaina)": 47,
+    "VARIO Uprofils Kasete (balts)": 46,
+    "VARIO Uprofils Kasete (krāsains)": 48,
+  },
+}
+
+const ALL_MATERIAL_OPTIONS = Array.from(
+  new Set([...Object.keys(TM_PRICE_DATA_KASETU), ...Object.keys(TM_PRICE_DATA_RULLO)]),
+).sort()
 
 type ToneOption = {
   id: string
@@ -482,7 +720,7 @@ const TONE_OPTIONS: Record<string, ToneOption[]> = {
     { id: "water-w001", label: "WATER W001", description: "Aptumšojums: 68%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/WATER_W001_Aptumšojums_68__.png" },
   ],
 
-  // New tone group for LIVELLO (will show only if 'LIVELLO' exists in TM_PRICE_DATA)
+  // New tone group for LIVELLO (will show only if 'LIVELLO' exists note: handled via material list)
   LIVELLO: [
     { id: "livello-dna-054", label: "Livello DNA 054", description: "Aptumšojums: 62%", image: "https://ik.imagekit.io/vbvwdejj5/zmk/Rullo/Livello_DN_A05_4_Aptumšojums_6_2__.png" },
   ],
@@ -565,13 +803,20 @@ type Constraint = {
   maxHeight: number
 }
 
-const SYSTEM_CONSTRAINTS_RULLO: Record<string, Constraint> = {
+const SYSTEM_CONSTRAINTS_KASETU: Record<string, Constraint> = {
   "VARIO 13 Kasete (balta)": { maxWidth: 1.5, maxHeight: 1.3 },
   "VARIO 13 Kasete (krāsaina)": { maxWidth: 1.5, maxHeight: 1.3 },
   "VARIO 17 Kasete (balts)": { maxWidth: 1.6, maxHeight: 2 },
   "VARIO 17 Kasete (krāsaina)": { maxWidth: 1.6, maxHeight: 2 },
   "VARIO Uprofils Kasete (balts)": { maxWidth: 1.6, maxHeight: 2 },
   "VARIO Uprofils Kasete (krāsains)": { maxWidth: 1.6, maxHeight: 2 },
+}
+
+const SYSTEM_CONSTRAINTS_RULLO: Record<string, Constraint> = {
+  "VARIO 25 Rullo (balts)": { maxWidth: 2.2, maxHeight: 3 },
+  "VARIO 25 Rullo (krāsains)": { maxWidth: 2.2, maxHeight: 3 },
+  "VARIO 32 Rullo (balts)": { maxWidth: 2.2, maxHeight: 3 },
+  "VARIO 32 Rullo (krāsains)": { maxWidth: 2.2, maxHeight: 3 },
 }
 
 type PriceBreakdown = {
@@ -597,15 +842,21 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max)
 }
 
-function getAvailableSystems(material: string, widthMm: number, heightMm: number) {
-  const systems = TM_PRICE_DATA[material]
+function getAvailableSystems(
+  material: string,
+  widthMm: number,
+  heightMm: number,
+  priceTable: PriceTable,
+  constraints: Record<string, Constraint>,
+) {
+  const systems = priceTable[material]
   if (!systems) return []
 
   const widthM = widthMm / 1000
   const heightM = heightMm / 1000
 
   return Object.keys(systems).filter((system) => {
-    const constraint = SYSTEM_CONSTRAINTS_RULLO[system]
+    const constraint = constraints[system]
     if (!constraint) return false
     return widthM <= constraint.maxWidth && heightM <= constraint.maxHeight
   })
@@ -617,12 +868,16 @@ function calculatePrice(
   widthMm: number,
   heightMm: number,
   includeInstallation: boolean,
+  toneId: string,
+  priceTable: PriceTable,
+  toneOverridesMap: Record<string, Record<string, number>>,
 ): CalculationResult {
   if (!material || !system) {
     return { price: "0,00", isValid: false, breakdown: null }
   }
 
-  const basePrice = TM_PRICE_DATA[material]?.[system]
+  const toneOverrides = toneOverridesMap[toneId]
+  const basePrice = toneOverrides?.[system] ?? priceTable[material]?.[system]
   if (!basePrice) {
     return { price: "0,00", isValid: false, breakdown: null }
   }
@@ -654,7 +909,16 @@ function calculatePrice(
   }
 }
 
-export default function RulloCalculator() {
+type RulloCalculatorProps = {
+  context?: "rullo" | "rullo-kasetu"
+}
+
+export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalculatorProps) {
+  const priceTable = context === "rullo-kasetu" ? TM_PRICE_DATA_KASETU : TM_PRICE_DATA_RULLO
+  const toneOverridesMap = context === "rullo-kasetu" ? TONE_PRICE_OVERRIDES_KASETU : TONE_PRICE_OVERRIDES_RULLO
+  const constraintsMap = context === "rullo-kasetu" ? SYSTEM_CONSTRAINTS_KASETU : SYSTEM_CONSTRAINTS_RULLO
+  const systemVisualMap = context === "rullo-kasetu" ? SYSTEM_IMAGE_INFO_KASETU : SYSTEM_IMAGE_INFO_RULLO
+
   const [material, setMaterial] = useState("")
   const [width, setWidth] = useState(1000)
   const [height, setHeight] = useState(1000)
@@ -689,31 +953,31 @@ export default function RulloCalculator() {
   }
 
   const systemOptions = useMemo(
-    () => getAvailableSystems(material, width, height),
-    [material, width, height],
+    () => getAvailableSystems(material, width, height, priceTable, constraintsMap),
+    [material, width, height, priceTable, constraintsMap],
   )
 
   const activeMaxWidthMm = useMemo(() => {
     if (!system) {
       return MAX_WIDTH_MM
     }
-    const constraint = SYSTEM_CONSTRAINTS_RULLO[system]
+    const constraint = constraintsMap[system]
     if (!constraint) {
       return MAX_WIDTH_MM
     }
     return Math.min(Math.floor(constraint.maxWidth * 1000), MAX_WIDTH_MM)
-  }, [system])
+  }, [system, constraintsMap])
 
   const activeMaxHeightMm = useMemo(() => {
     if (!system) {
       return MAX_HEIGHT_MM
     }
-    const constraint = SYSTEM_CONSTRAINTS_RULLO[system]
+    const constraint = constraintsMap[system]
     if (!constraint) {
       return MAX_HEIGHT_MM
     }
     return Math.min(Math.floor(constraint.maxHeight * 1000), MAX_HEIGHT_MM)
-  }, [system])
+  }, [system, constraintsMap])
 
   const filteredMaterialOptions = useMemo(() => {
     if (darkening === null) {
@@ -776,8 +1040,8 @@ export default function RulloCalculator() {
   }, [activeMaxHeightMm])
 
   const result = useMemo(
-    () => calculatePrice(material, system, width, height, includeInstallation),
-    [material, system, width, height, includeInstallation],
+    () => calculatePrice(material, system, width, height, includeInstallation, toneId, priceTable, toneOverridesMap),
+    [material, system, width, height, includeInstallation, toneId, priceTable, toneOverridesMap],
   )
 
   const formatCurrency = (value: number) => `${numberFormatter.format(value)} €`
@@ -853,7 +1117,7 @@ export default function RulloCalculator() {
       const dateStr = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}.`
       const prettyPrice = `${result.price} €`
 
-      const selectedSystemInfo = system ? SYSTEM_IMAGE_INFO[system] : null
+      const selectedSystemInfo = system ? systemVisualMap[system] : null
 
       const notesLines = [
         { text: '* Šis ir informatīvs cenas aprēķins. Gala cena var atšķirties.', style: 'notes', margin: [0, 10, 0, 2] },
@@ -1249,16 +1513,16 @@ export default function RulloCalculator() {
                 Izvēlētie izmēri pārsniedz pieejamos sistēmu parametrus.
               </p>
             )}
-            {system && SYSTEM_IMAGE_INFO[system] && (
+            {system && systemVisualMap[system] && (
               <div className="mt-6 flex items-center gap-4 rounded-2xl border border-sky-100 bg-white p-4 shadow-sm">
                 <img
-                  src={SYSTEM_IMAGE_INFO[system].image}
-                  alt={`${SYSTEM_IMAGE_INFO[system].label} sistēmas paraugs`}
+                  src={systemVisualMap[system].image}
+                  alt={`${systemVisualMap[system].label} sistēmas paraugs`}
                   className="h-28 w-40 rounded-xl object-cover shadow-sm"
                 />
                 <div>
                   <p className="text-sm font-medium text-sky-600">Izvēlētā sistēma</p>
-                  <h3 className="mt-1 text-lg font-semibold text-gray-900">{SYSTEM_IMAGE_INFO[system].label}</h3>
+                  <h3 className="mt-1 text-lg font-semibold text-gray-900">{systemVisualMap[system].label}</h3>
                 </div>
               </div>
             )}

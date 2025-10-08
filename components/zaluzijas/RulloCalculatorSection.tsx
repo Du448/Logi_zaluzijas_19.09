@@ -2,10 +2,14 @@
 
 import RulloCalculator from "./RulloCalculator"
 
-export default function RulloCalculatorSection() {
+type RulloCalculatorSectionProps = {
+  context?: "rullo" | "rullo-kasetu"
+}
+
+export default function RulloCalculatorSection({ context = "rullo-kasetu" }: RulloCalculatorSectionProps) {
   return (
     <div className="mt-12">
-      <RulloCalculator />
+      <RulloCalculator context={context} />
     </div>
   )
 }
