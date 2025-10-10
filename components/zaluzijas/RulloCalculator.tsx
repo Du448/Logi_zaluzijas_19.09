@@ -42,6 +42,57 @@ const MATERIAL_BLACKOUT_INFO: Record<string, string> = {
 
 type SystemVisual = { label: string; image: string }
 
+type SystemOption = {
+  value: string
+  label: string
+}
+
+const VERTIKALAS_SYSTEM_OPTIONS: SystemOption[] = [
+  { value: "VARIO 13 Kasete (balta)", label: "89mm" },
+  { value: "VARIO 17 Kasete (balts)", label: "127mm" },
+]
+
+type VertikalasMaterial = {
+  name: string
+  prices: Record<string, number>
+}
+
+const VERTIKALAS_MATERIALS: VertikalasMaterial[] = [
+  { name: "CAROL", prices: { "VARIO 13 Kasete (balta)": 22.7, "VARIO 17 Kasete (balts)": 19.1 } },
+  { name: "CORRA", prices: { "VARIO 13 Kasete (balta)": 21.56, "VARIO 17 Kasete (balts)": 17.96 } },
+  { name: "EVELYN", prices: { "VARIO 13 Kasete (balta)": 22.7, "VARIO 17 Kasete (balts)": 19.1 } },
+  { name: "POLLY", prices: { "VARIO 13 Kasete (balta)": 21.94, "VARIO 17 Kasete (balts)": 18.34 } },
+  { name: "SANDRA", prices: { "VARIO 13 Kasete (balta)": 22.7, "VARIO 17 Kasete (balts)": 19.1 } },
+  { name: "VANESA", prices: { "VARIO 13 Kasete (balta)": 23.84, "VARIO 17 Kasete (balts)": 20.24 } },
+  { name: "RAY", prices: { "VARIO 13 Kasete (balta)": 24.22, "VARIO 17 Kasete (balts)": 20.62 } },
+  { name: "BEATA", prices: { "VARIO 13 Kasete (balta)": 22.7, "VARIO 17 Kasete (balts)": 19.1 } },
+  { name: "VIOLA", prices: { "VARIO 13 Kasete (balta)": 23.08, "VARIO 17 Kasete (balts)": 19.48 } },
+  { name: "MARINA", prices: { "VARIO 13 Kasete (balta)": 22.7, "VARIO 17 Kasete (balts)": 19.1 } },
+  { name: "JENNY", prices: { "VARIO 13 Kasete (balta)": 22.7, "VARIO 17 Kasete (balts)": 19.1 } },
+  { name: "ANETA", prices: { "VARIO 13 Kasete (balta)": 25.36, "VARIO 17 Kasete (balts)": 21.76 } },
+  { name: "EDEN", prices: { "VARIO 13 Kasete (balta)": 24.22, "VARIO 17 Kasete (balts)": 20.62 } },
+  { name: "FLEX", prices: { "VARIO 13 Kasete (balta)": 43.78, "VARIO 17 Kasete (balts)": 40.18 } },
+  { name: "CHAD", prices: { "VARIO 13 Kasete (balta)": 24.22, "VARIO 17 Kasete (balts)": 20.62 } },
+  { name: "KENIA", prices: { "VARIO 13 Kasete (balta)": 24.4, "VARIO 17 Kasete (balts)": 20.8 } },
+  { name: "VEGA", prices: { "VARIO 13 Kasete (balta)": 32.54, "VARIO 17 Kasete (balts)": 26.36 } },
+  { name: "VEROFLEX", prices: { "VARIO 13 Kasete (balta)": 60.02, "VARIO 17 Kasete (balts)": 48.73 } },
+  { name: "APOLLO MEDIA CARE", prices: { "VARIO 13 Kasete (balta)": 46.46, "VARIO 17 Kasete (balts)": 37.73 } },
+]
+
+const VERTIKALAS_MATERIAL_OPTIONS = VERTIKALAS_MATERIALS.map((material) => material.name)
+
+const VERTIKALAS_MATERIAL_LOOKUP = VERTIKALAS_MATERIALS.reduce<Record<string, VertikalasMaterial>>((acc, material) => {
+  acc[material.name] = material
+  return acc
+}, {})
+
+const VERTIKALAS_PRICE_TABLE: PriceTable = VERTIKALAS_MATERIALS.reduce<PriceTable>((acc, material) => {
+  acc[material.name] = material.prices
+  return acc
+}, {})
+
+const EMPTY_TONE_OVERRIDES: Record<string, Record<string, number>> = {}
+
 const SYSTEM_IMAGE_INFO_KASETU: Record<string, SystemVisual> = {
   "VARIO 13 Kasete (balta)": {
     label: "Vario 13",
@@ -99,19 +150,19 @@ const TONE_PRICE_OVERRIDES_RULLO: Record<string, Record<string, number>> = {
 const SYSTEM_IMAGE_INFO_RULLO: Record<string, SystemVisual> = {
   "VARIO 25 Rullo (balts)": {
     label: "Vario 25",
-    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario25_rieksts.png?updatedAt=1759842315200",
+    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20%C5%BEal%C5%ABzijas/b_ZF_roleta_grand_rolety_duze%20(1).jpg?updatedAt=1759924549864",
   },
   "VARIO 25 Rullo (krāsains)": {
     label: "Vario 25",
-    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario25_rieksts.png?updatedAt=1759842315200",
+    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20%C5%BEal%C5%ABzijas/Rullo_atvertais.png?updatedAt=1759924551068",
   },
   "VARIO 32 Rullo (balts)": {
     label: "Vario 32",
-    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario32_balts.png?updatedAt=1759842315200",
+    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20%C5%BEal%C5%ABzijas/b_ZF_roleta_vario_32_plus_4%20(2).jpg?updatedAt=1759924549789",
   },
   "VARIO 32 Rullo (krāsains)": {
     label: "Vario 32",
-    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario32_krasains.png?updatedAt=1759842315200",
+    image: "https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20%C5%BEal%C5%ABzijas/Rullo_daleji%20slegtais.png?updatedAt=1759924550543",
   },
 }
 
@@ -819,6 +870,11 @@ const SYSTEM_CONSTRAINTS_RULLO: Record<string, Constraint> = {
   "VARIO 32 Rullo (krāsains)": { maxWidth: 2.2, maxHeight: 3 },
 }
 
+const VERTIKALAS_CONSTRAINTS: Record<string, Constraint> = {
+  "VARIO 13 Kasete (balta)": { maxWidth: 3, maxHeight: 3.5 },
+  "VARIO 17 Kasete (balts)": { maxWidth: 3, maxHeight: 3.5 },
+}
+
 type PriceBreakdown = {
   product: number
   installation: number
@@ -862,6 +918,8 @@ function getAvailableSystems(
   })
 }
 
+type CalculatorContext = "rullo" | "rullo-kasetu" | "vertikalas"
+
 function calculatePrice(
   material: string,
   system: string,
@@ -871,6 +929,7 @@ function calculatePrice(
   toneId: string,
   priceTable: PriceTable,
   toneOverridesMap: Record<string, Record<string, number>>,
+  context: CalculatorContext,
 ): CalculationResult {
   if (!material || !system) {
     return { price: "0,00", isValid: false, breakdown: null }
@@ -885,14 +944,15 @@ function calculatePrice(
   const widthM = widthMm / 1000
   const heightM = heightMm / 1000
 
-  const chargeableWidth = Math.max(widthM, 0.5)
-  let cost = chargeableWidth * basePrice
+  const chargeableWidth = context === "vertikalas" ? widthM : Math.max(widthM, 0.5)
 
-  if (heightM > 2) {
-    cost *= 1.5
-  } else if (heightM > 1.5) {
-    cost *= 1.2
-  }
+  const cost = context === "vertikalas"
+    ? chargeableWidth * heightM * basePrice
+    : (heightM > 2
+        ? chargeableWidth * basePrice * 1.5
+        : heightM > 1.5
+          ? chargeableWidth * basePrice * 1.2
+          : chargeableWidth * basePrice)
 
   const productCost = Math.round(cost * 2.5 * 1.21)
   const installationCost = includeInstallation ? INSTALLATION_FEE : 0
@@ -911,13 +971,38 @@ function calculatePrice(
 
 type RulloCalculatorProps = {
   context?: "rullo" | "rullo-kasetu"
+  title?: string
+  instanceKey?: string
 }
 
-export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalculatorProps) {
-  const priceTable = context === "rullo-kasetu" ? TM_PRICE_DATA_KASETU : TM_PRICE_DATA_RULLO
-  const toneOverridesMap = context === "rullo-kasetu" ? TONE_PRICE_OVERRIDES_KASETU : TONE_PRICE_OVERRIDES_RULLO
-  const constraintsMap = context === "rullo-kasetu" ? SYSTEM_CONSTRAINTS_KASETU : SYSTEM_CONSTRAINTS_RULLO
-  const systemVisualMap = context === "rullo-kasetu" ? SYSTEM_IMAGE_INFO_KASETU : SYSTEM_IMAGE_INFO_RULLO
+export default function RulloCalculator({ context = "rullo-kasetu", title, instanceKey }: RulloCalculatorProps) {
+  const isVertikalas = instanceKey === "vertikalas"
+  const effectiveContext = isVertikalas ? "vertikalas" : context
+
+  const priceTable =
+    effectiveContext === "rullo-kasetu"
+      ? TM_PRICE_DATA_KASETU
+      : effectiveContext === "rullo"
+        ? TM_PRICE_DATA_RULLO
+        : VERTIKALAS_PRICE_TABLE
+  const toneOverridesMap =
+    effectiveContext === "rullo-kasetu"
+      ? TONE_PRICE_OVERRIDES_KASETU
+      : effectiveContext === "rullo"
+        ? TONE_PRICE_OVERRIDES_RULLO
+        : EMPTY_TONE_OVERRIDES
+  const constraintsMap =
+    effectiveContext === "rullo-kasetu"
+      ? SYSTEM_CONSTRAINTS_KASETU
+      : effectiveContext === "rullo"
+        ? SYSTEM_CONSTRAINTS_RULLO
+        : VERTIKALAS_CONSTRAINTS
+  const systemVisualMap =
+    effectiveContext === "rullo-kasetu"
+      ? SYSTEM_IMAGE_INFO_KASETU
+      : effectiveContext === "rullo"
+        ? SYSTEM_IMAGE_INFO_RULLO
+        : {}
 
   const [material, setMaterial] = useState("")
   const [width, setWidth] = useState(1000)
@@ -928,12 +1013,6 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
   const [downloadError, setDownloadError] = useState<string | null>(null)
   const [toneId, setToneId] = useState("")
   const [darkening, setDarkening] = useState<number | null>(null)
-
-  // Progressive unlocking flags
-  const [hasChosenDarkening, setHasChosenDarkening] = useState(false)
-  const [hasChosenMaterial, setHasChosenMaterial] = useState(false)
-  const [hasChosenTone, setHasChosenTone] = useState(false)
-  const [hasChosenSystem, setHasChosenSystem] = useState(false)
   const [isMaxSizesOpen, setIsMaxSizesOpen] = useState(false)
 
   const calculatorRef = useRef<HTMLDivElement>(null)
@@ -952,10 +1031,16 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
     }
   }
 
-  const systemOptions = useMemo(
-    () => getAvailableSystems(material, width, height, priceTable, constraintsMap),
-    [material, width, height, priceTable, constraintsMap],
-  )
+  const systemOptions = useMemo<SystemOption[]>(() => {
+    if (isVertikalas) {
+      return VERTIKALAS_SYSTEM_OPTIONS
+    }
+
+    return getAvailableSystems(material, width, height, priceTable, constraintsMap).map((system) => ({
+      value: system,
+      label: system,
+    }))
+  }, [constraintsMap, height, isVertikalas, material, priceTable, width])
 
   const activeMaxWidthMm = useMemo(() => {
     if (!system) {
@@ -980,6 +1065,10 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
   }, [system, constraintsMap])
 
   const filteredMaterialOptions = useMemo(() => {
+    if (isVertikalas) {
+      return VERTIKALAS_MATERIAL_OPTIONS
+    }
+
     if (darkening === null) {
       return ALL_MATERIAL_OPTIONS
     }
@@ -988,33 +1077,34 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
       if (!levels) return false
       return levels.includes(darkening)
     })
-  }, [darkening])
+  }, [darkening, isVertikalas])
 
   // Reset downstream selections when an earlier choice changes
   useEffect(() => {
+    if (isVertikalas) {
+      setSystem("")
+      return
+    }
+
     // Darkening changed -> require re-confirming later steps
-    setHasChosenMaterial(false)
     setToneId("")
-    setHasChosenTone(false)
     setSystem("")
-    setHasChosenSystem(false)
-  }, [darkening])
+  }, [darkening, isVertikalas])
 
   useEffect(() => {
     // Material changed -> reset tone and system
-    setToneId("")
-    setHasChosenTone(false)
+    if (!isVertikalas) {
+      setToneId("")
+    }
     setSystem("")
-    setHasChosenSystem(false)
-  }, [material])
+  }, [isVertikalas, material])
 
   useEffect(() => {
     // Tone changed -> reset system confirmation
     setSystem("")
-    setHasChosenSystem(false)
   }, [toneId])
 
-  const toneOptions = useMemo(() => TONE_OPTIONS[material] ?? [], [material])
+  const toneOptions = useMemo(() => (isVertikalas ? [] : TONE_OPTIONS[material] ?? []), [isVertikalas, material])
 
   useEffect(() => {
     // Keep current material if still valid; otherwise clear it.
@@ -1028,7 +1118,9 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
 
   useEffect(() => {
     // Only preserve system if still valid; do not auto-select a default.
-    setSystem((current) => (current && systemOptions.includes(current) ? current : ""))
+    setSystem((current) =>
+      current && systemOptions.some((option) => option.value === current) ? current : "",
+    )
   }, [systemOptions])
 
   useEffect(() => {
@@ -1040,8 +1132,19 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
   }, [activeMaxHeightMm])
 
   const result = useMemo(
-    () => calculatePrice(material, system, width, height, includeInstallation, toneId, priceTable, toneOverridesMap),
-    [material, system, width, height, includeInstallation, toneId, priceTable, toneOverridesMap],
+    () =>
+      calculatePrice(
+        material,
+        system,
+        width,
+        height,
+        includeInstallation,
+        toneId,
+        priceTable,
+        toneOverridesMap,
+        effectiveContext,
+      ),
+    [effectiveContext, includeInstallation, material, priceTable, system, height, toneId, toneOverridesMap, width],
   )
 
   const formatCurrency = (value: number) => `${numberFormatter.format(value)} €`
@@ -1288,9 +1391,13 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
   }
 
   return (
-    <div className="w-full rounded-3xl bg-sky-50 p-6 shadow-sm sm:p-10">
+    <div
+      className="w-full rounded-3xl bg-sky-50 p-6 shadow-sm sm:p-10"
+      data-component-name={`RulloCalculator${instanceKey ? `-${instanceKey}` : ""}`}
+      id={`rullo-calculator${instanceKey ? `-${instanceKey}` : ""}`}
+    >
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Cenas kalkulators</h2>
+        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title ?? "Cenas kalkulators"}</h2>
         {/* Maksimālie izmēri Modal */}
       {isMaxSizesOpen && (
         <div
@@ -1313,9 +1420,18 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
               </button>
             </div>
             <div className="mt-4 space-y-2 text-sm text-gray-700">
-              <p>mak. izmērs - P1500xA1300 (Vario 13)</p>
-              <p>mak. izmērs - P1600xA2000 (Vario 17)</p>
-              <p>mak. izmērs - P1600xA2000 (Vario 25)</p>
+              {isVertikalas ? (
+                <>
+                  <p>Žalūziju maksimālais platums - 3,00 m.</p>
+                  <p>Žalūziju maksimālais augstums – 3,50 m.</p>
+                </>
+              ) : (
+                <>
+                  <p>mak. izmērs - P1500xA1300 (Vario 13)</p>
+                  <p>mak. izmērs - P1600xA2000 (Vario 17)</p>
+                  <p>mak. izmērs - P1600xA2000 (Vario 25)</p>
+                </>
+              )}
             </div>
             <div className="mt-6 flex justify-end">
               <button
@@ -1329,10 +1445,12 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
           </div>
         </div>
       )}
-    </div>
+
+      </div>
 
       <div ref={calculatorRef} className="mt-10 grid gap-8 md:grid-cols-2 md:gap-12">
         <div className="space-y-6">
+          {!isVertikalas && (
           <div>
             <p className="text-sm font-medium text-gray-700">Izvēlieties aptumšošanas līmeni</p>
             <p className="mt-1 text-xs text-gray-500">Tas filtrēs pieejamos materiālus pēc aptumšošanas procentiem.</p>
@@ -1341,7 +1459,6 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
                 type="button"
                 onClick={() => {
                   setDarkening(null)
-                  setHasChosenDarkening(true)
                   scrollTo(sectionRefs.material)
                 }}
                 className={cn(
@@ -1360,7 +1477,6 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
                   key={level}
                   onClick={() => {
                     setDarkening(level)
-                    setHasChosenDarkening(true)
                     scrollTo(sectionRefs.material)
                   }}
                   className={cn(
@@ -1376,8 +1492,9 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
               ))}
             </div>
           </div>
+          )}
 
-          <div className={cn(!hasChosenDarkening && "pointer-events-none opacity-50")}> 
+          <div ref={sectionRefs.material}>
             <label htmlFor="material" className="block text-sm font-medium text-gray-700">
               Izvēlieties materiālu
             </label>
@@ -1387,13 +1504,12 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
               onChange={(event) => {
                 const v = event.target.value
                 setMaterial(v)
-                setHasChosenMaterial(!!v)
                 if (v) {
-                  scrollTo(sectionRefs.tone)
+                  scrollTo(isVertikalas ? sectionRefs.system : sectionRefs.tone)
                 }
               }}
               className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
-              disabled={!hasChosenDarkening || filteredMaterialOptions.length === 0}
+              disabled={filteredMaterialOptions.length === 0}
             >
               {filteredMaterialOptions.length === 0 ? (
                 <option value="">Nav pieejamu materiālu izvēlētajam aptumšojumam</option>
@@ -1401,13 +1517,21 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
                 <>
                   <option value="">Izvēlieties materiālu</option>
                   {filteredMaterialOptions.map((option) => {
-                  const blackout = MATERIAL_BLACKOUT_INFO[option]
-                  const label = blackout ? `${option} ${blackout}` : option
-                  return (
-                    <option key={option} value={option}>
-                      {label}
-                    </option>
-                  )
+                    if (isVertikalas) {
+                      return (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      )
+                    }
+
+                    const blackout = MATERIAL_BLACKOUT_INFO[option]
+                    const label = blackout ? `${option} ${blackout}` : option
+                    return (
+                      <option key={option} value={option}>
+                        {label}
+                      </option>
+                    )
                   })}
                 </>
               )}
@@ -1417,11 +1541,7 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
               <p className="mt-2 text-sm text-red-600">Izvēlētajam aptumšošanas līmenim nav pieejamu materiālu. Lūdzu, mēģiniet citu līmeni.</p>
             )}
 
-            {!hasChosenDarkening && (
-              <p className="mt-2 text-xs text-gray-500">Virspriekš, izvēlieties aptumšošanas līmeni, lai aktivizētu materiālu izvēli.</p>
-            )}
-
-            {hasChosenMaterial && toneOptions.length > 0 && filteredMaterialOptions.length > 0 && (
+            {!isVertikalas && toneOptions.length > 0 && filteredMaterialOptions.length > 0 && (
               <div className="mt-6">
                 <p className="text-sm font-medium text-gray-700">Izvēlieties materiāla toni</p>
                 <p className="mt-1 text-xs text-gray-500">Klikšķiniet uz toņa, lai apskatītu lielāku paraugu un iekļautu to PDF aprēķinā.</p>
@@ -1432,7 +1552,6 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
                       key={tone.id}
                       onClick={() => {
                         setToneId(tone.id)
-                        setHasChosenTone(true)
                         scrollTo(sectionRefs.system)
                       }}
                       className={cn(
@@ -1463,15 +1582,15 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
                 </div>
               </div>
             )}
-            {!hasChosenMaterial && (
-              <p className="mt-3 text-xs text-gray-500">Virspriekš, izvēlieties materiālu, lai turpinātu ar toņa izvēli.</p>
+            {!isVertikalas && !material && toneOptions.length === 0 && (
+              <p className="mt-3 text-xs text-gray-500">Izvēlieties materiālu, lai turpinātu ar toņa izvēli.</p>
             )}
           </div>
 
-          <div className={cn(!hasChosenTone && "pointer-events-none opacity-50")}>
+          <div ref={sectionRefs.system}>
             <div className="flex items-center justify-between">
               <label htmlFor="system" className="block text-sm font-medium text-gray-700">
-                Izvēlieties sistēmu
+                {isVertikalas ? "Izvēlieties izmēru" : "Izvēlieties sistēmu"}
               </label>
               <button
                 type="button"
@@ -1487,28 +1606,27 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
               onChange={(event) => {
                 const v = event.target.value
                 setSystem(v)
-                setHasChosenSystem(!!v)
                 if (v) {
                   scrollTo(sectionRefs.width)
                 }
               }}
               className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
-              disabled={!hasChosenTone || systemOptions.length === 0}
+              disabled={systemOptions.length === 0}
             >
               {systemOptions.length === 0 ? (
                 <option value="">Nav piemērotu sistēmu</option>
               ) : (
                 <>
-                  <option value="">Izvēlieties sistēmu</option>
+                  <option value="">{isVertikalas ? "Izvēlieties izmēru" : "Izvēlieties sistēmu"}</option>
                   {systemOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
+                    <option key={option.value} value={option.value}>
+                      {option.label}
                     </option>
                   ))}
                 </>
               )}
             </select>
-            {systemOptions.length === 0 && hasChosenSystem && (
+            {systemOptions.length === 0 && system && (
               <p className="mt-2 text-sm text-red-600">
                 Izvēlētie izmēri pārsniedz pieejamos sistēmu parametrus.
               </p>
@@ -1526,12 +1644,12 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
                 </div>
               </div>
             )}
-            {!hasChosenTone && (
-              <p className="mt-2 text-xs text-gray-500">Virspriekš, izvēlieties materiāla toni, lai aktivizētu sistēmas izvēli.</p>
+            {!toneId && toneOptions.length > 0 && (
+              <p className="mt-2 text-xs text-gray-500">Izvēlieties materiāla toni, lai aktivizētu sistēmas izvēli.</p>
             )}
           </div>
 
-          <div className={cn(!hasChosenSystem && "pointer-events-none opacity-50")}> 
+          <div ref={sectionRefs.width}>
             <label htmlFor="width" className="block text-sm font-medium text-gray-700">
               Platums (mm)
             </label>
@@ -1558,15 +1676,13 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
               />
             </div>
-            <p className="mt-1 text-xs text-gray-500">
-              Pieejamais diapazons: {MIN_WIDTH_MM}–{activeMaxWidthMm} mm
-            </p>
-            {!hasChosenSystem && (
-              <p className="mt-2 text-xs text-gray-500">Virspriekš, izvēlieties sistēmu, lai norādītu izmērus.</p>
+            <p className="mt-1 text-xs text-gray-500">Pieejamais diapazons: {MIN_WIDTH_MM}–{activeMaxWidthMm} mm</p>
+            {!system && (
+              <p className="mt-2 text-xs text-gray-500">Izvēlieties sistēmu, lai norādītu precīzus izmērus.</p>
             )}
           </div>
 
-          <div className={cn(!hasChosenSystem && "pointer-events-none opacity-50")}> 
+          <div ref={sectionRefs.height}>
             <label htmlFor="height" className="block text-sm font-medium text-gray-700">
               Augstums (mm)
             </label>
@@ -1596,12 +1712,9 @@ export default function RulloCalculator({ context = "rullo-kasetu" }: RulloCalcu
             <p className="mt-1 text-xs text-gray-500">
               Pieejamais diapazons: {MIN_HEIGHT_MM}–{activeMaxHeightMm} mm
             </p>
-            {!hasChosenSystem && (
-              <p className="mt-2 text-xs text-gray-500">Virspriekš, izvēlieties sistēmu, lai norādītu izmērus.</p>
-            )}
           </div>
 
-          <label className={cn("inline-flex items-center gap-2 text-sm text-gray-700", !hasChosenSystem && "pointer-events-none opacity-50")}> 
+          <label className="inline-flex items-center gap-2 text-sm text-gray-700"> 
             <input
               type="checkbox"
               checked={includeInstallation}

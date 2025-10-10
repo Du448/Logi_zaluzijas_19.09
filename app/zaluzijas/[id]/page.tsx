@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import LightboxGallery from '@/components/LightboxGallery'
 import { getAllIds, getProduct } from '@/lib/zaluzijas'
 import RulloCalculatorSection from '@/components/zaluzijas/RulloCalculatorSection'
+import PlisetasCalculatorSection from '@/components/zaluzijas/PlisetasCalculatorSection'
 import type { Metadata } from 'next'
 
 export const dynamicParams = false
@@ -66,9 +67,17 @@ export default function Page({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          {(id === 'rullo-kasetu' || id === 'rullo') && (
-            <RulloCalculatorSection context={id === 'rullo-kasetu' ? 'rullo-kasetu' : 'rullo'} />
-          )}
+          {id === 'plisetas' && <PlisetasCalculatorSection title="Plisēto žalūziju kalkulators" />}
+
+          {(id === 'rullo-kasetu' || id === 'rullo' || id === 'vertikalas') && (() => {
+            const props =
+              id === 'rullo'
+                ? { context: 'rullo' as const, title: 'Rullo žalūziju kalkulators', instanceKey: 'rullo' }
+                : id === 'rullo-kasetu'
+                ? { context: 'rullo-kasetu' as const, title: 'Rullo kasetes kalkulators', instanceKey: 'rullo-kasetu' }
+                : { context: 'rullo-kasetu' as const, title: 'Vertikālo žalūziju kalkulators', instanceKey: 'vertikalas' }
+            return <RulloCalculatorSection {...props} />
+          })()}
         </div>
       </section>
 
