@@ -944,7 +944,9 @@ function calculatePrice(
   const widthM = widthMm / 1000
   const heightM = heightMm / 1000
 
-  const chargeableWidth = context === "vertikalas" ? widthM : Math.max(widthM, 0.5)
+  const chargeableWidth = context === "vertikalas"
+    ? widthM
+    : Math.max(widthM, 0.5)
 
   const cost = context === "vertikalas"
     ? chargeableWidth * heightM * basePrice
@@ -1023,12 +1025,6 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
     system: useRef<HTMLDivElement>(null),
     width: useRef<HTMLDivElement>(null),
     height: useRef<HTMLDivElement>(null),
-  }
-
-  const scrollTo = (ref: React.RefObject<HTMLElement>) => {
-    if (ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "start" })
-    }
   }
 
   const systemOptions = useMemo<SystemOption[]>(() => {
@@ -1459,7 +1455,6 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
                 type="button"
                 onClick={() => {
                   setDarkening(null)
-                  scrollTo(sectionRefs.material)
                 }}
                 className={cn(
                   "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition",
@@ -1477,7 +1472,6 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
                   key={level}
                   onClick={() => {
                     setDarkening(level)
-                    scrollTo(sectionRefs.material)
                   }}
                   className={cn(
                     "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition",
@@ -1504,9 +1498,6 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
               onChange={(event) => {
                 const v = event.target.value
                 setMaterial(v)
-                if (v) {
-                  scrollTo(isVertikalas ? sectionRefs.system : sectionRefs.tone)
-                }
               }}
               className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
               disabled={filteredMaterialOptions.length === 0}
@@ -1552,7 +1543,6 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
                       key={tone.id}
                       onClick={() => {
                         setToneId(tone.id)
-                        scrollTo(sectionRefs.system)
                       }}
                       className={cn(
                         "flex w-full items-center gap-3 rounded-xl border px-3 py-3 text-left transition shadow-sm",
@@ -1606,9 +1596,6 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
               onChange={(event) => {
                 const v = event.target.value
                 setSystem(v)
-                if (v) {
-                  scrollTo(sectionRefs.width)
-                }
               }}
               className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
               disabled={systemOptions.length === 0}

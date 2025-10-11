@@ -2,23 +2,78 @@
 
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
-import type { RefObject } from "react"
 
 const APP_VERSION = "1.0"
 
-const MIN_WIDTH_MM = 300
-const MAX_WIDTH_MM = 3000
-const MIN_HEIGHT_MM = 300
-const MAX_HEIGHT_MM = 3500
+const MIN_WIDTH_MM = 200
+const MAX_WIDTH_MM = 1500
+const MIN_HEIGHT_MM = 200
+const MAX_HEIGHT_MM = 2000
 
 const INSTALLATION_FEE = 20
 
 const PLISETAS_SYSTEM_OPTIONS = [
-  { value: "VARIO 13 Kasete (balta)", label: "89mm" },
-  { value: "VARIO 17 Kasete (balts)", label: "127mm" },
+  { value: "Anthracite", label: "Anthracite" },
+  { value: "Anodisedblack", label: "Anodisedblack" },
+  { value: "Anodisedilver", label: "Anodisedilver" },
+  { value: "Beige", label: "Beige" },
+  { value: "Mahogany", label: "Mahogany" },
+  { value: "Brown", label: "Brown" },
+  { value: "Goldenoak", label: "Goldenoak" },
+  { value: "Walnut", label: "Walnut" },
+  { value: "Winchester", label: "Winchester" },
+  { value: "Swampoak", label: "Swampoak" },
+  { value: "White", label: "White" },
 ] as const
 
 type SystemOption = (typeof PLISETAS_SYSTEM_OPTIONS)[number]
+
+const PLISETAS_SYSTEM_IMAGES: Record<SystemOption["value"], readonly [string, string]> = {
+  Anthracite: [
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Anthracite.png",
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Anthracite_S.png",
+  ],
+  Anodisedblack: [
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Anodised_black.png",
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Anodised_black_S.png",
+  ],
+  Anodisedilver: [
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Anodised_silver.png",
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Anodised_silver_S.png",
+  ],
+  Beige: [
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Beige.png",
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Beige_s.png",
+  ],
+  Mahogany: [
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plis%C4%93t%C4%81s/Mahogany.png?updatedAt=1760180680559",
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plis%C4%93t%C4%81s/Mahogany_S.png?updatedAt=1760180680470",
+  ],
+  Brown: [
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plis%C4%93t%C4%81s/Brown_SS.png?updatedAt=1760183183005",
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plis%C4%93t%C4%81s/Brown.png?updatedAt=1760180680555",
+  ],
+  Goldenoak: [
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plis%C4%93t%C4%81s/Golden_oak.png?updatedAt=1760183005174",
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plis%C4%93t%C4%81s/Golden_oak_S.png?updatedAt=1760196682692",
+  ],
+  Walnut: [
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Walnut.png",
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Walnut_S.png",
+  ],
+  Winchester: [
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Winchester.png",
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Winchester_S.png",
+  ],
+  Swampoak: [
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Swamp_oak.png",
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plisētās/Swamp_oak_S.png",
+  ],
+  White: [
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plis%C4%93t%C4%81s/White.png?updatedAt=1760180680612",
+    "https://ik.imagekit.io/vbvwdejj5/zmk/Plis%C4%93t%C4%81s/White_S.png?updatedAt=1760180680713",
+  ],
+}
 
 type PlisetasMaterial = {
   code: string
@@ -95,7 +150,7 @@ type Constraint = {
   maxHeight: number
 }
 
-const PLISETAS_CONSTRAINTS: Record<SystemOption["value"], Constraint> = {
+const PLISETAS_CONSTRAINTS: Record<string, Constraint> = {
   "VARIO 13 Kasete (balta)": { maxWidth: 3, maxHeight: 3.5 },
   "VARIO 17 Kasete (balts)": { maxWidth: 3, maxHeight: 3.5 },
 }
@@ -163,7 +218,7 @@ function calculatePrice(
   const widthM = widthMm / 1000
   const heightM = heightMm / 1000
 
-  const area = widthM * heightM
+  const area = Math.max(widthM * heightM, 0.75)
   const cost = area * basePrice
 
   const productCost = Math.round(cost * 2.5 * 1.21)
@@ -203,13 +258,15 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
     height: useRef<HTMLDivElement>(null),
   }
 
-  const scrollTo = (ref: RefObject<HTMLElement>) => {
-    if (ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "start" })
-    }
-  }
-
   const systemOptions = useMemo(() => PLISETAS_SYSTEM_OPTIONS, [])
+
+  const selectedSystemImages = useMemo(() => {
+    if (!system) {
+      return null
+    }
+    const images = PLISETAS_SYSTEM_IMAGES[system as SystemOption["value"]]
+    return images ?? null
+  }, [system])
 
   const activeMaxWidthMm = useMemo(() => {
     if (!system) {
@@ -259,6 +316,16 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
   )
 
   const formatCurrency = (value: number) => `${numberFormatter.format(value)} €`
+
+  const handleScrollToFabricCatalog = () => {
+    const el = document.getElementById("plisetas-fabric-catalog")
+    if (!el) return
+    el.scrollIntoView({ behavior: "smooth", block: "center" })
+    el.classList.add("ring-4", "ring-sky-400", "animate-pulse")
+    window.setTimeout(() => {
+      el.classList.remove("ring-4", "ring-sky-400", "animate-pulse")
+    }, 2200)
+  }
 
   const handleWidthChange = (value: number) => {
     setWidth(clamp(Math.round(value), MIN_WIDTH_MM, activeMaxWidthMm))
@@ -483,8 +550,8 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
               </button>
             </div>
             <div className="mt-4 space-y-2 text-sm text-gray-700">
-              <p>Žalūziju maksimālais platums - 3,00 m.</p>
-              <p>Žalūziju maksimālais augstums – 3,50 m.</p>
+              <p>Žalūziju maksimālais platums - 1,50 m.</p>
+              <p>Žalūziju maksimālais augstums – 2,00 m.</p>
             </div>
             <div className="mt-6 flex justify-end">
               <button
@@ -502,18 +569,24 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
       <div className="mt-10 grid gap-8 md:grid-cols-2 md:gap-12">
         <div className="space-y-6">
           <div ref={sectionRefs.material}>
-            <label htmlFor="plisetas-material" className="block text-sm font-medium text-gray-700">
-              Izvēlieties materiālu
-            </label>
+            <div className="flex items-center justify-between">
+              <label htmlFor="plisetas-material" className="block text-sm font-medium text-gray-700">
+                Izvēlieties materiālu
+              </label>
+              <button
+                type="button"
+                onClick={handleScrollToFabricCatalog}
+                className="text-xs font-medium text-sky-600 hover:text-sky-700 underline underline-offset-2"
+              >
+                Audumu katalogs
+              </button>
+            </div>
             <select
               id="plisetas-material"
               value={materialCode}
               onChange={(event) => {
                 const v = event.target.value
                 setMaterialCode(v)
-                if (v) {
-                  scrollTo(sectionRefs.system)
-                }
               }}
               className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
             >
@@ -536,7 +609,7 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
           <div ref={sectionRefs.system}>
             <div className="flex items-center justify-between">
               <label htmlFor="plisetas-system" className="block text-sm font-medium text-gray-700">
-                Izvēlieties izmēru
+                Izvēlēties profila krāsu
               </label>
               <button
                 type="button"
@@ -552,9 +625,6 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
               onChange={(event) => {
                 const v = event.target.value
                 setSystem(v)
-                if (v) {
-                  scrollTo(sectionRefs.width)
-                }
               }}
               className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
             >
@@ -565,6 +635,20 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
                 </option>
               ))}
             </select>
+            {selectedSystemImages && (
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                {selectedSystemImages.map((imageUrl, index) => (
+                  <div key={`${system}-${index}`} className="overflow-hidden rounded-xl border border-gray-200">
+                    <img
+                      src={imageUrl}
+                      alt={`${system} profila krāsa ${index === 0 ? "skatījums" : "detalizēts skatījums"}`}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div ref={sectionRefs.width}>
