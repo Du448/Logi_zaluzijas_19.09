@@ -113,6 +113,11 @@ export default function Header(){
 
   const headerHeight = 'h-[64px] md:h-[80px]'
   const isSheetOpen = open && hasInteracted
+  const headerAmbientClass = isSheetOpen
+    ? 'bg-slate-950/90 border-slate-400/40 shadow-[0_10px_40px_rgba(15,23,42,0.45)]'
+    : scrolled
+    ? 'bg-gradient-to-br from-slate-900/85 via-slate-800/75 to-sky-900/70 border-slate-400/30 shadow-[0_18px_55px_rgba(15,23,42,0.35)]'
+    : 'bg-gradient-to-br from-slate-900/85 via-slate-800/75 to-sky-900/70 border-slate-400/30 shadow-[0_18px_55px_rgba(15,23,42,0.35)]'
   const onSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchQuery.trim().length === 0) return
@@ -124,9 +129,11 @@ export default function Header(){
 
   return (
     <>
-    <header className={`fixed top-0 left-0 right-0 z-50 ${isSheetOpen ? 'bg-black' : 'bg-black/90'} backdrop-blur-md border-b border-white/10 shadow-sm`}>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-xl transition-[background,box-shadow,border] duration-500 border-b ${headerAmbientClass}`}
+    >
       {/* Top info bar */}
-      <div className="bg-transparent text-white text-xs">
+      <div className="bg-white/5 text-white text-xs">
         <div className="container flex items-center justify-between py-1.5">
           {/* Left: phone + email */}
           <div className="flex items-center gap-4">
@@ -198,10 +205,6 @@ export default function Header(){
           </Link>
           <Link href="/projekti" className="relative overflow-hidden px-4 py-2.5 rounded-xl hover:text-brand-teal transition-all duration-500 group">
             <span className="relative z-10 transition-transform duration-300 group-hover:scale-105">Dzīvokļu projekti</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-teal/0 via-brand-teal/20 to-brand-teal/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center rounded-xl"></div>
-          </Link>
-          <Link href="/par-mums" className="relative overflow-hidden px-4 py-2.5 rounded-xl hover:text-brand-teal transition-all duration-500 group">
-            <span className="relative z-10 transition-transform duration-300 group-hover:scale-105">Par mums</span>
             <div className="absolute inset-0 bg-gradient-to-r from-brand-teal/0 via-brand-teal/20 to-brand-teal/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center rounded-xl"></div>
           </Link>
           <Link href="/blogs-2" className="relative overflow-hidden px-4 py-2.5 rounded-xl hover:text-brand-teal transition-all duration-500 group">
@@ -413,15 +416,6 @@ export default function Header(){
             className="flex items-center justify-between p-4 rounded-2xl hover:bg-brand-teal/10 transition-all duration-300 group"
           >
             <span className="text-lg font-medium group-hover:text-brand-teal">Dzīvokļu projekti</span>
-            <div className="w-2 h-2 bg-gray-400 rounded-full group-hover:bg-brand-teal transition-colors duration-300"></div>
-          </Link>
-
-          <Link 
-            href="/par-mums" 
-            onClick={() => { setOpen(false); setHasInteracted(false); }}
-            className="flex items-center justify-between p-4 rounded-2xl hover:bg-brand-teal/10 transition-all duration-300 group"
-          >
-            <span className="text-lg font-medium group-hover:text-brand-teal">Par mums</span>
             <div className="w-2 h-2 bg-gray-400 rounded-full group-hover:bg-brand-teal transition-colors duration-300"></div>
           </Link>
 

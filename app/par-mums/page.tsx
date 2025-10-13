@@ -1,4 +1,3 @@
-import AboutPage from '@/components/AboutPage'
 import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Par mums — Vestalux',
@@ -10,5 +9,5 @@ export const metadata: Metadata = {
 }
 
 export default function Page(){
-  return <AboutPage />
+  return null
 }

@@ -6,14 +6,6 @@ export default function Footer() {
       <div className="container py-10">
         <div className="grid gap-10 text-sm md:grid-cols-4">
           <div>
-            <div className="mb-3 flex items-center gap-3">
-              <span className="text-xl font-semibold text-white md:text-2xl">Interjera risinājumi</span>
-            </div>
-            <p className="text-white/70">
-              Augstas kvalitātes PVC logi, žalūzijas un piederumi ar vairāk nekā 10 gadu pieredzi.
-            </p>
-          </div>
-          <div>
             <h4 className="mb-3 font-semibold text-white">Navigācija</h4>
             <div className="grid gap-2">
               <Link className="text-white/70 hover:text-white" href="/">
@@ -50,7 +42,7 @@ export default function Footer() {
           <div>
             <h4 className="mb-3 font-semibold text-white">Sekojet mums</h4>
             <div className="flex items-center gap-4">
-              <a href="#" aria-label="Facebook" className="hover:text-white">
+              <a href="https://www.facebook.com/profile.php?id=61581610862103" aria-label="Facebook" className="hover:text-white" target="_blank" rel="noreferrer">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
                   <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06C2 17.06 5.66 21.21 10.44 22v-7.03H7.9v-2.91h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.86h2.78l-.44 2.91h-2.34V22C18.34 21.21 22 17.06 22 12.06z" />
                 </svg>

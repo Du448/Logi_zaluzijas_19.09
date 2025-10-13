@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { series } from '@/lib/series'
 type SortOption = 'title'
@@ -9,18 +9,6 @@ type SortOption = 'title'
 export default function Page(){
   const [selectedCategory, setSelectedCategory] = useState<string>('Visi')
   const [sortBy, setSortBy] = useState<SortOption>('title')
-  const [isDark, setIsDark] = useState(false)
-
-  // Persist theme locally for this page
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('projekti-theme')
-      if (saved) setIsDark(saved === 'dark')
-    } catch {}
-  }, [])
-  useEffect(() => {
-    try { localStorage.setItem('projekti-theme', isDark ? 'dark' : 'light') } catch {}
-  }, [isDark])
 
   const categories = useMemo(() => {
     const unique = Array.from(new Set(series.map(item => item.category)))
@@ -41,8 +29,7 @@ export default function Page(){
   }, [selectedCategory, sortBy])
 
   return (
-    <div className={isDark ? 'dark' : ''}>
-    <section className="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <section className="min-h-screen bg-gray-100">
       <div className="container mx-auto px-4 py-16">
         {/* Header */}
         <motion.div 
@@ -51,10 +38,9 @@ export default function Page(){
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-white mb-4">
-            PVC Logu Projekti
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             Apskatiet mūsu realizētos projektus dažādās kategorijās - no dzīvokļiem līdz privātmājām
           </p>
         </motion.div>
@@ -64,7 +50,7 @@ export default function Page(){
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-8"
+          className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8"
         >
           <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
             {/* Category Filter */}
@@ -76,32 +62,13 @@ export default function Page(){
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                     selectedCategory === category
                       ? 'bg-blue-600 text-white shadow-md'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
                   {category}
                 </button>
               ))}
             </div>
-
-            {/* Theme toggle */}
-            <button
-              onClick={() => setIsDark(v => !v)}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-slate-700 text-gray-800 dark:text-slate-100 hover:bg-gray-100 dark:hover:bg-slate-600 transition"
-              aria-label="Pārslēgt gaišo/tumšo tēmu"
-            >
-              {isDark ? (
-                <>
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8 8 0 1 1-9.39-9.39 1 1 0 0 0-.14-1.05A10 10 0 1 0 21.64 13z"/></svg>
-                  <span>Tumšais</span>
-                </>
-              ) : (
-                <>
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M6.76 4.84l-1.8-1.79L3.17 4.84l1.79 1.8 1.8-1.8zM1 13h3v-2H1v2zm10 10h2v-3h-2v3zM20.84 3.17l-1.79 1.79 1.8 1.8 1.79-1.8-1.8-1.79zM17 11v2h3v-2h-3zM4.22 19.78l1.79-1.8-1.8-1.79-1.79 1.79 1.8 1.8zM13 1h-2v3h2V1z"/></svg>
-                  <span>Gaišais</span>
-                </>
-              )}
-            </button>
           </div>
         </motion.div>
 
@@ -126,7 +93,7 @@ export default function Page(){
               className="group"
             >
               <Link href={`/projekti/${item.slug}`} className="block">
-                <div className="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm border border-gray-200 dark:border-gray-800 transition-all duration-300 group-hover:shadow-xl group-hover:border-gray-300 dark:group-hover:border-gray-700">
+                <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200 transition-all duration-300 group-hover:shadow-xl group-hover:border-gray-300">
                   {/* Image Container */}
                   <div className="relative h-64 overflow-hidden">
                     <div 
@@ -137,7 +104,7 @@ export default function Page(){
                     
                     {/* Category Badge */}
                     <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 bg-white/90 text-gray-800 backdrop-blur-sm rounded-full text-xs font-semibold dark:bg-white/15 dark:text-white">
+                      <span className="px-3 py-1 bg-white/90 text-gray-800 backdrop-blur-sm rounded-full text-xs font-semibold">
                         {item.category}
                       </span>
                     </div>
@@ -223,9 +190,6 @@ export default function Page(){
           </div>
         </motion.section>
 
-        {/* Testimonials Carousel */}
-        <TrustHighlights />
-
         {/* FAQ */}
         <FAQ />
 
@@ -233,113 +197,6 @@ export default function Page(){
         <CTA />
       </div>
     </section>
-    </div>
-  )
-}
-
-// --- Subsections --- //
-
-function TrustHighlights(){
-  const pillars = [
-    {
-      title: 'Profesionāla uzstādīšana',
-      description: 'Sertificētas montāžas brigādes ar regulārām apmācībām un darba drošības protokoliem.',
-      icon: (
-        <>
-          <path d="M12 3l8 4-8 4-8-4 8-4z" />
-          <path d="M4 13l8 4 8-4" />
-          <path d="M4 17l8 4 8-4" />
-        </>
-      ),
-    },
-    {
-      title: 'Ražotāju garantijas',
-      description: 'Darbojamies tikai ar pārbaudītām sistēmām un piegādātājiem, nodrošinot oficiālas 5+ gadu garantijas.',
-      icon: (
-        <>
-          <path d="M12 20l-7-4V8l7-4 7 4v8l-7 4z" />
-          <path d="M9 12l2 2 4-4" />
-        </>
-      ),
-    },
-    {
-      title: 'Skaidra komunikācija',
-      description: 'Individuāls projektu vadītājs informē par progresu katrā posmā no konsultācijas līdz nodošanai.',
-      icon: (
-        <>
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          <path d="M17 8h.01" />
-          <path d="M12 8h.01" />
-          <path d="M7 8h.01" />
-        </>
-      ),
-    },
-  ] as const
-
-  const stats = [
-    { label: 'Gadu pieredze projektos', value: '18+' },
-    { label: 'Realizēti objektu projekti', value: '820+' },
-    { label: 'Garantijas servisa izsaukumi atrisināti 48h laikā', value: '96%' },
-  ] as const
-
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6 }}
-      className="mt-24"
-    >
-      <div className="bg-white border border-gray-200 rounded-2xl p-10">
-        <div className="grid gap-10 lg:grid-cols-[2fr,1fr]">
-          <div>
-            <h2 className="text-3xl font-bold text-slate-800">Kāpēc klienti uzticas mums</h2>
-            <p className="mt-3 text-slate-600">
-              Apvienojam kvalitatīvas sistēmas ar caurskatāmu projektu vadību, lai piegādātu drošus un energoefektīvus risinājumus katram objektam.
-            </p>
-            <div className="mt-8 space-y-6">
-              {pillars.map((pillar) => (
-                <div key={pillar.title} className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
-                    <svg
-                      className="h-6 w-6"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      {pillar.icon}
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-slate-800">{pillar.title}</h3>
-                    <p className="mt-1 text-sm text-slate-600">{pillar.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-2xl border border-emerald-100 bg-emerald-50/60 p-8">
-            <h3 className="text-lg font-semibold text-emerald-800">Uzticamības indikatori</h3>
-            <dl className="mt-6 space-y-4">
-              {stats.map((stat) => (
-                <div key={stat.label} className="rounded-xl bg-white/80 p-4 shadow-sm">
-                  <dt className="text-sm font-medium text-emerald-700">{stat.label}</dt>
-                  <dd className="mt-2 text-3xl font-bold text-slate-900">{stat.value}</dd>
-                </div>
-              ))}
-            </dl>
-            <div className="mt-6 rounded-xl border border-emerald-200 bg-white/90 p-4 text-sm text-slate-700">
-              <p>
-                Regulāri atjaunojam kvalitātes kontroles protokolus un sadarbojamies ar neatkarīgiem inženieriem, lai pārbaudītu uzstādīšanas kvalitāti.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </motion.section>
   )
 }
 
