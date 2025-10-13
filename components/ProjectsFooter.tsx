@@ -7,7 +7,8 @@ export default function ProjectsFooter() {
   return (
     <div className="mt-24 space-y-24">
       <OurProcess />
-      <Testimonials />
+      <TrustHighlights />
+
       <FAQ />
       <CTA />
     </div>
@@ -75,38 +76,48 @@ function OurProcess() {
   );
 }
 
-function Testimonials() {
-  const items = [
+function TrustHighlights() {
+  const pillars = [
     {
-      name: "Jana",
-      role: "Dzīvokļa īpašniece",
-      photo:
-        "https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=400&auto=format&fit=crop",
-      quote:
-        "Ātra piegāde un lieliska kvalitāte. Logi būtiski uzlaboja siltumnoturību.",
+      title: "Profesionāla uzstādīšana",
+      description: "Sertificētas montāžas brigādes ar regulāru kvalitātes uzraudzību un darba drošības protokoliem.",
+      icon: (
+        <>
+          <path d="M12 3l8 4-8 4-8-4 8-4z" />
+          <path d="M4 13l8 4 8-4" />
+          <path d="M4 17l8 4 8-4" />
+        </>
+      ),
     },
     {
-      name: "Anna",
-      role: "Īpašniece",
-      photo:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop",
-      quote: "Profesionāla komanda un ļoti tīra uzstādīšana. Iesaku!",
+      title: "Ražotāju garantijas",
+      description: "Darbojamies tikai ar pārbaudītiem piegādātājiem, nodrošinot oficiālas 5+ gadu garantijas.",
+      icon: (
+        <>
+          <path d="M12 20l-7-4V8l7-4 7 4v8l-7 4z" />
+          <path d="M9 12l2 2 4-4" />
+        </>
+      ),
     },
     {
-      name: "Mārtiņš",
-      role: "Pasūtītājs",
-      photo:
-        "https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=400&auto=format&fit=crop",
-      quote:
-        "Konsultācija palīdzēja izvēlēties optimālu risinājumu tieši mūsu mājai.",
+      title: "Skaidra komunikācija",
+      description: "Projekta vadītājs informē par progresu katrā posmā – no konsultācijas līdz uzstādīšanai.",
+      icon: (
+        <>
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          <path d="M17 8h.01" />
+          <path d="M12 8h.01" />
+          <path d="M7 8h.01" />
+        </>
+      ),
     },
-  ];
+  ] as const;
 
-  const [index, setIndex] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setIndex((i) => (i + 1) % items.length), 4500);
-    return () => clearInterval(id);
-  }, [items.length]);
+  const stats = [
+    { label: "Gadu pieredze projektos", value: "18+" },
+    { label: "Realizēti objektu projekti", value: "820+" },
+    { label: "Garantijas servisa izsaukumi atrisināti 48h laikā", value: "96%" },
+  ] as const;
 
   return (
     <motion.section
@@ -114,47 +125,54 @@ function Testimonials() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6 }}
-      className=""
     >
-      <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">Klientu atsauksmes</h2>
       <div className="bg-white border border-gray-200 rounded-2xl p-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {items.map((t, i) => (
-            <motion.div
-              key={`testimonial-${i}`}
-              animate={{ opacity: i === index ? 1 : 0.5, scale: i === index ? 1 : 0.98 }}
-              transition={{ type: "spring", stiffness: 120, damping: 18 }}
-              className={`rounded-xl border ${
-                i === index ? "border-blue-200 shadow-md" : "border-gray-100"
-              } bg-white p-6`}
-            >
-              <div className="flex items-center gap-4 mb-4">
-                <img
-                  src={t.photo}
-                  alt={t.name}
-                  className="w-14 h-14 rounded-full object-cover"
-                />
-                <div>
-                  <div className="font-semibold text-slate-800">{t.name}</div>
-                  <div className="text-sm text-slate-600">{t.role}</div>
+        <div className="grid gap-10 lg:grid-cols-[2fr,1fr]">
+          <div>
+            <h2 className="text-3xl font-bold text-slate-800">Kāpēc klienti uzticas mums</h2>
+            <p className="mt-3 text-slate-600">
+              Apvienojam kvalitatīvas sistēmas ar caurskatāmu projektu vadību – droši, energoefektīvi risinājumi katram objektam.
+            </p>
+            <div className="mt-8 space-y-6">
+              {pillars.map((pillar) => (
+                <div key={pillar.title} className="flex items-start gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+                    <svg
+                      className="h-6 w-6"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      {pillar.icon}
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-slate-800">{pillar.title}</h3>
+                    <p className="mt-1 text-sm text-slate-600">{pillar.description}</p>
+                  </div>
                 </div>
-              </div>
-              <p className="text-slate-700 leading-relaxed">“{t.quote}”</p>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="mt-6 flex justify-center gap-2">
-          {items.map((_, i) => (
-            <button
-              key={`dot-${i}`}
-              onClick={() => setIndex(i)}
-              className={`w-2.5 h-2.5 rounded-full ${
-                i === index ? "bg-blue-600" : "bg-gray-300"
-              }`}
-              aria-label={`Slide ${i + 1}`}
-            />
-          ))}
+              ))}
+            </div>
+          </div>
+          <div className="rounded-2xl border border-emerald-100 bg-emerald-50/60 p-8">
+            <h3 className="text-lg font-semibold text-emerald-800">Uzticamības indikatori</h3>
+            <dl className="mt-6 space-y-4">
+              {stats.map((stat) => (
+                <div key={stat.label} className="rounded-xl bg-white/80 p-4 shadow-sm">
+                  <dt className="text-sm font-medium text-emerald-700">{stat.label}</dt>
+                  <dd className="mt-2 text-3xl font-bold text-slate-900">{stat.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="mt-6 rounded-xl border border-emerald-200 bg-white/90 p-4 text-sm text-slate-700">
+              <p>
+                Regulāri pārbaudām kvalitātes protokolus un sadarbojamies ar neatkarīgiem inženieriem, lai uzturētu augstu servisa līmeni.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </motion.section>

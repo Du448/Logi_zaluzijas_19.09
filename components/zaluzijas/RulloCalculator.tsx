@@ -1025,6 +1025,8 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
     system: useRef<HTMLDivElement>(null),
     width: useRef<HTMLDivElement>(null),
     height: useRef<HTMLDivElement>(null),
+    accessories: useRef<HTMLDivElement>(null),
+    summary: useRef<HTMLDivElement>(null),
   }
 
   const systemOptions = useMemo<SystemOption[]>(() => {
@@ -1386,6 +1388,20 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
     }
   }
 
+  const scrollToAudumuKatalogs = () => {
+    const el = document.getElementById("audumu-katalogs")
+    if (!el) return
+    el.scrollIntoView({ behavior: "smooth", block: "center" })
+    el.classList.add("ring-2", "ring-sky-400", "animate-pulse")
+    window.setTimeout(() => {
+      el.classList.remove("animate-pulse")
+      el.classList.add("ring-2", "ring-sky-300")
+    }, 1500)
+    window.setTimeout(() => {
+      el.classList.remove("ring-2", "ring-sky-300", "ring-sky-400")
+    }, 3000)
+  }
+
   return (
     <div
       className="w-full rounded-3xl bg-sky-50 p-6 shadow-sm sm:p-10"
@@ -1489,17 +1505,25 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
           )}
 
           <div ref={sectionRefs.material}>
-            <label htmlFor="material" className="block text-sm font-medium text-gray-700">
-              Izvēlieties materiālu
-            </label>
+            <div className="flex items-center justify-between">
+              <label htmlFor="material" className="block text-sm font-medium text-gray-700">
+                Izvēlieties materiālu
+              </label>
+              {isVertikalas && (
+                <button
+                  type="button"
+                  onClick={scrollToAudumuKatalogs}
+                  className="ml-3 inline-flex items-center rounded-md bg-sky-500 px-2.5 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
+                >
+                  Audumu katalogs
+                </button>
+              )}
+            </div>
             <select
               id="material"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
               value={material}
-              onChange={(event) => {
-                const v = event.target.value
-                setMaterial(v)
-              }}
-              className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              onChange={(e) => setMaterial(e.target.value)}
               disabled={filteredMaterialOptions.length === 0}
             >
               {filteredMaterialOptions.length === 0 ? (

@@ -42,7 +42,7 @@ export default function Footer() {
               <Link className="text-white/70 hover:text-white" href="/kontakti">
                 Kontakti
               </Link>
-              <Link className="text-white/70 hover:text-white" href="#">
+              <Link className="text-white/70 hover:text-white" href="/privatuma-politika">
                 Garantija
               </Link>
             </div>
@@ -63,11 +63,8 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-between gap-3 text-xs text-white/60 md:flex-row">
           <div>© 2025 SIA ADEstate. Visas tiesības aizsargātas.</div>
           <div className="flex gap-4">
-            <Link href="#" className="hover:text-white">
+            <Link href="/privatuma-politika" className="hover:text-white">
               Privātuma politika
-            </Link>
-            <Link href="#" className="hover:text-white">
-              Lietošanas noteikumi
             </Link>
           </div>
         </div>

@@ -259,7 +259,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "<p>Vertikālās žalūzijas ir praktisks un ekonomisks risinājums, kas lieliski aizstāj tradicionālos aizkarus. Tās ir piemērotas jebkurai telpai – gan birojiem, gan mājokļiem, gan sabiedriskajām iestādēm.</p>" +
       "<p class='mt-4'>Izgatavojam žalūzijas arī nestandarta logiem, nodrošinot, ka tās ideāli iekļausies jebkurā interjerā. Jums ir iespēja izvēlēties sev ērtāko vadības veidu – manuālu vai automātisku.</p>" +
       "<div class='mt-6 grid grid-cols-1 gap-6'>" +
-      "  <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
+      "  <div id='audumu-katalogs' class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
       "    <div class='font-medium mb-2'>Audumu katalogs</div>" +
       "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Vertik%C4%81l%C4%81s/Audumu%20katalogs_ZF_vertikalas_zaluzijas.pdf_compressed.pdf?updatedAt=1756900933739' target='_blank' rel='noopener noreferrer' class='mt-1 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "  </div>" +

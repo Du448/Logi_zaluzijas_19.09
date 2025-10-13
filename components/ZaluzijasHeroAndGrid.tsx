@@ -17,32 +17,64 @@ type Props = {
 
 const TAGS_ORDER = ['Visi', 'Iekštelpu', 'Āra', 'Motorizētas'] as const
 
+const POPULARITY_ORDER = [
+  'rullo-kasetu',
+  'rullo',
+  'kasetu-diena-nakts',
+  'rullo-diena-nakts',
+  'screen',
+  'vertikalas',
+  'aizkaru',
+  'mansarda',
+  'romiesu',
+  'plisetas',
+  'foto',
+  'aluminija',
+  'koka',
+  'moskitu',
+  'mikstie-logi',
+  'rullo-slegi',
+] as const
+
 export default function ZaluzijasHeroAndGrid({ items }: Props) {
   // Optional manual tag map. Unknown IDs fall back to no tag and appear under "Visi"
   const tagMap: Record<string, string> = useMemo(
     () => ({
-      // Example mapping (extend anytime)
-      'rullo': 'Iekštelpu',
-      'vertikalas': 'Iekštelpu',
-      'kasešu-rullo': 'Iekštelpu',
-      'plise': 'Iekštelpu',
       'arejie-slegi': 'Āra',
       'arejas-vertikalas': 'Āra',
       'markizes': 'Āra',
       'pergola': 'Āra',
       'automatiskas': 'Motorizētas',
+      'rullo-slegi': 'Āra',
+      'mikstie-logi': 'Āra',
     }),
     []
   )
 
   const enriched = useMemo(
-    () => items.map((i) => ({ ...i, tag: tagMap[i.id] })),
+    () =>
+      items.map((item) => {
+        const explicitTag = tagMap[item.id]
+        if (explicitTag) {
+          return { ...item, tag: explicitTag }
+        }
+
+        return { ...item, tag: 'Iekštelpu' }
+      }),
     [items, tagMap]
   )
 
   const [search, setSearch] = useState('')
   const [selectedTag, setSelectedTag] = useState<'Visi' | 'Iekštelpu' | 'Āra' | 'Motorizētas'>('Visi')
-  const [sortBy, setSortBy] = useState<'az' | 'za'>('az')
+  const [sortBy, setSortBy] = useState<'az' | 'za' | 'popularity'>('popularity')
+
+  const popularityIndexMap = useMemo(() => {
+    const map = new Map<string, number>()
+    POPULARITY_ORDER.forEach((id, index) => {
+      map.set(id, index)
+    })
+    return map
+  }, [])
 
   const filtered = useMemo(() => {
     let list = enriched
@@ -51,9 +83,17 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
       )
       .filter((i) => i.title.toLowerCase().includes(search.toLowerCase()))
 
-    list.sort((a, b) =>
-      sortBy === 'az' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
-    )
+    if (sortBy === 'popularity') {
+      list.sort((a, b) => {
+        const aIndex = popularityIndexMap.has(a.id) ? popularityIndexMap.get(a.id)! : Number.MAX_SAFE_INTEGER
+        const bIndex = popularityIndexMap.has(b.id) ? popularityIndexMap.get(b.id)! : Number.MAX_SAFE_INTEGER
+        return aIndex - bIndex || a.title.localeCompare(b.title)
+      })
+    } else {
+      list.sort((a, b) =>
+        sortBy === 'az' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
+      )
+    }
 
     return list
   }, [enriched, selectedTag, search, sortBy])
@@ -111,11 +151,12 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
             </div>
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as 'az' | 'za')}
+              onChange={(e) => setSortBy(e.target.value as 'az' | 'za' | 'popularity')}
               className="px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="az">A–Z</option>
               <option value="za">Z–A</option>
+              <option value="popularity">Pēc popularitātes</option>
             </select>
           </div>
         </div>
@@ -141,7 +182,7 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
-                  {item.tag && (
+                  {item.tag && item.tag !== 'Iekštelpu' && (
                     <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-semibold bg-white/90 backdrop-blur text-gray-800">
                       {item.tag}
                     </span>

@@ -135,17 +135,17 @@ export default function RailsStyleHomepage() {
       <section className="py-20 bg-gray-900 text-white">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-5xl font-bold text-emerald-400 mb-2">2000+</div>
-              <div className="text-gray-300">Uzstādīti logi</div>
+            <div className="space-y-2">
+              <div className="text-3xl font-semibold text-emerald-400">Garantija</div>
+              <div className="text-gray-300">Katram projektam nodrošinām garantiju ar skaidriem termiņiem un vienotu servisa kontaktu.</div>
             </div>
-            <div>
-              <div className="text-5xl font-bold text-blue-400 mb-2">10+</div>
-              <div className="text-gray-300">Gadu pieredze</div>
+            <div className="space-y-2">
+              <div className="text-3xl font-semibold text-blue-400">Profesionāls mērnieks</div>
+              <div className="text-gray-300">Mērījumus veic sertificēts speciālists ar kalibrētiem instrumentiem, nodrošinot precīzu pasūtījumu.</div>
             </div>
-            <div>
-              <div className="text-5xl font-bold text-purple-400 mb-2">98%</div>
-              <div className="text-gray-300">Apmierināti klienti</div>
+            <div className="space-y-2">
+              <div className="text-3xl font-semibold text-purple-400">Skaidrs budžets</div>
+              <div className="text-gray-300">Piedāvājums iekļauj visus materiālus, montāžu un piegādi bez slēptām izmaksām.</div>
             </div>
           </div>
         </div>

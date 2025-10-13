@@ -327,6 +327,16 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
     }, 2200)
   }
 
+  const fetchAsDataURL = async (url: string) => {
+    const res = await fetch(url)
+    const blob = await res.blob()
+    return await new Promise<string>((resolve) => {
+      const reader = new FileReader()
+      reader.onloadend = () => resolve(String(reader.result))
+      reader.readAsDataURL(blob)
+    })
+  }
+
   const handleWidthChange = (value: number) => {
     setWidth(clamp(Math.round(value), MIN_WIDTH_MM, activeMaxWidthMm))
   }
@@ -394,6 +404,23 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
       const dateStr = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}.`
       const prettyPrice = `${result.price} €`
 
+      let profileImagesData: string[] = []
+      if (selectedSystemImages && selectedSystemImages.length > 0) {
+        try {
+          profileImagesData = await Promise.all(selectedSystemImages.map((u) => fetchAsDataURL(u)))
+        } catch {}
+      }
+
+      const specificationRows: any[] = [
+        [{ text: "Materiāls:", style: "label" }, materialLabel || "Nav izvēlēts"],
+        [{ text: "Sistēma:", style: "label" }, system || "Nav izvēlēta"],
+        [{ text: "Platums:", style: "label" }, `${width} mm`],
+        [{ text: "Augstums:", style: "label" }, `${height} mm`],
+      ]
+      if (includeInstallation) {
+        specificationRows.push([{ text: "Montāža:", style: "label" }, "Jā"],)
+      }
+
       const content: any[] = [
         { text: "Cenas Aprēķins", style: "h1" },
         { text: `Plisēto žalūziju kalkulators v${APP_VERSION}`, style: "sub" },
@@ -403,13 +430,7 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
         {
           table: {
             widths: [120, "*"],
-            body: [
-              [{ text: "Materiāls:", style: "label" }, materialSummary || "Nav izvēlēts"],
-              [{ text: "Sistēma:", style: "label" }, system || "Nav izvēlēta"],
-              [{ text: "Platums:", style: "label" }, `${width} mm`],
-              [{ text: "Augstums:", style: "label" }, `${height} mm`],
-              [{ text: "Montāža:", style: "label" }, includeInstallation ? "Jā" : "Nē"],
-            ],
+            body: specificationRows,
           },
           layout: {
             hLineColor: () => "#e5e7eb",
@@ -422,20 +443,34 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
         },
       ]
 
+      if (profileImagesData.length > 0) {
+        content.push({ text: "Profila krāsas attēli:", style: "sectionTitle", margin: [0, 16, 0, 6] })
+        content.push({
+          columns: profileImagesData.map((img) => ({ image: img, fit: [240, 180] })),
+          columnGap: 12,
+        })
+      }
+
       if (result.breakdown) {
         const { product, installation, total } = result.breakdown
-        const installationText =
-          installation > 0 ? `+${numberFormatter.format(installation)} €` : `${numberFormatter.format(installation)} €`
+        const breakdownRows: any[] = [
+          [{ text: "Žalūzijas cena:", style: "label" }, `${numberFormatter.format(product)} €`],
+        ]
+        if (includeInstallation && installation > 0) {
+          breakdownRows.push([
+            { text: "Montāža:", style: "label" },
+            `+${numberFormatter.format(installation)} €`,
+          ])
+        }
+        breakdownRows.push([
+          { text: "Kopā ar PVN:", style: "label" }, { text: `${numberFormatter.format(total)} €`, bold: true }],
+        )
 
         content.push({ text: "Cenas sadalījums:", style: "sectionTitle", margin: [0, 16, 0, 6] })
         content.push({
           table: {
             widths: ["*", "auto"],
-            body: [
-              [{ text: "Žalūzijas cena:", style: "label" }, `${numberFormatter.format(product)} €`],
-              [{ text: "Montāža:", style: "label" }, installationText],
-              [{ text: "Kopā ar PVN:", style: "label" }, { text: `${numberFormatter.format(total)} €`, bold: true }],
-            ],
+            body: breakdownRows,
           },
           layout: {
             hLineColor: () => "#e5e7eb",

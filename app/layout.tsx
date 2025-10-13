@@ -7,6 +7,7 @@ import Footer from '@/components/Footer'
 import PreFooterSwitcher from '@/components/PreFooterSwitcher'
 import { CartProvider } from '@/lib/cart-context'
 import ScrollReveal from '@/components/ScrollReveal'
+import CookieConsent from '@/components/CookieConsent'
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['300','400','500','700'] })
 
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="pt-20 md:pt-24">{children}</main>
           <PreFooterSwitcher />
           <Footer />
+          <CookieConsent />
         </CartProvider>
       </body>
     </html>
