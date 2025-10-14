@@ -54,7 +54,7 @@ export default function MontazasLanding(){
             <div className="io-fade-up">
               <p className="uppercase tracking-widest text-xs text-gray-500 mb-3">Montāžas pakalpojumi</p>
               <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
-                Kvalitatīva <span className="text-brand-teal">logu, durvju un žalūziju</span> montāža
+                Kvalitatīva <span className="text-brand-teal">logu un žalūziju</span> montāža
               </h1>
               <p className="mt-4 text-gray-600 max-w-xl">
                 Precizitāte, tīra izpilde un atbildība par rezultātu. Strādājam saskaņā ar ražotāja vadlīnijām un labāko praksi.

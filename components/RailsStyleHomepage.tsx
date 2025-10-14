@@ -163,7 +163,16 @@ export default function RailsStyleHomepage() {
               className="mb-8"
             >
               <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
-                Padariet savu mājokli siltu, klusu un modernu ar profesionāli uzstādītiem PVC logiem un žalūzijām no VestaLUX
+                Padariet savu mājokli siltu, klusu un modernu ar profesionāli uzstādītiem PVC logiem un žalūzijām no{' '}
+                <span className="relative inline-block align-middle">
+                  <span
+                    className="pointer-events-none absolute inset-0 rounded-lg bg-gradient-to-r from-amber-400/40 via-yellow-200/30 to-amber-500/40 blur-sm"
+                    aria-hidden="true"
+                  />
+                  <span className="relative z-10 inline-block px-1 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 drop-shadow-[0_0_18px_rgba(251,191,36,0.55)]">
+                    VestaLUX
+                  </span>
+                </span>
               </h1>
               <p className="text-xl text-white max-w-3xl leading-relaxed text-left">
                 Ilgadēja pieredze, uzticami risinājumi un garantēta kvalitāte visā Latvijā

@@ -213,7 +213,7 @@ export default function Home() {
             src="https://ik.imagekit.io/vbvwdejj5/Open_window_.jpg?updatedAt=1760366506916"
             alt=""
             fill
-            className="object-cover blur-sm scale-105"
+            className="object-cover scale-105"
             sizes="100vw"
             priority
           />

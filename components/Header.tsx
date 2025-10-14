@@ -171,7 +171,7 @@ export default function Header(){
           {/* Logo image */}
           <Link href="/" className="flex items-center gap-3 group" aria-label="InterjeraRisinājumi">
             <Image
-              src="https://ik.imagekit.io/vbvwdejj5/Logo_vesta3d.png?updatedAt=1760197974900"
+              src="https://ik.imagekit.io/vbvwdejj5/bac815b8-586b-4ff4-9c33-ed30d64ba431%20-%20Edited%20-%20Edited.png?updatedAt=1760467617905"
               alt="InterjeraRisinājumi logo"
               width={200}
               height={48}
@@ -192,6 +192,18 @@ export default function Header(){
             <div className="absolute left-0 top-full w-56 bg-white/95 backdrop-blur-lg border border-gray-100 rounded-xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transform translate-y-4 scale-95 group-hover:translate-y-0 group-hover:scale-100 transition-all duration-500 text-gray-800">
               <Link href="/logi" className="block px-4 py-3 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-lg mx-2">PVC logi</Link>
               <Link href="/zaluzijas" className="block px-4 py-3 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-lg mx-2">Žalūzijas</Link>
+              <Link
+                href="/zaluzijas/mikstie-logi"
+                className="block px-4 py-2.5 rounded-lg mx-3 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200"
+              >
+                Mīkstie logi
+              </Link>
+              <Link
+                href="/zaluzijas/moskitu"
+                className="block px-4 py-2.5 rounded-lg mx-3 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200"
+              >
+                Moskītu tīkli
+              </Link>
               <Link href="/piederumi" className="block px-4 py-3 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-lg mx-2">Piederumi</Link>
               <Link href="/bidamasistemas" className="block px-4 py-3 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-lg mx-2">Bīdāmās sistēmas</Link>
               <Link href="/iestiklot-lodziju" className="block px-4 py-3 rounded-lg mx-2 text-red-600 hover:text-red-700 hover:bg-red-50 transition-colors duration-200">Vēlos iestiklot lodžiju</Link>
@@ -384,6 +396,22 @@ export default function Header(){
               <Link href="/zaluzijas" onClick={()=>{ setOpen(false); setHasInteracted(false); }} className="flex items-center justify-between p-3 rounded-xl hover:bg-brand-teal/10 transition-all duration-300">
                 <span>Žalūzijas</span>
                 <div className="w-2 h-2 bg-gray-300 rounded-full" />
+              </Link>
+              <Link
+                href="/zaluzijas/mikstie-logi"
+                onClick={()=>{ setOpen(false); setHasInteracted(false); }}
+                className="flex items-center justify-between p-3 rounded-xl text-sm text-gray-600 hover:text-brand-teal hover:bg-brand-teal/10 transition-all duration-300"
+              >
+                <span>Mīkstie logi</span>
+                <div className="w-2 h-2 bg-gray-200 rounded-full" />
+              </Link>
+              <Link
+                href="/zaluzijas/moskitu"
+                onClick={()=>{ setOpen(false); setHasInteracted(false); }}
+                className="flex items-center justify-between p-3 rounded-xl text-sm text-gray-600 hover:text-brand-teal hover:bg-brand-teal/10 transition-all duration-300"
+              >
+                <span>Moskītu tīkli</span>
+                <div className="w-2 h-2 bg-gray-200 rounded-full" />
               </Link>
               <Link href="/piederumi" onClick={()=>{ setOpen(false); setHasInteracted(false); }} className="flex items-center justify-between p-3 rounded-xl hover:bg-brand-teal/10 transition-all duration-300">
                 <span>Piederumi</span>

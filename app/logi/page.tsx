@@ -13,7 +13,7 @@ export default function Page(){
   return (
     <>
       {/* Intro */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-20 bg-slate-900">
         <div className="container">
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold text-white">PVC Logi</h1>
@@ -28,14 +28,18 @@ export default function Page(){
             {/* Column 1 */}
             <div className="space-y-10">
               <div className="flex items-start gap-4">
-                <svg className="w-6 h-6 text-brand-blue shrink-0 mt-1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                <div className="mt-1 shrink-0 rounded-xl bg-emerald-500/10 p-2 ring-1 ring-emerald-400/40">
+                  <svg className="w-5 h-5 text-emerald-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2 text-white">Siltumizolācija</h3>
                   <p className="text-gray-300">Vairāku kameru profili un selektīvās stikla paketes efektīvi saglabā siltumu, samazinot apkures rēķinus.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <svg className="w-6 h-6 text-brand-blue shrink-0 mt-1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                <div className="mt-1 shrink-0 rounded-xl bg-emerald-500/10 p-2 ring-1 ring-emerald-400/40">
+                  <svg className="w-5 h-5 text-emerald-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2 text-white">Viegla kopšana</h3>
                   <p className="text-gray-300">PVC nav jāpārkrāso un to ir viegli kopt ar parastiem līdzekļiem.</p>
@@ -46,14 +50,18 @@ export default function Page(){
             {/* Column 2 */}
             <div className="space-y-10 lg:border-l lg:border-white/10 lg:pl-10">
               <div className="flex items-start gap-4">
-                <svg className="w-6 h-6 text-brand-blue shrink-0 mt-1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                <div className="mt-1 shrink-0 rounded-xl bg-emerald-500/10 p-2 ring-1 ring-emerald-400/40">
+                  <svg className="w-5 h-5 text-emerald-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2 text-white">Skaņas izolācija</h3>
                   <p className="text-gray-300">Kvalitatīvas stikla paketes un blīvējums nodrošina mieru un klusumu Jūsu mājās.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <svg className="w-6 h-6 text-brand-blue shrink-0 mt-1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                <div className="mt-1 shrink-0 rounded-xl bg-emerald-500/10 p-2 ring-1 ring-emerald-400/40">
+                  <svg className="w-5 h-5 text-emerald-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2 text-white">Dizaina daudzveidība</h3>
                   <p className="text-gray-300">Plašs krāsu un koka imitācijas klāsts, kā arī dažādas logu formas.</p>
@@ -64,14 +72,18 @@ export default function Page(){
             {/* Column 3 */}
             <div className="space-y-10 lg:border-l lg:border-white/10 lg:pl-10">
               <div className="flex items-start gap-4">
-                <svg className="w-6 h-6 text-brand-blue shrink-0 mt-1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                <div className="mt-1 shrink-0 rounded-xl bg-emerald-500/10 p-2 ring-1 ring-emerald-400/40">
+                  <svg className="w-5 h-5 text-emerald-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2 text-white">Drošība</h3>
                   <p className="text-gray-300">Augstas kvalitātes furnitūra ar vairākiem slēgšanas punktiem uzlabo aizsardzību pret ielaušanos.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <svg className="w-6 h-6 text-brand-blue shrink-0 mt-1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                <div className="mt-1 shrink-0 rounded-xl bg-emerald-500/10 p-2 ring-1 ring-emerald-400/40">
+                  <svg className="w-5 h-5 text-emerald-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2 text-white">Ilgmūžība</h3>
                   <p className="text-gray-300">Kvalitatīvi profili neplaisā, nedzeltē un nedeformējas daudzu gadu garumā.</p>
@@ -144,7 +156,10 @@ export default function Page(){
                 title: 'Aluplast idel 4000 - 2 stiklu pakete',
                 desc: 'Ekonomisks un uzticams profils ar divu stiklu paketi – lieliska izvēle budžeta projektiem.',
                 href: '/logi/ideal-4000',
-                benefits: ['Energoefektīvs pamata līmenī', 'Droša furnitūra ar vairākiem slēgšanas punktiem', 'Viegla kopšana']
+                benefits: ['Energoefektīvs pamata līmenī', 'Droša furnitūra ar vairākiem slēgšanas punktiem', 'Viegla kopšana'],
+                uValue: 'Uw ≈ 1.3 W/m²K',
+                efficiencyClass: 'w-2/3',
+                efficiencyNote: 'Divu stiklu pakete ar labu pamatlīmeņa siltumizolāciju.'
               },
               {
                 img: 'https://ik.imagekit.io/vbvwdejj5/Aluplast%204000_3?updatedAt=1757917103708',
@@ -152,7 +167,10 @@ export default function Page(){
                 title: 'Aluplast idel 4000 - 3 stiklu pakete',
                 desc: 'Uzlabota siltumizolācija ar trīs stiklu paketi labākam komfortam.',
                 href: '/logi/ideal-4000',
-                benefits: ['Labāka siltuma un trokšņu izolācija', 'Piemērots dzīvokļiem pie ielas', 'Pieejama cena']
+                benefits: ['Labāka siltuma un trokšņu izolācija', 'Piemērots dzīvokļiem pie ielas', 'Pieejama cena'],
+                uValue: 'Uw ≈ 1.1 W/m²K',
+                efficiencyClass: 'w-3/4',
+                efficiencyNote: 'Trīs stiklu pakete nodrošina būtiski zemāku U-vērtību.'
               },
               {
                 img: 'https://ik.imagekit.io/vbvwdejj5/Intertec%2085?updatedAt=1757917155417',
@@ -160,7 +178,10 @@ export default function Page(){
                 title: 'Aluplast Intertec 85',
                 desc: 'Augstākas klases profils ar teicamiem siltuma un skaņas rādītājiem.',
                 href: '/logi/ideal-7000',
-                benefits: ['Augsta energoefektivitāte', 'Uzlabota skaņas izolācija', 'Plašas dizaina iespējas']
+                benefits: ['Augsta energoefektivitāte', 'Uzlabota skaņas izolācija', 'Plašas dizaina iespējas'],
+                uValue: 'Uw ≈ 0.9 W/m²K',
+                efficiencyClass: 'w-4/5',
+                efficiencyNote: 'Plašāks profils un termo ieliktņi nodrošina augstāku efektivitāti.'
               }
 ,
               {
@@ -169,7 +190,10 @@ export default function Page(){
                 title: 'REHAU Synego MD',
                 desc: 'Vācu inženierija ar vidusblīvējumu maksimālai aizsardzībai pret aukstumu, troksni un mitrumu.',
                 href: '/logi/rehau-synego',
-                benefits: ['Vidusblīvējums labākai hermētiskumam', 'Premium drošības furnitūra', 'Ļoti laba skaņas izolācija']
+                benefits: ['Vidusblīvējums labākai hermētiskumam', 'Premium drošības furnitūra', 'Ļoti laba skaņas izolācija'],
+                uValue: 'Uw ≈ 0.78 W/m²K',
+                efficiencyClass: 'w-[88%]',
+                efficiencyNote: 'Vidusblīvējums un trīs stiklu sistēma sasniedz premium energoefektivitāti.'
               }
             ].map((item, i) => (
               <div key={i} className="group rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition overflow-hidden">
@@ -179,6 +203,16 @@ export default function Page(){
                 <div className="p-6">
                   <h4 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h4>
                   <p className="text-gray-600 mb-5">{item.desc}</p>
+                  <div className="mb-5">
+                    <div className="flex items-center justify-between text-sm font-medium text-gray-700">
+                      <span>Siltuma efektivitāte</span>
+                      <span className="text-brand-blue">{item.uValue}</span>
+                    </div>
+                    <div className="mt-2 h-2 rounded-full bg-slate-100">
+                      <div className={`h-2 rounded-full bg-brand-blue/90 transition-all duration-500 ${item.efficiencyClass}`} />
+                    </div>
+                    <p className="mt-2 text-xs text-gray-500">{item.efficiencyNote}</p>
+                  </div>
                   <a href={item.href} className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-brand-blue text-white font-medium shadow transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue/60">
                     <span>Skatīt produktu</span>
                     <span className="relative inline-block">
@@ -232,10 +266,42 @@ export default function Page(){
 
       {/* CTA */}
       <section className="bg-blue-600 text-white">
-        <div className="container py-16 text-center">
-          <h2 className="text-3xl font-bold mb-4">Gatavi jauniem logiem?</h2>
-          <p className="text-blue-100 max-w-2xl mx-auto mb-8">Sazinieties ar mums, lai saņemtu bezmaksas konsultāciju un individuālu cenas piedāvājumu Jūsu projektam.</p>
-          <a href="/kontakti" className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-100 transition">Saņemt Piedāvājumu</a>
+        <div className="container py-16">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-4">Gatavi jauniem logiem?</h2>
+            <p className="text-blue-100 mb-8">Sazinieties ar mums, lai saņemtu bezmaksas konsultāciju un individuālu cenas piedāvājumu Jūsu projektam.</p>
+          </div>
+          <form className="max-w-3xl mx-auto grid gap-4 sm:grid-cols-[repeat(3,minmax(0,1fr))] items-end">
+            <label className="sm:col-span-1 text-left">
+              <span className="text-sm font-medium text-blue-100">Vārds</span>
+              <input
+                type="text"
+                name="name"
+                placeholder="Jūsu vārds"
+                className="mt-1 w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder:text-blue-200 focus:border-white focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30"
+              />
+            </label>
+            <label className="sm:col-span-1 text-left">
+              <span className="text-sm font-medium text-blue-100">Telefons</span>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="+371 ..."
+                className="mt-1 w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder:text-blue-200 focus:border-white focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30"
+              />
+            </label>
+            <div className="sm:col-span-1 flex flex-col">
+              <button
+                type="submit"
+                className="mt-6 inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-lg font-semibold text-blue-600 shadow transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-200"
+              >
+                Sazināties
+              </button>
+              <a href="/kontakti" className="mt-3 text-center text-sm text-blue-100 underline underline-offset-4 hover:text-white">
+                vai sazinieties ar mums citā veidā
+              </a>
+            </div>
+          </form>
         </div>
       </section>
     </>

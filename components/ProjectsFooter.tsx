@@ -7,8 +7,7 @@ export default function ProjectsFooter() {
   return (
     <div className="mt-24 space-y-24">
       <OurProcess />
-      <TrustHighlights />
-
+      
       <FAQ />
       <CTA />
     </div>
