@@ -171,7 +171,7 @@ export default function Header(){
           {/* Logo image */}
           <Link href="/" className="flex items-center gap-3 group" aria-label="InterjeraRisinājumi">
             <Image
-              src="https://ik.imagekit.io/vbvwdejj5/bac815b8-586b-4ff4-9c33-ed30d64ba431%20-%20Edited%20-%20Edited.png?updatedAt=1760467617905"
+              src="https://ik.imagekit.io/vbvwdejj5/download%20(19)%20-%20Edited%20-%20Edited.png?updatedAt=1760521246953"
               alt="InterjeraRisinājumi logo"
               width={200}
               height={48}
