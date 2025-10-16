@@ -9,6 +9,7 @@ import ScreenCalculator from '@/components/zaluzijas/ScreenCalculator'
 import MansardaCalculator from '@/components/zaluzijas/MansardaCalculator'
 import { KasetuDienaNaktsInfo } from '@/components/zaluzijas/KasetuDienaNaktsInfo'
 import { RulloDienaNaktsInfo } from '@/components/zaluzijas/RulloDienaNaktsInfo'
+import { RulloSlegiInfo } from '@/components/zaluzijas/RulloSlegiInfo'
 import type { Metadata } from 'next'
 
 export const dynamicParams = false
@@ -166,6 +167,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
       {id === 'kasetu-diena-nakts' && <KasetuDienaNaktsInfo />}
       {id === 'rullo-diena-nakts' && <RulloDienaNaktsInfo />}
+      {id === 'rullo-slegi' && <RulloSlegiInfo />}
     </>
   )
 }

@@ -75,14 +75,20 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  </div>" +
       "</div>" +
       "<div class='mt-12 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
-      "  <div class='max-w-3xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 gap-6'>" +
+      "  <div class='max-w-3xl mx-auto px-4 md:px-8 flex flex-col sm:flex-row justify-center gap-6'>" +
       "  <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
+      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABzijas/Instrukciju/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai.pdf?updatedAt=1756741984724' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-transparent hover:bg-transparent text-inherit font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>" +
+      "      <span class='sr-only'>Atvērt</span>" +
+      "      <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "    </a>" +
       "    <div class='font-medium'>Rullo kasešu žalūziju instrukcija izmēru noteikšanai</div>" +
-      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABzijas/Instrukciju/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai.pdf?updatedAt=1756741984724' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "  </div>" +
       "  <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
+      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABzijas/Instrukciju/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija.pdf?updatedAt=1756741984897' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-transparent hover:bg-transparent text-inherit font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>" +
+      "      <span class='sr-only'>Atvērt</span>" +
+      "      <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "    </a>" +
       "    <div class='font-medium'>Rullo kasešu žalūziju uzstādīšanas instrukcija</div>" +
-      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABzijas/Instrukciju/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija.pdf?updatedAt=1756741984897' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "  </div>" +
       "</div>" +
       "</div>" +
@@ -90,7 +96,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-4'>" +
       "        <div class='group text-center p-6'>" +
       "          <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-sky-100 flex items-center justify-center'>" +
-      "            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8 text-sky-600'><path d='M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z'/></svg>" +
+      "            <img src='https://ik.imagekit.io/vbvwdejj5/new-features.png?updatedAt=1760624819609' alt='Īpašības ikona' class='w-8 h-8 object-contain'/>" +
       "          </div>" +
       "          <h3 class='font-semibold text-gray-900 mb-3'>Īpašības</h3>" +
       "          <ul class='text-left list-disc list-inside space-y-2'>" +
@@ -103,17 +109,14 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "        </div>" +
       "        <div class='group text-center p-6'>" +
       "          <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-sky-100 flex items-center justify-center'>" +
-      "            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' class='w-8 h-8 text-sky-600'>" +
-      "              <rect x='4' y='6' width='16' height='12' rx='2' ry='2' />" +
-      "              <path d='M8 9v3M11 9v2M14 9v3M17 9v2' />" +
-      "            </svg>" +
+      "            <img src='https://ik.imagekit.io/vbvwdejj5/design.png?updatedAt=1760624819523' alt='Izmēru veikšana ikona' class='w-8 h-8 object-contain'/>" +
       "          </div>" +
       "          <h3 class='font-semibold text-gray-900 mb-3'>Izmēru veikšana</h3>" +
       "          <p class='text-left text-gray-700 max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
       "        </div>" +
       "        <div class='group text-center p-6'>" +
       "          <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-sky-100 flex items-center justify-center'>" +
-      "            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8 text-sky-600'><path d='M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.93l-.149.894Z'/></svg>" +
+      "            <img src='https://ik.imagekit.io/vbvwdejj5/pay.png?updatedAt=1760624819497' alt='Apmaksas veidi ikona' class='w-8 h-8 object-contain'/>" +
       "          </div>" +
       "          <h3 class='font-semibold text-gray-900 mb-3'>Apmaksas veidi</h3>" +
       "          <ul class='text-left list-disc list-inside space-y-2'>" +
@@ -169,18 +172,27 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  </div>" +
       "</div>" +
       "<div class='mt-8 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
-      "  <div class='max-w-3xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>" +
+      "  <div class='max-w-3xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 gap-6'>" +
       "    <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20%C5%BEal%C5%ABzijas/Instrukcijas/Rullo%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(loga%20ail%C4%93).pdf?updatedAt=1756798272599' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-transparent hover:bg-transparent text-inherit font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Rullo žalūziju instrukcija izmēru noteikšanai (loga ailē)</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20%C5%BEal%C5%ABzijas/Instrukcijas/Rullo%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(loga%20ail%C4%93).pdf?updatedAt=1756798272599' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "    </div>" +
       "    <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20%C5%BEal%C5%ABzijas/Instrukcijas/Rullo%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(pie%20sienas).pdf?updatedAt=1756798272484' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-transparent hover:bg-transparent text-inherit font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Rullo žalūziju instrukcija izmēru noteikšanai (pie sienas)</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20%C5%BEal%C5%ABzijas/Instrukcijas/Rullo%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(pie%20sienas).pdf?updatedAt=1756798272484' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "    </div>" +
       "    <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20%C5%BEal%C5%ABzijas/Instrukcijas/ZF_montas_instrukcija_vario_25.pdf?updatedAt=1756798272861' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-transparent hover:bg-transparent text-inherit font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Rullo žalūziju uzstādīšanas instrukcija</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20%C5%BEal%C5%ABzijas/Instrukcijas/ZF_montas_instrukcija_vario_25.pdf?updatedAt=1756798272861' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "    </div>" +
       "  </div>" +
       "</div>" +
@@ -188,7 +200,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-4'>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M9.813 3.188a.75.75 0 0 1 1.374 0l.803 1.9a3 3 0 0 0 1.622 1.622l1.9.803a.75.75 0 0 1 0 1.374l-1.9.803a3 3 0 0 0-1.622 1.622l-.803 1.9a.75.75 0 0 1-1.374 0l-.803-1.9a3 3 0 0 0-1.622-1.622l-1.9-.803a.75.75 0 0 1 0-1.374l1.9-.803a3 3 0 0 0 1.622-1.622l.803-1.9Z'/><path d='M16.5 14.25a.75.75 0 0 1 1.384-.345l.362.69a2.25 2.25 0 0 0 .959.959l.69.362a.75.75 0 0 1 0 1.384l-.69.362a2.25 2.25 0 0 0-.959.959l-.362.69a.75.75 0 0 1-1.384 0l-.362-.69a2.25 2.25 0 0 0-.959-.959l-.69-.362a.75.75 0 0 1 0-1.384l.69-.362a2.25 2.25 0 0 0 .959-.959l.362-.69Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/new-features.png?updatedAt=1760624819609' alt='Īpašības ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Īpašības</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto'>" +
@@ -200,14 +212,14 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' class='w-8 h-8'><rect x='4' y='6' width='16' height='12' rx='2' ry='2'/><path d='M8 9v3M11 9v2M14 9v3M17 9v2'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/design.png?updatedAt=1760624819523' alt='Izmēru veikšana ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 6.75A2.25 2.25 0 0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 19.5 19.5h-15A2.25 2.25 0 0 1 2.25 17.25V6.75Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/pay.png?updatedAt=1760624819497' alt='Apmaksas veidi ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Apmaksas veidi</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto'>" +
@@ -257,36 +269,32 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "<div class='mt-8 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
       "  <div class='max-w-3xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 gap-6'>" +
       "    <div class='group mx-auto w-full max-w-[22rem] text-center p-2 text-sm bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "      <div class='mx-auto mb-2 text-sky-600 flex flex-col items-center gap-1' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-6 h-6'><path d='M6 2.25A2.25 2.25 0 0 0 3.75 4.5v15A2.25 2.25 0 0 0 6 21.75h12A2.25 2.25 0 0 0 20.25 19.5v-9L14.25 2.25H6Z'/></svg>" +
-      "        <span class='text-[10px] leading-none font-bold text-white bg-sky-500 px-2 py-1 rounded'>PDF</span>" +
-      "      </div>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Vertik%C4%81l%C4%81s/Instrukcijas/Vertik%C4%81lo%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija%20(pie%20sienas).pdf?updatedAt=1756901064986' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Vertikālo žalūziju uzstādīšanas instrukcija (pie sienas)</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Vertik%C4%81l%C4%81s/Instrukcijas/Vertik%C4%81lo%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija%20(pie%20sienas).pdf?updatedAt=1756901064986' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "    </div>" +
       "    <div class='group mx-auto w-full max-w-[22rem] text-center p-2 text-sm bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "      <div class='mx-auto mb-2 text-sky-600 flex flex-col items-center gap-1' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-6 h-6'><path d='M6 2.25A2.25 2.25 0 0 0 3.75 4.5v15A2.25 2.25 0 0 0 6 21.75h12A2.25 2.25 0 0 0 20.25 19.5v-9L14.25 2.25H6Z'/></svg>" +
-      "        <span class='text-[10px] leading-none font-bold text-white bg-sky-500 px-2 py-1 rounded'>PDF</span>" +
-      "      </div>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Vertik%C4%81l%C4%81s/Instrukcijas/Vertik%C4%81lo%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija%20(loga%20ail%C4%93).pdf?updatedAt=1756901064891' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Vertikālo žalūziju uzstādīšanas instrukcija (loga ailē)</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Vertik%C4%81l%C4%81s/Instrukcijas/Vertik%C4%81lo%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija%20(loga%20ail%C4%93).pdf?updatedAt=1756901064891' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "    </div>" +
       "    <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "      <div class='mx-auto mb-3 text-sky-600 flex flex-col items-center gap-1' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-10 h-10'><path d='M6 2.25A2.25 2.25 0 0 0 3.75 4.5v15A2.25 2.25 0 0 0 6 21.75h12A2.25 2.25 0 0 0 20.25 19.5v-9L14.25 2.25H6Z'/></svg>" +
-      "        <span class='text-[10px] leading-none font-bold text-white bg-sky-500 px-2 py-1 rounded'>PDF</span>" +
-      "      </div>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Vertik%C4%81l%C4%81s/Instrukcijas/Vertik%C4%81lo%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(pie%20sienas).pdf?updatedAt=1756902901137' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Vertikālo žalūziju instrukcija izmēru noteikšanai (pie sienas)</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Vertik%C4%81l%C4%81s/Instrukcijas/Vertik%C4%81lo%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(pie%20sienas).pdf?updatedAt=1756902901137' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "    </div>" +
       "    <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "      <div class='mx-auto mb-3 text-sky-600 flex flex-col items-center gap-1' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-10 h-10'><path d='M6 2.25A2.25 2.25 0 0 0 3.75 4.5v15A2.25 2.25 0 0 0 6 21.75h12A2.25 2.25 0 0 0 20.25 19.5v-9L14.25 2.25H6Z'/></svg>" +
-      "        <span class='text-[10px] leading-none font-bold text-white bg-sky-500 px-2 py-1 rounded'>PDF</span>" +
-      "      </div>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Vertik%C4%81l%C4%81s/Instrukcijas/Vertik%C4%81lo%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(loga%20ail%C4%93).pdf?updatedAt=1756902901027' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Vertikālo žalūziju instrukcija izmēru noteikšanai (loga ailē)</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Vertik%C4%81l%C4%81s/Instrukcijas/Vertik%C4%81lo%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(loga%20ail%C4%93).pdf?updatedAt=1756902901027' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "    </div>" +
       "  </div>" +
       "</div>" +
@@ -294,7 +302,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-4'>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M9.813 3.188a.75.75 0 0 1 1.374 0l.803 1.9a3 3 0 0 0 1.622 1.622l1.9.803a.75.75 0 0 1 0 1.374l-1.9.803a3 3 0 0 0-1.622 1.622l-.803 1.9a.75.75 0 0 1-1.374 0l-.803-1.9a3 3 0 0 0-1.622-1.622l-1.9-.803a.75.75 0 0 1 0-1.374l1.9-.803a3 3 0 0 0 1.622-1.622l.803-1.9Z'/><path d='M16.5 14.25a.75.75 0 0 1 1.384-.345l.362.69a2.25 2.25 0 0 0 .959.959l.69.362a.75.75 0 0 1 0 1.384l-.69.362a2.25 2.25 0 0 0-.959.959l-.362.69a.75.75 0 0 1-1.384 0l-.362-.69a2.25 2.25 0 0 0-.959-.959l-.69-.362a.75.75 0 0 1 0-1.384l.69-.362a2.25 2.25 0 0 0 .959-.959l.362-.69Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/new-features.png?updatedAt=1760624819609' alt='Īpašības ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Īpašības</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto'>" +
@@ -306,14 +314,14 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' class='w-8 h-8'><rect x='4' y='6' width='16' height='12' rx='2' ry='2'/><path d='M8 9v3M11 9v2M14 9v3M17 9v2'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/design.png?updatedAt=1760624819523' alt='Izmēru veikšana ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 6.75A2.25 2.25 0 0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 19.5 19.5h-15A2.25 2.25 0 0 1 2.25 17.25V6.75Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/pay.png?updatedAt=1760624819497' alt='Apmaksas veidi ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Apmaksas veidi</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto'>" +
@@ -384,22 +392,20 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  </div>" +
       "</div>" +
       "<div class='mt-8 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
-      "  <div class='max-w-3xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>" +
+      "  <div class='max-w-3xl mx-auto px-4 md:px-8 flex flex-col sm:flex-row justify-center gap-6'>" +
       "  <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "    <div class='mx-auto mb-3 text-sky-600 flex flex-col items-center gap-1' aria-hidden='true'>" +
-      "      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-10 h-10'><path d='M6 2.25A2.25 2.25 0 0 0 3.75 4.5v15A2.25 2.25 0 0 0 6 21.75h12A2.25 2.25 0 0 0 20.25 19.5v-9L14.25 2.25H6Z'/></svg>" +
-      "      <span class='text-[10px] leading-none font-bold text-white bg-sky-500 px-2 py-1 rounded'>PDF</span>" +
-      "    </div>" +
+      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20%C5%BEal%C5%ABzijas%20_Diena-nakts_/Instrukcijas/Rullo%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(loga%20ail%C4%93).pdf?updatedAt=1756829604295' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-transparent hover:bg-transparent text-inherit font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>" +
+      "      <span class='sr-only'>Atvērt</span>" +
+      "      <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "    </a>" +
       "    <div class='font-medium'>Rullo žalūziju instrukcija izmēru noteikšanai (loga ailē)</div>" +
-      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20%C5%BEal%C5%ABzijas%20_Diena-nakts_/Instrukcijas/Rullo%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(loga%20ail%C4%93).pdf?updatedAt=1756829604295' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "  </div>" +
       "  <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "    <div class='mx-auto mb-3 text-sky-600 flex flex-col items-center gap-1' aria-hidden='true'>" +
-      "      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-10 h-10'><path d='M6 2.25A2.25 2.25 0 0 0 3.75 4.5v15A2.25 2.25 0 0 0 6 21.75h12A2.25 2.25 0 0 0 20.25 19.5v-9L14.25 2.25H6Z'/></svg>" +
-      "      <span class='text-[10px] leading-none font-bold text-white bg-sky-500 px-2 py-1 rounded'>PDF</span>" +
-      "    </div>" +
+      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20%C5%BEal%C5%ABzijas%20_Diena-nakts_/Instrukcijas/Rullo%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(pie%20sienas).pdf?updatedAt=1756829604186' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-transparent hover:bg-transparent text-inherit font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>" +
+      "      <span class='sr-only'>Atvērt</span>" +
+      "      <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "    </a>" +
       "    <div class='font-medium'>Rullo žalūziju instrukcija izmēru noteikšanai (pie sienas)</div>" +
-      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Rullo%20%C5%BEal%C5%ABzijas%20_Diena-nakts_/Instrukcijas/Rullo%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(pie%20sienas).pdf?updatedAt=1756829604186' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "  </div>" +
       "  </div>" +
       "</div>",
@@ -447,20 +453,18 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "<div class='mt-8 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
       "  <div class='max-w-3xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 gap-6'>" +
       "    <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "      <div class='mx-auto mb-3 text-sky-600 flex flex-col items-center gap-1' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-10 h-10'><path d='M6 2.25A2.25 2.25 0 0 0 3.75 4.5v15A2.25 2.25 0 0 0 6 21.75h12A2.25 2.25 0 0 0 20.25 19.5v-9L14.25 2.25H6Z'/></svg>" +
-      "        <span class='text-[10px] leading-none font-bold text-white bg-sky-500 px-2 py-1 rounded'>PDF</span>" +
-      "      </div>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Allusion%20/Instrukcijas/_Allusion_%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(loga%20ail%C4%93).pdf?updatedAt=1756834097056' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>“Allusion” žalūziju instrukcija izmēru noteikšanai (loga ailē)</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Allusion%20/Instrukcijas/_Allusion_%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(loga%20ail%C4%93).pdf?updatedAt=1756834097056' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "    </div>" +
       "    <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "      <div class='mx-auto mb-3 text-sky-600 flex flex-col items-center gap-1' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-10 h-10'><path d='M6 2.25A2.25 2.25 0 0 0 3.75 4.5v15A2.25 2.25 0 0 0 6 21.75h12A2.25 2.25 0 0 0 20.25 19.5v-9L14.25 2.25H6Z'/></svg>" +
-      "        <span class='text-[10px] leading-none font-bold text-white bg-sky-500 px-2 py-1 rounded'>PDF</span>" +
-      "      </div>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Allusion%20/Instrukcijas/_Allusion_%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(pie%20sienas).pdf?updatedAt=1756834096882' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>“Allusion” žalūziju instrukcija izmēru noteikšanai (pie sienas)</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Allusion%20/Instrukcijas/_Allusion_%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(pie%20sienas).pdf?updatedAt=1756834096882' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "    </div>" +
       "  </div>" +
       "</div>" +
@@ -468,7 +472,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-4'>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M9.813 3.188a.75.75 0 0 1 1.374 0l.803 1.9a3 3 0 0 0 1.622 1.622l1.9.803a.75.75 0 0 1 0 1.374l-1.9.803a3 3 0 0 0-1.622 1.622l-.803 1.9a.75.75 0 0 1-1.374 0l-.803-1.9a3 3 0 0 0-1.622-1.622l-1.9-.803a.75.75 0 0 1 0-1.374l1.9-.803a3 3 0 0 0 1.622-1.622l.803-1.9Z'/><path d='M16.5 14.25a.75.75 0 0 1 1.384-.345l.362.69a2.25 2.25 0 0 0 .959.959l.69.362a.75.75 0 0 1 0 1.384l-.69.362a2.25 2.25 0 0 0-.959.959l-.362.69a.75.75 0 0 1-1.384 0l-.362-.69a2.25 2.25 0 0 0-.959-.959l-.69-.362a.75.75 0 0 1 0-1.384l.69-.362a2.25 2.25 0 0 0 .959-.959l.362-.69Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/new-features.png?updatedAt=1760624819609' alt='Īpašības ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Īpašības</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto'>" +
@@ -481,14 +485,14 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/design.png?updatedAt=1760624819523' alt='Izmēru veikšana ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 6.75A2.25 2.25 0 0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 19.5 19.5h-15A2.25 2.25 0 0 1 2.25 17.25V6.75Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/pay.png?updatedAt=1760624819497' alt='Apmaksas veidi ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Apmaksas veidi</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto'>" +
@@ -562,20 +566,18 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "<div class='mt-8 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
       "  <div class='max-w-3xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 gap-6'>" +
       "  <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "    <div class='mx-auto mb-3 text-sky-600 flex flex-col items-center gap-1' aria-hidden='true'>" +
-      "      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-10 h-10'><path d='M6 2.25A2.25 2.25 0 0 0 3.75 4.5v15A2.25 2.25 0 0 0 6 21.75h12A2.25 2.25 0 0 0 20.25 19.5v-9L14.25 2.25H6Z'/></svg>" +
-      "      <span class='text-[10px] leading-none font-bold text-white bg-sky-500 px-2 py-1 rounded'>PDF</span>" +
-      "    </div>" +
+      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Kase%C5%A1u%20%C5%BEal%C5%ABzijas%20_Diena-nakts_/Instrukcijas/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija.pdf?updatedAt=1756801513826' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-transparent hover:bg-transparent text-inherit font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>" +
+      "      <span class='sr-only'>Atvērt</span>" +
+      "      <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "    </a>" +
       "    <div class='font-medium'>Rullo kasešu žalūziju “Diena-Nakts” uzstādīšanas instrukcija</div>" +
-      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Kase%C5%A1u%20%C5%BEal%C5%ABzijas%20_Diena-nakts_/Instrukcijas/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija.pdf?updatedAt=1756801513826' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "  </div>" +
       "  <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "    <div class='mx-auto mb-3 text-sky-600 flex flex-col items-center gap-1' aria-hidden='true'>" +
-      "      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-10 h-10'><path d='M6 2.25A2.25 2.25 0 0 0 3.75 4.5v15A2.25 2.25 0 0 0 6 21.75h12A2.25 2.25 0 0 0 20.25 19.5v-9L14.25 2.25H6Z'/></svg>" +
-      "      <span class='text-[10px] leading-none font-bold text-white bg-sky-500 px-2 py-1 rounded'>PDF</span>" +
-      "    </div>" +
+      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Kase%C5%A1u%20%C5%BEal%C5%ABzijas%20_Diena-nakts_/Instrukcijas/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai.pdf?updatedAt=1756801513267' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-transparent hover:bg-transparent text-inherit font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>" +
+      "      <span class='sr-only'>Atvērt</span>" +
+      "      <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "    </a>" +
       "    <div class='font-medium'>Rullo kasešu žalūziju “Diena-Nakts” instrukcija izmēru noteikšanai</div>" +
-      "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Kase%C5%A1u%20%C5%BEal%C5%ABzijas%20_Diena-nakts_/Instrukcijas/Rullo%20kase%C5%A1u%20%C5%BEal%C5%ABziju%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai.pdf?updatedAt=1756801513267' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "  </div>" +
       "  </div>" +
       "</div>",
@@ -624,30 +626,40 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <h3 class='text-center text-2xl font-bold text-gray-900'>Uzstādīšanas un mērījumu instrukcijas</h3>" +
       "  <div class='mt-4 flex justify-center'><span class='inline-block w-8 h-1 rounded bg-sky-500'></span></div>" +
       "  <div class='mt-6 max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 gap-4'>" +
-      "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "    <div class='text-center'>" +
+      "      <a class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent text-inherit hover:bg-transparent' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Screen/Instrukcijas/Loga%20ail%C4%93.pdf?updatedAt=1756975941813' target='_blank' rel='noopener noreferrer'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Rullo žalūziju “SCREEN” instrukcija izmēru noteikšanai (loga ailē)</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Screen/Instrukcijas/Loga%20ail%C4%93.pdf?updatedAt=1756975941813' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
       "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "      <a class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent text-inherit hover:bg-transparent' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Alum%C4%ABnija%20horizont%C4%81lo%20%C5%BEal%C5%ABziju%20_ISO_%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai.pdf?updatedAt=1756975228733' target='_blank' rel='noopener noreferrer'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Rullo žalūziju “SCREEN” instrukcija izmēru noteikšanai (pie rāmja)</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Alum%C4%ABnija%20horizont%C4%81lo%20%C5%BEal%C5%ABziju%20_ISO_%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai.pdf?updatedAt=1756975228733' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
       "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "      <a class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent text-inherit hover:bg-transparent' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Pie%20sienas.pdf?updatedAt=1756906416461' target='_blank' rel='noopener noreferrer'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Rullo žalūziju “SCREEN” instrukcija izmēru noteikšanai (pie sienas)</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Pie%20sienas.pdf?updatedAt=1756906416461' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
       "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "      <a class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent text-inherit hover:bg-transparent' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Rullo%20%C5%BEal%C5%ABziju%20_SCREEN_%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija%20(pie%20r%C4%81mja).pdf?updatedAt=1756976217439' target='_blank' rel='noopener noreferrer'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Rullo žalūziju “SCREEN” uzstādīšanas instrukcija (pie rāmja)</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Rullo%20%C5%BEal%C5%ABziju%20_SCREEN_%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija%20(pie%20r%C4%81mja).pdf?updatedAt=1756976217439' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
       "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "      <a class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent text-inherit hover:bg-transparent' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Rullo%20%C5%BEal%C5%ABziju%20_SCREEN_%20uzst%C4%81d%C4%AB%C5%A1anas%20%20(pie%20sienas).pdf?updatedAt=1756976402339' target='_blank' rel='noopener noreferrer'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Rullo žalūziju “SCREEN” uzstādīšanas instrukcija (pie sienas)</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Rullo%20%C5%BEal%C5%ABziju%20_SCREEN_%20uzst%C4%81d%C4%AB%C5%A1anas%20%20(pie%20sienas).pdf?updatedAt=1756976402339' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
       "  </div>" +
       "</section></div>" +
@@ -655,7 +667,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-8'>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm.75 4.5a.75.75 0 0 0 0 1.5h10.5a.75.75 0 0 0 0-1.5H3.75Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/new-features.png?updatedAt=1760624819609' alt='Īpašības ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-3'>Īpašības</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-2 text-left max-w-xl mx-auto'>" +
@@ -663,19 +675,18 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "        <li><strong>Termoizolācija.</strong> Samazina telpu pārkaršanu vasarā un siltuma zudumus ziemā.</li>" +
       "        <li><strong>Ilgmūžība.</strong> Stikla šķiedras vai poliestera audums ar augstu izturību.</li>" +
       "        <li><strong>Vienkārša kopšana.</strong> Tīrāmas ar mitru sūkli un maigu līdzekli.</li>" +
-      "        <li><strong>Ugunsdrošība.</strong> Neuzliesmojošs audums ar M1 sertifikāciju.</li>" +
       "      </ul>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M6.75 3a.75.75 0 0 1 .75.75v2.69a2.25 2.25 0 0 0 1.31 2.05l2.62 1.17a2.25 2.25 0 0 1 1.29 2.05v4.88a2.25 2.25 0 0 0 1.29 2.05l.36.16a.75.75 0 1 1-.58 1.38l-.36-.16a3.75 3.75 0 0 1-2.16-3.43v-4.88a.75.75 0 0 0-.43-.68l-2.9-1.33A3.75 3.75 0 0 1 6.75 7.19V3.75A.75.75 0 0 1 7.5 3h-.75Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/design.png?updatedAt=1760624819523' alt='Izmēru veikšana ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-3'>Izmēru veikšana</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M12 3.75a8.25 8.25 0 1 0 0 16.5 8.25 8.25 0 0 0 0-16.5Zm.75 3a.75.75 0 1 0-1.5 0v3.13a.75.75 0 0 0 .44.68l2.62 1.17a.75.75 0 1 0 .62-1.36l-2.18-.97V6.75Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/pay.png?updatedAt=1760624819497' alt='Apmaksas veidi ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-3'>Apmaksas veidi</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-2 text-left max-w-xl mx-auto'>" +
@@ -756,32 +767,25 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      </div>" +
       "    </div>" +
       "    <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 mt-8 grid grid-cols-1 md:grid-cols-2 gap-4'>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Plis%C4%93tas/Instrukcijas/Alum%C4%ABnija%20horizont%C4%81lo%20%C5%BEal%C5%ABziju%20_Classic_%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(pie%20r%C4%81mja).pdf?updatedAt=1756917455413' target='_blank' rel='noopener noreferrer' class='group block p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
-      "        <div class='flex items-start gap-4'>" +
-      "          <div class='w-12 h-12 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-6 h-6'><path d='M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 .75.75V18A3 3 0 0 1 18 21H6a3 3 0 0 1-3-3V6.75Z'/><path d='M7.5 3.75A.75.75 0 0 1 8.25 3h7.5a.75.75 0 0 1 .75.75V6h-9V3.75Z'/></svg>" +
-      "          </div>" +
-      "          <div>" +
-      "            <h3 class='font-semibold'>Plisētu žalūziju instrukcija izmēru noteikšanai</h3>" +
-      "            <p class='text-sm text-gray-600'>PDF, atvērt jaunā logā</p>" +
-      "          </div>" +
-      "        </div>" +
-      "      </a>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Plis%C4%93tas/Instrukcijas/Plis%C4%93to%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija.pdf?updatedAt=1756916108966' target='_blank' rel='noopener noreferrer' class='group block p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
-      "        <div class='flex items-start gap-4'>" +
-      "          <div class='w-12 h-12 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-6 h-6'><path d='M12 2.25a.75.75 0 0 1 .75.75V6h2.25a.75.75 0 0 1 .53 1.28l-3.75 3.75a.75.75 0 0 1-1.06 0L6.97 7.28A.75.75 0 0 1 7.5 6H9.75V3a.75.75 0 0 1 .75-.75Z'/><path d='M3 13.5A2.25 2.25 0 0 1 5.25 11.25h13.5A2.25 2.25 0 0 1 21 13.5v6A2.25 2.25 0 0 1 18.75 21.75H5.25A2.25 2.25 0 0 1 3 19.5v-6Z'/></svg>" +
-      "          </div>" +
-      "          <div>" +
-      "            <h3 class='font-semibold'>Plisēto žalūziju uzstādīšanas instrukcija</h3>" +
-      "            <p class='text-sm text-gray-600'>PDF, atvērt jaunā logā</p>" +
-      "          </div>" +
-      "        </div>" +
-      "      </a>" +
+      "      <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
+      "        <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Plis%C4%93tas/Instrukcijas/Alum%C4%ABnija%20horizont%C4%81lo%20%C5%BEal%C5%ABziju%20_Classic_%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(pie%20r%C4%81mja).pdf?updatedAt=1756917455413' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 rounded-md bg-transparent hover:bg-transparent'>" +
+      "          <span class='sr-only'>Atvērt</span>" +
+      "          <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "        </a>" +
+      "        <div class='font-medium'>Plisētu žalūziju instrukcija izmēru noteikšanai</div>" +
+      "      </div>" +
+      "      <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
+      "        <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Plis%C4%93tas/Instrukcijas/Plis%C4%93to%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija.pdf?updatedAt=1756916108966' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 rounded-md bg-transparent hover:bg-transparent'>" +
+      "          <span class='sr-only'>Atvērt</span>" +
+      "          <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "        </a>" +
+      "        <div class='font-medium'>Plisēto žalūziju uzstādīšanas instrukcija</div>" +
+      "      </div>" +
       "    </div>" +
       "    <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 mt-8 grid grid-cols-1 md:grid-cols-3 gap-4'>" +
       "      <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "        <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
+      "          <img src='https://ik.imagekit.io/vbvwdejj5/new-features.png?updatedAt=1760624819609' alt='Īpašības ikona' class='w-8 h-8 object-contain'/>" +
       "        </div>" +
       "        <h3 class='text-lg font-semibold mb-2'>Īpašības</h3>" +
       "        <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto'>" +
@@ -793,14 +797,14 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      </div>" +
       "      <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "        <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
+      "          <img src='https://ik.imagekit.io/vbvwdejj5/design.png?updatedAt=1760624819523' alt='Izmēru veikšana ikona' class='w-8 h-8 object-contain'/>" +
       "        </div>" +
       "        <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
       "        <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
       "      </div>" +
       "      <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "        <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 6.75A2.25 2.25 0 0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 19.5 19.5h-15A2.25 2.25 0 0 1 2.25 17.25V6.75Z'/></svg>" +
+      "          <img src='https://ik.imagekit.io/vbvwdejj5/pay.png?updatedAt=1760624819497' alt='Apmaksas veidi ikona' class='w-8 h-8 object-contain'/>" +
       "        </div>" +
       "        <h3 class='text-lg font-semibold mb-2'>Apmaksas veidi</h3>" +
       "        <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto'>" +
@@ -857,20 +861,18 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "<div class='mt-8 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
       "  <div class='max-w-3xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 gap-6'>" +
       "    <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "      <div class='mx-auto mb-3 text-sky-600 flex flex-col items-center gap-1' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-10 h-10'><path d='M6 2.25A2.25 2.25 0 0 0 3.75 4.5v15A2.25 2.25 0 0 0 6 21.75h12A2.25 2.25 0 0 0 20.25 19.5v-9L14.25 2.25H6Z'/></svg>" +
-      "        <span class='text-[10px] leading-none font-bold text-white bg-sky-500 px-2 py-1 rounded'>PDF</span>" +
-      "      </div>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/romie%C5%A1u/Instrukcijas/Loga%20ail%C4%93.pdf?updatedAt=1756904122505' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Romiešu žalūziju instrukcija izmēru noteikšanai (loga ailē)</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/romie%C5%A1u/Instrukcijas/Loga%20ail%C4%93.pdf?updatedAt=1756904122505' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "    </div>" +
       "    <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "      <div class='mx-auto mb-3 text-sky-600 flex flex-col items-center gap-1' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-10 h-10'><path d='M6 2.25A2.25 2.25 0 0 0 3.75 4.5v15A2.25 2.25 0 0 0 6 21.75h12A2.25 2.25 0 0 0 20.25 19.5v-9L14.25 2.25H6Z'/></svg>" +
-      "        <span class='text-[10px] leading-none font-bold text-white bg-sky-500 px-2 py-1 rounded'>PDF</span>" +
-      "      </div>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/romie%C5%A1u/Instrukcijas/Pie%20sienas.pdf?updatedAt=1756904122575' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Romiešu žalūziju instrukcija izmēru noteikšanai (pie sienas)</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/romie%C5%A1u/Instrukcijas/Pie%20sienas.pdf?updatedAt=1756904122575' target='_blank' rel='noopener noreferrer' class='mt-3 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Atvērt</a>" +
       "    </div>" +
       "  </div>" +
       "</div>" +
@@ -878,7 +880,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-4'>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M9.813 3.188a.75.75 0 0 1 1.374 0l.803 1.9a3 3 0 0 0 1.622 1.622l1.9.803a.75.75 0 0 1 0 1.374l-1.9.803a3 3 0 0 0-1.622 1.622l-.803 1.9a.75.75 0 0 1-1.374 0l-.803-1.9a3 3 0 0 0-1.622-1.622l-1.9-.803a.75.75 0 0 1 0-1.374l1.9-.803a3 3 0 0 0 1.622-1.622l.803-1.9Z'/><path d='M16.5 14.25a.75.75 0 0 1 1.384-.345l.362.69a2.25 2.25 0 0 0 .959.959l.69.362a.75.75 0 0 1 0 1.384l-.69.362a2.25 2.25 0 0 0-.959.959l-.362.69a.75.75 0 0 1-1.384 0l-.362-.69a2.25 2.25 0 0 0-.959-.959l-.69-.362a.75.75 0 0 1 0-1.384l.69-.362a2.25 2.25 0 0 0 .959-.959l.362-.69Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/new-features.png?updatedAt=1760624819609' alt='Īpašības ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Īpašības</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto'>" +
@@ -889,14 +891,14 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0  0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/design.png?updatedAt=1760624819523' alt='Izmēru veikšana ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 6.75A2.25 2.25 0 0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 19.5 19.5h-15A2.25 2.25 0 0 1 2.25 17.25V6.75Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/pay.png?updatedAt=1760624819497' alt='Apmaksas veidi ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Apmaksas veidi</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto'>" +
@@ -962,30 +964,40 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <h3 class='text-center text-2xl font-bold text-gray-900'>Uzstādīšanas un mērījumu instrukcijas</h3>" +
       "  <div class='mt-4 flex justify-center'><span class='inline-block w-8 h-1 rounded bg-sky-500'></span></div>" +
       "  <div class='mt-6 max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 gap-4'>" +
-      "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "    <div class='text-center'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/Loga%20ail%C4%93.pdf?updatedAt=1756980280747' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Koka žalūzijas instrukcija izmēru noteikšanai (loga ailē)</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/Loga%20ail%C4%93.pdf?updatedAt=1756980280747' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
-      "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "    <div class='text-center'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/B.pdf?updatedAt=1756980411292' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Koka žalūzijas instrukcija izmēru noteikšanai (pie rāmja)</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/B.pdf?updatedAt=1756980411292' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
-      "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "    <div class='text-center'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/Pie%20sienas.pdf?updatedAt=1756980280712' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Koka žalūzijas instrukcija izmēru noteikšanai (pie sienas)</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/Pie%20sienas.pdf?updatedAt=1756980280712' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
-      "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "    <div class='text-center'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/Koka%20%C5%BEal%C5%ABziju%20mont%C4%81%C5%BEas%20intrukcija%2025mm.pdf?updatedAt=1756979241743' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Koka žalūziju uzstādīšanas instrukcija 25 mm</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/Koka%20%C5%BEal%C5%ABziju%20mont%C4%81%C5%BEas%20intrukcija%2025mm.pdf?updatedAt=1756979241743' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
-      "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "    <div class='text-center'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/Koka%20%C5%BEal%C5%ABziju%20mont%C4%81%C5%BEas%20instrukcija%2050mm.pdf?updatedAt=1756979240350' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Koka žalūziju uzstādīšanas instrukcija 50 mm</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/Koka%20%C5%BEal%C5%ABziju%20mont%C4%81%C5%BEas%20instrukcija%2050mm.pdf?updatedAt=1756979240350' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
       "  </div>" +
       "</section></div>" +
@@ -993,7 +1005,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-8'>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm.75 4.5a.75.75 0 0 0 0 1.5h10.5a.75.75 0 0 0 0-1.5H3.75Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/new-features.png?updatedAt=1760624819609' alt='Īpašības ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-3'>Īpašības</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Koka žalūzijas – dabiskums un funkcionalitāte. Šīs žalūzijas ir lieliska izvēle, ja vēlaties apvienot dabisku materiālu eleganci ar praktiskumu.</p>" +
@@ -1006,14 +1018,14 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0  0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/design.png?updatedAt=1760624819523' alt='Izmēru veikšana ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-3'>Izmēru veikšana</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 6.75A2.25 2.25 0 0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 19.5 19.5h-15A2.25 2.25 0 0 1 2.25 17.25V6.75Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/pay.png?updatedAt=1760624819497' alt='Apmaksas veidi ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-3'>Apmaksas veidi</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-2 text-left max-w-xl mx-auto'>" +
@@ -1059,30 +1071,40 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <h3 class='text-center text-2xl font-bold text-gray-900'>Uzstādīšanas un mērījumu instrukcijas</h3>" +
       "  <div class='mt-4 flex justify-center'><span class='inline-block w-8 h-1 rounded bg-sky-500'></span></div>" +
       "  <div class='mt-6 max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 gap-4'>" +
-      "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "    <div class='text-center'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/Loga%20ail%C4%93.pdf?updatedAt=1756980280747' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Foto žalūziju instrukcija izmēru noteikšanai (loga ailē)</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/Loga%20ail%C4%93.pdf?updatedAt=1756980280747' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
-      "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "    <div class='text-center'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/B.pdf?updatedAt=1756980411292' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Foto žalūziju instrukcija izmēru noteikšanai (pie rāmja)</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/B.pdf?updatedAt=1756980411292' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
-      "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "    <div class='text-center'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/Pie%20sienas.pdf?updatedAt=1756980280712' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Foto žalūziju instrukcija izmēru noteikšanai (pie sienas)</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Koka/Instrukcijas/Pie%20sienas.pdf?updatedAt=1756980280712' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
-      "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "    <div class='text-center'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/foto/Instrukcijas/Foto%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija%20(pie%20r%C4%81mja)%20(2).pdf?updatedAt=1756982737921' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Foto žalūziju uzstādīšanas instrukcija (pie rāmja)</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/foto/Instrukcijas/Foto%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija%20(pie%20r%C4%81mja)%20(2).pdf?updatedAt=1756982737921' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
-      "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "" +
+      "    <div class='text-center'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/foto/Instrukcijas/ZF_0_fotozaluzijasuzstadisanapie_sienaslv%20(1).pdf.pdf?updatedAt=1756982737876' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='mt-1 font-medium text-gray-900'>Foto žalūziju uzstādīšanas instrukcija (pie sienas)</div>" +
-      "      <a class='mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-sky-500 text-white text-sm font-medium hover:bg-sky-600' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/foto/Instrukcijas/ZF_0_fotozaluzijasuzstadisanapie_sienaslv%20(1).pdf.pdf?updatedAt=1756982737876' target='_blank' rel='noopener noreferrer'>Atvērt</a>" +
       "    </div>" +
       "  </div>" +
       "</section></div>" +
@@ -1090,7 +1112,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-4'>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm.75 4.5a.75.75 0 0 0 0 1.5h10.5a.75.75 0 0 0 0-1.5H3.75Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/new-features.png?updatedAt=1760624819609' alt='Īpašības ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Īpašības</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Fotožalūzijas – jūsu personīgā galerija pie loga. Pateicoties modernājām tehnoloģijām, jūs iegūsiet ne tikai funkcionālas žalūzijas, bet arī unikālu mākslas darbu.</p>" +
@@ -1105,14 +1127,14 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/design.png?updatedAt=1760624819523' alt='Izmēru veikšana ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 6.75A2.25 2.25 0 0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 19.5 19.5h-15A2.25 2.25 0 0 1 2.25 17.25V6.75Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/pay.png?updatedAt=1760624819497' alt='Apmaksas veidi ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Apmaksas veidi</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto mt-2'>" +
@@ -1157,7 +1179,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-4'>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm.75 4.5a.75.75 0 0 0 0 1.5h10.5a.75.75 0 0 0 0-1.5H3.75Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/new-features.png?updatedAt=1760624819609' alt='Īpašības ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Īpašības</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mansarda logu žalūzijas – funkcionāls risinājums jebkuram loga izmēram un novietojumam.</p>" +
@@ -1170,14 +1192,14 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/design.png?updatedAt=1760624819523' alt='Izmēru veikšana ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 6.75A2.25 2.25 0 0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 19.5 19.5h-15A2.25 2.25 0 0 1 2.25 17.25V6.75Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/pay.png?updatedAt=1760624819497' alt='Apmaksas veidi ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Apmaksas veidi</h3>" +
       "      <ul class='list-disc list-inside text-gray-700 space-y-1 text-left max-w-xl mx-auto mt-2'>" +
@@ -1263,29 +1285,39 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "<div class='mt-8 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
       "  <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-4'>" +
       "    <div class='group mx-auto w-full max-w-[22rem] text-center p-2 text-sm bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Loga%20ail%C4%93.pdf?updatedAt=1756906416460' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Alumīnija horizontālo žalūziju “Classic” instrukcija izmēru noteikšanai (loga ailē)</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Loga%20ail%C4%93.pdf?updatedAt=1756906416460' target='_blank' rel='noopener noreferrer' class='mt-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition'>Atvērt</a>" +
       "    </div>" +
       "    <div class='group mx-auto w-full max-w-[22rem] text-center p-2 text-sm bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Alum%C4%ABnija%20horizont%C4%81lo%20%C5%BEal%C5%ABziju%20_Classic_%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(pie%20r%C4%81mja).pdf?updatedAt=1756906416789' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Alumīnija horizontālo žalūziju “Classic” instrukcija izmēru noteikšanai (pie rāmja)</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Alum%C4%ABnija%20horizont%C4%81lo%20%C5%BEal%C5%ABziju%20_Classic_%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai%20(pie%20r%C4%81mja).pdf?updatedAt=1756906416789' target='_blank' rel='noopener noreferrer' class='mt-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition'>Atvērt</a>" +
       "    </div>" +
       "    <div class='group mx-auto w-full max-w-[22rem] text-center p-2 text-sm bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Pie%20sienas.pdf?updatedAt=1756906416461' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Alumīnija horizontālo žalūziju “Classic” instrukcija izmēru noteikšanai (pie sienas)</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Pie%20sienas.pdf?updatedAt=1756906416461' target='_blank' rel='noopener noreferrer' class='mt-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition'>Atvērt</a>" +
       "    </div>" +
       "    <div class='group mx-auto w-full max-w-[22rem] text-center p-2 text-sm bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Alum%C4%ABnija%20horizont%C4%81lo%20%C5%BEal%C5%ABziju%20_ISO_%20instrukcija%20izmēru%20noteikšanai.pdf?updatedAt=1756975228733' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Alumīnija horizontālo žalūziju “ISO” instrukcija izmēru noteikšanai</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Alum%C4%ABnija%20horizont%C4%81lo%20%C5%BEal%C5%ABziju%20_ISO_%20instrukcija%20izm%C4%93ru%20noteik%C5%A1anai.pdf?updatedAt=1756975228733' target='_blank' rel='noopener noreferrer' class='mt-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition'>Atvērt</a>" +
       "    </div>" +
       "    <div class='group mx-auto w-full max-w-[22rem] text-center p-2 text-sm bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Alum%C4%ABnija%20horizont%C4%81lo%20%C5%BEal%C5%ABziju_ISO_%20uzstādīšanas%20instrukcija.pdf?updatedAt=1756905265449' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "        <span class='sr-only'>Atvērt</span>" +
+      "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
+      "      </a>" +
       "      <div class='font-medium'>Alumīnija horizontālo žalūziju “ISO” uzstādīšanas instrukcija</div>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Alum%C4%ABnija%20horizont%C4%81lo%20%C5%BEal%C5%ABziju_ISO_%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija.pdf?updatedAt=1756905265449' target='_blank' rel='noopener noreferrer' class='mt-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition'>Atvērt</a>" +
       "    </div>" +
       "  </div>" +
       "</div>" +
@@ -1293,7 +1325,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-4'>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M9.813 3.188a.75.75 0 0 1 1.374 0l.803 1.9a3 3 0 0 0 1.622 1.622l1.9.803a.75.75 0 0 1 0 1.374l-1.9.803a3 3 0 0 0-1.622 1.622l-.803 1.9a.75.75 0 0 1-1.374 0l-.803-1.9a3 3 0 0 0-1.622-1.622l-1.9-.803a.75.75 0 0 1 0-1.374l1.9-.803a3 3 0 0 0 1.622-1.622l.803-1.9Z'/><path d='M16.5 14.25a.75.75 0 0 1 1.384-.345l.362.69a2.25 2.25 0 0 0 .959.959l.69.362a.75.75 0 0 1 0 1.384l-.69.362a2.25 2.25 0 0 0-.959.959l-.362.69a.75.75 0 0 1-1.384 0l-.362-.69a2.25 2.25 0 0 0-.959-.959l-.69-.362a.75.75 0 0 1 0-1.384l.69-.362a2.25 2.25 0 0 0 .959-.959l.362-.69Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/new-features.png?updatedAt=1760624819609' alt='Īpašības ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Īpašības</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Šīs žalūzijas ir izturīgas un piemērotas jebkurai telpai. Tām ir vairākas būtiskas priekšrocības:</p>" +
@@ -1306,7 +1338,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/design.png?updatedAt=1760624819523' alt='Izmēru veikšana ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku</p>" +
@@ -1425,48 +1457,8 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "  <li>Ruļļu restes AEG56, AEG84</li>" +
       "</ul>" +
       "<p class='mt-2'>Žalūziju vadības mehānisms var būt manuāls (ar rokas kurbuli, aizbīdni, lentas vadību vai atslēgu) vai automātisks (ar pārslēdzi, atslēgas slēdzi, pulti vai “Gudrās mājas” pieslēgumu).</p>" +
-      "<p class='mt-2'>Lai pielāgotos jūsu ēkas fasādei, ruļļu slēģi ir pieejami plašā krāsu gammā: balts, brūns, pelēks, bēšs, sudraba, antracīts, zelta ozols.</p>" +
-      "<div class='mt-12 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
-      "  <div class='max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-8'>" +
-      "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-orange-200'>" +
-      "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337 49.948 49.948 0 0 0-9.902 3.912l-.003.002c-.114.06-.227.119-.34.18a.75.75 0 0 1-.707 0A50.88 50.88 0 0 0 7.5 12.173v-.224c0-.131.067-.248.172-.311a54.615 54.615 0 0 1 4.653-2.52.75.75 0 0 0-.65-1.352 56.123 56.123 0 0 0-4.78 2.589 1.858 1.858 0 0 0-.859 1.228 49.803 49.803 0 0 0-4.634-1.527.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z'/><path d='M13.06 15.473a48.45 48.45 0 0 1 7.666-3.282c.134 1.414.22 2.843.255 4.284a.75.75 0 0 1-.46.711 47.87 47.87 0 0 0-8.105 4.342.75.75 0 0 1-.832 0 47.87 47.87 0 0 0-8.104-4.342.75.75 0 0 1-.461-.71c.035-1.442.121-2.87.255-4.286.921.304 1.83.634 2.726.99v1.27a1.5 1.5 0 0 0-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.66a6.729 6.729 0 0 0 .551-1.607 1.5 1.5 0 0 0 .14-2.67v-.645a48.549 48.549 0 0 1 3.44 1.667 2.25 2.25 0 0 0 2.12 0Z'/></svg>" +
-      "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-3'>Īpašības</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Ruļļu slēģi – funkcionāls, ilgmūžīgs un drošs risinājums. Šīs žalūzijas ir izstrādātas, lai pasargātu jūsu māju un nodrošinātu maksimālu komfortu.</p>" +
-      "      <ul class='list-disc list-inside text-gray-700 space-y-2 text-left max-w-xl mx-auto mt-2'>" +
-      "        <li><strong>Daudzpusīga montāža.</strong> Ruļļu slēģus var uzstādīt logu, durvju vai garāžu ailēs. Tās var montēt arī tieši pie loga rāmja vai sienas.</li>" +
-      "        <li><strong>Siltuma un skaņas izolācija.</strong> Šīs žalūzijas lieliski pilda siltumizolācijas un skaņas izolācijas funkcijas, palīdzot uzturēt telpā komfortablu temperatūru un mazinot āra trokšņus.</li>" +
-      "        <li><strong>Plaša krāsu izvēle.</strong> Lai pielāgotos jūsu ēkas fasādei, ir pieejama plaša krāsu gamma.</li>" +
-      "      </ul>" +
-      "    </div>" +
-      "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-orange-200'>" +
-      "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0  0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
-      "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-3'>Izmēru veikšana</h3>" +
-      "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
-      "    </div>" +
-      "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-orange-200'>" +
-      "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 6.75A2.25 2.25 0 0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 19.5 19.5h-15A2.25 2.25 0 0 1 2.25 17.25V6.75Z'/></svg>" +
-      "      </div>" +
-      "      <h3 class='text-lg font-semibold mb-3'>Apmaksas veidi</h3>" +
-      "      <ul class='list-disc list-inside text-gray-700 space-y-2 text-left max-w-xl mx-auto'>" +
-      "        <li>Avansa maksājums</li>" +
-      "        <li>Pēcapmaksa skaidrā naudā</li>" +
-      "        <li>Pēcapmaksa ar bankas pārskaitījumu</li>" +
-      "      </ul>" +
-      "    </div>" +
-      "  </div>" +
-      "</div>",
-    features:
-      "<p>Ruļļu slēģi – funkcionāls, ilgmūžīgs un drošs risinājums. Šīs žalūzijas ir izstrādātas, lai pasargātu jūsu māju un nodrošinātu maksimālu komfortu.</p>" +
-      "<ul class='list-disc list-inside text-gray-700 space-y-2 mt-2'>" +
-      "<li><strong>Daudzpusīga montāža.</strong> Ruļļu slēģus var uzstādīt logu, durvju vai garāžu ailēs. Tās var montēt arī tieši pie loga rāmja vai sienas.</li>" +
-      "<li><strong>Siltuma un skaņas izolācija.</strong> Šīs žalūzijas lieliski pilda siltumizolācijas un skaņas izolācijas funkcijas, palīdzot uzturēt telpā komfortablu temperatūru un mazinot āra trokšņus.</li>" +
-      "<li><strong>Plaša krāsu izvēle.</strong> Lai pielāgotos jūsu ēkas fasādei, ir pieejama plaša krāsu gamma.</li>" +
-      "</ul>",
+      "<p class='mt-2'>Lai pielāgotos jūsu ēkas fasādei, ruļļu slēģi ir pieejami plašā krāsu gammā: balts, brūns, pelēks, bēšs, sudraba, antracīts, zelta ozols.</p>",
+    features: "",
     images: [
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo/b_ZF_shutters.jpg?updatedAt=1756983800823',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo/b_ZF_whatsapp_image_2020_11_19_at_14.53.27_1_.jpeg?updatedAt=1756983800898',
@@ -1506,22 +1498,22 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "    <h2 class='text-2xl font-semibold mb-6 text-center'>Nomērīšanas un uzstādīšanas instrukcijas</h2>" +
       "    <div class='grid grid-cols-1 md:grid-cols-3 gap-6'>" +
       "      <a href='/pdf/zaluzijas/moskitu/merijumi-moskitu-tikli.pdf' target='_blank' rel='noopener noreferrer' class='block group p-6 rounded-xl border border-gray-200 bg-white hover:shadow-lg hover:border-sky-200 transition'>" +
-      "        <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center group-hover:scale-105 transition' aria-hidden='true'>" +
-      "          <svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 24 24' class='w-8 h-8'><path d='M12.75 3v12.19l3.22-3.22a.75.75 0 0 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 1.5 0Z'/><path d='M3 19.5A1.5 1.5 0 0 0 4.5 21h15a1.5 1.5 0 0 0 1.5-1.5V12a.75.75 0 0 0-1.5 0v7.5H4.5V12a.75.75 0 0 0-1.5 0v7.5Z'/></svg>" +
+      "        <div class='mx-auto mb-4 flex items-center justify-center group-hover:scale-105 transition' aria-hidden='true'>" +
+      "          <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
       "        </div>" +
       "        <h3 class='text-lg font-semibold mb-2 text-center'>Mērījumi moskītu tīkliem</h3>" +
       "        <p class='text-gray-700 text-center'>PDF rokasgrāmata mērījumu veikšanai pirms pasūtīšanas.</p>" +
       "      </a>" +
       "      <a href='/pdf/zaluzijas/moskitu/uzstadisana-klasiskajiem-tikliem.pdf' target='_blank' rel='noopener noreferrer' class='block group p-6 rounded-xl border border-gray-200 bg-white hover:shadow-lg hover:border-sky-200 transition'>" +
-      "        <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center group-hover:scale-105 transition' aria-hidden='true'>" +
-      "          <svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 24 24' class='w-8 h-8'><path d='M4.5 4.5h15v2.25h-15V4.5Zm0 4.5h15v2.25h-15V9Zm0 4.5h15v2.25h-15V13.5Z'/></svg>" +
+      "        <div class='mx-auto mb-4 flex items-center justify-center group-hover:scale-105 transition' aria-hidden='true'>" +
+      "          <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
       "        </div>" +
       "        <h3 class='text-lg font-semibold mb-2 text-center'>Uzstādīšana klasiskajiem tīkliem</h3>" +
       "        <p class='text-gray-700 text-center'>PDF instrukcija logu rāmja tīklu uzstādīšanai.</p>" +
       "      </a>" +
       "      <a href='/pdf/zaluzijas/moskitu/uzstadisana-pliseta-durvju-tikliem.pdf' target='_blank' rel='noopener noreferrer' class='block group p-6 rounded-xl border border-gray-200 bg-white hover:shadow-lg hover:border-sky-200 transition'>" +
-      "        <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center group-hover:scale-105 transition' aria-hidden='true'>" +
-      "          <svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 24 24' class='w-8 h-8'><path d='M6 3.75A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6Z'/></svg>" +
+      "        <div class='mx-auto mb-4 flex items-center justify-center group-hover:scale-105 transition' aria-hidden='true'>" +
+      "          <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
       "        </div>" +
       "        <h3 class='text-lg font-semibold mb-2 text-center'>Uzstādīšana plisētiem durvju tīkliem</h3>" +
       "        <p class='text-gray-700 text-center'>PDF instrukcija plisēto durvju sistēmām.</p>" +
@@ -1545,13 +1537,14 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
-      "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 13.5A2.25 2.25 0  0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z'/></svg>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/design.png?updatedAt=1760624819523' alt='Izmēru veikšana ikona' class='w-8 h-8 object-contain'/>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Izmēru veikšana</h3>" +
       "      <p class='text-gray-700 text-left max-w-xl mx-auto'>Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>" +
       "    </div>" +
       "    <div class='group text-center p-6 rounded-xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:border-sky-200'>" +
       "      <div class='mx-auto mb-4 w-16 h-16 rounded-full bg-blue-50 text-sky-600 flex items-center justify-center transition group-hover:scale-105' aria-hidden='true'>" +
+      "        <img src='https://ik.imagekit.io/vbvwdejj5/pay.png?updatedAt=1760624819523' alt='Apmaksas veidi ikona' class='w-8 h-8 object-contain'/>" +
       "        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='w-8 h-8'><path d='M2.25 6.75A2.25 2.25 0  0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 19.5 19.5h-15A2.25 2.25 0 0 1 2.25 17.25V6.75Z'/></svg>" +
       "      </div>" +
       "      <h3 class='text-lg font-semibold mb-2'>Apmaksas veidi</h3>" +

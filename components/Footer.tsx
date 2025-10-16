@@ -40,7 +40,7 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <h4 className="mb-3 font-semibold text-white">Sekojet mums</h4>
+            <h4 className="mb-3 font-semibold text-white">Seko mums</h4>
             <div className="flex items-center gap-4">
               <a href="https://www.facebook.com/profile.php?id=61581610862103" aria-label="Facebook" className="hover:text-white" target="_blank" rel="noreferrer">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">

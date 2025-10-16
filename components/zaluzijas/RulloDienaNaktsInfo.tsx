@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 export function RulloDienaNaktsInfo() {
   return (
@@ -6,9 +7,13 @@ export function RulloDienaNaktsInfo() {
       <div className="max-w-[76.8rem] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="group text-center p-6 transition">
           <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-sky-100 flex items-center justify-center" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-sky-600">
-              <path d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" />
-            </svg>
+            <Image
+              src="https://ik.imagekit.io/vbvwdejj5/new-features.png?updatedAt=1760624819609"
+              alt="Īpašības ikona"
+              width={40}
+              height={40}
+              className="h-10 w-10 object-contain"
+            />
           </div>
           <h3 className="font-semibold text-gray-900 mb-3">Īpašības</h3>
           <ul className="text-left list-disc list-inside space-y-2">
@@ -26,9 +31,13 @@ export function RulloDienaNaktsInfo() {
 
         <div className="group text-center p-6 transition">
           <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-sky-100 flex items-center justify-center" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-sky-600">
-              <path d="M2.25 13.5A2.25 2.25 0 0 1 4.5 11.25h15a2.25 2.25 0 0 1 0 4.5h-15A2.25 2.25 0 0 1 2.25 13.5Z" />
-            </svg>
+            <Image
+              src="https://ik.imagekit.io/vbvwdejj5/design.png?updatedAt=1760624819523"
+              alt="Izmēru veikšanas ikona"
+              width={40}
+              height={40}
+              className="h-10 w-10 object-contain"
+            />
           </div>
           <h3 className="font-semibold text-gray-900 mb-3">Izmēru veikšana</h3>
           <p className="text-left text-gray-700 max-w-xl mx-auto">Mūsu meistars ar toņu katalogiem var veikt izbraukumu pie Jums, zvaniet 20886650 un vienosimies par izbraukuma laiku.</p>
@@ -36,9 +45,13 @@ export function RulloDienaNaktsInfo() {
 
         <div className="group text-center p-6 transition">
           <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-sky-100 flex items-center justify-center" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-sky-600">
-              <path d="M2.25 6.75A2.25 2.25 0 0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 19.5 19.5h-15A2.25 2.25 0 0 1 2.25 17.25V6.75Z" />
-            </svg>
+            <Image
+              src="https://ik.imagekit.io/vbvwdejj5/pay.png?updatedAt=1760624819497"
+              alt="Apmaksas veidu ikona"
+              width={40}
+              height={40}
+              className="h-10 w-10 object-contain"
+            />
           </div>
           <h3 className="font-semibold text-gray-900 mb-3">Apmaksas veidi</h3>
           <ul className="text-left list-disc list-inside space-y-2">
