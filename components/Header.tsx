@@ -190,8 +190,40 @@ export default function Header(){
               <div className="absolute inset-0 bg-gradient-to-r from-brand-teal/0 via-brand-teal/20 to-brand-teal/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center rounded-xl"></div>
             </button>
             <div className="absolute left-0 top-full w-56 bg-white/95 backdrop-blur-lg border border-gray-100 rounded-xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transform translate-y-4 scale-95 group-hover:translate-y-0 group-hover:scale-100 transition-all duration-500 text-gray-800">
-              <Link href="/logi" className="block px-4 py-3 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-lg mx-2">PVC logi</Link>
-              <Link href="/zaluzijas" className="block px-4 py-3 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-lg mx-2">Žalūzijas</Link>
+              <Link href="/logi" className="block px-4 py-3 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-lg mx-2">
+                <span className="inline-flex items-center gap-2">
+                  PVC logi
+                  <span className="relative inline-flex items-center justify-center w-8 h-8">
+                    <video
+                      className="w-8 h-8 rounded-md ring-1 ring-sky-400/30 object-cover"
+                      src="https://ik.imagekit.io/vbvwdejj5/window.mp4?updatedAt=1760616065516"
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </span>
+              </Link>
+              <Link href="/zaluzijas" className="block px-4 py-3 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-lg mx-2">
+                <span className="inline-flex items-center gap-2">
+                  Žalūzijas
+                  <span className="relative inline-flex items-center justify-center w-8 h-8">
+                    <video
+                      className="w-8 h-8 rounded-md ring-1 ring-sky-400/30 object-cover"
+                      src="https://ik.imagekit.io/vbvwdejj5/blinds.mp4?updatedAt=1760614846411"
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </span>
+              </Link>
               <Link
                 href="/zaluzijas/mikstie-logi"
                 className="block px-4 py-2.5 rounded-lg mx-3 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200"

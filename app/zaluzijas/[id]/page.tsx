@@ -6,6 +6,9 @@ import RulloCalculatorSection from '@/components/zaluzijas/RulloCalculatorSectio
 import PlisetasCalculatorSection from '@/components/zaluzijas/PlisetasCalculatorSection'
 import FotoCalculator from '@/components/zaluzijas/FotoCalculator'
 import ScreenCalculator from '@/components/zaluzijas/ScreenCalculator'
+import MansardaCalculator from '@/components/zaluzijas/MansardaCalculator'
+import { KasetuDienaNaktsInfo } from '@/components/zaluzijas/KasetuDienaNaktsInfo'
+import { RulloDienaNaktsInfo } from '@/components/zaluzijas/RulloDienaNaktsInfo'
 import type { Metadata } from 'next'
 
 export const dynamicParams = false
@@ -66,6 +69,20 @@ export default function Page({ params }: { params: { id: string } }) {
     ? matches[0] + descriptionParts.slice(1).join(matches[0])
     : ""
 
+  const sanitize = (html: string) => {
+    let s = html
+    s = s.replaceAll(" rounded-xl", "")
+    s = s.replaceAll(" border border-gray-200", "")
+    s = s.replaceAll(" hover:-translate-y-1", "")
+    s = s.replaceAll(" hover:shadow-lg", "")
+    s = s.replaceAll(" hover:border-sky-200", "")
+    s = s.replaceAll(/\s{2,}/g as any, " ")
+    return s
+  }
+
+  const cleanedMainDescription = sanitize(mainDescription)
+  const cleanedFullWidthSections = sanitize(fullWidthSections)
+
   return (
     <>
       <section className="section">
@@ -85,9 +102,9 @@ export default function Page({ params }: { params: { id: string } }) {
             </div>
 
             <div className="lg:col-span-1">
-              <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: mainDescription }} />
+              <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: cleanedMainDescription }} />
               {!fullWidthSections && product.features && (
-                <div className="mt-6" dangerouslySetInnerHTML={{ __html: product.features }} />
+                <div className="mt-6" dangerouslySetInnerHTML={{ __html: sanitize(product.features) }} />
               )}
             </div>
           </div>
@@ -95,6 +112,7 @@ export default function Page({ params }: { params: { id: string } }) {
           {id === 'plisetas' && <PlisetasCalculatorSection title="Plisēto žalūziju kalkulators" />}
           {id === 'foto' && <FotoCalculator title="Foto žalūziju kalkulators" />}
           {id === 'screen' && <ScreenCalculator title="Screen žalūziju kalkulators" />}
+          {id === 'mansarda' && <MansardaCalculator title="Mansarda žalūziju kalkulators" />}
           {inquiryCards[id] && (
             <div className="mt-12 max-w-4xl mx-auto">
               <div className="relative overflow-hidden rounded-3xl border border-sky-200 bg-white p-10 shadow-xl">
@@ -143,8 +161,11 @@ export default function Page({ params }: { params: { id: string } }) {
 
       {/* Full-width sections that break out completely */}
       {fullWidthSections && (
-        <div dangerouslySetInnerHTML={{ __html: fullWidthSections }} />
+        <div dangerouslySetInnerHTML={{ __html: cleanedFullWidthSections }} />
       )}
+
+      {id === 'kasetu-diena-nakts' && <KasetuDienaNaktsInfo />}
+      {id === 'rullo-diena-nakts' && <RulloDienaNaktsInfo />}
     </>
   )
 }
