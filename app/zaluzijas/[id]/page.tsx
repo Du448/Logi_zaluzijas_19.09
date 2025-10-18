@@ -6,11 +6,13 @@ import RulloCalculatorSection from '@/components/zaluzijas/RulloCalculatorSectio
 import PlisetasCalculatorSection from '@/components/zaluzijas/PlisetasCalculatorSection'
 import FotoCalculator from '@/components/zaluzijas/FotoCalculator'
 import ScreenCalculator from '@/components/zaluzijas/ScreenCalculator'
+import MoskituCalculator from '@/components/zaluzijas/MoskituCalculator'
 import MansardaCalculator from '@/components/zaluzijas/MansardaCalculator'
 import { KasetuDienaNaktsInfo } from '@/components/zaluzijas/KasetuDienaNaktsInfo'
 import { RulloDienaNaktsInfo } from '@/components/zaluzijas/RulloDienaNaktsInfo'
 import { RulloSlegiInfo } from '@/components/zaluzijas/RulloSlegiInfo'
 import type { Metadata } from 'next'
+import RomiesuCalculator from '@/components/zaluzijas/RomiesuCalculator'
 
 export const dynamicParams = false
 
@@ -113,6 +115,8 @@ export default function Page({ params }: { params: { id: string } }) {
           {id === 'plisetas' && <PlisetasCalculatorSection title="Plisēto žalūziju kalkulators" />}
           {id === 'foto' && <FotoCalculator title="Foto žalūziju kalkulators" />}
           {id === 'screen' && <ScreenCalculator title="Screen žalūziju kalkulators" />}
+          {id === 'romiesu' && <RomiesuCalculator title="Romiešu žalūziju kalkulators" />}
+          {id === 'moskitu' && <MoskituCalculator title="Moskītu tīklu kalkulators" />}
           {id === 'mansarda' && <MansardaCalculator title="Mansarda žalūziju kalkulators" />}
           {inquiryCards[id] && (
             <div className="mt-12 max-w-4xl mx-auto">
