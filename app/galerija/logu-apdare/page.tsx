@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image'
 import { useEffect, useState, useCallback } from 'react'
 import ShareButton from '@/components/ShareButton'
 
@@ -75,11 +76,13 @@ export default function Page() {
               className="group overflow-hidden rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               aria-label={`Atvērt attēlu: ${img.alt}`}
             >
-              <div className="aspect-[4/3] overflow-hidden">
-                <img
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
                   src={img.src}
                   alt={img.alt}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   loading={i < 6 ? 'eager' : 'lazy'}
                 />
               </div>
@@ -96,12 +99,16 @@ export default function Page() {
             aria-label="Attēlu skatītājs"
             onClick={close}
           >
-            <div className="relative max-w-6xl w-full" onClick={(e)=>e.stopPropagation()}>
-              <img
-                src={images[index].src}
-                alt={images[index].alt}
-                className="w-full max-h-[80vh] object-contain rounded-xl shadow-2xl"
-              />
+            <div className="relative w-full max-w-6xl" onClick={(e)=>e.stopPropagation()}>
+              <div className="relative w-full overflow-hidden rounded-xl shadow-2xl max-h-[80vh]">
+                <Image
+                  src={images[index].src}
+                  alt={images[index].alt}
+                  fill
+                  className="object-contain"
+                  sizes="90vw"
+                />
+              </div>
 
               {/* Controls */}
               <button

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 const items = [
   { label: '103. sērija', fullSlug: 'pvc-logi-103-serija' },
@@ -9,15 +10,21 @@ const items = [
   { label: 'Jaunais LT', fullSlug: 'pvc-logi-jaunais-lietuviesu-projekts' },
   { label: 'Vecais LT', fullSlug: 'pvc-logi-vecais-lietuviesu-projekts' },
   { label: 'Mazģimeņu', fullSlug: 'pvc-logi-mazgimenu-projekts' },
+  { label: 'Čehu projekts', fullSlug: 'pvc-logi-cehu-projekts', className: 'lg:row-start-3 lg:col-start-3' },
   { label: 'Hruščova ķieg.', fullSlug: 'pvc-logi-hruscova-kiegelu-projekts' },
   { label: 'Hruščova paneļi', fullSlug: 'pvc-logi-hruscova-panelu-projekts' },
 ]
 
-export default function PreFooterCTA(){
+export default function PreFooterCTA() {
   return (
-    <section className="section">
-      <div className="container text-center">
-        <h2 className="h2">Izvēlies logus pēc sava dzīvokļa mājas projekta</h2>
+    <section className="section relative overflow-hidden">
+      <div
+        className="absolute inset-0 bg-[url('https://ik.imagekit.io/vbvwdejj5/glass_background.jpg?updatedAt=1761227323352')] bg-cover bg-center"
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 bg-white/80 backdrop-blur-[2px]" aria-hidden="true" />
+      <div className="container relative z-10 text-center">
+        <h2 className="h2">Izvēlies logus pēc sava dzīvokļu sērijas</h2>
         <p className="text-gray-600 mt-2 mb-8">Specializēti risinājumi dažādiem māju tipiem un projektiem</p>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -25,7 +32,10 @@ export default function PreFooterCTA(){
             <Link
               key={it.label}
               href={`/projekti/${it.fullSlug}`}
-              className="group relative rounded-full border border-gray-200 bg-white hover:bg-blue-600 p-4 text-gray-900 hover:text-white transition-all duration-300 cursor-pointer hover:shadow-lg flex items-center justify-center"
+              className={cn(
+                'group relative rounded-full border border-gray-200 bg-white hover:bg-blue-600 p-4 text-gray-900 hover:text-white transition-all duration-300 cursor-pointer hover:shadow-lg flex items-center justify-center',
+                it.className
+              )}
             >
               <span className="text-white opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300 mr-2 text-lg">
                 →

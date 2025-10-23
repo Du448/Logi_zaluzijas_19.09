@@ -1,16 +1,13 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
-
-const APP_VERSION = "1.0"
 
 const MIN_WIDTH_MM = 200
 const MAX_WIDTH_MM = 1500
 const MIN_HEIGHT_MM = 200
 const MAX_HEIGHT_MM = 2000
-
-const INSTALLATION_FEE = 20
 
 const PLISETAS_SYSTEM_OPTIONS = [
   { value: "Anthracite", label: "Anthracite" },
@@ -157,7 +154,6 @@ const PLISETAS_CONSTRAINTS: Record<string, Constraint> = {
 
 type PriceBreakdown = {
   product: number
-  installation: number
   total: number
 }
 
@@ -171,6 +167,11 @@ const numberFormatter = new Intl.NumberFormat("lv-LV", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 })
+
+const PLISETAS_NOTES = [
+  "* Šis ir informatīvs cenas aprēķins. Gala cena var atšķirties.",
+  "* Montāžas pakalpojumi nav iekļauti cenā.",
+]
 
 function formatMaterialDescription(material: PlisetasMaterial | null): string {
   if (!material) {
@@ -203,7 +204,7 @@ function calculatePrice(
   system: string,
   widthMm: number,
   heightMm: number,
-  includeInstallation: boolean,
+  _includeInstallation: boolean,
 ): CalculationResult {
   if (!materialCode || !system) {
     return { price: "0,00", isValid: false, breakdown: null }
@@ -221,16 +222,14 @@ function calculatePrice(
   const area = Math.max(widthM * heightM, 0.75)
   const cost = area * basePrice
 
-  const productCost = Math.round(cost * 2.5 * 1.21)
-  const installationCost = includeInstallation ? INSTALLATION_FEE : 0
-  const totalRounded = productCost + installationCost
+  const productCost = Math.round(cost * 1.75 * 1.21)
+  const totalRounded = productCost
 
   return {
     price: numberFormatter.format(totalRounded),
     isValid: true,
     breakdown: {
       product: productCost,
-      installation: installationCost,
       total: totalRounded,
     },
   }
@@ -310,10 +309,9 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
   const materialLabel = selectedMaterial ? formatMaterialDescription(selectedMaterial) : "Nav izvēlēts"
   const materialSummary = selectedMaterial ? formatMaterialSummary(selectedMaterial) : materialCode
 
-  const result = useMemo(
-    () => calculatePrice(materialCode, system, width, height, includeInstallation),
-    [materialCode, system, width, height, includeInstallation],
-  )
+  const result = useMemo(() => calculatePrice(materialCode, system, width, height, false), [materialCode, system, width, height])
+
+  const breakdown = result.breakdown
 
   const formatCurrency = (value: number) => `${numberFormatter.format(value)} €`
 
@@ -325,16 +323,6 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
     window.setTimeout(() => {
       el.classList.remove("ring-4", "ring-sky-400", "animate-pulse")
     }, 2200)
-  }
-
-  const fetchAsDataURL = async (url: string) => {
-    const res = await fetch(url)
-    const blob = await res.blob()
-    return await new Promise<string>((resolve) => {
-      const reader = new FileReader()
-      reader.onloadend = () => resolve(String(reader.result))
-      reader.readAsDataURL(blob)
-    })
   }
 
   const handleWidthChange = (value: number) => {
@@ -400,15 +388,40 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
       }
       pdfMake.vfs = vfsCandidate
 
+      const fetchImageAsDataUrl = async (src: string): Promise<string | null> => {
+        try {
+          const res = await fetch(src)
+          if (!res.ok) {
+            return null
+          }
+          const blob = await res.blob()
+          return await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onloadend = () => resolve(reader.result as string)
+            reader.onerror = () => reject(new Error("Neizdevās nolasīt attēlu."))
+            reader.readAsDataURL(blob)
+          })
+        } catch (_) {
+          return null
+        }
+      }
+
+      const logoDataUrl = await fetchImageAsDataUrl(
+        "https://ik.imagekit.io/vbvwdejj5/download%20(19)%20-%20Edited%20-%20Edited.png?updatedAt=1760521246953",
+      )
+
       const d = new Date()
       const dateStr = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}.`
       const prettyPrice = `${result.price} €`
 
-      let profileImagesData: string[] = []
-      if (selectedSystemImages && selectedSystemImages.length > 0) {
-        try {
-          profileImagesData = await Promise.all(selectedSystemImages.map((u) => fetchAsDataURL(u)))
-        } catch {}
+      const systemImageDataUrls: string[] = []
+      if (selectedSystemImages?.length) {
+        for (const src of selectedSystemImages) {
+          const dataUrl = await fetchImageAsDataUrl(src)
+          if (dataUrl) {
+            systemImageDataUrls.push(dataUrl)
+          }
+        }
       }
 
       const specificationRows: any[] = [
@@ -417,13 +430,14 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
         [{ text: "Platums:", style: "label" }, `${width} mm`],
         [{ text: "Augstums:", style: "label" }, `${height} mm`],
       ]
-      if (includeInstallation) {
-        specificationRows.push([{ text: "Montāža:", style: "label" }, "Jā"],)
-      }
+
+      specificationRows.push([{ text: "Montāža:", style: "label" }, includeInstallation ? "Jā" : "Nē"],)
 
       const content: any[] = [
+        ...(logoDataUrl
+          ? [{ image: logoDataUrl, fit: [120, 40], alignment: "left", margin: [0, 0, 0, 12] }]
+          : []),
         { text: "Cenas Aprēķins", style: "h1" },
-        { text: `Plisēto žalūziju kalkulators v${APP_VERSION}`, style: "sub" },
         { canvas: [{ type: "line", x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, lineColor: "#e5e7eb" }] },
         { text: `\nDatums: ${dateStr}`, margin: [0, 14, 0, 0] },
         { text: "Specifikācija:", style: "sectionTitle" },
@@ -443,43 +457,12 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
         },
       ]
 
-      if (profileImagesData.length > 0) {
-        content.push({ text: "Profila krāsas attēli:", style: "sectionTitle", margin: [0, 16, 0, 6] })
+      const imageSize = { width: 160, height: 120 }
+      if (systemImageDataUrls.length > 0) {
+        content.push({ text: "\n" })
         content.push({
-          columns: profileImagesData.map((img) => ({ image: img, fit: [240, 180] })),
-          columnGap: 12,
-        })
-      }
-
-      if (result.breakdown) {
-        const { product, installation, total } = result.breakdown
-        const breakdownRows: any[] = [
-          [{ text: "Žalūzijas cena:", style: "label" }, `${numberFormatter.format(product)} €`],
-        ]
-        if (includeInstallation && installation > 0) {
-          breakdownRows.push([
-            { text: "Montāža:", style: "label" },
-            `+${numberFormatter.format(installation)} €`,
-          ])
-        }
-        breakdownRows.push([
-          { text: "Kopā ar PVN:", style: "label" }, { text: `${numberFormatter.format(total)} €`, bold: true }],
-        )
-
-        content.push({ text: "Cenas sadalījums:", style: "sectionTitle", margin: [0, 16, 0, 6] })
-        content.push({
-          table: {
-            widths: ["*", "auto"],
-            body: breakdownRows,
-          },
-          layout: {
-            hLineColor: () => "#e5e7eb",
-            vLineColor: () => "#ffffff",
-            paddingLeft: () => 0,
-            paddingRight: () => 0,
-            paddingTop: () => 6,
-            paddingBottom: () => 6,
-          },
+          columns: systemImageDataUrls.map((image) => ({ image, ...imageSize })),
+          columnGap: 16,
         })
       }
 
@@ -487,16 +470,9 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
       content.push({ canvas: [{ type: "line", x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.8, lineColor: "#e5e7eb" }] })
       content.push({
         columns: [
-          [
-            { text: "* Šis ir informatīvs cenas aprēķins. Gala cena var atšķirties.", style: "notes", margin: [0, 10, 0, 2] },
-            {
-              text: includeInstallation
-                ? "* Cenas aprēķinā iekļauti montāžas pakalpojumi."
-                : "* Montāžas pakalpojumi nav iekļauti cenā.",
-              style: "notes",
-              margin: [0, 0, 0, 0],
-            },
-          ],
+          {
+            stack: PLISETAS_NOTES.map((text) => ({ text, style: "notes" })),
+          },
           [
             { text: "KOPĒJĀ CENA AR PVN:", style: "totalLabel", margin: [0, 0, 0, 4] },
             { text: prettyPrice, style: "totalValue" },
@@ -535,8 +511,8 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
       return null
     }
     const install = includeInstallation ? "Jā" : "Nē"
-    const priceText = result?.breakdown?.total
-      ? `${numberFormatter.format(result.breakdown.total)} €`
+    const priceText = breakdown?.total
+      ? `${numberFormatter.format(breakdown.total)} €`
       : `${result?.price ?? "—"} €`
 
     return [
@@ -673,11 +649,13 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
             {selectedSystemImages && (
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 {selectedSystemImages.map((imageUrl, index) => (
-                  <div key={`${system}-${index}`} className="overflow-hidden rounded-xl border border-gray-200">
-                    <img
+                  <div key={`${system}-${index}`} className="relative h-32 overflow-hidden rounded-xl border border-gray-200">
+                    <Image
                       src={imageUrl}
                       alt={`${system} profila krāsa ${index === 0 ? "skatījums" : "detalizēts skatījums"}`}
-                      className="h-full w-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 768px) 220px, 100vw"
                       loading="lazy"
                     />
                   </div>
@@ -753,7 +731,7 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
               onChange={(event) => setIncludeInstallation(event.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-500"
             />
-            Montāžas pakalpojumi (+{numberFormatter.format(INSTALLATION_FEE)} €)
+            Nepieciešama montāža
           </label>
         </div>
 
@@ -765,22 +743,16 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
             <p className="text-base font-medium text-gray-600">Cena € ar PVN:</p>
             <p className="mt-3 text-4xl font-bold text-gray-900 sm:text-5xl">{result.price}</p>
           </div>
-          {result.breakdown && (
+          {breakdown && (
             <div className="mt-4 w-full rounded-xl border border-gray-200 bg-white/80 px-5 py-4 text-sm text-gray-700 shadow-inner">
               <dl className="space-y-2">
                 <div className="flex items-center justify-between">
                   <dt className="font-medium">Žalūzijas cena</dt>
-                  <dd>{formatCurrency(result.breakdown.product)}</dd>
+                  <dd>{formatCurrency(breakdown.product)}</dd>
                 </div>
-                {includeInstallation && (
-                  <div className="flex items-center justify-between">
-                    <dt className="font-medium">Montāža</dt>
-                    <dd>{`+${numberFormatter.format(result.breakdown.installation)} €`}</dd>
-                  </div>
-                )}
                 <div className="flex items-center justify-between border-t border-gray-200 pt-2">
                   <dt className="font-semibold text-gray-900">Kopā ar PVN</dt>
-                  <dd className="font-semibold text-gray-900">{formatCurrency(result.breakdown.total)}</dd>
+                  <dd className="font-semibold text-gray-900">{formatCurrency(breakdown.total)}</dd>
                 </div>
               </dl>
             </div>

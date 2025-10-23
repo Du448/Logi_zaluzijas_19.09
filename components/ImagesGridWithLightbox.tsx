@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import React, { useState, useCallback, useEffect } from "react"
 
 type Props = {
@@ -40,12 +41,16 @@ export default function ImagesGridWithLightbox({ images, alt }: Props) {
             className="group relative overflow-hidden rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
             onClick={() => openLightbox(src)}
           >
-            <img
-              src={src}
-              alt={alt}
-              loading="lazy"
-              className="w-full h-56 object-cover transition-transform duration-300 ease-out group-hover:scale-105"
-            />
+            <div className="relative h-56">
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                className="object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+                sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
+                loading="lazy"
+              />
+            </div>
             <div className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
             <div className="pointer-events-none absolute bottom-2 right-2 rounded bg-black/50 text-white text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition">Skatīt</div>
           </button>
@@ -69,7 +74,15 @@ export default function ImagesGridWithLightbox({ images, alt }: Props) {
               ✕
             </button>
             <div className="relative w-full rounded-xl overflow-hidden bg-white">
-              <img src={activeSrc} alt={alt} className="w-full h-auto max-h-[85vh] object-contain" />
+              <div className="relative mx-auto w-full max-h-[85vh]">
+                <Image
+                  src={activeSrc}
+                  alt={alt}
+                  fill
+                  className="object-contain"
+                  sizes="90vw"
+                />
+              </div>
             </div>
           </div>
         </div>

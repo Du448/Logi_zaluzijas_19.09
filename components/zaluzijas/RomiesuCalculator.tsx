@@ -1,17 +1,14 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { getGridPrice, getTariffSizeCm, gridEnabledMaterials } from "@/lib/romiesu-grid"
 import { useEffect, useMemo, useRef, useState } from "react"
-
-const ROMIESU_APP_VERSION = "1.0"
 
 const MIN_WIDTH_MM = 400
 const MAX_WIDTH_MM = 3000
 const MIN_HEIGHT_MM = 400
 const MAX_HEIGHT_MM = 3500
-
-const ROMIESU_INSTALLATION_FEE = 25
 
 const ROMIESU_SYSTEM_OPTIONS = [
   { value: "VARIO 13 Kasete (balta)", label: "VARIO 13 Kasete (balta)" },
@@ -592,7 +589,7 @@ const ROMIESU_MATERIAL_IMAGES: Partial<Record<RomiesuMaterialOption["value"], Ro
 
 const ROMIESU_NOTES = [
   "* Šis ir informatīvs cenas aprēķins. Gala cena var atšķirties.",
-  "* Montāžas pakalpojumi nav iekļauti cenā, ja nav atzīmēti.",
+  "* Montāžas pakalpojumi nav iekļauti cenā.",
 ]
 
 const ROMIESU_NUMBER_FORMATTER = new Intl.NumberFormat("lv-LV", {
@@ -744,7 +741,6 @@ type RomiesuCalculationResult = {
   isValid: boolean
   breakdown: {
     product: number
-    installation: number
     total: number
   } | null
 }
@@ -754,7 +750,7 @@ function calculateRomiesuPrice(
   system: RomiesuSystemOption["value"] | "",
   widthMm: number,
   heightMm: number,
-  includeInstallation: boolean,
+  _includeInstallation: boolean,
 ): RomiesuCalculationResult {
   if (!material || !system) {
     return { price: "0,00", isValid: false, breakdown: null }
@@ -783,15 +779,13 @@ function calculateRomiesuPrice(
     const area = widthM * heightM
     productCost = Math.round((effectiveBasePrice as number) * markupMultiplier * area * 1.21)
   }
-  const installationCost = includeInstallation ? ROMIESU_INSTALLATION_FEE : 0
-  const total = productCost + installationCost
+  const total = productCost
 
   return {
     price: ROMIESU_NUMBER_FORMATTER.format(total),
     isValid: true,
     breakdown: {
       product: productCost,
-      installation: installationCost,
       total,
     },
   }
@@ -848,9 +842,11 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
   }, [availableSystems])
 
   const result = useMemo(
-    () => calculateRomiesuPrice(material, system, width, height, includeInstallation),
-    [material, system, width, height, includeInstallation],
+    () => calculateRomiesuPrice(material, system, width, height, false),
+    [material, system, width, height],
   )
+
+  const breakdown = result.breakdown
 
   const selectedSystemImages = useMemo(() => (system ? ROMIESU_SYSTEM_IMAGES[system] : null), [system])
   const materialImages = useMemo(() => (material ? ROMIESU_MATERIAL_IMAGES[material] ?? null : null), [material])
@@ -867,61 +863,114 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
     setDownloadPending(true)
 
     try {
-      const pdfMakeMod = await import("pdfmake/build/pdfmake")
-      let pdfMake = resolvePdfMakeInstance(pdfMakeMod)
-      if (!pdfMake) {
-        throw new Error("Neizdevās inicializēt PDF ģeneratoru.")
+      const pdfMakeMod: any = await import("pdfmake/build/pdfmake")
+      const vfsFontsMod: any = await import("pdfmake/build/vfs_fonts")
+
+      const pdfMakeSource = pdfMakeMod?.default ?? pdfMakeMod?.pdfMake ?? pdfMakeMod
+      const pdfMake = pdfMakeSource?.createPdf ? pdfMakeSource : pdfMakeMod
+
+      const fontsModule = vfsFontsMod?.default ?? vfsFontsMod
+
+      const resolveVfs = (candidate: unknown): Record<string, string> | null => {
+        if (!candidate || typeof candidate !== "object") {
+          return null
+        }
+
+        if ("pdfMake" in (candidate as Record<string, unknown>)) {
+          const maybePdfMake = (candidate as Record<string, unknown>).pdfMake
+          if (maybePdfMake && typeof maybePdfMake === "object" && "vfs" in maybePdfMake) {
+            const vfs = (maybePdfMake as Record<string, unknown>).vfs
+            if (vfs && typeof vfs === "object") {
+              return vfs as Record<string, string>
+            }
+          }
+        }
+
+        if ("vfs" in (candidate as Record<string, unknown>)) {
+          const vfs = (candidate as Record<string, unknown>).vfs
+          if (vfs && typeof vfs === "object") {
+            const keys = Object.keys(vfs as Record<string, unknown>)
+            if (keys.length > 0 && keys.every((key) => key.endsWith(".ttf"))) {
+              return vfs as Record<string, string>
+            }
+          }
+        }
+
+        const keys = Object.keys(candidate as Record<string, unknown>)
+        if (keys.length > 0 && keys.every((key) => key.endsWith(".ttf"))) {
+          return candidate as Record<string, string>
+        }
+
+        return null
       }
 
-      setGlobalValue("pdfMake", pdfMake)
+      const vfsCandidate =
+        resolveVfs(fontsModule) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.default) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.pdfMake) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.vfs)
 
-      const vfsFontsMod = await import("pdfmake/build/vfs_fonts")
-
-      const globalPdfMakeAfterFonts = resolvePdfMakeInstance(getGlobalValue("pdfMake"))
-      if (globalPdfMakeAfterFonts) {
-        pdfMake = globalPdfMakeAfterFonts
-      }
-
-      const vfs =
-        pdfMake.vfs ?? resolvePdfMakeVfs(vfsFontsMod) ?? resolvePdfMakeVfs(pdfMakeMod)
-      if (!vfs) {
+      if (!vfsCandidate) {
         throw new Error("Neizdevās ielādēt PDF fontus (vfs).")
       }
 
-      pdfMake.vfs = vfs
+      pdfMake.vfs = vfsCandidate
 
-      const d = new Date()
-      const dateStr = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}.`
-
-      const fetchImageAsDataUrl = async (url: string): Promise<string | null> => {
+      const fetchImageAsDataUrl = async (src: string): Promise<string | null> => {
         try {
-          const response = await fetch(url)
-          if (!response.ok) {
+          const res = await fetch(src)
+          if (!res.ok) {
             return null
           }
-
-          const blob = await response.blob()
+          const blob = await res.blob()
           return await new Promise<string>((resolve, reject) => {
             const reader = new FileReader()
             reader.onloadend = () => resolve(reader.result as string)
-            reader.onerror = reject
+            reader.onerror = () => reject(new Error("Neizdevās nolasīt attēlu."))
             reader.readAsDataURL(blob)
           })
-        } catch (error) {
-          console.error("Neizdevās ielādēt attēlu PDF vajadzībām:", error)
+        } catch (_) {
           return null
         }
       }
 
-      let systemImageDataUrls: string[] = []
-      if (selectedSystemImages) {
-        const resolved = await Promise.all(selectedSystemImages.map((src) => fetchImageAsDataUrl(src)))
-        systemImageDataUrls = resolved.filter((value): value is string => Boolean(value))
+      let systemImageDataUrl: string | null = null
+      if (selectedSystemImages?.length) {
+        for (const src of selectedSystemImages) {
+          const dataUrl = await fetchImageAsDataUrl(src)
+          if (dataUrl) {
+            systemImageDataUrl = dataUrl
+            break
+          }
+        }
       }
 
-      const content: any[] = [
+      let materialImageDataUrl: string | null = null
+      if (materialImages?.length) {
+        for (const img of materialImages) {
+          const dataUrl = await fetchImageAsDataUrl(img.src)
+          if (dataUrl) {
+            materialImageDataUrl = dataUrl
+            break
+          }
+        }
+      }
+
+      const logoDataUrl = await fetchImageAsDataUrl(
+        "https://ik.imagekit.io/vbvwdejj5/download%20(19)%20-%20Edited%20-%20Edited.png?updatedAt=1760521246953",
+      )
+
+      const d = new Date()
+      const dateStr = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}.`
+
+      const content: any[] = []
+
+      if (logoDataUrl) {
+        content.push({ image: logoDataUrl, fit: [120, 40], alignment: "left", margin: [0, 0, 0, 12] })
+      }
+
+      content.push(
         { text: "Cenas Aprēķins", style: "h1" },
-        { text: `Romiešu žalūziju kalkulators v${ROMIESU_APP_VERSION}`, style: "sub" },
         { canvas: [{ type: "line", x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, lineColor: "#e5e7eb" }] },
         { text: `\nDatums: ${dateStr}`, margin: [0, 14, 0, 0] },
         { text: "Specifikācija:", style: "sectionTitle" },
@@ -946,40 +995,19 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
             paddingBottom: () => 6,
           },
         },
-      ]
+      )
 
-      if (systemImageDataUrls.length > 0) {
+      const imageSize = { width: 160, height: 120 }
+      if (systemImageDataUrl || materialImageDataUrl) {
         content.push({ text: "\n" })
-        content.push({
-          columns: systemImageDataUrls.map((src) => ({ image: src, width: 160 })),
-          columnGap: 16,
-        })
-      }
-
-      if (result.breakdown) {
-        const { product, installation, total } = result.breakdown
-        const installationText =
-          installation > 0 ? `+${ROMIESU_NUMBER_FORMATTER.format(installation)} €` : `${ROMIESU_NUMBER_FORMATTER.format(installation)} €`
-
-        content.push({ text: "Cenas sadalījums:", style: "sectionTitle", margin: [0, 16, 0, 6] })
-        content.push({
-          table: {
-            widths: ["*", "auto"],
-            body: [
-              [{ text: "Žalūzijas cena:", style: "label" }, `${ROMIESU_NUMBER_FORMATTER.format(product)} €`],
-              [{ text: "Montāža:", style: "label" }, installationText],
-              [{ text: "Kopā ar PVN:", style: "label" }, { text: `${ROMIESU_NUMBER_FORMATTER.format(total)} €`, bold: true }],
-            ],
-          },
-          layout: {
-            hLineColor: () => "#e5e7eb",
-            vLineColor: () => "#ffffff",
-            paddingLeft: () => 0,
-            paddingRight: () => 0,
-            paddingTop: () => 6,
-            paddingBottom: () => 6,
-          },
-        })
+        const columns: any[] = []
+        if (systemImageDataUrl) {
+          columns.push({ image: systemImageDataUrl, ...imageSize })
+        }
+        if (materialImageDataUrl) {
+          columns.push({ image: materialImageDataUrl, ...imageSize })
+        }
+        content.push({ columns, columnGap: 16 })
       }
 
       content.push({ text: "\n" })
@@ -1028,8 +1056,8 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
     }
 
     const install = includeInstallation ? "Jā" : "Nē"
-    const priceText = result?.breakdown?.total
-      ? `${ROMIESU_NUMBER_FORMATTER.format(result.breakdown.total)} €`
+    const priceText = breakdown?.total
+      ? `${ROMIESU_NUMBER_FORMATTER.format(breakdown.total)} €`
       : `${result?.price ?? "—"} €`
     const materialLine = materialColor ? `${material} — ${materialColor}` : material
     const tariff = gridEnabledMaterials.includes(material) ? getTariffSizeCm(material, width, height) : undefined
@@ -1134,11 +1162,15 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
                       onClick={() => setMaterialColor(img.title)}
                       className={`rounded-xl border ${selected ? "border-emerald-500 ring-2 ring-emerald-300" : "border-gray-200"} bg-white p-2 text-left shadow-sm transition hover:border-emerald-400`}
                     >
-                      <img
-                        src={img.src}
-                        alt={img.title}
-                        className="h-28 w-full rounded-lg object-cover"
-                      />
+                      <div className="relative h-28 w-full overflow-hidden rounded-lg">
+                        <Image
+                          src={img.src}
+                          alt={img.title}
+                          fill
+                          className="object-cover"
+                          sizes="(min-width: 1024px) 220px, 100vw"
+                        />
+                      </div>
                       <div className="mt-2">
                         <figcaption className="text-xs text-gray-700">{img.title}</figcaption>
                       </div>
@@ -1224,7 +1256,7 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
               onChange={(event) => setIncludeInstallation(event.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
             />
-            Montāžas pakalpojumi (+{ROMIESU_NUMBER_FORMATTER.format(ROMIESU_INSTALLATION_FEE)} €)
+            Nepieciešama montāža
           </label>
         </div>
 
@@ -1233,22 +1265,16 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
             <p className="text-base font-medium text-gray-600">Cena € ar PVN:</p>
             <p className="mt-3 text-4xl font-bold text-gray-900 sm:text-5xl">{result.price}</p>
           </div>
-          {result.breakdown && (
+          {breakdown && (
             <div className="mt-4 w-full rounded-xl border border-gray-200 bg-white/80 px-5 py-4 text-sm text-gray-700 shadow-inner">
               <dl className="space-y-2">
                 <div className="flex items-center justify-between">
                   <dt className="font-medium">Žalūzijas cena</dt>
-                  <dd>{ROMIESU_NUMBER_FORMATTER.format(result.breakdown.product)} €</dd>
+                  <dd>{ROMIESU_NUMBER_FORMATTER.format(breakdown.product)} €</dd>
                 </div>
-                {includeInstallation && (
-                  <div className="flex items-center justify-between">
-                    <dt className="font-medium">Montāža</dt>
-                    <dd>{`+${ROMIESU_NUMBER_FORMATTER.format(result.breakdown.installation)} €`}</dd>
-                  </div>
-                )}
                 <div className="flex items-center justify-between border-t border-gray-200 pt-2">
                   <dt className="font-semibold text-gray-900">Kopā ar PVN</dt>
-                  <dd className="font-semibold text-gray-900">{ROMIESU_NUMBER_FORMATTER.format(result.breakdown.total)} €</dd>
+                  <dd className="font-semibold text-gray-900">{ROMIESU_NUMBER_FORMATTER.format(breakdown.total)} €</dd>
                 </div>
               </dl>
             </div>

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     'Apskati kasešu, rullo, plisētu un koka žalūziju risinājumus ar profesionālu uzmērīšanu, uzstādīšanu un plašu audumu izvēli.',
 }
 
-export default function Page(){
+export default function Page() {
   // Non-destructively hide specific catalog entries by ID.
   // Keep the data in `lib/zaluzijas.ts` so it can be restored anytime.
   const hiddenIds = new Set<string>([
@@ -25,8 +25,10 @@ export default function Page(){
   ])
   const visibleItems = catalogItems.filter((i) => !hiddenIds.has(i.id))
   return (
-    <section className="section">
-      <div className="container">
+    <section
+      className="section bg-[url('https://ik.imagekit.io/vbvwdejj5/wave_background%20-%20Edited.png?updatedAt=1761226390467')] bg-cover bg-fixed bg-center"
+    >
+      <div className="container backdrop-blur-[2px] bg-white/70 rounded-3xl py-10 px-6 shadow-lg">
         <ZaluzijasHeroAndGrid
           items={visibleItems.map((i) => ({
             id: i.id,

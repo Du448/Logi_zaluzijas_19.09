@@ -2,17 +2,11 @@
 
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
-import pdfMake from "pdfmake/build/pdfmake"
-import "pdfmake/build/vfs_fonts"
-
-const MANSARDA_APP_VERSION = "1.0"
 
 const MIN_WIDTH_MM = 400
 const MAX_WIDTH_MM = 800
 const MIN_HEIGHT_MM = 400
 const MAX_HEIGHT_MM = 1200
-
-const INSTALLATION_FEE = 25
 
 const MANSARDA_SYSTEM_OPTIONS = [
   { value: "Balts", label: "Balts" },
@@ -99,7 +93,7 @@ const MANSARDA_PRICE_TABLE: MansardaPriceTable = {
 
 const MANSARDA_NOTES = [
   "* Šis ir informatīvs cenas aprēķins. Gala cena var atšķirties.",
-  "* Montāžas pakalpojumi nav iekļauti.",
+  "* Montāžas pakalpojumi nav iekļauti cenā.",
 ]
 
 const NUMBER_FORMATTER = new Intl.NumberFormat("lv-LV", {
@@ -116,7 +110,6 @@ type MansardaCalculationResult = {
   isValid: boolean
   breakdown: {
     product: number
-    installation: number
     total: number
   } | null
 }
@@ -126,7 +119,7 @@ function calculateMansardaPrice(
   system: MansardaSystemOption["value"] | "",
   widthMm: number,
   heightMm: number,
-  includeInstallation: boolean,
+  _includeInstallation: boolean,
 ): MansardaCalculationResult {
   if (!material || !system) {
     return { price: "0,00", isValid: false, breakdown: null }
@@ -143,15 +136,13 @@ function calculateMansardaPrice(
 
   const adjustedBasePrice = basePrice * 1.5
   const productCost = Math.round(adjustedBasePrice * area * 1.21)
-  const installationCost = includeInstallation ? INSTALLATION_FEE : 0
-  const total = productCost + installationCost
+  const total = productCost
 
   return {
     price: NUMBER_FORMATTER.format(total),
     isValid: true,
     breakdown: {
       product: productCost,
-      installation: installationCost,
       total,
     },
   }
@@ -209,9 +200,11 @@ export default function MansardaCalculator({ title }: MansardaCalculatorProps) {
   }, [availableSystems])
 
   const result = useMemo(
-    () => calculateMansardaPrice(material, system, width, height, includeInstallation),
-    [material, system, width, height, includeInstallation],
+    () => calculateMansardaPrice(material, system, width, height, false),
+    [material, system, width, height],
   )
+
+  const breakdown = result.breakdown
 
   const handleDownload = async () => {
     if (!result.isValid) return
@@ -220,15 +213,91 @@ export default function MansardaCalculator({ title }: MansardaCalculatorProps) {
     setDownloadPending(true)
 
     try {
-      const pdfMakeRuntime: any = (pdfMake as any)?.createPdf ? pdfMake : (pdfMake as any)?.default ?? pdfMake
-      if (!pdfMakeRuntime?.createPdf || !pdfMakeRuntime?.vfs) {
+      const pdfMakeMod: any = await import("pdfmake/build/pdfmake")
+      const vfsFontsMod: any = await import("pdfmake/build/vfs_fonts")
+
+      const pdfMakeSource = pdfMakeMod?.default ?? pdfMakeMod?.pdfMake ?? pdfMakeMod
+      const pdfMake = pdfMakeSource?.createPdf ? pdfMakeSource : pdfMakeMod
+
+      const fontsModule = vfsFontsMod?.default ?? vfsFontsMod
+
+      const resolveVfs = (candidate: unknown): Record<string, string> | null => {
+        if (!candidate || typeof candidate !== "object") {
+          return null
+        }
+
+        if ("pdfMake" in (candidate as Record<string, unknown>)) {
+          const maybePdfMake = (candidate as Record<string, unknown>).pdfMake
+          if (maybePdfMake && typeof maybePdfMake === "object" && "vfs" in maybePdfMake) {
+            const vfs = (maybePdfMake as Record<string, unknown>).vfs
+            if (vfs && typeof vfs === "object") {
+              return vfs as Record<string, string>
+            }
+          }
+        }
+
+        if ("vfs" in (candidate as Record<string, unknown>)) {
+          const vfs = (candidate as Record<string, unknown>).vfs
+          if (vfs && typeof vfs === "object") {
+            const keys = Object.keys(vfs as Record<string, unknown>)
+            if (keys.length > 0 && keys.every((key) => key.endsWith(".ttf"))) {
+              return vfs as Record<string, string>
+            }
+          }
+        }
+
+        const keys = Object.keys(candidate as Record<string, unknown>)
+        if (keys.length > 0 && keys.every((key) => key.endsWith(".ttf"))) {
+          return candidate as Record<string, string>
+        }
+
+        return null
+      }
+
+      const vfsCandidate =
+        resolveVfs(fontsModule) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.default) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.pdfMake) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.vfs)
+
+      if (!vfsCandidate) {
         throw new Error("Neizdevās ielādēt PDF fontus (vfs).")
       }
+
+      pdfMake.vfs = vfsCandidate
+
+      const fetchImageAsDataUrl = async (src: string): Promise<string | null> => {
+        try {
+          const res = await fetch(src)
+          if (!res.ok) {
+            return null
+          }
+          const blob = await res.blob()
+          return await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onloadend = () => resolve(reader.result as string)
+            reader.onerror = () => reject(new Error("Neizdevās nolasīt attēlu."))
+            reader.readAsDataURL(blob)
+          })
+        } catch (_) {
+          return null
+        }
+      }
+
+      const logoDataUrl = await fetchImageAsDataUrl(
+        "https://ik.imagekit.io/vbvwdejj5/download%20(19)%20-%20Edited%20-%20Edited.png?updatedAt=1760521246953",
+      )
 
       const d = new Date()
       const dateStr = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}.`
 
-      const content: any[] = [
+      const content: any[] = []
+
+      if (logoDataUrl) {
+        content.push({ image: logoDataUrl, fit: [120, 40], alignment: "left", margin: [0, 0, 0, 12] })
+      }
+
+      content.push(
         { text: "Cenas Aprēķins", style: "h1" },
         { canvas: [{ type: "line", x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, lineColor: "#e5e7eb" }] },
         { text: `\nDatums: ${dateStr}`, margin: [0, 14, 0, 0] },
@@ -253,33 +322,7 @@ export default function MansardaCalculator({ title }: MansardaCalculatorProps) {
             paddingBottom: () => 6,
           },
         },
-      ]
-
-      if (result.breakdown) {
-        const { product, installation, total } = result.breakdown
-
-        content.push({ text: "Cenas sadalījums:", style: "sectionTitle", margin: [0, 16, 0, 6] })
-        content.push({
-          table: {
-            widths: ["*", "auto"],
-            body: [
-              [{ text: "Žalūzijas cena:", style: "label" }, `${NUMBER_FORMATTER.format(product)} €`],
-              ...(installation > 0
-                ? [[{ text: "Montāža:", style: "label" }, `+${NUMBER_FORMATTER.format(installation)} €`]]
-                : []),
-              [{ text: "Kopā ar PVN:", style: "label" }, { text: `${NUMBER_FORMATTER.format(total)} €`, bold: true }],
-            ],
-          },
-          layout: {
-            hLineColor: () => "#e5e7eb",
-            vLineColor: () => "#ffffff",
-            paddingLeft: () => 0,
-            paddingRight: () => 0,
-            paddingTop: () => 6,
-            paddingBottom: () => 6,
-          },
-        })
-      }
+      )
 
       content.push({ text: "\n" })
       content.push({ canvas: [{ type: "line", x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.8, lineColor: "#e5e7eb" }] })
@@ -312,7 +355,7 @@ export default function MansardaCalculator({ title }: MansardaCalculatorProps) {
         content,
       }
 
-      pdfMakeRuntime.createPdf(docDefinition).download(`mansarda-zaluziju-aprekins-${Date.now()}.pdf`)
+      pdfMake.createPdf(docDefinition).download(`mansarda-zaluziju-aprekins-${Date.now()}.pdf`)
     } catch (error: any) {
       console.error(error)
       setDownloadError(error?.message || "Neizdevās lejupielādēt aprēķinu. Lūdzu, mēģiniet vēlreiz.")
@@ -327,9 +370,7 @@ export default function MansardaCalculator({ title }: MansardaCalculatorProps) {
     }
 
     const install = includeInstallation ? "Jā" : "Nē"
-    const priceText = result?.breakdown?.total
-      ? `${NUMBER_FORMATTER.format(result.breakdown.total)} €`
-      : `${result?.price ?? "—"} €`
+    const priceText = breakdown?.total ? `${NUMBER_FORMATTER.format(breakdown.total)} €` : `${result?.price ?? "—"} €`
 
     return [
       "Aprēķins (mansarda žalūzijas):",
@@ -464,7 +505,7 @@ export default function MansardaCalculator({ title }: MansardaCalculatorProps) {
               onChange={(event) => setIncludeInstallation(event.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
             />
-            Montāžas pakalpojumi (+{NUMBER_FORMATTER.format(INSTALLATION_FEE)} €)
+            Nepieciešama montāža
           </label>
         </div>
 
@@ -476,22 +517,16 @@ export default function MansardaCalculator({ title }: MansardaCalculatorProps) {
             <p className="text-base font-medium text-gray-600">Cena € ar PVN:</p>
             <p className="mt-3 text-4xl font-bold text-gray-900 sm:text-5xl">{result.price}</p>
           </div>
-          {result.breakdown && (
+          {breakdown && (
             <div className="mt-4 w-full rounded-xl border border-gray-200 bg-white/80 px-5 py-4 text-sm text-gray-700 shadow-inner">
               <dl className="space-y-2">
                 <div className="flex items-center justify-between">
                   <dt className="font-medium">Žalūzijas cena</dt>
-                  <dd>{NUMBER_FORMATTER.format(result.breakdown.product)} €</dd>
+                  <dd>{NUMBER_FORMATTER.format(breakdown.product)} €</dd>
                 </div>
-                {includeInstallation && (
-                  <div className="flex items-center justify-between">
-                    <dt className="font-medium">Montāža</dt>
-                    <dd>{`+${NUMBER_FORMATTER.format(result.breakdown.installation)} €`}</dd>
-                  </div>
-                )}
                 <div className="flex items-center justify-between border-t border-gray-200 pt-2">
                   <dt className="font-semibold text-gray-900">Kopā ar PVN</dt>
-                  <dd className="font-semibold text-gray-900">{NUMBER_FORMATTER.format(result.breakdown.total)} €</dd>
+                  <dd className="font-semibold text-gray-900">{NUMBER_FORMATTER.format(breakdown.total)} €</dd>
                 </div>
               </dl>
             </div>

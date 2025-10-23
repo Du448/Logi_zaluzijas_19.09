@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
@@ -301,11 +302,16 @@ export default function Page() {
             <Reveal className="relative">
               <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-blue-100 via-white to-white p-6 shadow-2xl ring-1 ring-blue-100">
                 <div className="absolute -top-16 -right-10 h-40 w-40 rounded-full bg-blue-500/10" aria-hidden="true" />
-                <img
-                  src="https://ik.imagekit.io/vbvwdejj5/Intertec%2085?updatedAt=1757917155417"
-                  alt="Aluplast Intertec 85 profils"
-                  className="relative z-10 w-full object-contain"
-                />
+                <div className="relative z-10 h-[260px] w-full sm:h-[320px]">
+                  <Image
+                    src="https://ik.imagekit.io/vbvwdejj5/Intertec%2085?updatedAt=1757917155417"
+                    alt="Aluplast Intertec 85 profils"
+                    fill
+                    className="object-contain"
+                    sizes="(min-width: 1024px) 32rem, 100vw"
+                    priority
+                  />
+                </div>
                 <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-blue-900">
                   <div className="rounded-xl bg-white/70 p-3 shadow-sm">
                     <p className="text-xs uppercase tracking-[0.25em] text-blue-400">Uw</p>
@@ -459,8 +465,14 @@ export default function Page() {
           <div className="grid gap-6 md:grid-cols-2">
             {visualShowcase.map((item) => (
               <Reveal key={item.title} className="rounded-3xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-                <div className="aspect-[16/11] overflow-hidden bg-gray-100">
-                  <img src={item.image} alt={item.title} className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
+                <div className="relative aspect-[16/11] overflow-hidden bg-gray-100">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover transition-transform duration-700 hover:scale-105"
+                    sizes="(min-width: 1024px) 24rem, 100vw"
+                  />
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold text-gray-900">{item.title}</h3>

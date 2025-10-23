@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
 
@@ -957,8 +958,8 @@ function calculatePrice(
           : chargeableWidth * basePrice)
 
   const productCost = Math.round(cost * 2.5 * 1.21)
-  const installationCost = includeInstallation ? INSTALLATION_FEE : 0
-  const totalRounded = productCost + installationCost
+  const installationCost = 0
+  const totalRounded = productCost
 
   return {
     price: numberFormatter.format(totalRounded),
@@ -1222,13 +1223,8 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
 
       const notesLines = [
         { text: '* Šis ir informatīvs cenas aprēķins. Gala cena var atšķirties.', style: 'notes', margin: [0, 10, 0, 2] },
+        { text: '* Montāžas pakalpojumi nav iekļauti cenā.', style: 'notes', margin: [0, 0, 0, 0] },
       ]
-
-      if (includeInstallation) {
-        notesLines.push({ text: '* Cenas aprēķinā iekļauti montāžas pakalpojumi.', style: 'notes', margin: [0, 0, 0, 0] })
-      } else {
-        notesLines.push({ text: '* Montāžas pakalpojumi nav iekļauti cenā.', style: 'notes', margin: [0, 0, 0, 0] })
-      }
 
       let systemImageDataUrl: string | null = null
       if (selectedSystemInfo?.image) {
@@ -1267,6 +1263,23 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
         }
       }
 
+      const logoUrl = "https://ik.imagekit.io/vbvwdejj5/download%20(19)%20-%20Edited%20-%20Edited.png?updatedAt=1760521246953"
+      let logoDataUrl: string | null = null
+      try {
+        const res = await fetch(logoUrl)
+        if (res.ok) {
+          const blob = await res.blob()
+          logoDataUrl = await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onloadend = () => resolve(reader.result as string)
+            reader.onerror = reject
+            reader.readAsDataURL(blob)
+          })
+        }
+      } catch (_) {
+        logoDataUrl = null
+      }
+
       const formatToneValueForPdf = (toneOption?: ToneOption | null) => {
         if (!toneOption) {
           return 'Nav izvēlēts'
@@ -1276,9 +1289,20 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
         return numericPart ? `${toneOption.label} ${numericPart}` : toneOption.label
       }
 
+      const imageSize = { width: 160, height: 120 }
+
       const content: any[] = [
+        ...(logoDataUrl
+          ? [
+              {
+                image: logoDataUrl,
+                fit: [120, 40],
+                alignment: 'left',
+                margin: [0, 0, 0, 12],
+              },
+            ]
+          : []),
         { text: 'Cenas Aprēķins', style: 'h1' },
-        { text: `Žalūziju cenas kalkulators v${APP_VERSION}`, style: 'sub' },
         { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, lineColor: '#e5e7eb' }] },
         { text: `\nDatums: ${dateStr}`, margin: [0, 14, 0, 0] },
         { text: 'Specifikācija:', style: 'sectionTitle' },
@@ -1292,6 +1316,7 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
               [{ text: 'Tonis:', style: 'label' }, formatToneValueForPdf(selectedTone) ],
               [{ text: 'Platums:', style: 'label' }, `${width} mm`],
               [{ text: 'Augstums:', style: 'label' }, `${height} mm`],
+              [{ text: 'Montāža:', style: 'label' }, includeInstallation ? 'Jā' : 'Nē' ],
             ],
           },
           layout: {
@@ -1306,46 +1331,17 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
       ]
 
       if (system && systemImageDataUrl) {
-        const columns: any[] = [{ image: systemImageDataUrl, width: 160 }]
+        const columns: any[] = [{ image: systemImageDataUrl, ...imageSize }]
         if (toneImageDataUrl) {
-          columns.push({ image: toneImageDataUrl, width: 120 })
+          columns.push({ image: toneImageDataUrl, ...imageSize })
         }
         content.push({ columns, columnGap: 24, margin: [0, 12, 0, 6] })
       }
 
-      if (result.breakdown) {
-        const { product, installation, total } = result.breakdown
-        const installationText =
-          installation > 0
-            ? `+${numberFormatter.format(installation)} €`
-            : `${numberFormatter.format(installation)} €`
-
-        content.push({ text: 'Cenas sadalījums:', style: 'sectionTitle', margin: [0, 16, 0, 6] })
-        content.push({
-          table: {
-            widths: ['*', 'auto'],
-            body: [
-              [{ text: 'Žalūzijas cena:', style: 'label' }, `${numberFormatter.format(product)} €`],
-              [{ text: 'Montāža:', style: 'label' }, installationText],
-              [
-                { text: 'Kopā ar PVN:', style: 'label' },
-                { text: `${numberFormatter.format(total)} €`, bold: true },
-              ],
-            ],
-          },
-          layout: {
-            hLineColor: () => '#e5e7eb',
-            vLineColor: () => '#ffffff',
-            paddingLeft: () => 0,
-            paddingRight: () => 0,
-            paddingTop: () => 6,
-            paddingBottom: () => 6,
-          },
-        })
-      }
+      // Removed "Cenas sadalījums" block per updated requirements
 
       if (toneImageDataUrl && !(system && systemImageDataUrl)) {
-        content.push({ image: toneImageDataUrl, width: 140, margin: [0, 10, 0, 4] })
+        content.push({ image: toneImageDataUrl, ...imageSize, margin: [0, 10, 0, 4] })
       }
 
       content.push({ text: '\n' })
@@ -1577,11 +1573,15 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
                       aria-pressed={toneId === tone.id}
                     >
                       {tone.image ? (
-                        <img
-                          src={tone.image}
-                          alt={`${tone.label} paraugs`}
-                          className="h-10 w-10 rounded-lg object-cover"
-                        />
+                        <div className="relative h-10 w-10 overflow-hidden rounded-lg">
+                          <Image
+                            src={tone.image}
+                            alt={`${tone.label} paraugs`}
+                            fill
+                            className="object-cover"
+                            sizes="40px"
+                          />
+                        </div>
                       ) : (
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-200 text-[0.65rem] font-semibold text-slate-600">
                           Tone
@@ -1644,11 +1644,15 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
             )}
             {system && systemVisualMap[system] && (
               <div className="mt-6 flex items-center gap-4 rounded-2xl border border-sky-100 bg-white p-4 shadow-sm">
-                <img
-                  src={systemVisualMap[system].image}
-                  alt={`${systemVisualMap[system].label} sistēmas paraugs`}
-                  className="h-28 w-40 rounded-xl object-cover shadow-sm"
-                />
+                <div className="relative h-28 w-40 overflow-hidden rounded-xl shadow-sm">
+                  <Image
+                    src={systemVisualMap[system].image}
+                    alt={`${systemVisualMap[system].label} sistēmas paraugs`}
+                    fill
+                    className="object-cover"
+                    sizes="160px"
+                  />
+                </div>
                 <div>
                   <p className="text-sm font-medium text-sky-600">Izvēlētā sistēma</p>
                   <h3 className="mt-1 text-lg font-semibold text-gray-900">{systemVisualMap[system].label}</h3>
@@ -1732,7 +1736,7 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
               onChange={(event) => setIncludeInstallation(event.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-500"
             />
-            Montāžas pakalpojumi (+{numberFormatter.format(INSTALLATION_FEE)} €)
+            Nepieciešama montāža
           </label>
         </div>
 
@@ -1751,7 +1755,7 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
                   <dt className="font-medium">Žalūzijas cena</dt>
                   <dd>{formatCurrency(result.breakdown.product)}</dd>
                 </div>
-                {includeInstallation && (
+                {result.breakdown.installation > 0 && (
                   <div className="flex items-center justify-between">
                     <dt className="font-medium">Montāža</dt>
                     <dd>
@@ -1814,11 +1818,15 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
         <div className="mt-10 rounded-3xl border border-sky-100 bg-white p-8 shadow-sm">
           <div className="flex flex-col gap-6 md:flex-row md:items-center">
             {selectedTone.image ? (
-              <img
-                src={selectedTone.image}
-                alt={`${selectedTone.label} paraugs`}
-                className="h-40 w-full max-w-[280px] rounded-2xl object-cover md:h-48"
-              />
+              <div className="relative h-40 w-full max-w-[280px] overflow-hidden rounded-2xl md:h-48">
+                <Image
+                  src={selectedTone.image}
+                  alt={`${selectedTone.label} paraugs`}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 768px) 280px, 100vw"
+                />
+              </div>
             ) : (
               <div className="h-40 w-full max-w-[280px] rounded-2xl bg-slate-200 md:h-48" aria-hidden="true" />
             )}

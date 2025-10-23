@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
 
@@ -11,6 +12,8 @@ const MIN_HEIGHT_MM = 300
 const MAX_HEIGHT_MM = 3500
 
 const INSTALLATION_FEE = 25
+const SCREEN_CALCULATION_HEIGHT_M = 2.5
+const SCREEN_MIN_BILLABLE_WIDTH_M = 0.5
 
 const SCREEN_SYSTEM_OPTIONS = [
   { value: "VARIO 13 Kasete (balta)", label: "VARIO 13 Kasete (balta)" },
@@ -28,16 +31,16 @@ const SCREEN_SYSTEM_OPTIONS = [
 type ScreenSystemOption = (typeof SCREEN_SYSTEM_OPTIONS)[number]
 
 const SCREEN_SYSTEM_CONSTRAINTS: Record<ScreenSystemOption["value"], { maxWidthMm: number; maxHeightMm: number }> = {
-  "VARIO 13 Kasete (balta)": { maxWidthMm: 1400, maxHeightMm: 1300 },
-  "VARIO 13 Kasete (krāsaina)": { maxWidthMm: 1400, maxHeightMm: 1300 },
-  "VARIO 17 Kasete (balts)": { maxWidthMm: 1400, maxHeightMm: 2000 },
-  "VARIO 17 Kasete (krāsaina)": { maxWidthMm: 1400, maxHeightMm: 2000 },
-  "VARIO Uprofils Kasete (balts)": { maxWidthMm: 1400, maxHeightMm: 2000 },
-  "VARIO Uprofils Kasete (krāsains)": { maxWidthMm: 1400, maxHeightMm: 2000 },
-  "VARIO 25 Rullo (balts)": { maxWidthMm: 1400, maxHeightMm: 3000 },
-  "VARIO 25 Rullo (krāsains)": { maxWidthMm: 1400, maxHeightMm: 3000 },
-  "VARIO 32 Rullo (balts)": { maxWidthMm: 1400, maxHeightMm: 2700 },
-  "VARIO 32 Rullo (krāsains)": { maxWidthMm: 1400, maxHeightMm: 2700 },
+  "VARIO 13 Kasete (balta)": { maxWidthMm: 1500, maxHeightMm: 1300 },
+  "VARIO 13 Kasete (krāsaina)": { maxWidthMm: 1500, maxHeightMm: 1300 },
+  "VARIO 17 Kasete (balts)": { maxWidthMm: 1600, maxHeightMm: 2000 },
+  "VARIO 17 Kasete (krāsaina)": { maxWidthMm: 1600, maxHeightMm: 2000 },
+  "VARIO Uprofils Kasete (balts)": { maxWidthMm: 1600, maxHeightMm: 2000 },
+  "VARIO Uprofils Kasete (krāsains)": { maxWidthMm: 1600, maxHeightMm: 2000 },
+  "VARIO 25 Rullo (balts)": { maxWidthMm: 2200, maxHeightMm: 3000 },
+  "VARIO 25 Rullo (krāsains)": { maxWidthMm: 2200, maxHeightMm: 3000 },
+  "VARIO 32 Rullo (balts)": { maxWidthMm: 2200, maxHeightMm: 2700 },
+  "VARIO 32 Rullo (krāsains)": { maxWidthMm: 2200, maxHeightMm: 2700 },
 }
 
 const SCREEN_SYSTEM_IMAGES: Record<ScreenSystemOption["value"], readonly [string, string]> = {
@@ -134,7 +137,7 @@ const SCREEN_PRICE_TABLE: ScreenPriceTable = {
 
 const SCREEN_NOTES = [
   "* Šis ir informatīvs cenas aprēķins. Gala cena var atšķirties.",
-  "* Montāžas pakalpojumi nav iekļauti cenā, ja nav atzīmēti.",
+  "* Montāžas pakalpojumi nav iekļauti cenā.",
 ]
 
 const SCREEN_NUMBER_FORMATTER = new Intl.NumberFormat("lv-LV", {
@@ -174,9 +177,11 @@ function calculateScreenPrice(
 
   const widthM = widthMm / 1000
   const heightM = heightMm / 1000
-  const area = widthM * heightM
 
-  const productCost = Math.round(basePrice * area * 1.21)
+  const billableWidthM = Math.max(widthM, SCREEN_MIN_BILLABLE_WIDTH_M)
+  const heightMultiplier = heightM > 2 ? 1.5 : heightM > 1.5 ? 1.2 : 1
+
+  const productCost = Math.round(basePrice * SCREEN_CALCULATION_HEIGHT_M * billableWidthM * heightMultiplier * 1.21)
   const installationCost = includeInstallation ? INSTALLATION_FEE : 0
   const total = productCost + installationCost
 
@@ -244,9 +249,11 @@ export default function ScreenCalculator({ title }: ScreenCalculatorProps) {
   }, [availableSystems])
 
   const result = useMemo(
-    () => calculateScreenPrice(material, system, width, height, includeInstallation),
-    [material, system, width, height, includeInstallation],
+    () => calculateScreenPrice(material, system, width, height, false),
+    [material, system, width, height],
   )
+
+  const breakdown = result.breakdown
 
   const selectedSystemImages = useMemo(() => (system ? SCREEN_SYSTEM_IMAGES[system] : null), [system])
 
@@ -264,25 +271,94 @@ export default function ScreenCalculator({ title }: ScreenCalculatorProps) {
       const pdfMake = pdfMakeSource?.createPdf ? pdfMakeSource : pdfMakeMod
 
       const fontsModule = vfsFontsMod?.default ?? vfsFontsMod
-      const vfs =
-        fontsModule?.pdfMake?.vfs ??
-        fontsModule?.vfs ??
-        fontsModule?.default?.pdfMake?.vfs ??
-        fontsModule?.default?.vfs ??
-        null
 
-      if (!vfs) {
+      const resolveVfs = (candidate: unknown): Record<string, string> | null => {
+        if (!candidate || typeof candidate !== "object") {
+          return null
+        }
+
+        if ("pdfMake" in (candidate as Record<string, unknown>)) {
+          const maybePdfMake = (candidate as Record<string, unknown>).pdfMake
+          if (maybePdfMake && typeof maybePdfMake === "object" && "vfs" in maybePdfMake) {
+            const vfs = (maybePdfMake as Record<string, unknown>).vfs
+            if (vfs && typeof vfs === "object") {
+              return vfs as Record<string, string>
+            }
+          }
+        }
+
+        if ("vfs" in (candidate as Record<string, unknown>)) {
+          const vfs = (candidate as Record<string, unknown>).vfs
+          if (vfs && typeof vfs === "object") {
+            const keys = Object.keys(vfs as Record<string, unknown>)
+            if (keys.length > 0 && keys.every((key) => key.endsWith(".ttf"))) {
+              return vfs as Record<string, string>
+            }
+          }
+        }
+
+        const keys = Object.keys(candidate as Record<string, unknown>)
+        if (keys.length > 0 && keys.every((key) => key.endsWith(".ttf"))) {
+          return candidate as Record<string, string>
+        }
+
+        return null
+      }
+
+      const vfsCandidate =
+        resolveVfs(fontsModule) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.default) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.pdfMake) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.vfs)
+
+      if (!vfsCandidate) {
         throw new Error("Neizdevās ielādēt PDF fontus (vfs).")
       }
 
-      pdfMake.vfs = vfs
+      pdfMake.vfs = vfsCandidate
+
+      const fetchImageAsDataUrl = async (src: string): Promise<string | null> => {
+        try {
+          const res = await fetch(src)
+          if (!res.ok) {
+            return null
+          }
+          const blob = await res.blob()
+          return await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onloadend = () => resolve(reader.result as string)
+            reader.onerror = () => reject(new Error("Neizdevās nolasīt attēlu."))
+            reader.readAsDataURL(blob)
+          })
+        } catch (_) {
+          return null
+        }
+      }
+
+      let systemImageDataUrl: string | null = null
+      if (selectedSystemImages?.length) {
+        for (const src of selectedSystemImages) {
+          const dataUrl = await fetchImageAsDataUrl(src)
+          if (dataUrl) {
+            systemImageDataUrl = dataUrl
+            break
+          }
+        }
+      }
+
+      const logoDataUrl = await fetchImageAsDataUrl("https://ik.imagekit.io/vbvwdejj5/download%20(19)%20-%20Edited%20-%20Edited.png?updatedAt=1760521246953")
 
       const d = new Date()
       const dateStr = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}.`
 
-      const content: any[] = [
+      const content: any[] = []
+
+      if (logoDataUrl) {
+        content.push({ image: logoDataUrl, fit: [120, 40], alignment: "left", margin: [0, 0, 0, 12] })
+      }
+
+      content.push(
         { text: "Cenas Aprēķins", style: "h1" },
-        { text: `Screen žalūziju kalkulators v${SCREEN_APP_VERSION}`, style: "sub" },
         { canvas: [{ type: "line", x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, lineColor: "#e5e7eb" }] },
         { text: `\nDatums: ${dateStr}`, margin: [0, 14, 0, 0] },
         { text: "Specifikācija:", style: "sectionTitle" },
@@ -306,39 +382,15 @@ export default function ScreenCalculator({ title }: ScreenCalculatorProps) {
             paddingBottom: () => 6,
           },
         },
-      ]
+      )
 
-      if (selectedSystemImages) {
+      const imageSize = { width: 160, height: 120 }
+
+      if (systemImageDataUrl) {
         content.push({ text: "\n" })
         content.push({
-          columns: selectedSystemImages.map((src) => ({ image: src, width: 160 })),
+          columns: [{ image: systemImageDataUrl, ...imageSize }],
           columnGap: 16,
-        })
-      }
-
-      if (result.breakdown) {
-        const { product, installation, total } = result.breakdown
-        const installationText =
-          installation > 0 ? `+${SCREEN_NUMBER_FORMATTER.format(installation)} €` : `${SCREEN_NUMBER_FORMATTER.format(installation)} €`
-
-        content.push({ text: "Cenas sadalījums:", style: "sectionTitle", margin: [0, 16, 0, 6] })
-        content.push({
-          table: {
-            widths: ["*", "auto"],
-            body: [
-              [{ text: "Žalūzijas cena:", style: "label" }, `${SCREEN_NUMBER_FORMATTER.format(product)} €`],
-              [{ text: "Montāža:", style: "label" }, installationText],
-              [{ text: "Kopā ar PVN:", style: "label" }, { text: `${SCREEN_NUMBER_FORMATTER.format(total)} €`, bold: true }],
-            ],
-          },
-          layout: {
-            hLineColor: () => "#e5e7eb",
-            vLineColor: () => "#ffffff",
-            paddingLeft: () => 0,
-            paddingRight: () => 0,
-            paddingTop: () => 6,
-            paddingBottom: () => 6,
-          },
         })
       }
 
@@ -508,16 +560,17 @@ export default function ScreenCalculator({ title }: ScreenCalculatorProps) {
                 </option>
               ))}
             </select>
-            {selectedSystemImages && (
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                {selectedSystemImages.map((src, index) => (
-                  <img
-                    key={src}
-                    src={src}
-                    alt={`${system} paraugs ${index + 1}`}
-                    className="h-32 w-full rounded-xl object-cover shadow-sm"
+            {selectedSystemImages?.[0] && (
+              <div className="mt-4 flex justify-center">
+                <div className="relative h-32 w-full max-w-sm overflow-hidden rounded-xl shadow-sm">
+                  <Image
+                    src={selectedSystemImages[0]}
+                    alt={`${system} paraugs`}
+                    fill
+                    className="object-contain"
+                    sizes="(min-width: 768px) 320px, 100vw"
                   />
-                ))}
+                </div>
               </div>
             )}
           </div>
@@ -591,7 +644,7 @@ export default function ScreenCalculator({ title }: ScreenCalculatorProps) {
               onChange={(event) => setIncludeInstallation(event.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
             />
-            Montāžas pakalpojumi (+{SCREEN_NUMBER_FORMATTER.format(INSTALLATION_FEE)} €)
+            Nepieciešama montāža
           </label>
         </div>
 
@@ -603,22 +656,16 @@ export default function ScreenCalculator({ title }: ScreenCalculatorProps) {
             <p className="text-base font-medium text-gray-600">Cena € ar PVN:</p>
             <p className="mt-3 text-4xl font-bold text-gray-900 sm:text-5xl">{result.price}</p>
           </div>
-          {result.breakdown && (
+          {breakdown && (
             <div className="mt-4 w-full rounded-xl border border-gray-200 bg-white/80 px-5 py-4 text-sm text-gray-700 shadow-inner">
               <dl className="space-y-2">
                 <div className="flex items-center justify-between">
                   <dt className="font-medium">Žalūzijas cena</dt>
-                  <dd>{SCREEN_NUMBER_FORMATTER.format(result.breakdown.product)} €</dd>
+                  <dd>{SCREEN_NUMBER_FORMATTER.format(breakdown.product)} €</dd>
                 </div>
-                {includeInstallation && (
-                  <div className="flex items-center justify-between">
-                    <dt className="font-medium">Montāža</dt>
-                    <dd>{`+${SCREEN_NUMBER_FORMATTER.format(result.breakdown.installation)} €`}</dd>
-                  </div>
-                )}
                 <div className="flex items-center justify-between border-t border-gray-200 pt-2">
                   <dt className="font-semibold text-gray-900">Kopā ar PVN</dt>
-                  <dd className="font-semibold text-gray-900">{SCREEN_NUMBER_FORMATTER.format(result.breakdown.total)} €</dd>
+                  <dd className="font-semibold text-gray-900">{SCREEN_NUMBER_FORMATTER.format(breakdown.total)} €</dd>
                 </div>
               </dl>
             </div>

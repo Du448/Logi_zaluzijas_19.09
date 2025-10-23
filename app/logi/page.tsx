@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import ImagesGridWithLightbox from '@/components/ImagesGridWithLightbox'
 import ZoomImage from '@/components/ZoomImage'
 import ShowcaseCarousel from '@/components/ShowcaseCarousel'
@@ -106,12 +107,16 @@ export default function Page(){
             <article className="relative overflow-hidden rounded-2xl bg-slate-900 text-white min-h-[48vh] lg:min-h-[60vh]">
               {/* Background image */}
               <div className="absolute inset-0" aria-hidden="true">
-                <img
-                  src="https://ik.imagekit.io/vbvwdejj5/36430898-6724-4204-80f5-0960b15a880b.jpg?updatedAt=1758109904853"
-                  alt="Dekoratīvs fons"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+                <div className="relative h-full w-full">
+                  <Image
+                    src="https://ik.imagekit.io/vbvwdejj5/36430898-6724-4204-80f5-0960b15a880b.jpg?updatedAt=1758109904853"
+                    alt="Dekoratīvs fons"
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
+                    priority={false}
+                  />
+                </div>
                 {/* Readability gradient */}
                 <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/60 to-slate-900/80"></div>
               </div>
@@ -197,8 +202,14 @@ export default function Page(){
               }
             ].map((item, i) => (
               <div key={i} className="group rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition overflow-hidden">
-                <div className="aspect-[16/10] overflow-hidden bg-gray-100">
-                  <img src={item.img} alt={item.alt} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                  <Image
+                    src={item.img}
+                    alt={item.alt}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(min-width: 1280px) 24vw, (min-width: 1024px) 33vw, (min-width: 768px) 48vw, 100vw"
+                  />
                 </div>
                 <div className="p-6">
                   <h4 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h4>

@@ -4,6 +4,18 @@ export default function Footer() {
   return (
     <footer className="bg-slate-900 text-white">
       <div className="container py-10">
+        <div className="mb-12 rounded-2xl border border-white/10 bg-white/5 p-8 text-center shadow-lg shadow-slate-900/30">
+          <h3 className="text-2xl font-semibold text-white sm:text-3xl">Stils, komforts un funkcionalitāte vienā.</h3>
+          <p className="mt-2 text-sm text-white/70 sm:text-base">Pasūti individuālu risinājumu jau šodien.</p>
+          <div className="mt-6 flex justify-center">
+            <Link
+              href="/kontakti"
+              className="inline-flex items-center justify-center rounded-xl bg-sky-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+            >
+              Sazinies ar meistaru
+            </Link>
+          </div>
+        </div>
         <div className="grid gap-10 text-sm md:grid-cols-4">
           <div>
             <h4 className="mb-3 font-semibold text-white">Navigācija</h4>

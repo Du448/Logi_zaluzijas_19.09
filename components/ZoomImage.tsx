@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useCallback, useEffect, useState } from "react"
 
 export type ZoomImageProps = {
@@ -29,10 +30,12 @@ export default function ZoomImage({ src, alt, className }: ZoomImageProps) {
         className={`relative block w-full h-full cursor-zoom-in ${className ?? ''}`}
         aria-label="Palielināt attēlu"
       >
-        <img
+        <Image
           src={src}
           alt={alt}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          sizes="100vw"
           loading="lazy"
         />
       </button>
@@ -56,11 +59,15 @@ export default function ZoomImage({ src, alt, className }: ZoomImageProps) {
             >
               ✕
             </button>
-            <img
-              src={src}
-              alt={alt}
-              className="w-full h-full object-contain rounded-lg"
-            />
+            <div className="relative h-full w-full">
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                className="object-contain rounded-lg"
+                sizes="(min-width: 768px) 60vw, 100vw"
+              />
+            </div>
           </div>
         </div>
       )}

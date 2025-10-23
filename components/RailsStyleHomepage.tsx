@@ -1,7 +1,9 @@
 "use client"
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 // Custom CheckIcon component
 function CheckIcon({ className }: { className?: string }) {
   return (
@@ -118,6 +120,7 @@ export default function RailsStyleHomepage() {
       backgroundClass: 'bg-gradient-to-br from-white/85 via-white/60 to-white/30',
       accentBg: 'bg-rose-100',
       accentHover: 'group-hover:bg-rose-200',
+      className: 'xl:col-start-2 2xl:col-start-3',
       icon: (
         <svg className="w-6 h-6 text-rose-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="10" width="6" height="4" rx="1" />
@@ -133,6 +136,7 @@ export default function RailsStyleHomepage() {
       backgroundClass: 'bg-gradient-to-br from-white/85 via-white/60 to-white/35',
       accentBg: 'bg-indigo-100',
       accentHover: 'group-hover:bg-indigo-200',
+      className: 'xl:col-start-3 2xl:col-start-4',
       icon: (
         <svg className="w-6 h-6 text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M4 5h16v4H4z" />
@@ -290,12 +294,16 @@ export default function RailsStyleHomepage() {
 
       {/* Plain image section (user can change src) */}
       <section className="w-full">
-        <img
-          src="https://ik.imagekit.io/vbvwdejj5/window_des.jpg?updatedAt=1758100390058"
-          alt="Pilna platuma attēls"
-          className="w-full h-[40vh] md:h-[60vh] object-cover"
-          loading="lazy"
-        />
+        <div className="relative h-[40vh] w-full md:h-[60vh]">
+          <Image
+            src="https://ik.imagekit.io/vbvwdejj5/window_des.jpg?updatedAt=1758100390058"
+            alt="Pilna platuma attēls"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            loading="lazy"
+          />
+        </div>
       </section>
 
       {/* Product Categories */}
@@ -315,7 +323,10 @@ export default function RailsStyleHomepage() {
               <Link
                 key={card.title}
                 href={card.href}
-                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white/70 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-gray-300 hover:shadow-lg"
+                className={cn(
+                  'group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white/70 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-gray-300 hover:shadow-lg',
+                  card.className
+                )}
               >
                 {card.backgroundImageClass && (
                   <div className={`absolute inset-0 ${card.backgroundImageClass} opacity-80 transition-opacity duration-300 group-hover:opacity-95`} aria-hidden="true" />

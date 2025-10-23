@@ -1,3 +1,4 @@
+import Image from "next/image"
 import React from "react"
 
 export type Item = {
@@ -48,14 +49,15 @@ export default function SeriesPricingGrid({ sections }: { sections?: Section[] }
             <h3 className="text-2xl font-bold mb-4">{section.title}</h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {section.items.map((item, idx) => (
-                <article key={idx} className="group relative rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden transition-shadow hover:shadow-md">
-                  <div className="relative w-full aspect-[4/3]">
+                <article key={idx} className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
+                  <div className="relative w-full bg-white aspect-[4/3]">
                     {/* Image preview */}
-                    <img
+                    <Image
                       src={item.image}
                       alt={`${section.title} – Profils ${sIdx * 3 + idx + 1} (${item.width} x ${item.height})`}
-                      className="absolute inset-0 w-full h-full object-contain bg-white"
-                      loading="lazy"
+                      fill
+                      className="object-contain"
+                      sizes="(min-width: 1024px) 20vw, (min-width: 768px) 30vw, 80vw"
                     />
                     <div className="absolute bottom-3 right-3 px-2.5 py-1.5 rounded-full bg-white/90 supports-[backdrop-filter]:bg-white/70 backdrop-blur text-destructive font-semibold shadow-lg ring-1 ring-black/5 transition-transform group-hover:-translate-y-0.5">
                       no {item.priceFrom} EUR*

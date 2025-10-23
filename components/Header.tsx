@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useCart } from '@/lib/cart-context'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import ShareButton from '@/components/ShareButton'
 
@@ -16,6 +16,9 @@ export default function Header(){
   const [scrolled, setScrolled] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const searchInputRef = useRef<HTMLInputElement | null>(null)
+  const searchPopoverRef = useRef<HTMLDivElement | null>(null)
+  const searchToggleRef = useRef<HTMLButtonElement | null>(null)
   const pathname = usePathname()
   const [bpKey, setBpKey] = useState<'mobile'|'desktop'>(()=>
     typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(min-width: 1024px)').matches ? 'desktop' : 'mobile'
@@ -126,6 +129,44 @@ export default function Header(){
       window.location.href = `https://www.google.com/search?q=site:${window.location.origin}+${q}`
     }
   };
+
+  useEffect(() => {
+    if (showSearch) {
+      const timer = typeof window !== 'undefined' ? window.setTimeout(() => {
+        searchInputRef.current?.focus()
+      }, 10) : undefined
+      return () => {
+        if (typeof window !== 'undefined' && timer) {
+          window.clearTimeout(timer)
+        }
+      }
+    }
+  }, [showSearch])
+
+  useEffect(() => {
+    if (!showSearch) return
+    const handleClick = (event: MouseEvent) => {
+      if (!searchPopoverRef.current) return
+      const node = event.target as Node
+      if (
+        !searchPopoverRef.current.contains(node) &&
+        !(searchToggleRef.current && searchToggleRef.current.contains(node))
+      ) {
+        setShowSearch(false)
+      }
+    }
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setShowSearch(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    document.addEventListener('keydown', handleKey)
+    return () => {
+      document.removeEventListener('mousedown', handleClick)
+      document.removeEventListener('keydown', handleKey)
+    }
+  }, [showSearch])
 
   return (
     <>
@@ -238,7 +279,7 @@ export default function Header(){
               </Link>
               <Link href="/piederumi" className="block px-4 py-3 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-lg mx-2">Piederumi</Link>
               <Link href="/bidamasistemas" className="block px-4 py-3 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-lg mx-2">Bīdāmās sistēmas</Link>
-              <Link href="/iestiklot-lodziju" className="block px-4 py-3 rounded-lg mx-2 text-red-600 hover:text-red-700 hover:bg-red-50 transition-colors duration-200">Vēlos iestiklot lodžiju</Link>
+              <Link href="/iestiklot-lodziju" className="block px-4 py-3 rounded-lg mx-2 text-slate-900 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200">Iestiklot lodžiju</Link>
               <div className="my-2 mx-2 h-px bg-gray-100" aria-hidden="true"></div>
             </div>
           </div>
@@ -248,11 +289,11 @@ export default function Header(){
             <div className="absolute inset-0 bg-gradient-to-r from-brand-teal/0 via-brand-teal/20 to-brand-teal/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center rounded-xl"></div>
           </Link>
           <Link href="/projekti" className="relative overflow-hidden px-4 py-2.5 rounded-xl hover:text-brand-teal transition-all duration-500 group">
-            <span className="relative z-10 transition-transform duration-300 group-hover:scale-105">Dzīvokļu projekti</span>
+            <span className="relative z-10 transition-transform duration-300 group-hover:scale-105">Dzīvokļu sērijas</span>
             <div className="absolute inset-0 bg-gradient-to-r from-brand-teal/0 via-brand-teal/20 to-brand-teal/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center rounded-xl"></div>
           </Link>
           <Link href="/blogs-2" className="relative overflow-hidden px-4 py-2.5 rounded-xl hover:text-brand-teal transition-all duration-500 group">
-            <span className="relative z-10 transition-transform duration-300 group-hover:scale-105 animate-teal-to-red motion-reduce:animate-none">Ieskaties</span>
+            <span className="relative z-10 transition-transform duration-300 group-hover:scale-105 text-white">Ieskaties</span>
             <div className="absolute inset-0 bg-gradient-to-r from-brand-teal/0 via-brand-teal/20 to-brand-teal/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center rounded-xl"></div>
           </Link>
           <Link href="/kontakti" className="relative overflow-hidden px-4 py-2.5 rounded-xl hover:text-brand-teal transition-all duration-500 group">
@@ -263,25 +304,42 @@ export default function Header(){
           {/* Right side actions */}
           <div className="flex items-center gap-4">
           {/* Search */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="relative hidden lg:flex items-center gap-2">
             <button
+              ref={searchToggleRef}
               onClick={() => setShowSearch(v => !v)}
               className="p-2 rounded-full hover:bg-white/10 transition-colors"
               aria-label="Meklēt"
+              aria-expanded={showSearch}
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 text-white"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
             </button>
             {showSearch && (
-              <form onSubmit={onSearchSubmit} className="flex items-center gap-2 bg-white border border-gray-200 rounded-full pl-3 pr-2 py-1 shadow-sm">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e)=>setSearchQuery(e.target.value)}
-                  placeholder="Meklēt..."
-                  className="outline-none text-sm text-gray-800 placeholder:text-gray-400 w-40"
-                />
-                <button type="submit" className="px-3 py-1.5 rounded-full bg-gray-900 text-white text-xs font-medium hover:bg-gray-800">Meklēt</button>
-              </form>
+              <div
+                ref={searchPopoverRef}
+                className="absolute right-0 top-12 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-xl backdrop-blur"
+              >
+                <form onSubmit={onSearchSubmit} className="flex items-center gap-2">
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e)=>setSearchQuery(e.target.value)}
+                    placeholder="Meklēt..."
+                    className="w-56 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/40"
+                  />
+                  <button type="submit" className="rounded-xl bg-gray-900 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-gray-800">
+                    Meklēt
+                  </button>
+                </form>
+                <button
+                  type="button"
+                  onClick={() => setShowSearch(false)}
+                  className="text-xs font-semibold text-gray-500 transition-colors hover:text-gray-900"
+                >
+                  Aizvērt
+                </button>
+              </div>
             )}
           </div>
           {/* Mobile menu button */}
@@ -454,8 +512,8 @@ export default function Header(){
                 <div className="w-2 h-2 bg-gray-300 rounded-full" />
               </Link>
               {/* Highlighted mobile link */}
-              <Link href="/iestiklot-lodziju" onClick={()=>{ setOpen(false); setHasInteracted(false); }} className="flex items-center justify-between p-3 rounded-xl text-red-600 hover:text-red-700 hover:bg-red-50 transition-all duration-300">
-                Vēlos iestiklot lodžiju
+              <Link href="/iestiklot-lodziju" onClick={()=>{ setOpen(false); setHasInteracted(false); }} className="flex items-center justify-between p-3 rounded-xl text-slate-900 hover:text-slate-900 hover:bg-slate-100 transition-all duration-300">
+                Iestiklot lodžiju
               </Link>
             </div>
           )}
@@ -484,7 +542,7 @@ export default function Header(){
             onClick={() => { setOpen(false); setHasInteracted(false); }}
             className="flex items-center justify-between p-4 rounded-2xl hover:bg-brand-teal/10 transition-all duration-300 group"
           >
-            <span className="text-lg font-medium group-hover:text-brand-teal animate-teal-to-red motion-reduce:animate-none">Ieskaties</span>
+            <span className="text-lg font-medium text-white">Ieskaties</span>
             <div className="w-2 h-2 bg-gray-400 rounded-full group-hover:bg-brand-teal transition-colors duration-300"></div>
           </Link>
 

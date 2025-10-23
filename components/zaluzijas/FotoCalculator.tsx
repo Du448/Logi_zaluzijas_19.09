@@ -1,18 +1,15 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
 
-const FOTO_APP_VERSION = "1.0"
-
 const MIN_WIDTH_MM = 300
 const MAX_WIDTH_MM = 3000
 const MIN_HEIGHT_MM = 300
 const MAX_HEIGHT_MM = 3500
-
-const INSTALLATION_FEE = 20
 
 type FotoSystemOption = {
   value: string
@@ -142,6 +139,11 @@ const numberFormatter = new Intl.NumberFormat("lv-LV", {
   maximumFractionDigits: 2,
 })
 
+const FOTO_NOTES = [
+  "* Šis ir informatīvs cenas aprēķins. Gala cena var atšķirties.",
+  "* Montāžas pakalpojumi nav iekļauti cenā.",
+]
+
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max)
 }
@@ -151,7 +153,7 @@ function calculateFotoPrice(
   system: string,
   widthMm: number,
   heightMm: number,
-  includeInstallation: boolean,
+  _includeInstallation: boolean,
 ): CalculationResult {
   if (!material || !system) {
     return { price: "0,00", isValid: false, breakdown: null }
@@ -166,16 +168,14 @@ function calculateFotoPrice(
   const heightM = heightMm / 1000
   const cost = widthM * heightM * basePrice
 
-  const productCost = Math.round(cost * 2.5 * 1.21)
-  const installationCost = includeInstallation ? INSTALLATION_FEE : 0
-  const totalRounded = productCost + installationCost
+  const productCost = Math.round(cost * 1.75 * 1.21)
+  const totalRounded = productCost
 
   return {
     price: numberFormatter.format(totalRounded),
     isValid: true,
     breakdown: {
       product: productCost,
-      installation: installationCost,
       total: totalRounded,
     },
   }
@@ -186,7 +186,6 @@ type CalculationResult = {
   isValid: boolean
   breakdown: {
     product: number
-    installation: number
     total: number
   } | null
 }
@@ -245,9 +244,11 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
   const selectedSystemVisual = system ? FOTO_SYSTEM_VISUALS[system] ?? null : null
 
   const result = useMemo(
-    () => calculateFotoPrice(material, system, width, height, includeInstallation),
-    [height, includeInstallation, material, system, width],
+    () => calculateFotoPrice(material, system, width, height, false),
+    [height, material, system, width],
   )
+
+  const breakdown = result.breakdown
 
   const formatCurrency = (value: number) => `${numberFormatter.format(value)} €`
 
@@ -265,32 +266,97 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
       const pdfMake = pdfMakeSource?.createPdf ? pdfMakeSource : pdfMakeMod
 
       const fontsModule = vfsFontsMod?.default ?? vfsFontsMod
-      const vfs =
-        fontsModule?.pdfMake?.vfs ??
-        fontsModule?.vfs ??
-        fontsModule?.default?.pdfMake?.vfs ??
-        fontsModule?.default?.vfs ??
-        null
 
-      if (!vfs) {
+      const resolveVfs = (candidate: unknown): Record<string, string> | null => {
+        if (!candidate || typeof candidate !== "object") {
+          return null
+        }
+
+        if ("pdfMake" in (candidate as Record<string, unknown>)) {
+          const maybePdfMake = (candidate as Record<string, unknown>).pdfMake
+          if (maybePdfMake && typeof maybePdfMake === "object" && "vfs" in maybePdfMake) {
+            const vfsValue = (maybePdfMake as Record<string, unknown>).vfs
+            if (vfsValue && typeof vfsValue === "object") {
+              return vfsValue as Record<string, string>
+            }
+          }
+        }
+
+        if ("vfs" in (candidate as Record<string, unknown>)) {
+          const vfsValue = (candidate as Record<string, unknown>).vfs
+          if (vfsValue && typeof vfsValue === "object") {
+            const keys = Object.keys(vfsValue as Record<string, unknown>)
+            if (keys.length > 0 && keys.every((key) => key.endsWith(".ttf"))) {
+              return vfsValue as Record<string, string>
+            }
+          }
+        }
+
+        const keys = Object.keys(candidate as Record<string, unknown>)
+        if (keys.length > 0 && keys.every((key) => key.endsWith(".ttf"))) {
+          return candidate as Record<string, string>
+        }
+
+        return null
+      }
+
+      const vfsCandidate =
+        resolveVfs(fontsModule) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.default) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.pdfMake) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.vfs)
+
+      if (!vfsCandidate) {
         throw new Error("Neizdevās ielādēt PDF fontus (vfs).")
       }
 
-      pdfMake.vfs = vfs
+      pdfMake.vfs = vfsCandidate
+
+      const fetchImageAsDataUrl = async (src: string): Promise<string | null> => {
+        try {
+          const res = await fetch(src)
+          if (!res.ok) {
+            return null
+          }
+          const blob = await res.blob()
+          return await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onloadend = () => resolve(reader.result as string)
+            reader.onerror = () => reject(new Error("Neizdevās nolasīt attēlu."))
+            reader.readAsDataURL(blob)
+          })
+        } catch (_) {
+          return null
+        }
+      }
+
+      const logoDataUrl = await fetchImageAsDataUrl(
+        "https://ik.imagekit.io/vbvwdejj5/download%20(19)%20-%20Edited%20-%20Edited.png?updatedAt=1760521246953",
+      )
+
+      let systemImageDataUrl: string | null = null
+      if (selectedSystemVisual?.image) {
+        systemImageDataUrl = await fetchImageAsDataUrl(selectedSystemVisual.image)
+      }
 
       const d = new Date()
       const dateStr = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}.`
       const prettyPrice = `${result.price} €`
 
-      const content: any[] = [
+      const content: any[] = []
+
+      if (logoDataUrl) {
+        content.push({ image: logoDataUrl, fit: [120, 40], alignment: "left", margin: [0, 0, 0, 12] })
+      }
+
+      content.push(
         { text: "Cenas Aprēķins", style: "h1" },
-        { text: `Foto žalūziju kalkulators v${FOTO_APP_VERSION}`, style: "sub" },
         { canvas: [{ type: "line", x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, lineColor: "#e5e7eb" }] },
         { text: `\nDatums: ${dateStr}`, margin: [0, 14, 0, 0] },
         { text: "Specifikācija:", style: "sectionTitle" },
         {
           table: {
-            widths: [120, "*"],
+            widths: [140, "*"],
             body: [
               [{ text: "Materiāls:", style: "label" }, materialDescription],
               [{ text: "Sistēma:", style: "label" }, system || "Nav izvēlēta"],
@@ -308,31 +374,13 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
             paddingBottom: () => 6,
           },
         },
-      ]
+      )
 
-      if (result.breakdown) {
-        const { product, installation, total } = result.breakdown
-        const installationText =
-          installation > 0 ? `+${numberFormatter.format(installation)} €` : `${numberFormatter.format(installation)} €`
-
-        content.push({ text: "Cenas sadalījums:", style: "sectionTitle", margin: [0, 16, 0, 6] })
+      if (systemImageDataUrl) {
+        content.push({ text: "\n" })
         content.push({
-          table: {
-            widths: ["*", "auto"],
-            body: [
-              [{ text: "Žalūzijas cena:", style: "label" }, `${numberFormatter.format(product)} €`],
-              [{ text: "Montāža:", style: "label" }, installationText],
-              [{ text: "Kopā ar PVN:", style: "label" }, { text: `${numberFormatter.format(total)} €`, bold: true }],
-            ],
-          },
-          layout: {
-            hLineColor: () => "#e5e7eb",
-            vLineColor: () => "#ffffff",
-            paddingLeft: () => 0,
-            paddingRight: () => 0,
-            paddingTop: () => 6,
-            paddingBottom: () => 6,
-          },
+          columns: [{ image: systemImageDataUrl, width: 160, height: 120 }],
+          columnGap: 16,
         })
       }
 
@@ -340,15 +388,9 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
       content.push({ canvas: [{ type: "line", x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.8, lineColor: "#e5e7eb" }] })
       content.push({
         columns: [
-          [
-            { text: "* Šis ir informatīvs cenas aprēķins. Gala cena var atšķirties.", style: "notes", margin: [0, 10, 0, 2] },
-            {
-              text: includeInstallation
-                ? "* Cenas aprēķinā iekļauti montāžas pakalpojumi."
-                : "* Montāžas pakalpojumi nav iekļauti cenā.",
-              style: "notes",
-            },
-          ],
+          {
+            stack: FOTO_NOTES.map((text) => ({ text, style: "notes" })),
+          },
           [
             { text: "KOPĒJĀ CENA AR PVN:", style: "totalLabel", margin: [0, 0, 0, 4] },
             { text: prettyPrice, style: "totalValue" },
@@ -363,7 +405,6 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
         defaultStyle: { font: "Roboto", fontSize: 11, color: "#1f2937" },
         styles: {
           h1: { fontSize: 24, bold: true, alignment: "center", color: "#1f2937", margin: [0, 0, 0, 6] },
-          sub: { fontSize: 11, color: "#6b7280", alignment: "center", margin: [0, 0, 0, 12] },
           sectionTitle: { fontSize: 14, bold: true, margin: [0, 14, 0, 8] },
           label: { bold: true },
           notes: { fontSize: 9, color: "#6b7280" },
@@ -388,9 +429,7 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
     }
 
     const install = includeInstallation ? "Jā" : "Nē"
-    const priceText = result?.breakdown?.total
-      ? `${numberFormatter.format(result.breakdown.total)} €`
-      : `${result?.price ?? "—"} €`
+    const priceText = breakdown?.total ? `${numberFormatter.format(breakdown.total)} €` : `${result?.price ?? "—"} €`
 
     return [
       "Aprēķins (foto žalūzijas):",
@@ -526,11 +565,15 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
             </select>
             {selectedSystemVisual && (
               <div className="mt-4 flex items-center gap-4 rounded-2xl border border-sky-100 bg-white p-4 shadow-sm">
-                <img
-                  src={selectedSystemVisual.image}
-                  alt={`${selectedSystemVisual.label} paraugs`}
-                  className="h-24 w-32 rounded-xl object-cover shadow-sm"
-                />
+                <div className="relative h-24 w-32 overflow-hidden rounded-xl shadow-sm">
+                  <Image
+                    src={selectedSystemVisual.image}
+                    alt={`${selectedSystemVisual.label} paraugs`}
+                    fill
+                    className="object-cover"
+                    sizes="128px"
+                  />
+                </div>
                 <div>
                   <p className="text-sm font-medium text-sky-600">Izvēlētā sistēma</p>
                   <p className="mt-1 text-base font-semibold text-gray-900">{selectedSystemVisual.label}</p>
@@ -608,7 +651,7 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
               onChange={(event) => setIncludeInstallation(event.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-500"
             />
-            Montāžas pakalpojumi (+{numberFormatter.format(INSTALLATION_FEE)} €)
+            Nepieciešama montāža
           </label>
         </div>
 
@@ -620,22 +663,16 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
             <p className="text-base font-medium text-gray-600">Cena € ar PVN:</p>
             <p className="mt-3 text-4xl font-bold text-gray-900 sm:text-5xl">{result.price}</p>
           </div>
-          {result.breakdown && (
+          {breakdown && (
             <div className="mt-4 w-full rounded-xl border border-gray-200 bg-white/80 px-5 py-4 text-sm text-gray-700 shadow-inner">
               <dl className="space-y-2">
                 <div className="flex items-center justify-between">
                   <dt className="font-medium">Žalūzijas cena</dt>
-                  <dd>{formatCurrency(result.breakdown.product)}</dd>
+                  <dd>{formatCurrency(breakdown.product)}</dd>
                 </div>
-                {includeInstallation && (
-                  <div className="flex items-center justify-between">
-                    <dt className="font-medium">Montāža</dt>
-                    <dd>{`+${numberFormatter.format(result.breakdown.installation)} €`}</dd>
-                  </div>
-                )}
                 <div className="flex items-center justify-between border-t border-gray-200 pt-2">
                   <dt className="font-semibold text-gray-900">Kopā ar PVN</dt>
-                  <dd className="font-semibold text-gray-900">{formatCurrency(result.breakdown.total)}</dd>
+                  <dd className="font-semibold text-gray-900">{formatCurrency(breakdown.total)}</dd>
                 </div>
               </dl>
             </div>

@@ -1,17 +1,15 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
-
-const MOSKITU_APP_VERSION = "1.0"
 
 const MOSKITU_MIN_WIDTH_MM = 300
 const MOSKITU_MAX_WIDTH_MM = 3000
 const MOSKITU_MIN_HEIGHT_MM = 300
 const MOSKITU_MAX_HEIGHT_MM = 3500
 
-const MOSKITU_INSTALLATION_FEE = 25
-const MOSKITU_MARKUP_MULTIPLIER = 2.5
+const MOSKITU_MARKUP_MULTIPLIER = 2
 
 const MOSKITU_SYSTEM_OPTIONS = [
   { value: "Balta", label: "Balta" },
@@ -75,7 +73,7 @@ const MOSKITU_PRICE_TABLE: MoskituPriceTable = {
 
 const MOSKITU_NOTES = [
   "* Šis ir informatīvs cenas aprēķins. Gala cena var atšķirties.",
-  "* Montāžas pakalpojumi nav iekļauti cenā, ja nav atzīmēti.",
+  "* Montāžas pakalpojumi nav iekļauti cenā.",
 ]
 
 const MOSKITU_NUMBER_FORMATTER = new Intl.NumberFormat("lv-LV", {
@@ -92,7 +90,6 @@ type MoskituCalculationResult = {
   isValid: boolean
   breakdown: {
     product: number
-    installation: number
     total: number
   } | null
 }
@@ -102,7 +99,7 @@ function calculateMoskituPrice(
   system: MoskituSystemOption["value"] | "",
   widthMm: number,
   heightMm: number,
-  includeInstallation: boolean,
+  _includeInstallation: boolean,
 ): MoskituCalculationResult {
   if (!material || !system) {
     return { price: "0,00", isValid: false, breakdown: null }
@@ -118,15 +115,13 @@ function calculateMoskituPrice(
   const area = widthM * heightM
 
   const productCost = Math.round(basePrice * MOSKITU_MARKUP_MULTIPLIER * area * 1.21)
-  const installationCost = includeInstallation ? MOSKITU_INSTALLATION_FEE : 0
-  const total = productCost + installationCost
+  const total = productCost
 
   return {
     price: MOSKITU_NUMBER_FORMATTER.format(total),
     isValid: true,
     breakdown: {
       product: productCost,
-      installation: installationCost,
       total,
     },
   }
@@ -188,9 +183,11 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
   }, [availableSystems])
 
   const result = useMemo(
-    () => calculateMoskituPrice(material, system, width, height, includeInstallation),
-    [material, system, width, height, includeInstallation],
+    () => calculateMoskituPrice(material, system, width, height, false),
+    [material, system, width, height],
   )
+
+  const breakdown = result.breakdown
 
   const selectedSystemImages = useMemo(() => {
     if (!system) {
@@ -213,25 +210,97 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
       const pdfMake = pdfMakeSource?.createPdf ? pdfMakeSource : pdfMakeMod
 
       const fontsModule = vfsFontsMod?.default ?? vfsFontsMod
-      const vfs =
-        fontsModule?.pdfMake?.vfs ??
-        fontsModule?.vfs ??
-        fontsModule?.default?.pdfMake?.vfs ??
-        fontsModule?.default?.vfs ??
-        null
 
-      if (!vfs) {
+      const resolveVfs = (candidate: unknown): Record<string, string> | null => {
+        if (!candidate || typeof candidate !== "object") {
+          return null
+        }
+
+        if ("pdfMake" in (candidate as Record<string, unknown>)) {
+          const maybePdfMake = (candidate as Record<string, unknown>).pdfMake
+          if (maybePdfMake && typeof maybePdfMake === "object" && "vfs" in maybePdfMake) {
+            const vfsValue = (maybePdfMake as Record<string, unknown>).vfs
+            if (vfsValue && typeof vfsValue === "object") {
+              return vfsValue as Record<string, string>
+            }
+          }
+        }
+
+        if ("vfs" in (candidate as Record<string, unknown>)) {
+          const vfsValue = (candidate as Record<string, unknown>).vfs
+          if (vfsValue && typeof vfsValue === "object") {
+            const keys = Object.keys(vfsValue as Record<string, unknown>)
+            if (keys.length > 0 && keys.every((key) => key.endsWith(".ttf"))) {
+              return vfsValue as Record<string, string>
+            }
+          }
+        }
+
+        const keys = Object.keys(candidate as Record<string, unknown>)
+        if (keys.length > 0 && keys.every((key) => key.endsWith(".ttf"))) {
+          return candidate as Record<string, string>
+        }
+
+        return null
+      }
+
+      const vfsCandidate =
+        resolveVfs(fontsModule) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.default) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.pdfMake) ??
+        resolveVfs((fontsModule as Record<string, unknown>)?.vfs)
+
+      if (!vfsCandidate) {
         throw new Error("Neizdevās ielādēt PDF fontus (vfs).")
       }
 
-      pdfMake.vfs = vfs
+      pdfMake.vfs = vfsCandidate
+
+      const fetchImageAsDataUrl = async (src: string): Promise<string | null> => {
+        try {
+          const res = await fetch(src)
+          if (!res.ok) {
+            return null
+          }
+          const blob = await res.blob()
+          return await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onloadend = () => resolve(reader.result as string)
+            reader.onerror = () => reject(new Error("Neizdevās nolasīt attēlu."))
+            reader.readAsDataURL(blob)
+          })
+        } catch (_) {
+          return null
+        }
+      }
+
+      const logoDataUrl = await fetchImageAsDataUrl(
+        "https://ik.imagekit.io/vbvwdejj5/download%20(19)%20-%20Edited%20-%20Edited.png?updatedAt=1760521246953",
+      )
+
+      let systemImageDataUrl: string | null = null
+      if (selectedSystemImages?.length) {
+        for (const src of selectedSystemImages) {
+          const dataUrl = await fetchImageAsDataUrl(src)
+          if (dataUrl) {
+            systemImageDataUrl = dataUrl
+            break
+          }
+        }
+      }
 
       const d = new Date()
       const dateStr = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}.`
+      const prettyPrice = `${result.price} €`
 
-      const content: any[] = [
+      const content: any[] = []
+
+      if (logoDataUrl) {
+        content.push({ image: logoDataUrl, fit: [120, 40], alignment: "left", margin: [0, 0, 0, 12] })
+      }
+
+      content.push(
         { text: "Cenas Aprēķins", style: "h1" },
-        { text: `Moskītu tīklu kalkulators v${MOSKITU_APP_VERSION}`, style: "sub" },
         { canvas: [{ type: "line", x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, lineColor: "#e5e7eb" }] },
         { text: `\nDatums: ${dateStr}`, margin: [0, 14, 0, 0] },
         { text: "Specifikācija:", style: "sectionTitle" },
@@ -255,39 +324,13 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
             paddingBottom: () => 6,
           },
         },
-      ]
+      )
 
-      if (selectedSystemImages) {
+      if (systemImageDataUrl) {
         content.push({ text: "\n" })
         content.push({
-          columns: selectedSystemImages.map((src: string) => ({ image: src, width: 160 })),
+          columns: [{ image: systemImageDataUrl, width: 160, height: 120 }],
           columnGap: 16,
-        })
-      }
-
-      if (result.breakdown) {
-        const { product, installation, total } = result.breakdown
-        const installationText =
-          installation > 0 ? `+${MOSKITU_NUMBER_FORMATTER.format(installation)} €` : `${MOSKITU_NUMBER_FORMATTER.format(installation)} €`
-
-        content.push({ text: "Cenas sadalījums:", style: "sectionTitle", margin: [0, 16, 0, 6] })
-        content.push({
-          table: {
-            widths: ["*", "auto"],
-            body: [
-              [{ text: "Tīklu cena:", style: "label" }, `${MOSKITU_NUMBER_FORMATTER.format(product)} €`],
-              [{ text: "Montāža:", style: "label" }, installationText],
-              [{ text: "Kopā ar PVN:", style: "label" }, { text: `${MOSKITU_NUMBER_FORMATTER.format(total)} €`, bold: true }],
-            ],
-          },
-          layout: {
-            hLineColor: () => "#e5e7eb",
-            vLineColor: () => "#ffffff",
-            paddingLeft: () => 0,
-            paddingRight: () => 0,
-            paddingTop: () => 6,
-            paddingBottom: () => 6,
-          },
         })
       }
 
@@ -300,7 +343,7 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
           },
           [
             { text: "KOPĒJĀ CENA AR PVN:", style: "totalLabel", margin: [0, 0, 0, 4] },
-            { text: `${result.price} €`, style: "totalValue" },
+            { text: prettyPrice, style: "totalValue" },
           ],
         ],
         columnGap: 12,
@@ -312,7 +355,6 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
         defaultStyle: { font: "Roboto", fontSize: 11, color: "#1f2937" },
         styles: {
           h1: { fontSize: 24, bold: true, alignment: "center", color: "#1f2937", margin: [0, 0, 0, 6] },
-          sub: { fontSize: 11, color: "#6b7280", alignment: "center", margin: [0, 0, 0, 12] },
           sectionTitle: { fontSize: 14, bold: true, margin: [0, 14, 0, 8] },
           label: { bold: true },
           notes: { fontSize: 9, color: "#6b7280" },
@@ -337,8 +379,8 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
     }
 
     const install = includeInstallation ? "Jā" : "Nē"
-    const priceText = result?.breakdown?.total
-      ? `${MOSKITU_NUMBER_FORMATTER.format(result.breakdown.total)} €`
+    const priceText = breakdown?.total
+      ? `${MOSKITU_NUMBER_FORMATTER.format(breakdown.total)} €`
       : `${result?.price ?? "—"} €`
 
     return [
@@ -457,18 +499,6 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
                 </option>
               ))}
             </select>
-            {selectedSystemImages && (
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                {selectedSystemImages.map((src: string, index: number) => (
-                  <img
-                    key={src}
-                    src={src}
-                    alt={`${system} paraugs ${index + 1}`}
-                    className="h-32 w-full rounded-xl object-cover shadow-sm"
-                  />
-                ))}
-              </div>
-            )}
           </div>
 
           <div>
@@ -540,7 +570,7 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
               onChange={(event) => setIncludeInstallation(event.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
             />
-            Montāžas pakalpojumi (+{MOSKITU_NUMBER_FORMATTER.format(MOSKITU_INSTALLATION_FEE)} €)
+            Nepieciešama montāža
           </label>
         </div>
 
@@ -552,22 +582,16 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
             <p className="text-base font-medium text-gray-600">Cena € ar PVN:</p>
             <p className="mt-3 text-4xl font-bold text-gray-900 sm:text-5xl">{result.price}</p>
           </div>
-          {result.breakdown && (
+          {breakdown && (
             <div className="mt-4 w-full rounded-xl border border-gray-200 bg-white/80 px-5 py-4 text-sm text-gray-700 shadow-inner">
               <dl className="space-y-2">
                 <div className="flex items-center justify-between">
                   <dt className="font-medium">Tīklu cena</dt>
-                  <dd>{MOSKITU_NUMBER_FORMATTER.format(result.breakdown.product)} €</dd>
+                  <dd>{MOSKITU_NUMBER_FORMATTER.format(breakdown.product)} €</dd>
                 </div>
-                {includeInstallation && (
-                  <div className="flex items-center justify-between">
-                    <dt className="font-medium">Montāža</dt>
-                    <dd>{`+${MOSKITU_NUMBER_FORMATTER.format(result.breakdown.installation)} €`}</dd>
-                  </div>
-                )}
                 <div className="flex items-center justify-between border-t border-gray-200 pt-2">
                   <dt className="font-semibold text-gray-900">Kopā ar PVN</dt>
-                  <dd className="font-semibold text-gray-900">{MOSKITU_NUMBER_FORMATTER.format(result.breakdown.total)} €</dd>
+                  <dd className="font-semibold text-gray-900">{MOSKITU_NUMBER_FORMATTER.format(breakdown.total)} €</dd>
                 </div>
               </dl>
             </div>

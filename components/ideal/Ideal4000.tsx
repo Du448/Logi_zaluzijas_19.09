@@ -1,5 +1,6 @@
 "use client"
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
@@ -181,7 +182,15 @@ function Gallery(){
         <div className="grid md:grid-cols-3 gap-6">
           {items.map((it, i) => (
             <div key={i} className="rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
-              <img src={it.src} alt={it.title} className="w-full h-56 object-cover" />
+              <div className="relative h-56 w-full">
+                <Image
+                  src={it.src}
+                  alt={it.title}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 20vw, (min-width: 768px) 30vw, 90vw"
+                />
+              </div>
               <div className="p-4">
                 <div className="font-medium text-gray-900">{it.title}</div>
               </div>

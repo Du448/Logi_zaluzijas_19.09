@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
@@ -287,11 +288,16 @@ export default function Page() {
             <Reveal className="relative">
               <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-blue-100 via-white to-white p-6 shadow-2xl ring-1 ring-blue-100">
                 <div className="absolute -top-16 -right-10 h-40 w-40 rounded-full bg-blue-500/10" aria-hidden="true" />
-                <img
-                  src="https://ik.imagekit.io/vbvwdejj5/ChatGPT%20Image%20Sep%2014,%202025,%2010_14_05%20PM.png?updatedAt=1757878716920"
-                  alt="REHAU SYNEGO profils"
-                  className="relative z-10 w-full object-contain"
-                />
+                <div className="relative z-10 h-[260px] w-full sm:h-[320px]">
+                  <Image
+                    src="https://ik.imagekit.io/vbvwdejj5/ChatGPT%20Image%20Sep%2014,%202025,%2010_14_05%20PM.png?updatedAt=1757878716920"
+                    alt="REHAU SYNEGO profils"
+                    fill
+                    className="object-contain"
+                    sizes="(min-width: 1024px) 32rem, 100vw"
+                    priority
+                  />
+                </div>
                 <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-blue-900">
                   <div className="rounded-xl bg-white/70 p-3 shadow-sm">
                     <p className="text-xs uppercase tracking-[0.25em] text-blue-400">Uw</p>

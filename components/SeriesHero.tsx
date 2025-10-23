@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 type SeriesHeroProps = {
@@ -11,12 +12,16 @@ export function SeriesHero({ title, subtitle, imageUrl }: SeriesHeroProps) {
     <section className="relative overflow-hidden rounded-2xl bg-gray-950 text-white">
       {/* Background image */}
       <div className="absolute inset-0">
-        <img
-          src={imageUrl}
-          alt="Sērijas attēls"
-          className="h-full w-full object-cover opacity-70"
-          loading="eager"
-        />
+        <div className="relative h-full w-full">
+          <Image
+            src={imageUrl}
+            alt="Sērijas attēls"
+            fill
+            className="object-cover opacity-70"
+            priority
+            sizes="100vw"
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
       </div>
 

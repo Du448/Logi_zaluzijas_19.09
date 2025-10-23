@@ -4,11 +4,12 @@ import Link from 'next/link'
 import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { series } from '@/lib/series'
-type SortOption = 'title'
+type SortOption = 'az' | 'za'
 
 export default function Page(){
   const [selectedCategory, setSelectedCategory] = useState<string>('Visi')
-  const [sortBy, setSortBy] = useState<SortOption>('title')
+  const [search, setSearch] = useState('')
+  const [sortBy, setSortBy] = useState<SortOption>('az')
 
   const categories = useMemo(() => {
     const unique = Array.from(new Set(series.map(item => item.category)))
@@ -18,15 +19,22 @@ export default function Page(){
   }, [])
 
   const filteredAndSortedSeries = useMemo(() => {
-    // Tag-based filtering: 'Visi' => all; others => match tag
-    let filtered = selectedCategory === 'Visi'
+    const filtered = (selectedCategory === 'Visi'
       ? series
       : series.filter(item =>
           (item.tags || []).some(t => t.toLowerCase() === selectedCategory.toLowerCase())
-        )
+        ))
+      .filter(item => item.title.toLowerCase().includes(search.toLowerCase()))
 
-    return filtered.sort((a, b) => a.title.localeCompare(b.title))
-  }, [selectedCategory, sortBy])
+    const sorted = [...filtered]
+    if (sortBy === 'za') {
+      sorted.sort((a, b) => b.title.localeCompare(a.title))
+    } else {
+      sorted.sort((a, b) => a.title.localeCompare(b.title))
+    }
+
+    return sorted
+  }, [selectedCategory, search, sortBy])
 
   return (
     <section className="min-h-screen bg-gray-100">
@@ -69,6 +77,15 @@ export default function Page(){
                 </button>
               ))}
             </div>
+            {/* Sort */}
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortOption)}
+              className="px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="az">A–Z</option>
+              <option value="za">Z–A</option>
+            </select>
           </div>
         </motion.div>
 

@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import React, { useEffect, useRef, useState } from "react"
 import { useSearchParams } from "next/navigation"
 type Status = "idle" | "loading" | "success" | "error"
@@ -259,11 +260,16 @@ export default function ContactFormModern(){
             <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
               {imagePreviews.map((p) => (
                 <li key={p.key} className="flex flex-col items-center gap-2">
-                  <img
-                    src={p.url}
-                    alt={p.name}
-                    className="h-16 w-16 rounded-md object-cover border border-white/15"
-                  />
+                  <div className="relative h-16 w-16 overflow-hidden rounded-md border border-white/15">
+                    <Image
+                      src={p.url}
+                      alt={p.name}
+                      fill
+                      className="object-cover"
+                      sizes="64px"
+                      unoptimized
+                    />
+                  </div>
                   <span className="w-16 truncate text-[10px] text-white/70" title={p.name}>{p.name}</span>
                 </li>
               ))}

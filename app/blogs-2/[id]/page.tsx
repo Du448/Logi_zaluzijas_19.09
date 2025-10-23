@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import ShareButton from '@/components/ShareButton'
 import type { Metadata } from 'next'
@@ -112,8 +113,14 @@ export default function Page({ params }: { params: { id: string } }) {
         </div>
 
         {post?.image && (
-          <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm mb-8">
-            <img src={post.image} alt={post.title} className="w-full h-[320px] md:h-[460px] object-cover" />
+          <div className="relative mb-8 h-[320px] overflow-hidden rounded-2xl border border-gray-200 shadow-sm md:h-[460px]">
+            <Image
+              src={post.image}
+              alt={post.title ?? 'Blogs attēls'}
+              fill
+              className="object-cover"
+              sizes="(min-width: 768px) 60rem, 100vw"
+            />
           </div>
         )}
 
