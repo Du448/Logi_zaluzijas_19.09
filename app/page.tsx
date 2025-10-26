@@ -2,6 +2,7 @@ import Image from 'next/image'
 import RailsStyleHomepage from '@/components/RailsStyleHomepage'
 import PreFooterCTA from '@/components/PreFooterCTA'
 import FooterQuick from '@/components/FooterQuick'
+import { HoverVideoIcon } from '@/components/HoverVideoIcon'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
@@ -39,8 +40,8 @@ export default function Home() {
     iconWrapper: string
     borderClass: string
     bullets: string[]
-    leadTime: string
-    leadNote: string
+    leadTime?: string
+    leadNote?: string
     leadAccent: string
     outlineButton: string
     solidButton: string
@@ -50,87 +51,121 @@ export default function Home() {
   const blindOptions: BlindOption[] = [
     {
       key: 'vertical',
-      title: 'Vertikālās',
-      description: 'Klasiskās vertikālās žalūzijas biroja un mājas logiem',
-      badgeLabel: 'Populārākās birojiem',
-      badgeClasses: 'bg-emerald-100 text-emerald-700',
-      iconWrapper: 'bg-emerald-500/10 text-emerald-600',
-      borderClass: 'border-emerald-200',
-      bullets: ['Dažādas krāsas', 'Viegla apkope', 'Ilgmūžīgas'],
-      leadTime: 'Piegāde 7–10 dienās',
-      leadNote: 'Iekļauta konsultācija un mērījumi pirms montāžas.',
-      leadAccent: 'border-emerald-200 bg-emerald-50',
-      outlineButton: 'border-emerald-300 text-emerald-700 hover:bg-emerald-50',
-      solidButton: 'bg-emerald-600 text-white hover:bg-emerald-700',
-      icon: (
-        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <circle cx="6" cy="12" r="2" />
-          <circle cx="12" cy="12" r="2" />
-          <circle cx="18" cy="12" r="2" />
-        </svg>
-      ),
-    },
-    {
-      key: 'horizontal',
-      title: 'Horizontālās',
-      description: 'Mūsdienīgas horizontālās žalūzijas ar precīzu gaismas kontroli',
-      badgeLabel: 'Premium materiāli',
-      badgeClasses: 'bg-sky-100 text-sky-700',
-      iconWrapper: 'bg-sky-500/10 text-sky-600',
-      borderClass: 'border-sky-200',
-      bullets: ['Alumīnija lameles', 'Precīza regulēšana', 'Kompakts dizains'],
-      leadTime: 'Piegāde 5–7 dienās',
-      leadNote: 'Iekļauta konsultācija un mērījumi pirms montāžas.',
-      leadAccent: 'border-sky-200 bg-sky-50',
-      outlineButton: 'border-sky-300 text-sky-700 hover:bg-sky-50',
-      solidButton: 'bg-sky-600 text-white hover:bg-sky-700',
-      icon: (
-        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <circle cx="6" cy="10" r="2" />
-          <circle cx="12" cy="12" r="2" />
-          <circle cx="18" cy="14" r="2" />
-        </svg>
-      ),
-    },
-    {
-      key: 'rullo',
-      title: 'Rullo',
-      description: 'Elegants rullo žalūziju minimalistiskam dizainam',
-      badgeLabel: 'Mājokļu favorīts',
+      title: 'Rullo žalūzijas / Kasešu žalūzijas / “Diena–Nakts”',
+      description: 'Elegance un funkcionalitāte vienā risinājumā.',
+      badgeLabel: 'Mājas favorīts',
       badgeClasses: 'bg-purple-100 text-purple-700',
       iconWrapper: 'bg-purple-500/10 text-purple-600',
       borderClass: 'border-purple-200',
-      bullets: ['Dažādi audumi', 'Vienkārša uzstādīšana', 'Estētisks izskats'],
-      leadTime: 'Piegāde 10–14 dienās',
-      leadNote: 'Iekļauta konsultācija un mērījumi pirms montāžas.',
+      bullets: [
+        'Izvēlies starp pilnīgu tumsu vai maigu gaismu — ideāli guļamistabai, dzīvojamai zonai vai saulainai mājas pusei.',
+        '“Pilnīga tumsa, kad to vajag.” Blackout audumi nodrošina maksimālu gaismas izolāciju, bet Diena–Nakts sistēma ļauj pielāgot apgaismojumu.',
+      ],
+      leadTime: 'Piegāde 6–10 dienās',
+      leadNote: 'Audumu paraugi un mehānismu konsultācija iekļauta cenā.',
       leadAccent: 'border-purple-200 bg-purple-50',
       outlineButton: 'border-purple-300 text-purple-700 hover:bg-purple-50',
       solidButton: 'bg-purple-600 text-white hover:bg-purple-700',
       icon: (
-        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <circle cx="12" cy="12" r="6" />
-        </svg>
+        <HoverVideoIcon
+          src="https://ik.imagekit.io/vbvwdejj5/eclipse.mp4?updatedAt=1761306843760"
+          fallback={
+            <svg className="w-6 h-6 text-purple-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <circle cx="6" cy="12" r="2" />
+              <circle cx="12" cy="12" r="2" />
+              <circle cx="18" cy="12" r="2" />
+            </svg>
+          }
+        />
       ),
     },
     {
-      key: 'day-night',
-      title: 'Diena/Nakts',
-      description: 'No pilnīgas tumsas līdz maigai gaismai. Izvēlies savu gaismas līmeni – no rīta līdz vakaram.',
-      badgeLabel: 'Ultrathink',
+      key: 'horizontal',
+      title: 'Romiešu žalūzijas / Aizkaru žalūzijas',
+      description: 'Mīkstums un elegants interjera akcents.',
+      badgeLabel: 'Dizaina risinājums',
       badgeClasses: 'bg-amber-100 text-amber-700',
-      iconWrapper: 'bg-amber-50 text-amber-600',
+      iconWrapper: 'bg-amber-500/10 text-amber-600',
       borderClass: 'border-amber-200',
-      bullets: ['Divslāņu audumi mainīgai gaismas plūsmai', 'Maiga pāreja starp privātumu un dienas gaismu', 'Pieejama manuāla un motorizēta vadība'],
-      leadTime: 'Piegāde 6–8 dienās',
-      leadNote: 'Iekļauta konsultācija par audumu, krāsu un mehānismu kombinācijām.',
+      bullets: [
+        'Apvieno aizkaru estētiku ar žalūziju praktiskumu — ideāli viesistabai vai guļamistabai.',
+        '“Stils, komforts un funkcionalitāte vienā.” Individuāli izgatavotas pēc pasūtījuma.',
+        'Plaša audumu, faktūru un caurspīdīguma līmeņu izvēle katram interjeram.',
+      ],
+      leadTime: 'Piegāde 10–14 dienas',
+      leadNote: 'Personalizēta dizaina konsultācija un materiālu paraugi iekļauti.',
       leadAccent: 'border-amber-200 bg-amber-50',
-      outlineButton: 'border-amber-400 text-amber-700',
-      solidButton: 'bg-amber-500 text-white hover:bg-amber-600',
+      outlineButton: 'border-amber-300 text-amber-700 hover:bg-amber-50',
+      solidButton: 'bg-amber-600 text-white hover:bg-amber-700',
       icon: (
-        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <circle cx="12" cy="12" r="4" />
-          <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" strokeWidth="1.5" fill="none" />
-        </svg>
+        <HoverVideoIcon
+          src="https://ik.imagekit.io/vbvwdejj5/curtains.mp4?updatedAt=1761306843778"
+          fallback={
+            <svg className="w-6 h-6 text-amber-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M4 4h16v4H4z" />
+              <path d="M4 10h16v4H4z" />
+              <path d="M4 16h16v4H4z" />
+            </svg>
+          }
+        />
+      ),
+    },
+    {
+      key: 'rullo',
+      title: 'Foto un bērnu dizaina žalūzijas',
+      description: 'Spēle ar krāsām un rakstiem.',
+      badgeLabel: 'Individuāls dizains',
+      badgeClasses: 'bg-slate-100 text-slate-700',
+      iconWrapper: 'bg-slate-500/10 text-slate-600',
+      borderClass: 'border-slate-200',
+      bullets: [
+        'Personalizē savas žalūzijas ar attēliem vai rotaļīgiem dizainiem, kas piešķir telpai raksturu.',
+        '“Katras žalūzijas — individuāli tev.”',
+        'Ideāli bērnistabām un radošām telpām ar spilgtām idejām.',
+      ],
+      leadTime: 'Piegāde 10–12 dienas',
+      leadNote: 'Dizaina paraugu sagatavošana un personalizēti ieteikumi iekļauti cenā.',
+      leadAccent: 'border-slate-200 bg-slate-50',
+      outlineButton: 'border-slate-300 text-slate-700 hover:bg-slate-50',
+      solidButton: 'bg-slate-600 text-white hover:bg-slate-700',
+      icon: (
+        <HoverVideoIcon
+          src="https://ik.imagekit.io/vbvwdejj5/baby-boy.mp4?updatedAt=1761306843802"
+          fallback={
+            <svg className="w-6 h-6 text-slate-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <circle cx="12" cy="12" r="6" />
+            </svg>
+          }
+        />
+      ),
+    },
+    {
+      key: 'horizontal-premium',
+      title: 'Horizontālās žalūzijas',
+      description: 'Mūsdienīgs dizains ar precīzu gaismas kontroli.',
+      badgeLabel: 'Premium materiāli',
+      badgeClasses: 'bg-sky-100 text-sky-700',
+      iconWrapper: 'bg-sky-500/10 text-sky-600',
+      borderClass: 'border-sky-200',
+      bullets: [
+        'Izgatavotas no alumīnija vai koka lamelēm, kas piešķir telpai struktūru un stilu.',
+        '“No pilnīgas tumsas līdz maigai gaismai.”',
+        'Piemērotas gan mājām, gan birojiem – funkcionālas, kompakta dizaina un izturīgas.',
+      ],
+      leadAccent: 'border-sky-200 bg-sky-50',
+      outlineButton: 'border-sky-300 text-sky-700 hover:bg-sky-50',
+      solidButton: 'bg-sky-600 text-white hover:bg-sky-700',
+      icon: (
+        <HoverVideoIcon
+          src="https://ik.imagekit.io/vbvwdejj5/blinds%20(1).mp4?updatedAt=1761306843793"
+          fallback={
+            <svg className="w-6 h-6 text-sky-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <circle cx="6" cy="10" r="2" />
+              <circle cx="12" cy="12" r="2" />
+              <circle cx="18" cy="14" r="2" />
+            </svg>
+          }
+        />
       ),
     },
   ]
@@ -229,7 +264,7 @@ export default function Home() {
               )
 
               return (
-                <article key={option.key} className={articleClass}>
+                <article key={option.key} className={articleClass} data-blind-card>
                   {isDayNight ? (
                     <>
                       <span
@@ -265,19 +300,74 @@ export default function Home() {
                     </div>
 
                     <div className="mt-auto space-y-4 pt-6">
-                      <div className={leadCardClass}>
-                        <p className={leadTitleClass}>{option.leadTime}</p>
-                        <p className={leadNoteClass}>{option.leadNote}</p>
-                      </div>
+                      {option.key !== 'vertical' && option.key !== 'horizontal' && option.key !== 'rullo' && (option.leadTime || option.leadNote) && (
+                        <div className={leadCardClass}>
+                          {option.leadTime ? <p className={leadTitleClass}>{option.leadTime}</p> : null}
+                          {option.leadNote ? <p className={leadNoteClass}>{option.leadNote}</p> : null}
+                        </div>
+                      )}
 
-                      <div className="flex flex-col gap-3 sm:flex-row">
-                        <a href="/zaluzijas" className={outlineButtonClass}>
-                          Apskatīt klāstu
-                        </a>
-                        <a href="/kontakti" className={solidButtonClass}>
-                          Saņemt konsultāciju
-                        </a>
-                      </div>
+                      {option.key === 'vertical' ? (
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          <a
+                            href="/zaluzijas/rullo-kasetu"
+                            className={solidButtonClass}
+                          >
+                            Pilnīga tumsa
+                          </a>
+                          <a
+                            href="/zaluzijas/rullo"
+                            className={outlineButtonClass}
+                          >
+                            Elegants minimālisms
+                          </a>
+                          <a
+                            href="/zaluzijas/kasetu-diena-nakts"
+                            className={outlineButtonClass}
+                          >
+                            Maināma gaisma
+                          </a>
+                          <a
+                            href="/zaluzijas/rullo-diena-nakts"
+                            className={solidButtonClass}
+                          >
+                            Dienas līdzsvars
+                          </a>
+                        </div>
+                      ) : option.key === 'horizontal' ? (
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          <a href="/zaluzijas/romiesu" className={solidButtonClass}>
+                            Mīksts komforts
+                          </a>
+                          <a href="/zaluzijas/aizkaru" className={outlineButtonClass}>
+                            Stilīgs privātums
+                          </a>
+                        </div>
+                      ) : option.key === 'horizontal-premium' ? (
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          <a href="http://127.0.0.1:63374/zaluzijas/aluminija" className={solidButtonClass}>
+                            Precīza kontrole
+                          </a>
+                          <a href="http://127.0.0.1:63374/zaluzijas/koka" className={outlineButtonClass}>
+                            Dabiska elegance
+                          </a>
+                        </div>
+                      ) : option.key === 'rullo' ? (
+                        <div className="flex flex-col gap-3 sm:flex-row">
+                          <a href="/zaluzijas/foto" className={solidButtonClass}>
+                            Personisks dizains
+                          </a>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col gap-3 sm:flex-row">
+                          <a href="/zaluzijas" className={outlineButtonClass}>
+                            Apskatīt klāstu
+                          </a>
+                          <a href="/kontakti" className={solidButtonClass}>
+                            Saņemt konsultāciju
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </article>
