@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, statSync } from 'fs'
+import { readFileSync, readdirSync, statSync, existsSync } from 'fs'
 import { join, resolve } from 'path'
 import { serialize } from 'next-mdx-remote/serialize'
 import rehypeHighlight from 'rehype-highlight'
@@ -95,6 +95,9 @@ export async function buildSearchIndex(): Promise<SearchDocument[]> {
   
   for (const dir of contentDirs) {
     try {
+      if (!existsSync(dir)) {
+        continue
+      }
       const docs = await processDirectory(dir)
       allDocs.push(...docs)
     } catch (error) {
