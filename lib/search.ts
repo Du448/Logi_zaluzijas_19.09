@@ -1,6 +1,5 @@
 import { readFileSync, readdirSync, statSync } from 'fs'
 import { join, resolve } from 'path'
-import { compileMDX } from 'next/mdx'
 import { serialize } from 'next-mdx-remote/serialize'
 import rehypeHighlight from 'rehype-highlight'
 import remarkGfm from 'remark-gfm'
@@ -25,16 +24,17 @@ const INDEX_TTL = 1000 * 60 * 60 // 1 hour
 async function processMdxFile(filePath: string, urlPath: string): Promise<SearchDocument | null> {
   try {
     const source = readFileSync(filePath, 'utf8')
-    const { content, data } = await compileMDX({
-      source,
-      options: {
-        parseFrontmatter: true,
-        mdxOptions: {
-          remarkPlugins: [remarkGfm],
-          rehypePlugins: [rehypeHighlight],
-        },
+    const serialized = await serialize(source, {
+      parseFrontmatter: true,
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+        rehypePlugins: [rehypeHighlight],
       },
     })
+
+    // Remove frontmatter from source for searchable content
+    const content = source.replace(/^---[\s\S]*?---\s*/, '')
+    const data: any = (serialized as any).frontmatter || {}
 
     return {
       id: urlPath,
