@@ -3,7 +3,7 @@
 import RulloCalculator from "./RulloCalculator"
 
 type RulloCalculatorSectionProps = {
-  context?: "rullo" | "rullo-kasetu"
+  context?: "rullo" | "rullo-kasetu" | "rullo-diena-nakts"
   title?: string
   instanceKey?: string
 }

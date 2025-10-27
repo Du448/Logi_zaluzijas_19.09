@@ -6,6 +6,7 @@ import RulloCalculatorSection from '@/components/zaluzijas/RulloCalculatorSectio
 import PlisetasCalculatorSection from '@/components/zaluzijas/PlisetasCalculatorSection'
 import FotoCalculator from '@/components/zaluzijas/FotoCalculator'
 import ScreenCalculator from '@/components/zaluzijas/ScreenCalculator'
+import KasetuDienaNaktsCalculator from '@/components/zaluzijas/KasetuDienaNaktsCalculator'
 import MoskituCalculator from '@/components/zaluzijas/MoskituCalculator'
 import MansardaCalculator from '@/components/zaluzijas/MansardaCalculator'
 import { KasetuDienaNaktsInfo } from '@/components/zaluzijas/KasetuDienaNaktsInfo'
@@ -115,6 +116,16 @@ export default function Page({ params }: { params: { id: string } }) {
           {id === 'plisetas' && <PlisetasCalculatorSection title="Plisēto žalūziju kalkulators" />}
           {id === 'foto' && <FotoCalculator title="Foto žalūziju kalkulators" />}
           {id === 'screen' && <ScreenCalculator title="Screen žalūziju kalkulators" />}
+          {id === 'kasetu-diena-nakts' && (
+            <KasetuDienaNaktsCalculator title='Kasešu "Diena/Nakts" žalūziju kalkulators' />
+          )}
+          {id === 'rullo-diena-nakts' && (
+            <RulloCalculatorSection
+              context="rullo-diena-nakts"
+              title='Rullo žalūzijas "Diena/Nakts"'
+              instanceKey="rullo-diena-nakts"
+            />
+          )}
           {id === 'romiesu' && <RomiesuCalculator title="Romiešu žalūziju kalkulators" />}
           {id === 'moskitu' && <MoskituCalculator title="Moskītu tīklu kalkulators" />}
           {id === 'mansarda' && <MansardaCalculator title="Mansarda žalūziju kalkulators" />}

@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -594,8 +594,116 @@ const TONE_PRICE_OVERRIDES_KASETU: Record<string, Record<string, number>> = {
   },
 }
 
+const TM_PRICE_DATA_DN_RULLO: PriceTable = {
+  "BH 1300/1800": {
+    "VARIO 25 Rullo (balts)": 34,
+    "VARIO 25 Rullo (krāsains)": 37,
+    "VARIO 32 Rullo (balts)": 37,
+    "VARIO 32 Rullo (krāsains)": 40,
+  },
+  "BH 1500": {
+    "VARIO 25 Rullo (balts)": 40,
+    "VARIO 25 Rullo (krāsains)": 43,
+    "VARIO 32 Rullo (balts)": 43,
+    "VARIO 32 Rullo (krāsains)": 46,
+  },
+  BH10: {
+    "VARIO 25 Rullo (balts)": 38,
+    "VARIO 25 Rullo (krāsains)": 41,
+    "VARIO 32 Rullo (balts)": 41,
+    "VARIO 32 Rullo (krāsains)": 44,
+  },
+  "BH (DK)": {
+    "VARIO 25 Rullo (balts)": 36,
+    "VARIO 25 Rullo (krāsains)": 39,
+    "VARIO 32 Rullo (balts)": 39,
+    "VARIO 32 Rullo (krāsains)": 42,
+  },
+  BON: {
+    "VARIO 25 Rullo (balts)": 33,
+    "VARIO 25 Rullo (krāsains)": 36,
+    "VARIO 32 Rullo (balts)": 36,
+    "VARIO 32 Rullo (krāsains)": 39,
+  },
+  "ZEBRA 3100-3104": {
+    "VARIO 25 Rullo (balts)": 39,
+    "VARIO 25 Rullo (krāsains)": 42,
+    "VARIO 32 Rullo (balts)": 42,
+    "VARIO 32 Rullo (krāsains)": 45,
+  },
+  "ZEBRA 3105-3200": {
+    "VARIO 25 Rullo (balts)": 49,
+    "VARIO 25 Rullo (krāsains)": 52,
+    "VARIO 32 Rullo (balts)": 52,
+    "VARIO 32 Rullo (krāsains)": 55,
+  },
+  "ZEBRA BO": {
+    "VARIO 25 Rullo (balts)": 55,
+    "VARIO 25 Rullo (krāsains)": 58,
+    "VARIO 32 Rullo (balts)": 58,
+    "VARIO 32 Rullo (krāsains)": 61,
+  },
+  LIVELLO: {
+    "VARIO 25 Rullo (balts)": 62,
+    "VARIO 25 Rullo (krāsains)": 65,
+    "VARIO 32 Rullo (balts)": 65,
+    "VARIO 32 Rullo (krāsains)": 68,
+  },
+  "BO Poem DN 721": {
+    "VARIO 25 Rullo (balts)": 47,
+    "VARIO 25 Rullo (krāsains)": 50,
+    "VARIO 32 Rullo (balts)": 50,
+    "VARIO 32 Rullo (krāsains)": 53,
+  },
+  "BO Sunset DN 753": {
+    "VARIO 25 Rullo (balts)": 47,
+    "VARIO 25 Rullo (krāsains)": 50,
+    "VARIO 32 Rullo (balts)": 50,
+    "VARIO 32 Rullo (krāsains)": 53,
+  },
+  "Albedo Chik DN 6003": {
+    "VARIO 25 Rullo (balts)": 47,
+    "VARIO 25 Rullo (krāsains)": 50,
+    "VARIO 32 Rullo (balts)": 50,
+    "VARIO 32 Rullo (krāsains)": 53,
+  },
+  "Albedo Chik DN 6009": {
+    "VARIO 25 Rullo (balts)": 47,
+    "VARIO 25 Rullo (krāsains)": 50,
+    "VARIO 32 Rullo (balts)": 50,
+    "VARIO 32 Rullo (krāsains)": 53,
+  },
+}
+
+const SYSTEM_CONSTRAINTS_DN_RULLO: Record<string, { maxWidth: number; maxHeight: number }> = {
+  "VARIO 25 Rullo (balts)": { maxWidth: 1.6, maxHeight: 2.0 },
+  "VARIO 25 Rullo (krāsains)": { maxWidth: 1.6, maxHeight: 2.0 },
+  "VARIO 32 Rullo (balts)": { maxWidth: 1.6, maxHeight: 2.0 },
+  "VARIO 32 Rullo (krāsains)": { maxWidth: 1.6, maxHeight: 2.0 },
+}
+
+const KASETU_MATERIAL_OPTIONS = Object.keys(TM_PRICE_DATA_KASETU)
+const RULLO_MATERIAL_OPTIONS = Object.keys(TM_PRICE_DATA_RULLO)
+const DN_MATERIAL_OPTIONS = Object.keys(TM_PRICE_DATA_DN_RULLO)
+
+const DN_MATERIAL_LABELS: Record<string, string> = {
+  "BH 1300/1800": "BH 1300/1800",
+  "BH 1500": "BH 1500",
+  BH10: "BH10",
+  "BH (DK)": "BH (DK)",
+  BON: "BON",
+  "ZEBRA 3100-3104": "Zebra Classic (3100–3104)",
+  "ZEBRA 3105-3200": "Zebra Premium (3105–3200)",
+  "ZEBRA BO": "Zebra Blackout",
+  LIVELLO: "Livello DNA",
+  "BO Poem DN 721": "BO Poem DN 721",
+  "BO Sunset DN 753": "BO Sunset DN 753",
+  "Albedo Chik DN 6003": "Albedo Chik DN 6003",
+  "Albedo Chik DN 6009": "Albedo Chik DN 6009",
+}
+
 const ALL_MATERIAL_OPTIONS = Array.from(
-  new Set([...Object.keys(TM_PRICE_DATA_KASETU), ...Object.keys(TM_PRICE_DATA_RULLO)]),
+  new Set([...KASETU_MATERIAL_OPTIONS, ...RULLO_MATERIAL_OPTIONS, ...DN_MATERIAL_OPTIONS]),
 ).sort()
 
 type ToneOption = {
@@ -919,7 +1027,18 @@ function getAvailableSystems(
   })
 }
 
-type CalculatorContext = "rullo" | "rullo-kasetu" | "vertikalas"
+type CalculatorContext = "rullo" | "rullo-kasetu" | "vertikalas" | "rullo-diena-nakts"
+
+const formatMaterialLabel = (value: string, context: CalculatorContext): string => {
+  if (!value) return ""
+
+  if (context === "rullo-diena-nakts") {
+    return DN_MATERIAL_LABELS[value] ?? value
+  }
+
+  const blackout = MATERIAL_BLACKOUT_INFO[value]
+  return blackout ? `${value} ${blackout}` : value
+}
 
 function calculatePrice(
   material: string,
@@ -945,21 +1064,26 @@ function calculatePrice(
   const widthM = widthMm / 1000
   const heightM = heightMm / 1000
 
-  const chargeableWidth = context === "vertikalas"
-    ? widthM
-    : Math.max(widthM, 0.5)
+  const chargeableWidth = context === "vertikalas" ? widthM : Math.max(widthM, 0.5)
 
-  const cost = context === "vertikalas"
+  const baseCost = context === "vertikalas"
     ? chargeableWidth * heightM * basePrice
-    : (heightM > 2
-        ? chargeableWidth * basePrice * 1.5
-        : heightM > 1.5
-          ? chargeableWidth * basePrice * 1.2
-          : chargeableWidth * basePrice)
+    : chargeableWidth * basePrice
+
+  let multiplier = 1
+  if (context !== "vertikalas") {
+    if (heightM > 2) {
+      multiplier = 2
+    } else if (heightM > 1.5) {
+      multiplier = 1.2
+    }
+  }
+
+  const cost = baseCost * multiplier
 
   const productCost = Math.round(cost * 2.5 * 1.21)
-  const installationCost = 0
-  const totalRounded = productCost
+  const installationCost = includeInstallation ? INSTALLATION_FEE : 0
+  const totalRounded = productCost + installationCost
 
   return {
     price: numberFormatter.format(totalRounded),
@@ -973,7 +1097,7 @@ function calculatePrice(
 }
 
 type RulloCalculatorProps = {
-  context?: "rullo" | "rullo-kasetu"
+  context?: "rullo" | "rullo-kasetu" | "rullo-diena-nakts"
   title?: string
   instanceKey?: string
 }
@@ -987,25 +1111,33 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
       ? TM_PRICE_DATA_KASETU
       : effectiveContext === "rullo"
         ? TM_PRICE_DATA_RULLO
-        : VERTIKALAS_PRICE_TABLE
+        : effectiveContext === "rullo-diena-nakts"
+          ? TM_PRICE_DATA_DN_RULLO
+          : VERTIKALAS_PRICE_TABLE
   const toneOverridesMap =
     effectiveContext === "rullo-kasetu"
       ? TONE_PRICE_OVERRIDES_KASETU
       : effectiveContext === "rullo"
         ? TONE_PRICE_OVERRIDES_RULLO
-        : EMPTY_TONE_OVERRIDES
+        : effectiveContext === "rullo-diena-nakts"
+          ? EMPTY_TONE_OVERRIDES
+          : EMPTY_TONE_OVERRIDES
   const constraintsMap =
     effectiveContext === "rullo-kasetu"
       ? SYSTEM_CONSTRAINTS_KASETU
       : effectiveContext === "rullo"
         ? SYSTEM_CONSTRAINTS_RULLO
-        : VERTIKALAS_CONSTRAINTS
+        : effectiveContext === "rullo-diena-nakts"
+          ? SYSTEM_CONSTRAINTS_DN_RULLO
+          : VERTIKALAS_CONSTRAINTS
   const systemVisualMap =
     effectiveContext === "rullo-kasetu"
       ? SYSTEM_IMAGE_INFO_KASETU
       : effectiveContext === "rullo"
         ? SYSTEM_IMAGE_INFO_RULLO
-        : {}
+        : effectiveContext === "rullo-diena-nakts"
+          ? SYSTEM_IMAGE_INFO_RULLO
+          : {}
 
   const [material, setMaterial] = useState("")
   const [width, setWidth] = useState(1000)
@@ -1068,15 +1200,21 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
       return VERTIKALAS_MATERIAL_OPTIONS
     }
 
-    if (darkening === null) {
-      return ALL_MATERIAL_OPTIONS
+    if (effectiveContext === "rullo-diena-nakts") {
+      return DN_MATERIAL_OPTIONS
     }
-    return ALL_MATERIAL_OPTIONS.filter((option) => {
+
+    if (darkening === null) {
+      return effectiveContext === "rullo" ? RULLO_MATERIAL_OPTIONS : KASETU_MATERIAL_OPTIONS
+    }
+
+    const source = effectiveContext === "rullo" ? RULLO_MATERIAL_OPTIONS : KASETU_MATERIAL_OPTIONS
+    return source.filter((option) => {
       const levels = MATERIAL_BLACKOUT_LEVELS[option]
       if (!levels) return false
       return levels.includes(darkening)
     })
-  }, [darkening, isVertikalas])
+  }, [darkening, effectiveContext, isVertikalas])
 
   // Reset downstream selections when an earlier choice changes
   useEffect(() => {
@@ -1085,10 +1223,15 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
       return
     }
 
-    // Darkening changed -> require re-confirming later steps
+    if (effectiveContext === "rullo-diena-nakts") {
+      setToneId("")
+      setSystem("")
+      return
+    }
+
     setToneId("")
     setSystem("")
-  }, [darkening, isVertikalas])
+  }, [darkening, effectiveContext, isVertikalas])
 
   useEffect(() => {
     // Material changed -> reset tone and system
@@ -1103,7 +1246,19 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
     setSystem("")
   }, [toneId])
 
-  const toneOptions = useMemo(() => (isVertikalas ? [] : TONE_OPTIONS[material] ?? []), [isVertikalas, material])
+  const toneOptions = useMemo(() => {
+    if (isVertikalas) return []
+    if (effectiveContext === "rullo-diena-nakts") return []
+    return TONE_OPTIONS[material] ?? []
+  }, [effectiveContext, isVertikalas, material])
+
+  const showTonePicker = !isVertikalas && effectiveContext !== "rullo-diena-nakts" && toneOptions.length > 0
+
+  useEffect(() => {
+    if (effectiveContext === "rullo-diena-nakts") {
+      setDarkening(null)
+    }
+  }, [effectiveContext])
 
   useEffect(() => {
     // Keep current material if still valid; otherwise clear it.
@@ -1147,10 +1302,7 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
   )
 
   const formatCurrency = (value: number) => `${numberFormatter.format(value)} €`
-  const selectedTone = useMemo(
-    () => toneOptions.find((tone) => tone.id === toneId) ?? null,
-    [toneId, toneOptions],
-  )
+  const selectedTone = useMemo(() => (toneOptions.find((tone) => tone.id === toneId) ?? null), [toneId, toneOptions])
 
   const handleWidthChange = (value: number) => {
     setWidth(clamp(Math.round(value), MIN_WIDTH_MM, activeMaxWidthMm))
@@ -1458,7 +1610,7 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
 
       <div ref={calculatorRef} className="mt-10 grid gap-8 md:grid-cols-2 md:gap-12">
         <div className="space-y-6">
-          {!isVertikalas && (
+          {!isVertikalas && effectiveContext !== "rullo-diena-nakts" && (
           <div>
             <p className="text-sm font-medium text-gray-700">Izvēlieties aptumšošanas līmeni</p>
             <p className="mt-1 text-xs text-gray-500">Tas filtrēs pieejamos materiālus pēc aptumšošanas procentiem.</p>
@@ -1519,7 +1671,7 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
               id="material"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
               value={material}
-              onChange={(e) => setMaterial(e.target.value)}
+              onChange={(event) => setMaterial(event.target.value)}
               disabled={filteredMaterialOptions.length === 0}
             >
               {filteredMaterialOptions.length === 0 ? (
@@ -1528,16 +1680,7 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
                 <>
                   <option value="">Izvēlieties materiālu</option>
                   {filteredMaterialOptions.map((option) => {
-                    if (isVertikalas) {
-                      return (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      )
-                    }
-
-                    const blackout = MATERIAL_BLACKOUT_INFO[option]
-                    const label = blackout ? `${option} ${blackout}` : option
+                    const label = isVertikalas ? option : formatMaterialLabel(option, effectiveContext)
                     return (
                       <option key={option} value={option}>
                         {label}
@@ -1547,23 +1690,28 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
                 </>
               )}
             </select>
-
-            {filteredMaterialOptions.length === 0 && (
-              <p className="mt-2 text-sm text-red-600">Izvēlētajam aptumšošanas līmenim nav pieejamu materiālu. Lūdzu, mēģiniet citu līmeni.</p>
+            {filteredMaterialOptions.length === 0 && effectiveContext !== "rullo-diena-nakts" && (
+              <p className="mt-2 text-sm text-red-600">
+                Izvēlētajam aptumšošanas līmenim nav pieejamu materiālu. Lūdzu, mēģiniet citu līmeni.
+              </p>
             )}
 
-            {!isVertikalas && toneOptions.length > 0 && filteredMaterialOptions.length > 0 && (
+            {!isVertikalas && effectiveContext !== "rullo-diena-nakts" && toneOptions.length === 0 && !material && (
+              <p className="mt-3 text-xs text-gray-500">Izvēlieties materiālu, lai turpinātu ar toņa izvēli.</p>
+            )}
+
+            {showTonePicker && (
               <div className="mt-6">
                 <p className="text-sm font-medium text-gray-700">Izvēlieties materiāla toni</p>
-                <p className="mt-1 text-xs text-gray-500">Klikšķiniet uz toņa, lai apskatītu lielāku paraugu un iekļautu to PDF aprēķinā.</p>
+                <p className="mt-1 text-xs text-gray-500">
+                  Klikšķiniet uz toņa, lai apskatītu lielāku paraugu un iekļautu to PDF aprēķinā.
+                </p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   {toneOptions.map((tone) => (
                     <button
                       type="button"
                       key={tone.id}
-                      onClick={() => {
-                        setToneId(tone.id)
-                      }}
+                      onClick={() => setToneId(tone.id)}
                       className={cn(
                         "flex w-full items-center gap-3 rounded-xl border px-3 py-3 text-left transition shadow-sm",
                         toneId === tone.id
@@ -1574,13 +1722,7 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
                     >
                       {tone.image ? (
                         <div className="relative h-10 w-10 overflow-hidden rounded-lg">
-                          <Image
-                            src={tone.image}
-                            alt={`${tone.label} paraugs`}
-                            fill
-                            className="object-cover"
-                            sizes="40px"
-                          />
+                          <Image src={tone.image} alt={`${tone.label} paraugs`} fill className="object-cover" sizes="40px" />
                         </div>
                       ) : (
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-200 text-[0.65rem] font-semibold text-slate-600">
@@ -1595,9 +1737,6 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
                   ))}
                 </div>
               </div>
-            )}
-            {!isVertikalas && !material && toneOptions.length === 0 && (
-              <p className="mt-3 text-xs text-gray-500">Izvēlieties materiālu, lai turpinātu ar toņa izvēli.</p>
             )}
           </div>
 
@@ -1772,18 +1911,31 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
           )}
           {(() => {
             const toneLabel = selectedTone?.label || "—"
+            const materialLabel = formatMaterialLabel(material, effectiveContext) || "—"
+            const summaryName = isVertikalas
+              ? "vertikālās žalūzijas"
+              : effectiveContext === "rullo-diena-nakts"
+                ? 'rullo "Diena/Nakts"'
+                : effectiveContext === "rullo-kasetu"
+                  ? "rullo kasetes"
+                  : "rullo žalūzijas"
             const install = includeInstallation ? "Jā" : "Nē"
             const priceText = result?.breakdown?.total
               ? `${formatCurrency(result.breakdown.total)}`
               : `${result?.price ?? "—"}`
             const lines = [
-              `Aprēķins (rullo):`,
-              `• Materiāla tonis: ${toneLabel}`,
-              `• Sistēma: ${system || "—"}`,
-              `• Izmērs (mm): ${width} x ${height}`,
-              `• Montāža: ${install}`,
-              `• Kopā ar PVN: ${priceText}`,
+              `Aprēķins (${summaryName}):`,
+              `• Materiāls: ${materialLabel}`,
             ]
+
+            if (!isVertikalas && effectiveContext !== "rullo-diena-nakts") {
+              lines.push(`• Materiāla tonis: ${toneLabel}`)
+            }
+
+            lines.push(`• Sistēma: ${system || "—"}`)
+            lines.push(`• Izmērs (mm): ${width} x ${height}`)
+            lines.push(`• Montāža: ${install}`)
+            lines.push(`• Kopā ar PVN: ${priceText}`)
             const summary = lines.join("\n")
             const href = `/kontakti?calc=${encodeURIComponent(summary)}`
             return (
@@ -1814,7 +1966,7 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
         </div>
       </div>
 
-      {selectedTone && (
+      {showTonePicker && selectedTone ? (
         <div className="mt-10 rounded-3xl border border-sky-100 bg-white p-8 shadow-sm">
           <div className="flex flex-col gap-6 md:flex-row md:items-center">
             {selectedTone.image ? (
@@ -1837,7 +1989,7 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
             </div>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   )
 }

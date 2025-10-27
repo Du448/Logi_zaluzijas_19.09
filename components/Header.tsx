@@ -542,7 +542,7 @@ export default function Header(){
             onClick={() => { setOpen(false); setHasInteracted(false); }}
             className="flex items-center justify-between p-4 rounded-2xl hover:bg-brand-teal/10 transition-all duration-300 group"
           >
-            <span className="text-lg font-medium text-white">Ieskaties</span>
+            <span className="text-lg font-medium text-slate-900 group-hover:text-brand-teal">Ieskaties</span>
             <div className="w-2 h-2 bg-gray-400 rounded-full group-hover:bg-brand-teal transition-colors duration-300"></div>
           </Link>
 
