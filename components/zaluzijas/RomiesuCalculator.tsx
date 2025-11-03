@@ -760,8 +760,6 @@ function calculateRomiesuPrice(
   const basePrice = ROMIESU_PRICE_TABLE[material]?.[system]
   const widthCmRaw = widthMm / 10
   const heightCmRaw = heightMm / 10
-  const gridWidthCm = clamp(ceilToStep(widthCmRaw, 10), 40, 300)
-  const gridHeightCm = clamp(ceilToStep(heightCmRaw, 10), 40, 350)
 
   const gridPrice = useGrid ? getGridPrice(material, widthMm, heightMm) : undefined
   const effectiveBasePrice = basePrice
@@ -770,7 +768,7 @@ function calculateRomiesuPrice(
   }
 
   let productCost: number
-  const markupMultiplier = 2
+  const markupMultiplier = 1.5
   if (typeof gridPrice === "number") {
     productCost = Math.round(gridPrice * markupMultiplier * 1.21)
   } else {

@@ -49,7 +49,7 @@ export default function Page(){
           <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
           </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Apskatiet mūsu realizētos projektus dažādās kategorijās - no dzīvokļiem līdz privātmājām
+            Izvēlēsies logus savai dzīvokļu sērijai
           </p>
         </motion.div>
 

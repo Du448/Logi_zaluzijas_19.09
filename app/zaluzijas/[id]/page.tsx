@@ -122,7 +122,7 @@ export default function Page({ params }: { params: { id: string } }) {
           {id === 'rullo-diena-nakts' && (
             <RulloCalculatorSection
               context="rullo-diena-nakts"
-              title='Rullo žalūzijas "Diena/Nakts"'
+              title="Kalkulators"
               instanceKey="rullo-diena-nakts"
             />
           )}
