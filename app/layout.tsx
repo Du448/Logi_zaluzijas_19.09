@@ -8,6 +8,7 @@ import PreFooterSwitcher from '@/components/PreFooterSwitcher'
 import { CartProvider } from '@/lib/cart-context'
 import ScrollReveal from '@/components/ScrollReveal'
 import CookieConsent from '@/components/CookieConsent'
+import { ScrollToTopButton } from '@/components/ScrollToTopButton'
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['300','400','500','700'] })
 
@@ -95,6 +96,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <PreFooterSwitcher />
           <Footer />
           <CookieConsent />
+          <ScrollToTopButton />
         </CartProvider>
       </body>
     </html>
