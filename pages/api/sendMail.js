@@ -230,6 +230,8 @@ export default async function handler(req, res) {
       const phone = body?.phone ? String(body.phone) : "";
       const company = body?.company ? String(body.company) : "";
       const message = body?.message ? String(body.message) : "";
+      const recaptchaToken = body?.recaptchaToken ? String(body.recaptchaToken) : "";
+
       const incomingAttachments = Array.isArray(body?.attachments) ? body.attachments : [];
       // Sanitize attachments: only allow up to 8MB total and 10 files
       const MAX_FILES = 10;
@@ -243,6 +245,31 @@ export default async function handler(req, res) {
           encoding: (a?.encoding === "base64" ? "base64" : undefined),
           contentType: a?.contentType ? String(a.contentType) : undefined,
         })).filter((x) => x.content);
+      }
+
+      if (process.env.RECAPTCHA_SECRET_KEY) {
+        if (!recaptchaToken) {
+          return res.status(400).json({ message: "Nav derīgs reCAPTCHA tokens." });
+        }
+
+        const verifyResp = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            secret: process.env.RECAPTCHA_SECRET_KEY,
+            response: recaptchaToken,
+          }).toString(),
+        });
+
+        if (!verifyResp.ok) {
+          return res.status(502).json({ message: "Neizdevās pārbaudīt reCAPTCHA." });
+        }
+
+        const verifyJson = await verifyResp.json();
+        if (!verifyJson.success) {
+          console.error("reCAPTCHA verification failed", verifyJson);
+          return res.status(400).json({ message: "reCAPTCHA pārbaude neizdevās." });
+        }
       }
 
       if (name || email || message) {

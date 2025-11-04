@@ -3,6 +3,23 @@
 import Image from "next/image"
 import React, { useEffect, useRef, useState } from "react"
 import { useSearchParams } from "next/navigation"
+
+declare global {
+  interface Window {
+    grecaptcha?: {
+      render: (container: HTMLElement, parameters: RecaptchaRenderParameters) => number
+      reset: (optWidgetId?: number) => void
+      ready?: (callback: () => void) => void
+    }
+  }
+}
+
+type RecaptchaRenderParameters = {
+  sitekey: string
+  callback?: (token: string) => void
+  "expired-callback"?: () => void
+  "error-callback"?: () => void
+}
 type Status = "idle" | "loading" | "success" | "error"
 
 export default function ContactFormModern(){
@@ -13,10 +30,21 @@ export default function ContactFormModern(){
   const [files, setFiles] = useState<File[]>([])
   const [isDragging, setIsDragging] = useState<boolean>(false)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const recaptchaContainerRef = useRef<HTMLDivElement | null>(null)
+  const recaptchaWidgetIdRef = useRef<number | null>(null)
   const MAX_TOTAL = 8 * 1024 * 1024 // 8 MB
   const totalBytes = files.reduce((sum, f) => sum + f.size, 0)
   const overLimit = totalBytes > MAX_TOTAL
   const [imagePreviews, setImagePreviews] = useState<{ key: string; url: string; name: string; size: number }[]>([])
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""
+
+  const resetRecaptcha = () => {
+    if (typeof window !== "undefined" && window.grecaptcha && recaptchaWidgetIdRef.current !== null) {
+      window.grecaptcha.reset(recaptchaWidgetIdRef.current)
+    }
+    setCaptchaToken(null)
+  }
 
   // Build and cleanup image object URLs for previews
   useEffect(() => {
@@ -31,6 +59,74 @@ export default function ContactFormModern(){
       previews.forEach((p) => URL.revokeObjectURL(p.url))
     }
   }, [files])
+
+  useEffect(() => {
+    if (!siteKey || typeof window === "undefined") {
+      return
+    }
+
+    const doRender = () => {
+      if (!recaptchaContainerRef.current || !window.grecaptcha || recaptchaWidgetIdRef.current !== null) {
+        return
+      }
+      recaptchaWidgetIdRef.current = window.grecaptcha.render(recaptchaContainerRef.current, {
+        sitekey: siteKey,
+        callback: (token: string) => {
+          setCaptchaToken(token)
+          setStatus((prev) => (prev === "error" ? "idle" : prev))
+          setMessage("")
+        },
+        "expired-callback": () => {
+          setCaptchaToken(null)
+        },
+        "error-callback": () => {
+          setCaptchaToken(null)
+        },
+      })
+    }
+
+    const renderCaptcha = () => {
+      if (!window.grecaptcha) {
+        return
+      }
+      if (typeof window.grecaptcha.render === "function") {
+        doRender()
+        return
+      }
+      if (typeof window.grecaptcha.ready === "function") {
+        window.grecaptcha.ready(() => {
+          if (typeof window.grecaptcha?.render === "function") {
+            doRender()
+          }
+        })
+      }
+    }
+
+    if (window.grecaptcha && typeof window.grecaptcha.render === "function") {
+      renderCaptcha()
+      return
+    }
+
+    const scriptId = "google-recaptcha"
+    const existingScript = document.getElementById(scriptId) as HTMLScriptElement | null
+
+    if (existingScript) {
+      existingScript.addEventListener("load", renderCaptcha)
+      return () => existingScript.removeEventListener("load", renderCaptcha)
+    }
+
+    const script = document.createElement("script")
+    script.id = scriptId
+    script.src = "https://www.google.com/recaptcha/api.js?render=explicit"
+    script.async = true
+    script.defer = true
+    script.addEventListener("load", renderCaptcha)
+    document.body.appendChild(script)
+
+    return () => {
+      script.removeEventListener("load", renderCaptcha)
+    }
+  }, [siteKey])
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -49,6 +145,11 @@ export default function ContactFormModern(){
     if (overLimit) {
       setStatus("error")
       setMessage("Kopējais failu apjoms pārsniedz 8 MB. Lūdzu noņemiet kādu failu vai samaziniet izmēru.")
+      return
+    }
+    if (!captchaToken) {
+      setStatus("error")
+      setMessage("Lūdzu apstipriniet, ka neesat robots.")
       return
     }
 
@@ -86,6 +187,7 @@ export default function ContactFormModern(){
       phone: String(data.get("phone") || ""),
       message: String(data.get("message") || ""),
       attachments,
+      recaptchaToken: captchaToken,
     }
 
     try {
@@ -104,11 +206,13 @@ export default function ContactFormModern(){
       setMessage("Paldies! Jūsu ziņa ir nosūtīta. Mēs sazināsimies drīzumā.")
       form.reset()
       setFiles([])
+      resetRecaptcha()
     } catch (error: unknown) {
       setStatus("error")
       setMessage(
         error instanceof Error ? error.message : "Radās kļūda, lūdzu mēģiniet vēlreiz."
       )
+      resetRecaptcha()
     }
   }
 
@@ -294,13 +398,23 @@ export default function ContactFormModern(){
       </div>
 
       {/* Row 4: Policy + Submit */}
+      <div className="mt-8">
+        {siteKey ? (
+          <div ref={recaptchaContainerRef} className="inline-block" aria-live="polite" />
+        ) : (
+          <p className="text-sm text-red-200">
+            ReCAPTCHA nav konfigurēts. Lūdzu sazinieties ar sistēmas administratoru.
+          </p>
+        )}
+      </div>
+
       <div className="mt-8 flex items-center justify-start">
         <button
           type="submit"
           className={`inline-flex items-center justify-center px-6 py-3 rounded-md text-white font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${
             overLimit ? "bg-red-700 hover:bg-red-600" : "bg-blue-600 hover:bg-blue-500"
           }`}
-          disabled={status === "loading" || overLimit}
+          disabled={status === "loading" || overLimit || !captchaToken}
         >
           {status === "loading" ? "Sūta..." : overLimit ? "Samaziniet failu apjomu" : "Nosūtīt ziņu"}
         </button>
