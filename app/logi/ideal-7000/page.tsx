@@ -453,54 +453,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Visual showcase */}
-      <section className="bg-white">
-        <div className="container py-12 md:py-16">
-          <Reveal>
-            <div className="mb-8 text-center">
-              <p className="text-sm uppercase tracking-[0.2em] text-blue-500">Vizualizācijas</p>
-              <h2 className="mt-3 text-3xl font-bold text-gray-900">Skati Intertec 85 detaļās un realitātē</h2>
-            </div>
-          </Reveal>
-          <div className="grid gap-6 md:grid-cols-2">
-            {visualShowcase.map((item) => (
-              <Reveal key={item.title} className="rounded-3xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-                <div className="relative aspect-[16/11] overflow-hidden bg-gray-100">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                    sizes="(min-width: 1024px) 24rem, 100vw"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900">{item.title}</h3>
-                  <p className="mt-2 text-sm text-gray-600">{item.description}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="bg-slate-900 text-white">
-        <div className="container py-16 text-center">
-          <Reveal>
-            <h2 className="text-3xl md:text-4xl font-bold">Gatavi pacelt komfortu nākamajā līmenī?</h2>
-          </Reveal>
-          <Reveal>
-            <p className="mt-4 text-white/80 max-w-2xl mx-auto">Atstāj kontaktus un saņem personalizētu piedāvājumu ar montāžu un garantiju – mūsu speciālists sazināsies 1 minūtes laikā.</p>
-          </Reveal>
-          <Reveal>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <a href="/kontakti" className={`${primaryButtonClasses} sm:min-w-[220px]`}>Saņemt piedāvājumu</a>
-              <a href="/logi" className="text-sm text-white/70 underline underline-offset-4 hover:text-white">Atpakaļ uz profilu sarakstu</a>
-            </div>
-          </Reveal>
-        </div>
-      </section>
     </>
   )
 }
