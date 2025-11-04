@@ -798,6 +798,8 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
   const [system, setSystem] = useState<RomiesuSystemOption["value"] | "">("")
   const [width, setWidth] = useState(2000)
   const [height, setHeight] = useState(2200)
+  const [widthInputValue, setWidthInputValue] = useState("2000")
+  const [heightInputValue, setHeightInputValue] = useState("2200")
   const [materialColor, setMaterialColor] = useState<string>("")
   const [includeInstallation, setIncludeInstallation] = useState(false)
   const [downloadPending, setDownloadPending] = useState(false)
@@ -833,6 +835,14 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
   }, [activeMaxHeightMm])
 
   useEffect(() => {
+    setWidthInputValue(width.toString())
+  }, [width])
+
+  useEffect(() => {
+    setHeightInputValue(height.toString())
+  }, [height])
+
+  useEffect(() => {
     setSystem((current) => {
       if (current && availableSystems.some((option) => option.value === current)) return current
       return availableSystems.length > 0 ? availableSystems[0].value : ""
@@ -853,6 +863,18 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
     // Reset selected color when material changes
     setMaterialColor("")
   }, [material])
+
+  const handleWidthChange = (value: number) => {
+    const normalized = clamp(roundToStep(value, 100), MIN_WIDTH_MM, activeMaxWidthMm)
+    setWidth(normalized)
+    setWidthInputValue(normalized.toString())
+  }
+
+  const handleHeightChange = (value: number) => {
+    const normalized = clamp(roundToStep(value, 100), MIN_HEIGHT_MM, activeMaxHeightMm)
+    setHeight(normalized)
+    setHeightInputValue(normalized.toString())
+  }
 
   const handleDownload = async () => {
     if (!result.isValid) return
@@ -1076,7 +1098,7 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
   return (
     <div
       ref={calculatorRef}
-      className="w-full rounded-3xl bg-emerald-50 p-6 shadow-sm sm:p-10"
+      className="mt-10 w-full rounded-3xl bg-emerald-50 p-6 shadow-sm sm:p-10"
       data-component-name="RomiesuCalculator"
     >
       <div className="text-center">
@@ -1193,7 +1215,7 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
                 max={activeMaxWidthMm}
                 step={100}
                 value={width}
-                onChange={(event) => setWidth(clamp(Number(event.target.value), MIN_WIDTH_MM, activeMaxWidthMm))}
+                onChange={(event) => handleWidthChange(Number(event.target.value))}
                 className="range-input accent-emerald-500"
               />
               <input
@@ -1201,12 +1223,28 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
                 min={MIN_WIDTH_MM}
                 max={activeMaxWidthMm}
                 step={100}
-                value={width}
+                value={widthInputValue}
                 onChange={(event) => {
-                  const value = event.target.value
-                  if (value === "") return
-                  const v = roundToStep(Number(value), 100)
-                  setWidth(clamp(v, MIN_WIDTH_MM, activeMaxWidthMm))
+                  setWidthInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  handleWidthChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
@@ -1226,7 +1264,7 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
                 max={activeMaxHeightMm}
                 step={100}
                 value={height}
-                onChange={(event) => setHeight(clamp(Number(event.target.value), MIN_HEIGHT_MM, activeMaxHeightMm))}
+                onChange={(event) => handleHeightChange(Number(event.target.value))}
                 className="range-input accent-emerald-500"
               />
               <input
@@ -1234,12 +1272,28 @@ export default function RomiesuCalculator({ title }: RomiesuCalculatorProps) {
                 min={MIN_HEIGHT_MM}
                 max={activeMaxHeightMm}
                 step={100}
-                value={height}
+                value={heightInputValue}
                 onChange={(event) => {
-                  const value = event.target.value
-                  if (value === "") return
-                  const v = roundToStep(Number(value), 100)
-                  setHeight(clamp(v, MIN_HEIGHT_MM, activeMaxHeightMm))
+                  setHeightInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  handleHeightChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />

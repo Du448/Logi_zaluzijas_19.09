@@ -5,9 +5,9 @@ import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 const MOSKITU_MIN_WIDTH_MM = 300
-const MOSKITU_MAX_WIDTH_MM = 3000
+const MOSKITU_MAX_WIDTH_MM = 1500
 const MOSKITU_MIN_HEIGHT_MM = 300
-const MOSKITU_MAX_HEIGHT_MM = 3500
+const MOSKITU_MAX_HEIGHT_MM = 2400
 
 const MOSKITU_MARKUP_MULTIPLIER = 2
 
@@ -22,11 +22,11 @@ const MOSKITU_SYSTEM_OPTIONS = [
 type MoskituSystemOption = (typeof MOSKITU_SYSTEM_OPTIONS)[number]
 
 const MOSKITU_SYSTEM_CONSTRAINTS: Record<MoskituSystemOption["value"], { maxWidthMm: number; maxHeightMm: number }> = {
-  Balta: { maxWidthMm: 3000, maxHeightMm: 3500 },
-  Brūna: { maxWidthMm: 3000, maxHeightMm: 3500 },
-  Mahagons: { maxWidthMm: 3000, maxHeightMm: 3500 },
-  "Zelta ozols": { maxWidthMm: 3000, maxHeightMm: 3500 },
-  Antracīts: { maxWidthMm: 3000, maxHeightMm: 3500 },
+  Balta: { maxWidthMm: 1500, maxHeightMm: 2400 },
+  Brūna: { maxWidthMm: 1500, maxHeightMm: 2400 },
+  Mahagons: { maxWidthMm: 1500, maxHeightMm: 2400 },
+  "Zelta ozols": { maxWidthMm: 1500, maxHeightMm: 2400 },
+  Antracīts: { maxWidthMm: 1500, maxHeightMm: 2400 },
 }
 
 const MOSKITU_SYSTEM_IMAGES: Record<MoskituSystemOption["value"], readonly [string, string]> = {
@@ -114,6 +114,10 @@ function calculateMoskituPrice(
   const heightM = heightMm / 1000
   const area = widthM * heightM
 
+  if (area > 2) {
+    return { price: "-", isValid: false, breakdown: null }
+  }
+
   const productCost = Math.round(basePrice * MOSKITU_MARKUP_MULTIPLIER * area * 1.21)
   const total = productCost
 
@@ -134,8 +138,10 @@ type MoskituCalculatorProps = {
 export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
   const [material, setMaterial] = useState<MoskituMaterialOption["value"] | "">("")
   const [system, setSystem] = useState<MoskituSystemOption["value"] | "">("")
-  const [width, setWidth] = useState(2000)
-  const [height, setHeight] = useState(2200)
+  const [width, setWidth] = useState(1000)
+  const [height, setHeight] = useState(1200)
+  const [widthInputValue, setWidthInputValue] = useState("1000")
+  const [heightInputValue, setHeightInputValue] = useState("1200")
   const [includeInstallation, setIncludeInstallation] = useState(false)
   const [downloadPending, setDownloadPending] = useState(false)
   const [downloadError, setDownloadError] = useState<string | null>(null)
@@ -179,6 +185,14 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
   }, [activeMaxHeightMm])
 
   useEffect(() => {
+    setWidthInputValue(width.toString())
+  }, [width])
+
+  useEffect(() => {
+    setHeightInputValue(height.toString())
+  }, [height])
+
+  useEffect(() => {
     setSystem((current) => (current && availableSystems.some((option) => option.value === current) ? current : ""))
   }, [availableSystems])
 
@@ -195,6 +209,20 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
     }
     return MOSKITU_SYSTEM_IMAGES[system as MoskituSystemOption["value"]]
   }, [system])
+
+  const exceedsAreaLimit = useMemo(() => width * height > 2_000_000, [width, height])
+
+  const handleWidthChange = (value: number) => {
+    const normalized = clamp(Math.round(value), MOSKITU_MIN_WIDTH_MM, activeMaxWidthMm)
+    setWidth(normalized)
+    setWidthInputValue(normalized.toString())
+  }
+
+  const handleHeightChange = (value: number) => {
+    const normalized = clamp(Math.round(value), MOSKITU_MIN_HEIGHT_MM, activeMaxHeightMm)
+    setHeight(normalized)
+    setHeightInputValue(normalized.toString())
+  }
 
   const handleDownload = async () => {
     if (!result.isValid) return
@@ -398,11 +426,11 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
   return (
     <div
       ref={calculatorRef}
-      className="w-full rounded-3xl bg-emerald-50 p-6 shadow-sm sm:p-10"
+      className="mt-10 w-full rounded-3xl bg-emerald-50 p-6 shadow-sm sm:p-10"
       data-component-name="MoskituCalculator"
     >
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title ?? "Moskītu tīklu kalkulators"}</h2>
+        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title ?? "Cenas kalkulators"}</h2>
       </div>
 
       {isMaxSizesOpen && (
@@ -513,18 +541,35 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
                 max={activeMaxWidthMm}
                 step={10}
                 value={width}
-                onChange={(event) => setWidth(clamp(Number(event.target.value), MOSKITU_MIN_WIDTH_MM, activeMaxWidthMm))}
+                onChange={(event) => handleWidthChange(Number(event.target.value))}
                 className="range-input accent-emerald-500"
               />
               <input
                 type="number"
                 min={MOSKITU_MIN_WIDTH_MM}
                 max={activeMaxWidthMm}
-                value={width}
+                value={widthInputValue}
                 onChange={(event) => {
-                  const value = event.target.value
-                  if (value === "") return
-                  setWidth(clamp(Number(value), MOSKITU_MIN_WIDTH_MM, activeMaxWidthMm))
+                  setWidthInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  handleWidthChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
@@ -544,18 +589,35 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
                 max={activeMaxHeightMm}
                 step={10}
                 value={height}
-                onChange={(event) => setHeight(clamp(Number(event.target.value), MOSKITU_MIN_HEIGHT_MM, activeMaxHeightMm))}
+                onChange={(event) => handleHeightChange(Number(event.target.value))}
                 className="range-input accent-emerald-500"
               />
               <input
                 type="number"
                 min={MOSKITU_MIN_HEIGHT_MM}
                 max={activeMaxHeightMm}
-                value={height}
+                value={heightInputValue}
                 onChange={(event) => {
-                  const value = event.target.value
-                  if (value === "") return
-                  setHeight(clamp(Number(value), MOSKITU_MIN_HEIGHT_MM, activeMaxHeightMm))
+                  setHeightInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  handleHeightChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
@@ -582,6 +644,9 @@ export default function MoskituCalculator({ title }: MoskituCalculatorProps) {
             <p className="text-base font-medium text-gray-600">Cena € ar PVN:</p>
             <p className="mt-3 text-4xl font-bold text-gray-900 sm:text-5xl">{result.price}</p>
           </div>
+          {exceedsAreaLimit && (
+            <p className="mt-3 text-sm font-semibold text-red-600">Nepiemērots platums/augstums</p>
+          )}
           {breakdown && (
             <div className="mt-4 w-full rounded-xl border border-gray-200 bg-white/80 px-5 py-4 text-sm text-gray-700 shadow-inner">
               <dl className="space-y-2">

@@ -173,6 +173,8 @@ const PLISETAS_NOTES = [
   "* Montāžas pakalpojumi nav iekļauti cenā.",
 ]
 
+const PLISETAS_MARKUP_FACTOR = 1.6
+
 function formatMaterialDescription(material: PlisetasMaterial | null): string {
   if (!material) {
     return ""
@@ -222,7 +224,7 @@ function calculatePrice(
   const area = Math.max(widthM * heightM, 0.75)
   const cost = area * basePrice
 
-  const productCost = Math.round(cost * 1.75 * 1.21)
+  const productCost = Math.round(cost * PLISETAS_MARKUP_FACTOR * 1.21)
   const totalRounded = productCost
 
   return {
@@ -244,6 +246,8 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
   const [system, setSystem] = useState("")
   const [width, setWidth] = useState(1000)
   const [height, setHeight] = useState(1000)
+  const [widthInputValue, setWidthInputValue] = useState("1000")
+  const [heightInputValue, setHeightInputValue] = useState("1000")
   const [includeInstallation, setIncludeInstallation] = useState(false)
   const [downloadPending, setDownloadPending] = useState(false)
   const [downloadError, setDownloadError] = useState<string | null>(null)
@@ -298,6 +302,14 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
   }, [activeMaxHeightMm])
 
   useEffect(() => {
+    setWidthInputValue(width.toString())
+  }, [width])
+
+  useEffect(() => {
+    setHeightInputValue(height.toString())
+  }, [height])
+
+  useEffect(() => {
     setSystem("")
   }, [materialCode])
 
@@ -326,11 +338,15 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
   }
 
   const handleWidthChange = (value: number) => {
-    setWidth(clamp(Math.round(value), MIN_WIDTH_MM, activeMaxWidthMm))
+    const normalized = clamp(Math.round(value), MIN_WIDTH_MM, activeMaxWidthMm)
+    setWidth(normalized)
+    setWidthInputValue(normalized.toString())
   }
 
   const handleHeightChange = (value: number) => {
-    setHeight(clamp(Math.round(value), MIN_HEIGHT_MM, activeMaxHeightMm))
+    const normalized = clamp(Math.round(value), MIN_HEIGHT_MM, activeMaxHeightMm)
+    setHeight(normalized)
+    setHeightInputValue(normalized.toString())
   }
 
   const handleDownload = async () => {
@@ -535,7 +551,7 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
       id="plisetas-calculator"
     >
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title ?? "Plisēto žalūziju kalkulators"}</h2>
+        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title ?? "Cenas kalkulators"}</h2>
       </div>
 
       {isMaxSizesOpen && (
@@ -683,10 +699,28 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
                 type="number"
                 min={MIN_WIDTH_MM}
                 max={activeMaxWidthMm}
-                value={width}
+                value={widthInputValue}
                 onChange={(event) => {
-                  if (event.target.value === "") return
-                  handleWidthChange(Number(event.target.value))
+                  setWidthInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  handleWidthChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
               />
@@ -713,10 +747,28 @@ export default function PlisetasCalculator({ title }: PlisetasCalculatorProps) {
                 type="number"
                 min={MIN_HEIGHT_MM}
                 max={activeMaxHeightMm}
-                value={height}
+                value={heightInputValue}
                 onChange={(event) => {
-                  if (event.target.value === "") return
-                  handleHeightChange(Number(event.target.value))
+                  setHeightInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  handleHeightChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
               />

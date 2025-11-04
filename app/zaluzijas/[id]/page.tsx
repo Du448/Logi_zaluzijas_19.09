@@ -113,22 +113,22 @@ export default function Page({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          {id === 'plisetas' && <PlisetasCalculatorSection title="Plisēto žalūziju kalkulators" />}
-          {id === 'foto' && <FotoCalculator title="Foto žalūziju kalkulators" />}
-          {id === 'screen' && <ScreenCalculator title="Screen žalūziju kalkulators" />}
+          {id === 'plisetas' && <PlisetasCalculatorSection title="Cenas kalkulators" />}
+          {id === 'foto' && <FotoCalculator title="Cenas kalkulators" />}
+          {id === 'screen' && <ScreenCalculator title="Cenas kalkulators" />}
           {id === 'kasetu-diena-nakts' && (
             <KasetuDienaNaktsCalculator title='Kasešu "Diena/Nakts" žalūziju kalkulators' />
           )}
           {id === 'rullo-diena-nakts' && (
             <RulloCalculatorSection
               context="rullo-diena-nakts"
-              title="Kalkulators"
+              title="Cenas kalkulators"
               instanceKey="rullo-diena-nakts"
             />
           )}
-          {id === 'romiesu' && <RomiesuCalculator title="Romiešu žalūziju kalkulators" />}
-          {id === 'moskitu' && <MoskituCalculator title="Moskītu tīklu kalkulators" />}
-          {id === 'mansarda' && <MansardaCalculator title="Mansarda žalūziju kalkulators" />}
+          {id === 'romiesu' && <RomiesuCalculator title="Cenas kalkulators" />}
+          {id === 'moskitu' && <MoskituCalculator title="Cenas kalkulators" />}
+          {id === 'mansarda' && <MansardaCalculator title="Cenas kalkulators" />}
           {inquiryCards[id] && (
             <div className="mt-12 max-w-4xl mx-auto">
               <div className="relative overflow-hidden rounded-3xl border border-sky-200 bg-white p-10 shadow-xl">
@@ -166,10 +166,10 @@ export default function Page({ params }: { params: { id: string } }) {
           {(id === 'rullo-kasetu' || id === 'rullo' || id === 'vertikalas') && (() => {
             const props =
               id === 'rullo'
-                ? { context: 'rullo' as const, title: 'Rullo žalūziju kalkulators', instanceKey: 'rullo' }
+                ? { context: 'rullo' as const, title: 'Cenas kalkulators', instanceKey: 'rullo' }
                 : id === 'rullo-kasetu'
-                ? { context: 'rullo-kasetu' as const, title: 'Rullo kasetes kalkulators', instanceKey: 'rullo-kasetu' }
-                : { context: 'rullo-kasetu' as const, title: 'Vertikālo žalūziju kalkulators', instanceKey: 'vertikalas' }
+                ? { context: 'rullo-kasetu' as const, title: 'Cenas kalkulators', instanceKey: 'rullo-kasetu' }
+                : { context: 'rullo-kasetu' as const, title: 'Cenas kalkulators', instanceKey: 'vertikalas' }
             return <RulloCalculatorSection {...props} />
           })()}
         </div>

@@ -144,6 +144,8 @@ const FOTO_NOTES = [
   "* Montāžas pakalpojumi nav iekļauti cenā.",
 ]
 
+const FOTO_MARKUP_FACTOR = 1.6
+
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max)
 }
@@ -168,7 +170,7 @@ function calculateFotoPrice(
   const heightM = heightMm / 1000
   const cost = widthM * heightM * basePrice
 
-  const productCost = Math.round(cost * 1.75 * 1.21)
+  const productCost = Math.round(cost * FOTO_MARKUP_FACTOR * 1.21)
   const totalRounded = productCost
 
   return {
@@ -199,6 +201,8 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
   const [system, setSystem] = useState<string>("")
   const [width, setWidth] = useState<number>(1200)
   const [height, setHeight] = useState<number>(1500)
+  const [widthInputValue, setWidthInputValue] = useState("1200")
+  const [heightInputValue, setHeightInputValue] = useState("1500")
   const [includeInstallation, setIncludeInstallation] = useState<boolean>(false)
   const [downloadPending, setDownloadPending] = useState(false)
   const [downloadError, setDownloadError] = useState<string | null>(null)
@@ -241,6 +245,14 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
     setHeight((current) => clamp(current, MIN_HEIGHT_MM, activeMaxHeightMm))
   }, [activeMaxHeightMm])
 
+  useEffect(() => {
+    setWidthInputValue(width.toString())
+  }, [width])
+
+  useEffect(() => {
+    setHeightInputValue(height.toString())
+  }, [height])
+
   const selectedSystemVisual = system ? FOTO_SYSTEM_VISUALS[system] ?? null : null
 
   const result = useMemo(
@@ -251,6 +263,18 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
   const breakdown = result.breakdown
 
   const formatCurrency = (value: number) => `${numberFormatter.format(value)} €`
+
+  const handleWidthChange = (value: number) => {
+    const normalized = clamp(Math.round(value), MIN_WIDTH_MM, activeMaxWidthMm)
+    setWidth(normalized)
+    setWidthInputValue(normalized.toString())
+  }
+
+  const handleHeightChange = (value: number) => {
+    const normalized = clamp(Math.round(value), MIN_HEIGHT_MM, activeMaxHeightMm)
+    setHeight(normalized)
+    setHeightInputValue(normalized.toString())
+  }
 
   const handleDownload = async () => {
     if (!result.isValid) return
@@ -446,11 +470,11 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
   return (
     <div
       ref={calculatorRef}
-      className="w-full rounded-3xl bg-sky-50 p-6 shadow-sm sm:p-10"
+      className="mt-10 w-full rounded-3xl bg-sky-50 p-6 shadow-sm sm:p-10"
       data-component-name="FotoCalculator"
     >
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title ?? "Foto žalūziju kalkulators"}</h2>
+        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title ?? "Cenas kalkulators"}</h2>
       </div>
 
       {isMaxSizesOpen && (
@@ -594,18 +618,35 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
                 max={activeMaxWidthMm}
                 step={10}
                 value={width}
-                onChange={(event) => setWidth(clamp(Number(event.target.value), MIN_WIDTH_MM, activeMaxWidthMm))}
+                onChange={(event) => handleWidthChange(Number(event.target.value))}
                 className="range-input accent-sky-500"
               />
               <input
                 type="number"
                 min={MIN_WIDTH_MM}
                 max={activeMaxWidthMm}
-                value={width}
+                value={widthInputValue}
                 onChange={(event) => {
-                  const value = event.target.value
-                  if (value === "") return
-                  setWidth(clamp(Number(value), MIN_WIDTH_MM, activeMaxWidthMm))
+                  setWidthInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  handleWidthChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
               />
@@ -625,18 +666,35 @@ export default function FotoCalculator({ title }: FotoCalculatorProps) {
                 max={activeMaxHeightMm}
                 step={10}
                 value={height}
-                onChange={(event) => setHeight(clamp(Number(event.target.value), MIN_HEIGHT_MM, activeMaxHeightMm))}
+                onChange={(event) => handleHeightChange(Number(event.target.value))}
                 className="range-input accent-sky-500"
               />
               <input
                 type="number"
                 min={MIN_HEIGHT_MM}
                 max={activeMaxHeightMm}
-                value={height}
+                value={heightInputValue}
                 onChange={(event) => {
-                  const value = event.target.value
-                  if (value === "") return
-                  setHeight(clamp(Number(value), MIN_HEIGHT_MM, activeMaxHeightMm))
+                  setHeightInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  handleHeightChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
               />

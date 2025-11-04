@@ -41,6 +41,13 @@ const MATERIAL_BLACKOUT_INFO: Record<string, string> = {
   "WATER": "(68%)",
 }
 
+const MARKUP_FACTORS: Record<CalculatorContext, number> = {
+  "rullo": 2.2,
+  "rullo-kasetu": 2.2,
+  "rullo-diena-nakts": 2.2,
+  vertikalas: 1.6,
+}
+
 type SystemVisual = { label: string; image: string }
 
 type SystemOption = {
@@ -510,16 +517,16 @@ const TM_PRICE_DATA_RULLO: PriceTable = {
     "VARIO 32 Rullo (krāsains)": 43,
   },
   "BLACK OUT": {
-    "VARIO 25 Rullo (balts)": 38,
-    "VARIO 25 Rullo (krāsains)": 41,
-    "VARIO 32 Rullo (balts)": 41,
-    "VARIO 32 Rullo (krāsains)": 43,
+    "VARIO 25 Rullo (balts)": 33,
+    "VARIO 25 Rullo (krāsains)": 36,
+    "VARIO 32 Rullo (balts)": 36,
+    "VARIO 32 Rullo (krāsains)": 39,
   },
   METALIC: {
-    "VARIO 25 Rullo (balts)": 38,
-    "VARIO 25 Rullo (krāsains)": 40,
-    "VARIO 32 Rullo (balts)": 40,
-    "VARIO 32 Rullo (krāsains)": 43,
+    "VARIO 25 Rullo (balts)": 33,
+    "VARIO 25 Rullo (krāsains)": 36,
+    "VARIO 32 Rullo (balts)": 36,
+    "VARIO 32 Rullo (krāsains)": 39,
   },
   "METALIC WHITE": {
     "VARIO 25 Rullo (balts)": 38,
@@ -975,8 +982,8 @@ const SYSTEM_CONSTRAINTS_KASETU: Record<string, Constraint> = {
 const SYSTEM_CONSTRAINTS_RULLO: Record<string, Constraint> = {
   "VARIO 25 Rullo (balts)": { maxWidth: 2.2, maxHeight: 3 },
   "VARIO 25 Rullo (krāsains)": { maxWidth: 2.2, maxHeight: 3 },
-  "VARIO 32 Rullo (balts)": { maxWidth: 2.2, maxHeight: 3 },
-  "VARIO 32 Rullo (krāsains)": { maxWidth: 2.2, maxHeight: 3 },
+  "VARIO 32 Rullo (balts)": { maxWidth: 2.2, maxHeight: 2.7 },
+  "VARIO 32 Rullo (krāsains)": { maxWidth: 2.2, maxHeight: 2.7 },
 }
 
 const VERTIKALAS_CONSTRAINTS: Record<string, Constraint> = {
@@ -1000,8 +1007,6 @@ const numberFormatter = new Intl.NumberFormat("lv-LV", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 })
-
-const INSTALLATION_FEE = 20
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max)
@@ -1063,12 +1068,16 @@ function calculatePrice(
 
   const widthM = widthMm / 1000
   const heightM = heightMm / 1000
+  const area = widthM * heightM
 
-  const chargeableWidth = context === "vertikalas" ? widthM : Math.max(widthM, 0.5)
-
-  const baseCost = context === "vertikalas"
-    ? chargeableWidth * heightM * basePrice
-    : chargeableWidth * basePrice
+  let baseCost: number
+  if (context === "vertikalas") {
+    const billableArea = Math.max(area, 1)
+    baseCost = billableArea * basePrice
+  } else {
+    const chargeableWidth = Math.max(widthM, 0.5)
+    baseCost = chargeableWidth * basePrice
+  }
 
   let multiplier = 1
   if (context !== "vertikalas") {
@@ -1081,8 +1090,9 @@ function calculatePrice(
 
   const cost = baseCost * multiplier
 
-  const productCost = Math.round(cost * 2.5 * 1.21)
-  const installationCost = includeInstallation ? INSTALLATION_FEE : 0
+  const markupFactor = MARKUP_FACTORS[context] ?? MARKUP_FACTORS["rullo"]
+  const productCost = Math.round(cost * markupFactor * 1.21)
+  const installationCost = 0
   const totalRounded = productCost + installationCost
 
   return {
@@ -1139,9 +1149,43 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
           ? SYSTEM_IMAGE_INFO_RULLO
           : {}
 
+  const maxSizeLines = useMemo(() => {
+    if (isVertikalas) {
+      return [
+        "Žalūziju maksimālais platums - 3,00 m.",
+        "Žalūziju maksimālais augstums – 3,50 m.",
+      ]
+    }
+
+    const dedup = new Map<string, Constraint>()
+
+    Object.entries(constraintsMap).forEach(([system, constraint]) => {
+      const baseLabel = system.replace(/\s*\((balts|krāsains)\)$/i, "")
+      const existing = dedup.get(baseLabel)
+      if (existing) {
+        dedup.set(baseLabel, {
+          maxWidth: Math.max(existing.maxWidth, constraint.maxWidth),
+          maxHeight: Math.max(existing.maxHeight, constraint.maxHeight),
+        })
+      } else {
+        dedup.set(baseLabel, constraint)
+      }
+    })
+
+    return Array.from(dedup.entries())
+      .sort((a, b) => a[0].localeCompare(b[0], "lv"))
+      .map(([label, constraint]) => {
+        const widthMm = Math.round(constraint.maxWidth * 1000)
+        const heightMm = Math.round(constraint.maxHeight * 1000)
+        return `mak. izmērs - P${widthMm}xA${heightMm} (${label})`
+      })
+  }, [constraintsMap, isVertikalas])
+
   const [material, setMaterial] = useState("")
   const [width, setWidth] = useState(1000)
   const [height, setHeight] = useState(1000)
+  const [widthInputValue, setWidthInputValue] = useState("1000")
+  const [heightInputValue, setHeightInputValue] = useState("1000")
   const [system, setSystem] = useState("")
   const [includeInstallation, setIncludeInstallation] = useState(false)
   const [downloadPending, setDownloadPending] = useState(false)
@@ -1285,6 +1329,14 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
     setHeight((current) => clamp(current, MIN_HEIGHT_MM, activeMaxHeightMm))
   }, [activeMaxHeightMm])
 
+  useEffect(() => {
+    setWidthInputValue(width.toString())
+  }, [width])
+
+  useEffect(() => {
+    setHeightInputValue(height.toString())
+  }, [height])
+
   const result = useMemo(
     () =>
       calculatePrice(
@@ -1305,11 +1357,15 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
   const selectedTone = useMemo(() => (toneOptions.find((tone) => tone.id === toneId) ?? null), [toneId, toneOptions])
 
   const handleWidthChange = (value: number) => {
-    setWidth(clamp(Math.round(value), MIN_WIDTH_MM, activeMaxWidthMm))
+    const normalized = clamp(Math.round(value), MIN_WIDTH_MM, activeMaxWidthMm)
+    setWidth(normalized)
+    setWidthInputValue(normalized.toString())
   }
 
   const handleHeightChange = (value: number) => {
-    setHeight(clamp(Math.round(value), MIN_HEIGHT_MM, activeMaxHeightMm))
+    const normalized = clamp(Math.round(value), MIN_HEIGHT_MM, activeMaxHeightMm)
+    setHeight(normalized)
+    setHeightInputValue(normalized.toString())
   }
 
   const handleDownload = async () => {
@@ -1580,18 +1636,9 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
               </button>
             </div>
             <div className="mt-4 space-y-2 text-sm text-gray-700">
-              {isVertikalas ? (
-                <>
-                  <p>Žalūziju maksimālais platums - 3,00 m.</p>
-                  <p>Žalūziju maksimālais augstums – 3,50 m.</p>
-                </>
-              ) : (
-                <>
-                  <p>mak. izmērs - P1500xA1300 (Vario 13)</p>
-                  <p>mak. izmērs - P1600xA2000 (Vario 17)</p>
-                  <p>mak. izmērs - P1600xA2000 (Vario 25)</p>
-                </>
-              )}
+              {maxSizeLines.map((line) => (
+                <p key={line}>{line}</p>
+              ))}
             </div>
             <div className="mt-6 flex justify-end">
               <button
@@ -1822,10 +1869,28 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
                 type="number"
                 min={MIN_WIDTH_MM}
                 max={activeMaxWidthMm}
-                value={width}
+                value={widthInputValue}
                 onChange={(event) => {
-                  if (event.target.value === "") return
-                  handleWidthChange(Number(event.target.value))
+                  setWidthInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  handleWidthChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
               />
@@ -1855,10 +1920,28 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
                 type="number"
                 min={MIN_HEIGHT_MM}
                 max={activeMaxHeightMm}
-                value={height}
+                value={heightInputValue}
                 onChange={(event) => {
-                  if (event.target.value === "") return
-                  handleHeightChange(Number(event.target.value))
+                  setHeightInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  handleHeightChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
               />
@@ -1934,7 +2017,9 @@ export default function RulloCalculator({ context = "rullo-kasetu", title, insta
 
             lines.push(`• Sistēma: ${system || "—"}`)
             lines.push(`• Izmērs (mm): ${width} x ${height}`)
-            lines.push(`• Montāža: ${install}`)
+            if (includeInstallation) {
+              lines.push(`• Montāža: ${install}`)
+            }
             lines.push(`• Kopā ar PVN: ${priceText}`)
             const summary = lines.join("\n")
             const href = `/kontakti?calc=${encodeURIComponent(summary)}`

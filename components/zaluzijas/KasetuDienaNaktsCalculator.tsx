@@ -9,9 +9,9 @@ const MAX_WIDTH_MM = 2200
 const MIN_HEIGHT_MM = 300
 const MAX_HEIGHT_MM = 3000
 
-const INSTALLATION_FEE = 25
 const CALCULATION_HEIGHT_M = 2.5
 const MIN_BILLABLE_WIDTH_M = 0.5
+const MARKUP_FACTOR = 2.25 / 2.5
 
 const SYSTEM_OPTIONS = [
   { value: "VARIO 13 Kasete (balta)", label: "Vario 13 · balta kasete" },
@@ -189,7 +189,7 @@ const PRICE_TABLE: PriceTable = {
 
 const NOTES = [
   "* Norādītā cena ir informatīva un var atšķirties pēc precīzas uzmērīšanas.",
-  "* Montāžas pakalpojumi tiek pieskaitīti, ja tos iekļauj aprēķinā.",
+  "* Montāžas pakalpojumi nav iekļauti aprēķinā.",
 ]
 
 const NUMBER_FORMATTER = new Intl.NumberFormat("lv-LV", {
@@ -233,8 +233,8 @@ function calculatePrice(
   const billableWidthM = Math.max(widthM, MIN_BILLABLE_WIDTH_M)
   const heightMultiplier = heightMm > 2000 ? 2 : heightMm > 1500 ? 1.2 : 1
 
-  const productCost = Math.round(basePrice * CALCULATION_HEIGHT_M * billableWidthM * heightMultiplier * 1.21)
-  const installationCost = includeInstallation ? INSTALLATION_FEE : 0
+  const productCost = Math.round(basePrice * CALCULATION_HEIGHT_M * billableWidthM * heightMultiplier * MARKUP_FACTOR * 1.21)
+  const installationCost = 0
   const total = productCost + installationCost
 
   return {
@@ -257,6 +257,8 @@ export default function KasetuDienaNaktsCalculator({ title }: KasetuDienaNaktsCa
   const [system, setSystem] = useState<SystemOption["value"] | "">("")
   const [width, setWidth] = useState(1800)
   const [height, setHeight] = useState(2100)
+  const [widthInputValue, setWidthInputValue] = useState("1800")
+  const [heightInputValue, setHeightInputValue] = useState("2100")
   const [includeInstallation, setIncludeInstallation] = useState(false)
   const [downloadPending, setDownloadPending] = useState(false)
   const [downloadError, setDownloadError] = useState<string | null>(null)
@@ -295,6 +297,14 @@ export default function KasetuDienaNaktsCalculator({ title }: KasetuDienaNaktsCa
   }, [activeMaxHeightMm])
 
   useEffect(() => {
+    setWidthInputValue(width.toString())
+  }, [width])
+
+  useEffect(() => {
+    setHeightInputValue(height.toString())
+  }, [height])
+
+  useEffect(() => {
     setSystem((current) => (current && availableSystems.some((option) => option.value === current) ? current : ""))
   }, [availableSystems])
 
@@ -312,22 +322,34 @@ export default function KasetuDienaNaktsCalculator({ title }: KasetuDienaNaktsCa
       return null
     }
 
-    const install = includeInstallation ? "Jā" : "Nē"
     const priceText = result?.breakdown?.total
       ? `${NUMBER_FORMATTER.format(result.breakdown.total)} €`
       : `${result?.price ?? "—"} €`
 
-    return [
+    const summaryLines = [
       "Aprēķins (kasešu \"diena/nakts\" žalūzijas):",
       `• Audums: ${MATERIAL_OPTIONS.find((option) => option.value === material)?.label ?? material}`,
       `• Sistēma: ${SYSTEM_OPTIONS.find((option) => option.value === system)?.label ?? system}`,
       `• Izmērs (mm): ${width} × ${height}`,
-      `• Montāža: ${install}`,
       `• Kopā ar PVN: ${priceText}`,
-    ].join("\n")
+    ]
+
+    return summaryLines.join("\n")
   }, [height, includeInstallation, material, result, system, width])
 
   const contactHref = summaryText ? `/kontakti?calc=${encodeURIComponent(summaryText)}` : "/kontakti"
+
+  const handleWidthChange = (value: number) => {
+    const normalized = clamp(Math.round(value), MIN_WIDTH_MM, activeMaxWidthMm)
+    setWidth(normalized)
+    setWidthInputValue(normalized.toString())
+  }
+
+  const handleHeightChange = (value: number) => {
+    const normalized = clamp(Math.round(value), MIN_HEIGHT_MM, activeMaxHeightMm)
+    setHeight(normalized)
+    setHeightInputValue(normalized.toString())
+  }
 
   const handleDownload = async () => {
     if (!result.isValid) return
@@ -490,28 +512,6 @@ export default function KasetuDienaNaktsCalculator({ title }: KasetuDienaNaktsCa
         margin: [0, 10, 0, 0],
       })
 
-      if (includeInstallation && breakdown) {
-        content.push({
-          margin: [0, 16, 0, 0],
-          table: {
-            widths: ["*", "auto"],
-            body: [
-              [{ text: "Žalūzijas", style: "label" }, `${NUMBER_FORMATTER.format(breakdown.product)} €`],
-              [{ text: "Montāža", style: "label" }, `${NUMBER_FORMATTER.format(breakdown.installation)} €`],
-              [{ text: "Kopā", style: "label" }, `${NUMBER_FORMATTER.format(breakdown.total)} €`],
-            ],
-          },
-          layout: {
-            hLineColor: () => "#e5e7eb",
-            vLineColor: () => "#ffffff",
-            paddingLeft: () => 0,
-            paddingRight: () => 0,
-            paddingTop: () => 6,
-            paddingBottom: () => 6,
-          },
-        })
-      }
-
       const docDefinition: any = {
         pageMargins: [40, 40, 40, 60],
         defaultStyle: { font: "Roboto", fontSize: 11, color: "#1f2937" },
@@ -536,10 +536,9 @@ export default function KasetuDienaNaktsCalculator({ title }: KasetuDienaNaktsCa
   }
 
   return (
-    <div className="w-full rounded-3xl bg-emerald-50 p-6 shadow-sm sm:p-10" data-component-name="KasetuDienaNaktsCalculator">
+    <div className="mt-10 w-full rounded-3xl bg-emerald-50 p-6 shadow-sm sm:p-10" data-component-name="KasetuDienaNaktsCalculator">
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title ?? "Kasešu \"Diena/Nakts\" žalūziju kalkulators"}</h2>
-        <p className="mt-2 text-sm text-gray-600">Aprēķiniet cenu Zebra auduma kasešu žalūzijām pēc individuāliem izmēriem.</p>
+        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Cenas kalkulators</h2>
       </div>
 
       {isMaxSizesOpen && (
@@ -660,18 +659,35 @@ export default function KasetuDienaNaktsCalculator({ title }: KasetuDienaNaktsCa
                 max={activeMaxWidthMm}
                 step={10}
                 value={width}
-                onChange={(event) => setWidth(clamp(Number(event.target.value), MIN_WIDTH_MM, activeMaxWidthMm))}
+                onChange={(event) => handleWidthChange(Number(event.target.value))}
                 className="range-input accent-emerald-500"
               />
               <input
                 type="number"
                 min={MIN_WIDTH_MM}
                 max={activeMaxWidthMm}
-                value={width}
+                value={widthInputValue}
                 onChange={(event) => {
-                  const value = event.target.value
-                  if (value === "") return
-                  setWidth(clamp(Number(value), MIN_WIDTH_MM, activeMaxWidthMm))
+                  setWidthInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  handleWidthChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
@@ -691,18 +707,35 @@ export default function KasetuDienaNaktsCalculator({ title }: KasetuDienaNaktsCa
                 max={activeMaxHeightMm}
                 step={10}
                 value={height}
-                onChange={(event) => setHeight(clamp(Number(event.target.value), MIN_HEIGHT_MM, activeMaxHeightMm))}
+                onChange={(event) => handleHeightChange(Number(event.target.value))}
                 className="range-input accent-emerald-500"
               />
               <input
                 type="number"
                 min={MIN_HEIGHT_MM}
                 max={activeMaxHeightMm}
-                value={height}
+                value={heightInputValue}
                 onChange={(event) => {
-                  const value = event.target.value
-                  if (value === "") return
-                  setHeight(clamp(Number(value), MIN_HEIGHT_MM, activeMaxHeightMm))
+                  setHeightInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  handleHeightChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
@@ -733,12 +766,6 @@ export default function KasetuDienaNaktsCalculator({ title }: KasetuDienaNaktsCa
                   <dt className="font-medium">Žalūzijas cena</dt>
                   <dd>{NUMBER_FORMATTER.format(breakdown.product)} €</dd>
                 </div>
-                {includeInstallation && (
-                  <div className="flex items-center justify-between">
-                    <dt className="font-medium">Montāža</dt>
-                    <dd>{NUMBER_FORMATTER.format(breakdown.installation)} €</dd>
-                  </div>
-                )}
                 <div className="flex items-center justify-between border-t border-gray-200 pt-2">
                   <dt className="font-semibold text-gray-900">Kopā ar PVN</dt>
                   <dd className="font-semibold text-gray-900">{NUMBER_FORMATTER.format(breakdown.total)} €</dd>

@@ -205,6 +205,8 @@ export default function ScreenCalculator({ title }: ScreenCalculatorProps) {
   const [system, setSystem] = useState<ScreenSystemOption["value"] | "">("")
   const [width, setWidth] = useState(2000)
   const [height, setHeight] = useState(2200)
+  const [widthInputValue, setWidthInputValue] = useState("2000")
+  const [heightInputValue, setHeightInputValue] = useState("2200")
   const [includeInstallation, setIncludeInstallation] = useState(false)
   const [downloadPending, setDownloadPending] = useState(false)
   const [downloadError, setDownloadError] = useState<string | null>(null)
@@ -245,6 +247,14 @@ export default function ScreenCalculator({ title }: ScreenCalculatorProps) {
   }, [activeMaxHeightMm])
 
   useEffect(() => {
+    setWidthInputValue(width.toString())
+  }, [width])
+
+  useEffect(() => {
+    setHeightInputValue(height.toString())
+  }, [height])
+
+  useEffect(() => {
     setSystem((current) => (current && availableSystems.some((option) => option.value === current) ? current : ""))
   }, [availableSystems])
 
@@ -256,6 +266,18 @@ export default function ScreenCalculator({ title }: ScreenCalculatorProps) {
   const breakdown = result.breakdown
 
   const selectedSystemImages = useMemo(() => (system ? SCREEN_SYSTEM_IMAGES[system] : null), [system])
+
+  const handleWidthChange = (value: number) => {
+    const normalized = clamp(Math.round(value), MIN_WIDTH_MM, activeMaxWidthMm)
+    setWidth(normalized)
+    setWidthInputValue(normalized.toString())
+  }
+
+  const handleHeightChange = (value: number) => {
+    const normalized = clamp(Math.round(value), MIN_HEIGHT_MM, activeMaxHeightMm)
+    setHeight(normalized)
+    setHeightInputValue(normalized.toString())
+  }
 
   const handleDownload = async () => {
     if (!result.isValid) return
@@ -463,7 +485,7 @@ export default function ScreenCalculator({ title }: ScreenCalculatorProps) {
       data-component-name="ScreenCalculator"
     >
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title ?? "Screen žalūziju kalkulators"}</h2>
+        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title ?? "Cenas kalkulators"}</h2>
       </div>
 
       {isMaxSizesOpen && (
@@ -587,18 +609,35 @@ export default function ScreenCalculator({ title }: ScreenCalculatorProps) {
                 max={activeMaxWidthMm}
                 step={10}
                 value={width}
-                onChange={(event) => setWidth(clamp(Number(event.target.value), MIN_WIDTH_MM, activeMaxWidthMm))}
+                onChange={(event) => handleWidthChange(Number(event.target.value))}
                 className="range-input accent-emerald-500"
               />
               <input
                 type="number"
                 min={MIN_WIDTH_MM}
                 max={activeMaxWidthMm}
-                value={width}
+                value={widthInputValue}
                 onChange={(event) => {
-                  const value = event.target.value
-                  if (value === "") return
-                  setWidth(clamp(Number(value), MIN_WIDTH_MM, activeMaxWidthMm))
+                  setWidthInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setWidthInputValue(width.toString())
+                    return
+                  }
+                  handleWidthChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
@@ -618,18 +657,35 @@ export default function ScreenCalculator({ title }: ScreenCalculatorProps) {
                 max={activeMaxHeightMm}
                 step={10}
                 value={height}
-                onChange={(event) => setHeight(clamp(Number(event.target.value), MIN_HEIGHT_MM, activeMaxHeightMm))}
+                onChange={(event) => handleHeightChange(Number(event.target.value))}
                 className="range-input accent-emerald-500"
               />
               <input
                 type="number"
                 min={MIN_HEIGHT_MM}
                 max={activeMaxHeightMm}
-                value={height}
+                value={heightInputValue}
                 onChange={(event) => {
-                  const value = event.target.value
-                  if (value === "") return
-                  setHeight(clamp(Number(value), MIN_HEIGHT_MM, activeMaxHeightMm))
+                  setHeightInputValue(event.target.value)
+                }}
+                onBlur={(event) => {
+                  const rawValue = event.currentTarget.value.trim()
+                  if (!rawValue) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  const parsedValue = Number(rawValue)
+                  if (Number.isNaN(parsedValue)) {
+                    setHeightInputValue(height.toString())
+                    return
+                  }
+                  handleHeightChange(parsedValue)
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    event.currentTarget.blur()
+                  }
                 }}
                 className="w-24 rounded-xl border border-gray-200 px-3 py-2 text-center text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
