@@ -3,11 +3,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useCart } from '@/lib/cart-context'
 import { useEffect, useRef, useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import ShareButton from '@/components/ShareButton'
 
 export default function Header(){
   const { count } = useCart()
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const [openProducts, setOpenProducts] = useState(false)
   const [openServices, setOpenServices] = useState(false)
@@ -125,9 +126,8 @@ export default function Header(){
     e.preventDefault()
     if (searchQuery.trim().length === 0) return
     const q = encodeURIComponent(searchQuery.trim())
-    if (typeof window !== 'undefined') {
-      window.location.href = `https://www.google.com/search?q=site:${window.location.origin}+${q}`
-    }
+    router.push(`/meklesana?q=${q}`)
+    setShowSearch(false)
   };
 
   useEffect(() => {

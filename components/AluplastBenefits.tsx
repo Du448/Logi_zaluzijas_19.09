@@ -3,12 +3,14 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
-export default function AluplastBenefits() {
+type Props = { showCTA?: boolean }
+
+export default function AluplastBenefits({ showCTA = true }: Props) {
   return (
     <div className="bg-white">
       <HeroSection />
       <BenefitsGrid />
-      <CTASection />
+      {showCTA && <CTASection />}
     </div>
   )
 }

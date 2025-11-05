@@ -247,7 +247,9 @@ export default async function handler(req, res) {
         })).filter((x) => x.content);
       }
 
-      if (process.env.RECAPTCHA_SECRET_KEY) {
+      // Variant A: Enforce reCAPTCHA only when token provided OR when not a quick form
+      const isQuick = body?.source === 'quick'
+      if (process.env.RECAPTCHA_SECRET_KEY && (!isQuick || !!recaptchaToken)) {
         if (!recaptchaToken) {
           return res.status(400).json({ message: "Nav derīgs reCAPTCHA tokens." });
         }

@@ -20,6 +20,123 @@ interface SearchDocument {
 let searchIndex: SearchDocument[] = []
 let lastIndexTime = 0
 const INDEX_TTL = 1000 * 60 * 60 // 1 hour
+const PAGE_FILE_NAMES = new Set(['page.tsx', 'page.ts', 'page.jsx', 'page.js'])
+
+const stringLiteralPattern = /`([\s\S]*?)`|"([\s\S]*?)"|'([\s\S]*?)'/g
+
+function deriveUrlPathFromRelativeFile(relativeFilePath: string): string | null {
+  const segments = relativeFilePath.split(/[\\/]+/)
+  segments.pop() // remove file name
+  const filtered = segments.filter(segment => {
+    if (!segment) return false
+    if (segment.startsWith('(') && segment.endsWith(')')) return false
+    return true
+  })
+  if (filtered.some(segment => segment.includes('['))) {
+    return null
+  }
+  if (filtered.length === 0) {
+    return '/'
+  }
+  return `/${filtered.join('/')}`
+}
+
+function generateTitleFromUrl(url: string): string {
+  if (url === '/' || url === '') {
+    return 'Sākumlapa'
+  }
+  const segments = url.split('/').filter(Boolean)
+  const last = segments[segments.length - 1] || ''
+  const decoded = decodeURIComponent(last)
+  return decoded
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\p{L}/gu, char => char.toUpperCase())
+}
+
+function extractMetadataFromSource(source: string): { title?: string; description?: string } {
+  const metadataStart = source.indexOf('export const metadata')
+  if (metadataStart === -1) {
+    return {}
+  }
+  const braceStart = source.indexOf('{', metadataStart)
+  if (braceStart === -1) {
+    return {}
+  }
+  let depth = 0
+  for (let i = braceStart; i < source.length; i++) {
+    const char = source[i]
+    if (char === '{') {
+      depth += 1
+    } else if (char === '}') {
+      depth -= 1
+      if (depth === 0) {
+        const block = source.slice(braceStart, i + 1)
+        const titleMatch = block.match(/title\s*:\s*['"`]{1}([\s\S]*?)['"`]/)
+        const descriptionMatch = block.match(/description\s*:\s*['"`]{1}([\s\S]*?)['"`]/)
+        return {
+          title: titleMatch?.[1]?.trim(),
+          description: descriptionMatch?.[1]?.trim(),
+        }
+      }
+    }
+  }
+  return {}
+}
+
+function extractReadableTextFromSource(source: string): string {
+  const literalSet = new Set<string>()
+  let match: RegExpExecArray | null
+  const literalRegex = new RegExp(stringLiteralPattern)
+  while ((match = literalRegex.exec(source))) {
+    const value = match[1] ?? match[2] ?? match[3] ?? ''
+    const trimmed = value.trim()
+    if (!trimmed) continue
+    if (!/[A-Za-zĀ-ž]/.test(trimmed)) continue
+    if (trimmed.length < 3) continue
+    if (trimmed.split(/\s+/).length === 1 && /[^A-Za-zĀ-ž]/.test(trimmed)) continue
+    if (/^https?:\/\//i.test(trimmed)) continue
+    literalSet.add(trimmed)
+  }
+
+  const withoutLiterals = source.replace(stringLiteralPattern, ' ')
+  const visible = withoutLiterals
+    .replace(/\/\*[\s\S]*?\*\//g, ' ')
+    .replace(/\/\/[^\n\r]*/g, ' ')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\{[^}]*\}/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+  const fragments = [...literalSet]
+  if (visible) {
+    fragments.push(visible)
+  }
+  return fragments.join(' ')
+}
+
+function processPageComponent(fullPath: string, relativePath: string): SearchDocument | null {
+  const urlPath = deriveUrlPathFromRelativeFile(relativePath)
+  if (!urlPath) {
+    return null
+  }
+  try {
+    const source = readFileSync(fullPath, 'utf8')
+    const { title, description } = extractMetadataFromSource(source)
+    const content = extractReadableTextFromSource(source)
+
+    return {
+      id: urlPath,
+      title: title || generateTitleFromUrl(urlPath),
+      description: description || '',
+      content,
+      url: urlPath,
+      type: 'page',
+    }
+  } catch (error) {
+    console.error(`Error processing ${fullPath}:`, error)
+    return null
+  }
+}
 
 async function processMdxFile(filePath: string, urlPath: string): Promise<SearchDocument | null> {
   try {
@@ -69,6 +186,9 @@ async function processDirectory(directory: string, basePath: string = ''): Promi
       const urlPath = `/${relativePath.replace(/\.(mdx|md)$/, '')}`
       const doc = await processMdxFile(fullPath, urlPath)
       if (doc) results.push(doc)
+    } else if (PAGE_FILE_NAMES.has(entry)) {
+      const doc = processPageComponent(fullPath, relativePath)
+      if (doc) results.push(doc)
     }
   }
 
@@ -106,33 +226,69 @@ export async function buildSearchIndex(): Promise<SearchDocument[]> {
   }
 
   // Add static routes that might not be in MDX
-  const staticRoutes: Partial<SearchDocument>[] = [
+  const staticRoutes: SearchDocument[] = [
     {
+      id: 'static-home',
       title: 'Sākumlapa',
       description: 'Vestalux - PVC logi un žalūzijas',
+      content: 'PVC logi, žalūzijas, logu piederumi un pilns serviss jūsu mājoklim.',
       url: '/',
-      type: 'page' as const,
+      type: 'page',
     },
     {
+      id: 'static-contact',
       title: 'Kontakti',
       description: 'Sazinies ar mums',
+      content: 'Kontakti, adrese, telefons un e-pasts ātrai saziņai ar Vestalux komandu.',
       url: '/kontakti',
-      type: 'page' as const,
+      type: 'page',
     },
-    // Add more static routes as needed
+    {
+      id: 'static-piederumi',
+      title: 'Logu piederumi',
+      description: 'Ārējās un iekšējās palodzes, logu rokturi un EPS profili vienuviet.',
+      content: 'Piederumi logiem — ārējās palodzes, iekšējās palodzes, logu rokturi, EPS bāzes profils. Izturība, estētika un kvalitatīva montāža.',
+      url: '/piederumi',
+      type: 'category',
+    },
+    {
+      id: 'static-arejas-palodzes',
+      title: 'Ārējās palodzes',
+      description: 'Izturīgas metāla vai alumīnija palodzes ar pulverkrāsojumu.',
+      content: 'Ārējās palodzes no tērauda vai alumīnija, pulverkrāsojums RAL toņos, pilieniņa mala un pielāgojami izmēri. Aizsardzība pret mitrumu un nokrišņiem.',
+      url: '/piederumi#arejas-palodzes',
+      type: 'category',
+    },
+    {
+      id: 'static-iekshejas-palodzes',
+      title: 'Iekšējās palodzes',
+      description: 'PVC vai MDF palodzes ar augstu noturību un estētiku.',
+      content: 'Iekšējās palodzes – PVC, MDF/lamināts, akmens imitācija. Dažādi profili, krāsas un viegla kopšana ikdienā.',
+      url: '/piederumi#iekshejas-palodzes',
+      type: 'category',
+    },
+    {
+      id: 'static-logu-rokturi',
+      title: 'Logu rokturi',
+      description: 'Ergonomiski logu rokturi ar drošības iespējām.',
+      content: 'Standarta un ar atslēgu aprīkoti logu rokturi, pieejami baltā, brūnā, antracīta un alumīnija tonī. Droši un ērti logu risinājumi.',
+      url: '/piederumi#logu-rokturi',
+      type: 'category',
+    },
   ]
 
-  const completeIndex = [
-    ...allDocs,
-    ...staticRoutes.map((doc, i) => ({
-      id: doc.url || `static-${i}`,
-      title: doc.title || '',
-      description: doc.description || '',
-      content: '',
-      url: doc.url || '#',
-      type: doc.type || 'page',
-    }))
-  ]
+  const docMap = new Map<string, SearchDocument>()
+  const upsertDocument = (doc: SearchDocument) => {
+    const existing = docMap.get(doc.url)
+    if (!existing || doc.content.length > existing.content.length) {
+      docMap.set(doc.url, doc)
+    }
+  }
+
+  allDocs.forEach(upsertDocument)
+  staticRoutes.forEach(upsertDocument)
+
+  const completeIndex = Array.from(docMap.values())
 
   searchIndex = completeIndex
   lastIndexTime = now

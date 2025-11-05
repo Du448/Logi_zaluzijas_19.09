@@ -3,6 +3,7 @@ import ImagesGridWithLightbox from '@/components/ImagesGridWithLightbox'
 import ZoomImage from '@/components/ZoomImage'
 import ShowcaseCarousel from '@/components/ShowcaseCarousel'
 import type { Metadata } from 'next'
+import { QuickContactForm } from '@/components/QuickContactForm'
 
 export const metadata: Metadata = {
   title: 'PVC logu katalogs un profili | Vestalux',
@@ -282,37 +283,7 @@ export default function Page(){
             <h2 className="text-3xl font-bold mb-4">Gatavi jauniem logiem?</h2>
             <p className="text-blue-100 mb-8">Sazinieties ar mums, lai saņemtu bezmaksas konsultāciju un individuālu cenas piedāvājumu Jūsu projektam.</p>
           </div>
-          <form className="max-w-3xl mx-auto grid gap-4 sm:grid-cols-[repeat(3,minmax(0,1fr))] items-end">
-            <label className="sm:col-span-1 text-left">
-              <span className="text-sm font-medium text-blue-100">Vārds</span>
-              <input
-                type="text"
-                name="name"
-                placeholder="Jūsu vārds"
-                className="mt-1 w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder:text-blue-200 focus:border-white focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30"
-              />
-            </label>
-            <label className="sm:col-span-1 text-left">
-              <span className="text-sm font-medium text-blue-100">Telefons</span>
-              <input
-                type="tel"
-                name="phone"
-                placeholder="+371 ..."
-                className="mt-1 w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder:text-blue-200 focus:border-white focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30"
-              />
-            </label>
-            <div className="sm:col-span-1 flex flex-col">
-              <button
-                type="submit"
-                className="mt-6 inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-lg font-semibold text-blue-600 shadow transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-200"
-              >
-                Sazināties
-              </button>
-              <a href="/kontakti" className="mt-3 text-center text-sm text-blue-100 underline underline-offset-4 hover:text-white">
-                vai sazinieties ar mums citā veidā
-              </a>
-            </div>
-          </form>
+          <QuickContactForm variant="blue" />
         </div>
       </section>
     </>
