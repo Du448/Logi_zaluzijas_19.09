@@ -60,7 +60,7 @@ export default function Footer() {
                 </svg>
               </a>
             </div>
-            <div className="mt-3 text-sm text-white/60">Sekojet jaunākajiem piedāvājumiem un novitātēm</div>
+            <div className="mt-3 text-sm text-white/60">Sekojet jaunākajiem piedāvājumiem</div>
           </div>
         </div>
         <hr className="my-6 border-white/10" />

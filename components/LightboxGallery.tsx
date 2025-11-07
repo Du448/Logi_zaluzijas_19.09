@@ -12,6 +12,8 @@ export default function LightboxGallery({ images, title = "", className = "" }: 
   const [isMounted, setIsMounted] = useState(false)
   const [open, setOpen] = useState(false)
   const [index, setIndex] = useState(0)
+  const [touchStartX, setTouchStartX] = useState<number | null>(null)
+  const [touchEndX, setTouchEndX] = useState<number | null>(null)
 
   const total = images?.length || 0
   const safeImages = useMemo(() => images?.filter(Boolean) ?? [], [images])
@@ -49,7 +51,30 @@ export default function LightboxGallery({ images, title = "", className = "" }: 
     <div className={className}>
       {/* Main viewer with arrows */}
       {total > 0 && (
-        <div className="relative mb-4">
+        <div
+          className="relative mb-4"
+          onTouchStart={(e) => {
+            setTouchStartX(e.changedTouches[0]?.clientX ?? null)
+            setTouchEndX(null)
+          }}
+          onTouchMove={(e) => {
+            setTouchEndX(e.changedTouches[0]?.clientX ?? null)
+          }}
+          onTouchEnd={() => {
+            if (touchStartX !== null && touchEndX !== null) {
+              const delta = touchEndX - touchStartX
+              if (Math.abs(delta) > 40) {
+                if (delta < 0) {
+                  setIndex((i) => (i + 1) % total)
+                } else {
+                  setIndex((i) => (i - 1 + total) % total)
+                }
+              }
+            }
+            setTouchStartX(null)
+            setTouchEndX(null)
+          }}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={safeImages[index]}
@@ -120,7 +145,31 @@ export default function LightboxGallery({ images, title = "", className = "" }: 
           aria-label={`${title} galerija`}
           onClick={close}
         >
-          <div className="relative max-w-[92vw] max-h-[92vh]" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="relative max-w-[92vw] max-h-[92vh]"
+            onClick={(e) => e.stopPropagation()}
+            onTouchStart={(e) => {
+              setTouchStartX(e.changedTouches[0]?.clientX ?? null)
+              setTouchEndX(null)
+            }}
+            onTouchMove={(e) => {
+              setTouchEndX(e.changedTouches[0]?.clientX ?? null)
+            }}
+            onTouchEnd={() => {
+              if (touchStartX !== null && touchEndX !== null) {
+                const delta = touchEndX - touchStartX
+                if (Math.abs(delta) > 40) {
+                  if (delta < 0) {
+                    next()
+                  } else {
+                    prev()
+                  }
+                }
+              }
+              setTouchStartX(null)
+              setTouchEndX(null)
+            }}
+          >
             {/* Image */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
