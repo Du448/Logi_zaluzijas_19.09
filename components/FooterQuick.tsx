@@ -12,7 +12,6 @@ export default function FooterQuick(){
             <a href="mailto:info@vestalux.lv" className="text-xl font-semibold">info@vestalux.lv</a>
           </div>
           <div className="flex gap-3 md:justify-end">
-            <a href="https://wa.me/37120886650" className="inline-flex items-center justify-center rounded-md bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-3 font-semibold">WhatsApp</a>
             <a href="/kontakti" className="inline-flex items-center justify-center rounded-md bg-white/95 text-gray-900 border border-white/70 hover:bg-white px-5 py-3 font-semibold">Piesaki mērīšanu</a>
           </div>
         </div>

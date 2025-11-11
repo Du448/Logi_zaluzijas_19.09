@@ -127,7 +127,7 @@ export default function CookieConsent() {
 
   return (
     <div className="fixed inset-x-4 bottom-4 z-50">
-      <div className="rounded-2xl border border-slate-200 bg-white/95 p-6 shadow-xl backdrop-blur">
+      <div className="rounded-2xl border border-slate-200 bg-white/60 p-6 shadow-xl backdrop-blur">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-2 text-slate-700">
             <p className="text-sm font-semibold text-slate-900">Mēs izmantojam sīkdatnes</p>
@@ -157,7 +157,7 @@ export default function CookieConsent() {
                 onClick={handleAccept}
                 className="inline-flex w-full items-center justify-center rounded-xl bg-sky-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
               >
-                Piekrītu
+                Piekrist
               </button>
               <button
                 type="button"

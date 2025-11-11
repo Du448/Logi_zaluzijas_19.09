@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { ShimmerLink } from '@/components/ui/shimmer-button'
 import { cn } from '@/lib/utils'
 // Custom CheckIcon component
 function CheckIcon({ className }: { className?: string }) {
@@ -187,9 +188,16 @@ export default function RailsStyleHomepage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="flex flex-col sm:flex-row gap-4 justify-start mb-12"
             >
-              <Link href="/kontakti" className="inline-flex items-center justify-center px-7 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors shadow-lg">
+              <ShimmerLink
+                href="/kontakti"
+                shimmerColor="rgba(255, 255, 255, 0.8)"
+                shimmerDuration="2.8s"
+                shimmerSize="0.1em"
+                background="linear-gradient(135deg, rgba(16, 185, 129, 1), rgba(5, 150, 105, 1))"
+                className="rounded-xl shadow-lg hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-emerald-300"
+              >
                 Saņemt piedāvājumu
-              </Link>
+              </ShimmerLink>
               <Link href="#katalogs" className="inline-flex items-center justify-center px-7 py-3 bg-white text-gray-900 font-semibold rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors shadow-lg">
                 Apskatīt produktus
               </Link>
