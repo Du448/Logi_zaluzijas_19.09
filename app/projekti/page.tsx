@@ -219,8 +219,8 @@ export default function Page(){
 
 function FAQ(){
   const faqs = [
-    { q: 'Cik ilgs ir izgatavošanas termiņš?', a: 'Atkarībā no konfigurācijas parasti 2–4 nedēļas. Pīķa sezonās termiņš var nedaudz mainīties.' },
-    { q: 'Vai nodrošināt montāžu?', a: 'Jā, mūsu sertificētās brigādes veic profesionālu un tīru uzstādīšanu visā Latvijā.' },
+    { q: 'Cik ilgs ir izgatavošanas termiņš?', a: 'Atkarībā no konfigurācijas parasti 3-6 nedēļas. Sezonā termiņš var nedaudz mainīties.' },
+    { q: 'Vai nodrošināt montāžu?', a: 'Jā, mūsu sertificētās brigādes veic profesionālu un tīru uzstādīšanu.' },
     { q: 'Kāds ir garantijas termiņš?', a: 'Ražojumiem un montāžai nodrošinām garantiju saskaņā ar līgumu un ražotāja noteikumiem.' },
   ]
   const [open, setOpen] = useState<number | null>(0)
