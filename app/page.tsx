@@ -1,10 +1,7 @@
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
-
 import RailsStyleHomepage from '@/components/RailsStyleHomepage'
 import PreFooterCTA from '@/components/PreFooterCTA'
 import FooterQuick from '@/components/FooterQuick'
-import { Button } from '@/components/ui/button'
 import { HoverVideoIcon } from '@/components/HoverVideoIcon'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
@@ -312,84 +309,63 @@ export default function Home() {
 
                       {option.key === 'vertical' ? (
                         <div className="grid gap-3 sm:grid-cols-2">
-                          <Button asChild variant="default" size="lg" className={solidButtonClass}>
-                            <a href="/zaluzijas/rullo-kasetu" className="flex items-center gap-2">
-                              Pilnīga tumsa
-                              <ArrowRight className="h-4 w-4" />
-                            </a>
-                          </Button>
-                          <Button asChild variant="outline" size="lg" className={outlineButtonClass}>
-                            <a href="/zaluzijas/rullo" className="flex items-center gap-2">
-                              Elegants minimālisms
-                              <ArrowRight className="h-4 w-4" />
-                            </a>
-                          </Button>
-                          <Button asChild variant="outline" size="lg" className={outlineButtonClass}>
-                            <a href="/zaluzijas/kasetu-diena-nakts" className="flex items-center gap-2">
-                              Maināma gaisma
-                              <ArrowRight className="h-4 w-4" />
-                            </a>
-                          </Button>
-                          <Button asChild variant="default" size="lg" className={solidButtonClass}>
-                            <a href="/zaluzijas/rullo-diena-nakts" className="flex items-center gap-2">
-                              Dienas līdzsvars
-                              <ArrowRight className="h-4 w-4" />
-                            </a>
-                          </Button>
+                          <a
+                            href="/zaluzijas/rullo-kasetu"
+                            className={solidButtonClass}
+                          >
+                            Pilnīga tumsa
+                          </a>
+                          <a
+                            href="/zaluzijas/rullo"
+                            className={outlineButtonClass}
+                          >
+                            Elegants minimālisms
+                          </a>
+                          <a
+                            href="/zaluzijas/kasetu-diena-nakts"
+                            className={outlineButtonClass}
+                          >
+                            Maināma gaisma
+                          </a>
+                          <a
+                            href="/zaluzijas/rullo-diena-nakts"
+                            className={solidButtonClass}
+                          >
+                            Dienas līdzsvars
+                          </a>
                         </div>
                       ) : option.key === 'horizontal' ? (
                         <div className="grid gap-3 sm:grid-cols-2">
-                          <Button asChild variant="default" size="lg" className={solidButtonClass}>
-                            <a href="/zaluzijas/romiesu" className="flex items-center gap-2">
-                              Mīksts komforts
-                              <ArrowRight className="h-4 w-4" />
-                            </a>
-                          </Button>
-                          <Button asChild variant="outline" size="lg" className={outlineButtonClass}>
-                            <a href="/zaluzijas/aizkaru" className="flex items-center gap-2">
-                              Stilīgs privātums
-                              <ArrowRight className="h-4 w-4" />
-                            </a>
-                          </Button>
+                          <a href="/zaluzijas/romiesu" className={solidButtonClass}>
+                            Mīksts komforts
+                          </a>
+                          <a href="/zaluzijas/aizkaru" className={outlineButtonClass}>
+                            Stilīgs privātums
+                          </a>
                         </div>
                       ) : option.key === 'horizontal-premium' ? (
                         <div className="grid gap-3 sm:grid-cols-2">
-                          <Button asChild variant="default" size="lg" className={solidButtonClass}>
-                            <a href="http://127.0.0.1:63374/zaluzijas/aluminija" className="flex items-center gap-2">
-                              Precīza kontrole
-                              <ArrowRight className="h-4 w-4" />
-                            </a>
-                          </Button>
-                          <Button asChild variant="outline" size="lg" className={outlineButtonClass}>
-                            <a href="http://127.0.0.1:63374/zaluzijas/koka" className="flex items-center gap-2">
-                              Dabiska elegance
-                              <ArrowRight className="h-4 w-4" />
-                            </a>
-                          </Button>
+                          <a href="http://127.0.0.1:63374/zaluzijas/aluminija" className={solidButtonClass}>
+                            Precīza kontrole
+                          </a>
+                          <a href="http://127.0.0.1:63374/zaluzijas/koka" className={outlineButtonClass}>
+                            Dabiska elegance
+                          </a>
                         </div>
                       ) : option.key === 'rullo' ? (
                         <div className="flex flex-col gap-3 sm:flex-row">
-                          <Button asChild variant="default" size="lg" className={solidButtonClass}>
-                            <a href="/zaluzijas/foto" className="flex items-center gap-2">
-                              Personisks dizains
-                              <ArrowRight className="h-4 w-4" />
-                            </a>
-                          </Button>
+                          <a href="/zaluzijas/foto" className={solidButtonClass}>
+                            Personisks dizains
+                          </a>
                         </div>
                       ) : (
                         <div className="flex flex-col gap-3 sm:flex-row">
-                          <Button asChild variant="outline" size="lg" className={outlineButtonClass}>
-                            <a href="/zaluzijas" className="flex items-center gap-2">
-                              Apskatīt klāstu
-                              <ArrowRight className="h-4 w-4" />
-                            </a>
-                          </Button>
-                          <Button asChild variant="default" size="lg" className={solidButtonClass}>
-                            <a href="/kontakti" className="flex items-center gap-2">
-                              Saņemt konsultāciju
-                              <ArrowRight className="h-4 w-4" />
-                            </a>
-                          </Button>
+                          <a href="/zaluzijas" className={outlineButtonClass}>
+                            Apskatīt klāstu
+                          </a>
+                          <a href="/kontakti" className={solidButtonClass}>
+                            Saņemt konsultāciju
+                          </a>
                         </div>
                       )}
                     </div>
