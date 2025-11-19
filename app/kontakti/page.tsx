@@ -3,7 +3,7 @@ import Rekviziti from '@/components/Rekviziti'
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 
-function ContactFormFallback(){
+function ContactFormFallback() {
   return (
     <div className="mt-10 space-y-6">
       <div className="grid gap-6 md:grid-cols-2">
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   }
 }
 
-export default function Page(){
+export default function Page() {
   return (
     <>
       {/* Hero + Form (dark layout) */}
@@ -76,7 +76,7 @@ export default function Page(){
       <section className="bg-white">
         <div className="container py-12">
           <div className="rounded-xl overflow-hidden border border-gray-200">
-            <iframe title="Karte" className="w-full h-72 md:h-96" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17492.99316133427!2d24.097!3d56.949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46eedf3c8f5f9f1f%3A0x400cfcd68f2fe50!2sR%C4%ABga!5e0!3m2!1slv!2slv!4v1700000000000" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+            <iframe title="Karte" className="w-full h-72 md:h-96" src="https://maps.google.com/maps?q=Ozolciema+iela+8,+Rīga&t=&z=15&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </section>

@@ -9,14 +9,14 @@ export type CatalogCard = {
   id: string
   title: string
   image: string
-  tag?: string
+  tags?: string[]
 }
 
 type Props = {
   items: CatalogCard[]
 }
 
-const TAGS_ORDER = ['Visi', 'Iekštelpu', 'Āra', 'Motorizētas'] as const
+const TAGS_ORDER = ['Visi', 'Rullo', 'Kasešu', 'Jumta logiem', 'Diena-nakts', 'Āra', 'Motorizētas'] as const
 
 const POPULARITY_ORDER = [
   'rullo-kasetu',
@@ -404,35 +404,8 @@ const VALUE_PROPS: ValueProp[] = [
 ] as const
 
 export default function ZaluzijasHeroAndGrid({ items }: Props) {
-  // Optional manual tag map. Unknown IDs fall back to no tag and appear under "Visi"
-  const tagMap: Record<string, string> = useMemo(
-    () => ({
-      'arejie-slegi': 'Āra',
-      'arejas-vertikalas': 'Āra',
-      'markizes': 'Āra',
-      'pergola': 'Āra',
-      'automatiskas': 'Motorizētas',
-      'rullo-slegi': 'Āra',
-      'mikstie-logi': 'Āra',
-    }),
-    []
-  )
-
-  const enriched = useMemo(
-    () =>
-      items.map((item) => {
-        const explicitTag = tagMap[item.id]
-        if (explicitTag) {
-          return { ...item, tag: explicitTag }
-        }
-
-        return { ...item, tag: 'Iekštelpu' }
-      }),
-    [items, tagMap]
-  )
-
   const [search, setSearch] = useState('')
-  const [selectedTag, setSelectedTag] = useState<'Visi' | 'Iekštelpu' | 'Āra' | 'Motorizētas'>('Visi')
+  const [selectedTag, setSelectedTag] = useState<string>('Visi')
   const [sortBy, setSortBy] = useState<'az' | 'za' | 'popularity'>('popularity')
   const [highlightedIds, setHighlightedIds] = useState<Record<string, { starClass: string; ringClass: string }>>({})
 
@@ -445,9 +418,9 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
   }, [])
 
   const filtered = useMemo(() => {
-    let list = enriched
+    let list = items
       .filter((i) =>
-        selectedTag === 'Visi' ? true : i.tag === selectedTag
+        selectedTag === 'Visi' ? true : i.tags?.includes(selectedTag)
       )
       .filter((i) => i.title.toLowerCase().includes(search.toLowerCase()))
 
@@ -464,7 +437,7 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
     }
 
     return list
-  }, [enriched, selectedTag, search, sortBy, popularityIndexMap])
+  }, [items, selectedTag, search, sortBy, popularityIndexMap])
 
   useEffect(() => {
     if (Object.keys(highlightedIds).length === 0) {
@@ -520,50 +493,59 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
           <div className="space-y-3 max-w-2xl">
             <h2 className="text-3xl font-semibold text-slate-900">Atrodi sev piemērotāko žalūziju risinājumu</h2>
             <p className="text-slate-600">
-              Izmanto praktiskos saukļus, lai ātri saprastu, kurš risinājums der tieši tavai telpai, ritmam un
-              komforta prasībām.
+              Izvēlies no plašā žalūziju klāsta – no klasiskām rullo žalūzijām līdz moderniem automatizētiem risinājumiem.
+              Mēs piedāvājam individuālu pieeju, precīzus mērījumus un kvalitatīvu uzstādīšanu.
             </p>
+            <div className="mt-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+              <h3 className="font-semibold text-blue-900 mb-2">Kā izvēlēties?</h3>
+              <ul className="list-disc list-inside text-sm text-blue-800 space-y-1">
+                <li><strong>Rullo un Kasešu:</strong> Populārākā izvēle mājokļiem, pieejami dažādi audumi.</li>
+                <li><strong>Diena-nakts:</strong> Lieliska gaismas kontrole un privātums.</li>
+                <li><strong>Jumta logiem:</strong> Speciāli pielāgoti risinājumi mansardiem.</li>
+                <li><strong>Āra un Motorizētas:</strong> Papildu komforts un drošība.</li>
+              </ul>
+            </div>
           </div>
           <div className="grid gap-5">
-              {VALUE_PROPS.map((item, index) => (
-            <motion.button
-              key={item.title}
-              type="button"
-              onClick={() => handleValuePropClick(item)}
-              whileHover={{ y: -6 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={cn(
-                    'relative overflow-hidden rounded-3xl bg-gradient-to-br p-6 text-left text-white transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-white/60',
-                    item.gradient,
-                    'hover:scale-[1.015]'
-                  )}
-                >
-              <div className="absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.35),_transparent_55%)]" aria-hidden="true" />
-              <div className="relative z-10 flex flex-col gap-4">
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-white/85">
-                    Klikšķini, lai uzzinātu vairāk
-                    <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M4 12l6-6" />
-                      <path d="M6 4h6v6" />
-                    </svg>
-                  </span>
-                  {item.tags && item.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {item.tags.map((tag) => (
-                        <span key={`${item.title}-${tag.label}`} className={cn('inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold shadow-sm', tag.chipClass)}>
-                          <span>{tag.label}</span>
-                        </span>
-                      ))}
-                    </div>
-                  )}
+            {VALUE_PROPS.map((item, index) => (
+              <motion.button
+                key={item.title}
+                type="button"
+                onClick={() => handleValuePropClick(item)}
+                whileHover={{ y: -6 }}
+                whileTap={{ scale: 0.98 }}
+                className={cn(
+                  'relative overflow-hidden rounded-3xl bg-gradient-to-br p-6 text-left text-white transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-white/60',
+                  item.gradient,
+                  'hover:scale-[1.015]'
+                )}
+              >
+                <div className="absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.35),_transparent_55%)]" aria-hidden="true" />
+                <div className="relative z-10 flex flex-col gap-4">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-white/85">
+                      Klikšķini, lai uzzinātu vairāk
+                      <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 12l6-6" />
+                        <path d="M6 4h6v6" />
+                      </svg>
+                    </span>
+                    {item.tags && item.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {item.tags.map((tag) => (
+                          <span key={`${item.title}-${tag.label}`} className={cn('inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold shadow-sm', tag.chipClass)}>
+                            <span>{tag.label}</span>
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <h2 className="text-xl font-semibold leading-snug">{item.title}</h2>
+                  <p className="text-lg leading-relaxed text-white/85">{item.description}</p>
                 </div>
-                <h2 className="text-xl font-semibold leading-snug">{item.title}</h2>
-                <p className="text-lg leading-relaxed text-white/85">{item.description}</p>
-              </div>
-            </motion.button>
-          ))}
-        </div>
+              </motion.button>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -575,11 +557,10 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
               <button
                 key={t}
                 onClick={() => setSelectedTag(t)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  selectedTag === t
-                    ? 'bg-blue-600 text-white shadow'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedTag === t
+                  ? 'bg-blue-600 text-white shadow'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
               >
                 {t}
               </button>
@@ -656,9 +637,9 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
-                    {item.tag && item.tag !== 'Iekštelpu' && (
+                    {item.tags && item.tags.length > 0 && (
                       <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-semibold bg-white/90 backdrop-blur text-gray-800">
-                        {item.tag}
+                        {item.tags[0]}
                       </span>
                     )}
                     {/* Title overlay on image */}

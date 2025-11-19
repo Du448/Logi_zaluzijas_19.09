@@ -174,7 +174,7 @@ export default function Home() {
     <>
       <RailsStyleHomepage />
       {/* Žalūziju veidi */}
-      <section className="section scroll-reveal io-reveal">
+      <section className="section scroll-reveal io-fade-up">
         <div className="container">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900">Žalūziju veidi</h2>
           <p className="text-center text-gray-600 mt-3 mb-12">Salīdziniet populārākos risinājumus pēc cenas, montāžas laika un priekšrocībām.</p>
@@ -251,10 +251,10 @@ export default function Home() {
 
               const outlineButtonClass = isDayNight
                 ? cn(
-                    baseButtonClass,
-                    'border-amber-400 text-amber-700',
-                    'group-hover:border-amber-200 group-hover:text-amber-100'
-                  )
+                  baseButtonClass,
+                  'border-amber-400 text-amber-700',
+                  'group-hover:border-amber-200 group-hover:text-amber-100'
+                )
                 : cn(baseButtonClass, option.outlineButton)
 
               const solidButtonClass = cn(
@@ -379,7 +379,7 @@ export default function Home() {
       <PreFooterCTA />
 
       {/* CTA Section moved from RailsStyleHomepage (with image + dark overlay) */}
-      <section className="relative py-20 overflow-hidden text-white">
+      <section className="relative py-20 overflow-hidden text-white io-fade-up">
         {/* Background image */}
         <div className="absolute inset-0" aria-hidden="true">
           <Image

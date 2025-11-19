@@ -1,4 +1,4 @@
- import Link from 'next/link'
+import Link from 'next/link'
 import ProjectsFooter from '@/components/ProjectsFooter'
 import ZaluzijasHeroAndGrid from '@/components/ZaluzijasHeroAndGrid'
 import { catalogItems, getProduct } from '@/lib/zaluzijas'
@@ -34,6 +34,7 @@ export default function Page() {
             id: i.id,
             title: i.title,
             image: getProduct(i.id).thumbnail,
+            tags: i.tags,
           }))}
         />
 

@@ -1,4 +1,4 @@
-export type CatalogItem = { id: string; title: string }
+export type CatalogItem = { id: string; title: string; tags?: string[] }
 export type Product = {
   id: string
   title: string
@@ -9,30 +9,30 @@ export type Product = {
 }
 
 export const catalogItems: CatalogItem[] = [
-  { id: 'rullo-kasetu', title: 'Rullo kasešu žalūzijas' },
-  { id: 'rullo', title: 'Rullo žalūzijas' },
-  { id: 'kasetu-diena-nakts', title: 'Kasešu žalūzijas "Diena-nakts"' },
-  { id: 'rullo-diena-nakts', title: 'Rullo žalūzijas "Diena-nakts"' },
-  { id: 'aizkaru', title: '"Aizkaru" žalūzijas' },
-  { id: 'plisetas', title: 'Plisētās žalūzijas' },
-  { id: 'vertikalas', title: 'Vertikālās žalūzijas' },
-  { id: 'romiesu', title: 'Romiešu žalūzijas' },
-  { id: 'aluminija', title: 'Alumīnija žalūzijas' },
-  { id: 'screen', title: 'Žalūzijas "SCREEN"' },
-  { id: 'koka', title: 'Koka žalūzijas' },
-  { id: 'mansarda', title: 'Mansarda logu žalūzijas' },
-  { id: 'foto', title: 'Foto žalūzijas' },
-  { id: 'dienas-aizkari', title: 'Dienas aizkari' },
-  { id: 'nakts-aizkari', title: 'Nakts aizkari' },
-  { id: 'arejas-vertikalas', title: 'Ārējās vertikālās žalūzijas' },
-  { id: 'refleksoli', title: 'Refleksoli' },
-  { id: 'rullo-slegi', title: 'Rullo slēģi' },
-  { id: 'markizes', title: 'Markīzes' },
-  { id: 'pergola', title: 'Pergola' },
-  { id: 'arejie-slegi', title: 'Ārējie logu slēģi' },
-  { id: 'moskitu', title: 'Moskītu tīkls' },
-  { id: 'mikstie-logi', title: 'Mīkstie logi' },
-  { id: 'automatiskas', title: 'Automātiskās žalūzijas' },
+  { id: 'rullo-kasetu', title: 'Rullo kasešu žalūzijas', tags: ['Iekštelpu', 'Rullo', 'Kasešu'] },
+  { id: 'rullo', title: 'Rullo žalūzijas', tags: ['Iekštelpu', 'Rullo'] },
+  { id: 'kasetu-diena-nakts', title: 'Kasešu žalūzijas "Diena-nakts"', tags: ['Iekštelpu', 'Kasešu', 'Diena-nakts'] },
+  { id: 'rullo-diena-nakts', title: 'Rullo žalūzijas "Diena-nakts"', tags: ['Iekštelpu', 'Rullo', 'Diena-nakts'] },
+  { id: 'aizkaru', title: '"Aizkaru" žalūzijas', tags: ['Iekštelpu', 'Aizkaru'] },
+  { id: 'plisetas', title: 'Plisētās žalūzijas', tags: ['Iekštelpu', 'Plisētās', 'Jumta logiem'] },
+  { id: 'vertikalas', title: 'Vertikālās žalūzijas', tags: ['Iekštelpu', 'Vertikālās', 'Birojam'] },
+  { id: 'romiesu', title: 'Romiešu žalūzijas', tags: ['Iekštelpu', 'Romiešu'] },
+  { id: 'aluminija', title: 'Alumīnija žalūzijas', tags: ['Iekštelpu', 'Alumīnija', 'Birojam'] },
+  { id: 'screen', title: 'Žalūzijas "SCREEN"', tags: ['Iekštelpu', 'Āra', 'Screen', 'Birojam'] },
+  { id: 'koka', title: 'Koka žalūzijas', tags: ['Iekštelpu', 'Koka'] },
+  { id: 'mansarda', title: 'Mansarda logu žalūzijas', tags: ['Iekštelpu', 'Jumta logiem'] },
+  { id: 'foto', title: 'Foto žalūzijas', tags: ['Iekštelpu', 'Foto'] },
+  { id: 'dienas-aizkari', title: 'Dienas aizkari', tags: ['Iekštelpu', 'Aizkari'] },
+  { id: 'nakts-aizkari', title: 'Nakts aizkari', tags: ['Iekštelpu', 'Aizkari'] },
+  { id: 'arejas-vertikalas', title: 'Ārējās vertikālās žalūzijas', tags: ['Āra', 'Vertikālās'] },
+  { id: 'refleksoli', title: 'Refleksoli', tags: ['Āra', 'Screen'] },
+  { id: 'rullo-slegi', title: 'Rullo slēģi', tags: ['Āra', 'Drošībai'] },
+  { id: 'markizes', title: 'Markīzes', tags: ['Āra', 'Terasēm'] },
+  { id: 'pergola', title: 'Pergola', tags: ['Āra', 'Terasēm'] },
+  { id: 'arejie-slegi', title: 'Ārējie logu slēģi', tags: ['Āra', 'Drošībai'] },
+  { id: 'moskitu', title: 'Moskītu tīkls', tags: ['Iekštelpu', 'Āra', 'Papildus'] },
+  { id: 'mikstie-logi', title: 'Mīkstie logi', tags: ['Āra', 'Terasēm'] },
+  { id: 'automatiskas', title: 'Automātiskās žalūzijas', tags: ['Motorizētas'] },
 ]
 
 const placeholderThumb = 'https://placehold.co/800x600/3b82f6/ffffff?text=Dr%C4%ABzum%C4%81'
@@ -54,7 +54,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "<li><span class='inline-flex items-center gap-1 font-semibold text-gray-900'><strong>Vario 13</strong><span class='relative inline-flex group'><button type='button' aria-label='Vario 13 skaidrojums' class='ml-1 flex h-4 w-4 items-center justify-center rounded-full border border-gray-300 bg-white text-[10px] font-semibold text-gray-600 shadow-sm transition hover:border-sky-500 hover:text-sky-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500'>?</button><span class='pointer-events-none absolute left-1/2 top-full z-10 mt-2 -translate-x-1/2 scale-95 rounded-lg border border-gray-200 bg-white px-4 py-3 text-xs leading-relaxed text-gray-700 opacity-0 shadow-xl transition duration-150 group-hover:opacity-100 group-hover:scale-100 group-focus-within:opacity-100 group-focus-within:scale-100 min-w-[300px] max-w-[400px] whitespace-normal'>Kompakta kasešu sistēma, kas paredzēta montāžai tieši uz loga rāmja. Lieliski piemērota plastikāta logiem.</span></span></span> - mini kasete</li>" +
       "<li><span class='inline-flex items-center gap-1 font-semibold text-gray-900'><strong>Vario 17</strong><span class='relative inline-flex group'><button type='button' aria-label='Vario 17 skaidrojums' class='ml-1 flex h-4 w-4 items-center justify-center rounded-full border border-gray-300 bg-white text-[10px] font-semibold text-gray-600 shadow-sm transition hover-border-sky-500 hover:text-sky-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500'>?</button><span class='pointer-events-none absolute left-1/2 top-full z-10 mt-2 -translate-x-1/2 scale-95 rounded-lg border border-gray-200 bg-white px-4 py-3 text-xs leading-relaxed text-gray-700 opacity-0 shadow-xl transition duration-150 group-hover:opacity-100 group-hover:scale-100 group-focus-within:opacity-100 group-focus-within:scale-100 min-w-[300px] max-w-[400px] whitespace-normal'>Klasiskā kasešu sistēma ar stabilu alumīnija profilu, kas nodrošina vienmērīgu auduma nospriegojumu arī lielākiem logiem.</span></span></span> - klasiskā kasete</li>" +
       "<li><span class='inline-flex items-center gap-1 font-semibold text-gray-900'><strong>Vario 25</strong><span class='relative inline-flex group'><button type='button' aria-label='Vario 25 skaidrojums' class='ml-1 flex h-4 w-4 items-center justify-center rounded-full border border-gray-300 bg-white text-[10px] font-semibold text-gray-600 shadow-sm transition hover:border-sky-500 hover:text-sky-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500'>?</button><span class='pointer-events-none absolute left-1/2 top-full z-10 mt-2 -translate-x-1/2 scale-95 rounded-lg border border-gray-200 bg-white px-4 py-3 text-xs leading-relaxed text-gray-700 opacity-0 shadow-xl transition duration-150 group-hover:opacity-100 group-hover:scale-100 group-focus-within:opacity-100 group-focus-within:scale-100 min-w-[300px] max-w-[400px] whitespace-normal'>U-veida vadotņu profils, kas piemērots dalītiem logiem un 3 kameru PVC profiliem, palīdz samazināt gaismas spraugas.</span></span></span> - U-veida profils (piemērots dalītiem logiem, 3 kameru PVC logiem u.c.)</li>" +
-  
+
       "</ul>" +
       "<div class='mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6'>" +
       "  <div class='group text-center p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
@@ -253,19 +253,19 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "<div class='mt-6 grid grid-cols-1 gap-6'>" +
       "  <div id='audumu-katalogs' class='group text-left p-6 bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
       "    <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Vertik%C4%81l%C4%81s/Audumu%20katalogs_ZF_vertikalas_zaluzijas.pdf_compressed.pdf?updatedAt=1756900933739' target='_blank' rel='noopener noreferrer' class='inline-flex items-center justify-start px-5 py-2.5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-semibold transition hover:translate-y-[-1px] hover:shadow active:translate-y-0'>Audumu katalogs</a>" +
-"  </div>" +
-"</div>" +
-"<div class='mt-12 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
-"  <div class='text-center max-w-6xl mx-auto px-4'>" +
-"  <h2 class='text-3xl md:text-4xl font-bold'>Uzstādīšanas un mērījumu instrukcijas</h2>" +
-"  <div class='mx-auto mt-3 text-sky-600' aria-hidden='true'>" +
-"    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 16' fill='currentColor' class='w-10 h-4 mx-auto'>" +
-"      <rect x='12' y='2' width='40' height='2' rx='1'/><rect x='18' y='7' width='28' height='2' rx='1'/><rect x='24' y='12' width='16' height='2' rx='1'/>" +
-"    </svg>" +
-"  </div>" +
-"  </div>" +
-"</div>" +
-"<div class='mt-8 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
+      "  </div>" +
+      "</div>" +
+      "<div class='mt-12 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
+      "  <div class='text-center max-w-6xl mx-auto px-4'>" +
+      "  <h2 class='text-3xl md:text-4xl font-bold'>Uzstādīšanas un mērījumu instrukcijas</h2>" +
+      "  <div class='mx-auto mt-3 text-sky-600' aria-hidden='true'>" +
+      "    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 16' fill='currentColor' class='w-10 h-4 mx-auto'>" +
+      "      <rect x='12' y='2' width='40' height='2' rx='1'/><rect x='18' y='7' width='28' height='2' rx='1'/><rect x='24' y='12' width='16' height='2' rx='1'/>" +
+      "    </svg>" +
+      "  </div>" +
+      "  </div>" +
+      "</div>" +
+      "<div class='mt-8 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen'>" +
       "  <div class='max-w-3xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 gap-6'>" +
       "    <div class='group mx-auto w-full max-w-[22rem] text-center p-2 text-sm bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
       "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Vertik%C4%81l%C4%81s/Instrukcijas/Vertik%C4%81lo%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija%20(pie%20sienas).pdf?updatedAt=1756901064986' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
@@ -421,7 +421,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
     description:
       "<p>Allusion žalūzijas – divi vienā. Unikāls dienas aizkaru un vertikālo žalūziju apvienojums.</p>" +
       "<p>Radītas, lai mainītu priekšstatu par logu noformējumu, Allusion žalūzijas ir īsta optiska ilūzija. Aiz viegla, caurspīdīga auduma slāņa slēpjas vertikālas strīpas, kas pārvērš romantiskus dienas aizkarus blīvā nakts aizsegā.</p>" +
- 
+
       "<p>Šis jaunums sniedz iespēju racionāli noformēt logu, apvienojot dienas un nakts aizkaru funkcijas vienā produktā. Tas ir ideāls risinājums gan mājokļiem, gan birojiem, kas vēlas modernu, stilīgu un funkcionālu logu noformējumu.</p>" +
       "<div class='mt-6'>" +
       "  <div class='inline-flex rounded-lg border border-gray-200 bg-white transition duration-300 hover:-translate-y-0.5 hover:shadow-md'>" +
@@ -981,8 +981,8 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "<li><strong>Dizains.</strong> Koka žalūzijas harmoniski iekļaujas gan klasiskā interjerā, gan modernās telpās, piešķirot tām siltu un mājīgu atmosfēru.</li>" +
       "<li><strong>Ekoloģija.</strong> Tās ir izgatavotas no dabas materiāliem, kas ir ekoloģiski tīrs un drošs risinājums.</li>" +
       "<li><strong>Gaismas kontrole.</strong> Žalūzijas lieliski aizsargā telpu no saules, vienlaikus radot skaistu un mīkstu ēnu spēli.</li>" +
-  "<li><strong>Kopšana.</strong> Lai nodrošinātu žalūziju ilgmūžību, tām nav ieteicama mitrā tīrīšana. Ūdens nokļūšana uz lamelēm var izraisīt to deformāciju un krāsas izmaiņas. Tādēļ koka žalūzijas nav piemērotas telpām ar augstu mitruma līmeni.</li>" +
-  "</ul>",
+      "<li><strong>Kopšana.</strong> Lai nodrošinātu žalūziju ilgmūžību, tām nav ieteicama mitrā tīrīšana. Ūdens nokļūšana uz lamelēm var izraisīt to deformāciju un krāsas izmaiņas. Tādēļ koka žalūzijas nav piemērotas telpām ar augstu mitruma līmeni.</li>" +
+      "</ul>",
     images: [
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Koka%20%C5%BEal%C5%ABzijas/3130e29c-30dc-4779-8030-65b12b9eb65c.jpg?updatedAt=1756983435797',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Koka%20%C5%BEal%C5%ABzijas/bamboo%20blinds%20in%20the%20kitchen%20interior%20_kitchen_.jpg?updatedAt=1756983435741',
@@ -1295,17 +1295,17 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Alum%C4%ABnija%20%C5%BEal%C5%ABzijas/Give%20your%20doors%20and%20windows%20a%20snazzy%20facelift%20with_.jpg?updatedAt=1756983448588',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Alum%C4%ABnija%20%C5%BEal%C5%ABzijas/Invite%20a%20stylish%20pop%20of%20colour%20into%20your%20home%20with_.jpg?updatedAt=1756983448587',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Alum%C4%ABnija%20%C5%BEal%C5%ABzijas/Bring%20a%20hint%20of%20modern%20sophistication%20into%20your_.jpg?updatedAt=1756983448570'
-  ],
-  thumbnail:
+    ],
+    thumbnail:
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Alum%C4%ABnija%20%C5%BEal%C5%ABzijas/Bring%20a%20hint%20of%20modern%20sophistication%20into%20your_.jpg?updatedAt=1756983448570',
   },
-  
+
   'mikstie-logi': {
     title: 'Mīkstie logi',
     description:
       "<p><strong>Mīkstie logi – lieliska alternatīva stiklam.</strong></p>" +
       "<p class='mt-2'>Mīkstie logi ir radīti, lai pasargātu jūsu atvērtās telpas – terases, verandas vai lapenes – no vēja, nokrišņiem un kukaiņiem. Tie ir izgatavoti no augstas kvalitātes PVC plēves, kas ir izturīga pret ultravioletajiem stariem un ekstremālām temperatūrām.</p>" +
-      
+
       "<h3 class='text-xl font-semibold mt-4 mb-2'>Funkcionalitāte un estētika</h3>" +
       "<p>Mīkstos logus ir viegli atvērt, sarullējot uz augšu un nostiprinot ar speciālām siksnām. Mēs piedāvājam divu veidu PVC plēves: pilnībā caurspīdīgas vai ar ēnojumu, kas nodrošina labāku aizsardzību pret sauli. Telpām ar paaugstinātu ugunsrisku ir pieejami ugunsizturīgi materiāli.</p>" +
       "<h3 class='text-xl font-semibold mt-4 mb-2'>Izturība un dizains</h3>" +
