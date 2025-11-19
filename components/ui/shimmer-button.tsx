@@ -11,6 +11,7 @@ type ShimmerVisualOptions = {
   background?: string
   className?: string
   children?: React.ReactNode
+  shimmering?: boolean
 }
 
 type ShimmerCustomProperties = CSSProperties & Record<`--${string}`, string | number>
@@ -26,7 +27,7 @@ const createShimmerVars = ({
   shimmerDuration,
   borderRadius,
   background,
-}: Required<Omit<ShimmerVisualOptions, "className" | "children">>): ShimmerCustomProperties => ({
+}: Required<Omit<ShimmerVisualOptions, "className" | "children" | "shimmering">>): ShimmerCustomProperties => ({
   "--spread": "90deg",
   "--shimmer-color": shimmerColor,
   "--radius": borderRadius,
@@ -37,17 +38,21 @@ const createShimmerVars = ({
 
 const ShimmerLayers = ({
   children,
+  shimmering = true,
 }: {
   children?: React.ReactNode
+  shimmering?: boolean
 }) => (
   <>
     <span className="pointer-events-none absolute [inset:var(--cut)] -z-20 [border-radius:var(--radius)] [background:var(--bg)]" />
 
     <span className="pointer-events-none absolute inset-0 -z-10 overflow-hidden [border-radius:var(--radius)]">
-      <span
-        className="absolute -left-1/2 top-0 h-full w-[200%] animate-shimmer-slide opacity-60"
-        style={SHIMMER_GRADIENT_STYLE}
-      />
+      {shimmering && (
+        <span
+          className="absolute -left-1/2 top-0 h-full w-[200%] animate-shimmer-slide opacity-60"
+          style={SHIMMER_GRADIENT_STYLE}
+        />
+      )}
     </span>
 
     <span
@@ -82,6 +87,7 @@ export const ShimmerButton = React.forwardRef<
       className,
       style,
       children,
+      shimmering = true,
       ...props
     },
     ref
@@ -105,7 +111,7 @@ export const ShimmerButton = React.forwardRef<
         ref={ref}
         {...props}
       >
-        <ShimmerLayers>{children}</ShimmerLayers>
+        <ShimmerLayers shimmering={shimmering}>{children}</ShimmerLayers>
       </button>
     )
   }
@@ -130,6 +136,7 @@ export const ShimmerLink = React.forwardRef<HTMLAnchorElement, ShimmerLinkProps>
       style,
       children,
       href,
+      shimmering = true,
       ...props
     },
     ref
@@ -154,7 +161,7 @@ export const ShimmerLink = React.forwardRef<HTMLAnchorElement, ShimmerLinkProps>
         )}
         {...props}
       >
-        <ShimmerLayers>{children}</ShimmerLayers>
+        <ShimmerLayers shimmering={shimmering}>{children}</ShimmerLayers>
       </Link>
     )
   }
