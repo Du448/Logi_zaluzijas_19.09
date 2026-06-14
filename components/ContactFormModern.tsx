@@ -198,8 +198,11 @@ export default function ContactFormModern(){
       })
 
       if (!res.ok) {
-        const err = await res.json().catch(() => ({}))
-        throw new Error(err?.error || err?.message || "Neizdevās nosūtīt ziņu.")
+        const err = await res.json().catch(() => ({} as any))
+        const serverMsg = typeof err?.message === "string" ? err.message : undefined
+        const serverErr = typeof err?.error === "string" ? err.error : undefined
+        const safeMessage = serverMsg || serverErr || "Neizdevās nosūtīt ziņu."
+        throw new Error(safeMessage)
       }
 
       setStatus("success")
