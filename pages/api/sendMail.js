@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import fs from "fs";
 import path from "path";
 
@@ -173,47 +174,52 @@ export default async function handler(req, res) {
     const ignoreTLS = process.env.SMTP_IGNORE_TLS === "true";
     const requireTLS = process.env.SMTP_REQUIRE_TLS === "true";
 
-    // Izveido SMTP transportu ar .env.local datiem
-    const transportOptions = {
-      host: SMTP_HOST,
-      port: Number(SMTP_PORT), // pārvērš string uz skaitli
-      secure: SMTP_SECURE === "true" || Number(SMTP_PORT) === 465,
-      auth: {
-        user: SMTP_USER,
-        pass: SMTP_PASS,
-      },
-    };
-
-    if (allowSelfSigned) {
-      transportOptions.tls = {
-        ...(transportOptions.tls || {}),
-        rejectUnauthorized: false,
-      };
-    }
-    if (ignoreTLS) {
-      transportOptions.ignoreTLS = true;
-    }
-    if (requireTLS) {
-      transportOptions.requireTLS = true;
-    }
-
-    const transporter = nodemailer.createTransport(transportOptions);
-
-    // Verify connection/login before attempting to send
-    try {
-      await transporter.verify();
-      console.log("SMTP verify: OK");
-    } catch (verifyErr) {
-      console.error("SMTP verify failed:", verifyErr);
-      return res.status(500).json({
-        message: "SMTP pieslēgums vai autentifikācija neizdevās",
-        error: {
-          code: verifyErr?.code,
-          command: verifyErr?.command,
-          response: verifyErr?.response,
-          responseCode: verifyErr?.responseCode,
+    // Choose transport: Resend on Vercel (if key present), otherwise SMTP
+    const useResend = !!process.env.RESEND_API_KEY;
+    let transporter = null;
+    if (!useResend) {
+      // Izveido SMTP transportu ar .env.local datiem
+      const transportOptions = {
+        host: SMTP_HOST,
+        port: Number(SMTP_PORT), // pārvērš string uz skaitli
+        secure: SMTP_SECURE === "true" || Number(SMTP_PORT) === 465,
+        auth: {
+          user: SMTP_USER,
+          pass: SMTP_PASS,
         },
-      });
+      };
+
+      if (allowSelfSigned) {
+        transportOptions.tls = {
+          ...(transportOptions.tls || {}),
+          rejectUnauthorized: false,
+        };
+      }
+      if (ignoreTLS) {
+        transportOptions.ignoreTLS = true;
+      }
+      if (requireTLS) {
+        transportOptions.requireTLS = true;
+      }
+
+      transporter = nodemailer.createTransport(transportOptions);
+
+      // Verify connection/login before attempting to send
+      try {
+        await transporter.verify();
+        console.log("SMTP verify: OK");
+      } catch (verifyErr) {
+        console.error("SMTP verify failed:", verifyErr);
+        return res.status(500).json({
+          message: "SMTP pieslēgums vai autentifikācija neizdevās",
+          error: {
+            code: verifyErr?.code,
+            command: verifyErr?.command,
+            response: verifyErr?.response,
+            responseCode: verifyErr?.responseCode,
+          },
+        });
+      }
     }
 
     // Accept contact form payload and compose email
@@ -317,8 +323,33 @@ export default async function handler(req, res) {
       ...(attachmentsFromClient.length ? { attachments: attachmentsFromClient } : {}),
     };
 
-    // Nosūta
-    await transporter.sendMail(mailOptions);
+    // Nosūta, izmantojot Resend, ja pieejams RESEND_API_KEY; citādi SMTP
+    if (useResend) {
+      try {
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        const fromAddress = CONTACT_FROM_EMAIL || SMTP_USER || "onboarding@resend.dev";
+        const result = await resend.emails.send({
+          from: fromAddress,
+          to: CONTACT_TO_EMAIL,
+          subject,
+          text,
+          ...(html ? { html } : {}),
+          ...(req.body?.email ? { reply_to: String(req.body.email) } : {}),
+          ...(attachmentsFromClient.length
+            ? { attachments: attachmentsFromClient.map((a) => ({ filename: a.filename, content: a.content })) }
+            : {}),
+        });
+        if (result?.error) {
+          console.error("Resend error:", result.error);
+          return res.status(500).json({ message: "Neizdevās nosūtīt ziņu (Resend)", error: String(result.error) });
+        }
+      } catch (e) {
+        console.error("Resend send failed:", e);
+        return res.status(500).json({ message: "Neizdevās nosūtīt ziņu (Resend izņēmums)" });
+      }
+    } else {
+      await transporter.sendMail(mailOptions);
+    }
 
     return res.status(200).json({ message: "E-pasts veiksmīgi nosūtīts!" });
   } catch (error) {
