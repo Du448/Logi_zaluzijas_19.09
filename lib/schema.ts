@@ -12,7 +12,7 @@ export const BUSINESS = {
   email: 'info@vestalux.lv',
   vatID: '42103086575',
   address: {
-    streetAddress: 'Ozolciema iela 8 – 100',
+    streetAddress: 'Ozolciema iela 8',
     addressLocality: 'Rīga',
     postalCode: 'LV-1058',
     addressCountry: 'LV',

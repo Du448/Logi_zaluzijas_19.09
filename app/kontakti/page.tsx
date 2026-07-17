@@ -59,7 +59,7 @@ export default function Page() {
               <Rekviziti
                 companyName={'SIA “ADEstate”'}
                 regNr={'42103086575'}
-                legalAddress={'Ozolciema iela 8 – 100, Rīga, LV-1058'}
+                legalAddress={'Ozolciema iela 8, Rīga, LV-1058'}
                 bank={'A/S “Swedbank”, kods: HABALV22'}
                 iban={'LV77HABA0551062518720'}
               />
