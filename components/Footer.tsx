@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="mt-6 flex justify-center">
             <Link
               href="/kontakti"
-              className="inline-flex items-center justify-center rounded-xl bg-sky-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+              className="inline-flex items-center justify-center rounded-xl bg-sky-800 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-900 focus:outline-none focus:ring-2 focus:ring-sky-700 focus:ring-offset-2 focus:ring-offset-slate-900"
             >
               Sazinies ar meistaru
             </Link>
