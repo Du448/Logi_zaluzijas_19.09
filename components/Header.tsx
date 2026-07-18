@@ -108,7 +108,9 @@ export default function Header(){
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  const headerHeight = 'h-[64px] md:h-[80px]'
+  // Mini versija ritinot: zemāka josla un mazāks logo
+  const headerHeight = scrolled ? 'h-[48px] md:h-[56px]' : 'h-[64px] md:h-[80px]'
+  const logoHeight = scrolled ? 'h-9 md:h-12' : 'h-12 md:h-20'
   const isSheetOpen = open && hasInteracted
   const headerAmbientClass = isSheetOpen
     ? 'bg-slate-950/90 border-slate-400/40 shadow-[0_10px_40px_rgba(15,23,42,0.45)]'
@@ -164,10 +166,10 @@ export default function Header(){
   return (
     <>
     <header
-      className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-xl transition-[background,box-shadow,border] duration-500 border-b ${headerAmbientClass}`}
+      className={`fixed top-[var(--ticker-h,0px)] left-0 right-0 z-50 backdrop-blur-xl transition-[background,box-shadow,border,top] duration-300 border-b ${headerAmbientClass}`}
     >
-      {/* Top info bar */}
-      <div className="bg-white/5 text-white text-xs">
+      {/* Top info bar — ritinot uz leju saplok */}
+      <div className={`bg-white/5 text-white text-xs overflow-hidden transition-all duration-300 ${scrolled ? 'max-h-0 opacity-0' : 'max-h-10 opacity-100'}`}>
         <div className="container flex items-center justify-between py-1.5">
           {/* Left: phone + email */}
           <div className="flex items-center gap-4">
@@ -189,7 +191,7 @@ export default function Header(){
       </div>
       <div className="transition-all duration-300">
         <div
-          className={`container flex items-center justify-between ${headerHeight} text-white`}
+          className={`container flex items-center justify-between transition-all duration-300 ${headerHeight} text-white`}
         >
           {/* Logo image */}
           <Link href="/" className="flex items-center gap-3 group" aria-label="InterjeraRisinājumi">
@@ -198,7 +200,7 @@ export default function Header(){
               alt="InterjeraRisinājumi logo"
               width={200}
               height={48}
-              className="h-12 md:h-20 w-auto transition-transform duration-300 group-hover:scale-[1.02]"
+              className={`${logoHeight} w-auto transition-all duration-300 group-hover:scale-[1.02]`}
               priority
             />
             <span className="sr-only">InterjeraRisinājumi</span>
@@ -423,7 +425,7 @@ export default function Header(){
       {isSheetOpen && (
         <div
           key={bpKey}
-          className={`fixed left-0 right-0 ${scrolled ? 'top-[48px] lg:top-[56px]' : 'top-[52px] lg:top-[64px]'} bg-white rounded-b-3xl shadow-2xl z-50 lg:hidden transform transition-all duration-300 ease-out translate-y-0 overflow-y-auto ${scrolled ? 'max-h-[calc(100vh-48px)] lg:max-h-[calc(100vh-56px)]' : 'max-h-[calc(100vh-52px)] lg:max-h-[calc(100vh-64px)]'}`}
+          className={`fixed left-0 right-0 ${scrolled ? 'top-[calc(48px+var(--ticker-h,0px))] lg:top-[calc(56px+var(--ticker-h,0px))]' : 'top-[calc(52px+var(--ticker-h,0px))] lg:top-[calc(64px+var(--ticker-h,0px))]'} bg-white rounded-b-3xl shadow-2xl z-50 lg:hidden transform transition-all duration-300 ease-out translate-y-0 overflow-y-auto ${scrolled ? 'max-h-[calc(100vh-48px)] lg:max-h-[calc(100vh-56px)]' : 'max-h-[calc(100vh-52px)] lg:max-h-[calc(100vh-64px)]'}`}
         >
         {/* Menu header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100">

@@ -121,10 +121,6 @@ label { @apply text-sm font-medium text-gray-700; }
 /* stylelint-enable at-rule-no-unknown, scss/at-rule-no-unknown */
 
 @layer base {
-  .theme {
-    --animate-shimmer-slide:shimmer-slide var(--speed) ease-in-out infinite alternate;
-    --animate-spin-around:spin-around calc(var(--speed) * 2) infinite linear;
-  }
   :root {
     --background:0 0% 100%;
     --foreground:0 0% 3.9%;
@@ -163,24 +159,9 @@ label { @apply text-sm font-medium text-gray-700; }
   }
 }
 
-@theme inline {
-  @keyframes shimmer-slide {
-  to {
-    transform:translate(calc(100cqw - 100%), 0);
-    }
-  }
-  @keyframes spin-around {
-  0% {
-    transform:translateZ(0) rotate(0);
-    }
-  15%, 35% {
-    transform:translateZ(0) rotate(90deg);
-    }
-  65%, 85% {
-    transform:translateZ(0) rotate(270deg);
-    }
-  100% {
-    transform:translateZ(0) rotate(360deg);
-    }
-  }
-}
+/* PIEZĪME: šeit iepriekš bija Tailwind v4 "@theme inline" bloks ar dublētiem
+   shimmer-slide / spin-around keyframes (magicui v4 snippeta paliekas).
+   Dev režīmā pārlūks nezināmo @theme at-rule ignorēja, bet produkcijas
+   minifikators keyframes izcēla un pārrakstīja tailwind.config.ts definīciju,
+   tāpēc pogu "light wave" animācija Vercel vidē nestrādāja.
+   Pareizie keyframes ir definēti tailwind.config.ts. */

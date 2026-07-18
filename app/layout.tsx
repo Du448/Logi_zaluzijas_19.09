@@ -11,6 +11,7 @@ import CookieConsent from '@/components/CookieConsent'
 import { ScrollToTopButton } from '@/components/ScrollToTopButton'
 import AnalyticsScripts from '@/components/AnalyticsScripts'
 import StructuredData from '@/components/StructuredData'
+import PromoTicker from '@/components/PromoTicker'
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['300','400','500','700'] })
 
@@ -71,8 +72,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AnalyticsScripts />
         <CartProvider>
           <ScrollReveal />
+          <PromoTicker />
           <Header />
-          <main className="pt-20 md:pt-24">{children}</main>
+          <main className="pt-[calc(5rem+var(--ticker-h,0px))] md:pt-[calc(6rem+var(--ticker-h,0px))]">{children}</main>
           <PreFooterSwitcher />
           <Footer />
           <CookieConsent />
