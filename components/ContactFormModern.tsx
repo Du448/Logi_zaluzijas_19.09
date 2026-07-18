@@ -261,70 +261,77 @@ export default function ContactFormModern(){
     setFiles(Array.from(map.values()))
   }
 
+  // Vienots gaišais lauka stils visai formai
+  const inputCls =
+    'w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-slate-900 placeholder-slate-400 outline-none transition focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20'
+  const labelCls = 'block text-sm font-medium text-slate-700'
+
   return (
-    <form onSubmit={onSubmit} className="mt-10" aria-describedby="contact-status" noValidate>
+    <form onSubmit={onSubmit} aria-describedby="contact-status" noValidate>
       {/* Row 1: Name / Company */}
-      <div className="grid md:grid-cols-2 gap-8">
-        <label className="block text-sm text-white/80">
-          <span className="block mb-3">Vārds <span aria-hidden="true" className="text-red-300">*</span></span>
+      <div className="grid md:grid-cols-2 gap-5">
+        <label className={labelCls}>
+          <span className="block mb-1.5">Vārds <span aria-hidden="true" className="text-red-500">*</span></span>
           <input
             name="name"
             required
             placeholder="Jūsu vārds"
-            className="w-full bg-transparent text-white placeholder-white/50 border-0 border-b border-white/30 focus:border-white outline-none py-2"
+            className={inputCls}
             aria-required="true"
           />
         </label>
-        <label className="block text-sm text-white/80">
-          <span className="block mb-3">Uzņēmums</span>
+        <label className={labelCls}>
+          <span className="block mb-1.5">Uzņēmums <span className="font-normal text-slate-400">(nav obligāti)</span></span>
           <input
             name="company"
-            placeholder="(nav obligāti)"
-            className="w-full bg-transparent text-white placeholder-white/50 border-0 border-b border-white/30 focus:border-white outline-none py-2"
+            placeholder="Uzņēmuma nosaukums"
+            className={inputCls}
           />
         </label>
       </div>
 
       {/* Row 2: Email / Phone */}
-      <div className="grid md:grid-cols-2 gap-8 mt-10">
-        <label className="block text-sm text-white/80">
-          <span className="block mb-3">E-pasts <span aria-hidden="true" className="text-red-300">*</span></span>
+      <div className="grid md:grid-cols-2 gap-5 mt-5">
+        <label className={labelCls}>
+          <span className="block mb-1.5">E-pasts <span aria-hidden="true" className="text-red-500">*</span></span>
           <input
             name="email"
             type="email"
             required
             placeholder="jums@epasts.lv"
-            className="w-full bg-transparent text-white placeholder-white/50 border-0 border-b border-white/30 focus:border-white outline-none py-2"
+            className={inputCls}
             aria-required="true"
           />
         </label>
-        <label className="block text-sm text-white/80">
-          <span className="block mb-3">Tālrunis</span>
+        <label className={labelCls}>
+          <span className="block mb-1.5">Tālrunis <span className="font-normal text-slate-400">(nav obligāti)</span></span>
           <input
             name="phone"
-            placeholder="(nav obligāti)"
-            className="w-full bg-transparent text-white placeholder-white/50 border-0 border-b border-white/30 focus:border-white outline-none py-2"
+            type="tel"
+            placeholder="+371 ..."
+            className={inputCls}
           />
         </label>
       </div>
 
       {/* Row 3: Message */}
-      <div className="mt-10">
-        <label className="block text-sm text-white/80">
-          <span className="block mb-3">Ziņa <span aria-hidden="true" className="text-red-300">*</span></span>
+      <div className="mt-5">
+        <label className={labelCls}>
+          <span className="block mb-1.5">Ziņa <span aria-hidden="true" className="text-red-500">*</span></span>
           <textarea
             name="message"
             required
             rows={5}
             placeholder="Pastāstiet īsumā par savu ideju vai vajadzībām"
             defaultValue={calcPrefill ? `${calcPrefill}\n\n` : undefined}
-            className="w-full bg-transparent text-white placeholder-white/50 border-0 border-b border-white/30 focus:border-white outline-none py-2 resize-none"
+            className={`${inputCls} resize-none`}
             aria-required="true"
           />
         </label>
       </div>
       {/* Row 4: Files */}
-      <div className="mt-10">
+      <div className="mt-5">
+        <span className={`${labelCls} mb-1.5`}>Pielikumi <span className="font-normal text-slate-400">(nav obligāti)</span></span>
         <div
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
@@ -336,15 +343,17 @@ export default function ContactFormModern(){
               fileInputRef.current?.click()
             }
           }}
-          className={`group rounded-md border-2 border-dashed px-4 py-6 text-center transition-all cursor-pointer outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-0 ${
-            isDragging ? "border-emerald-400 bg-white/10" : "border-white/20 hover:border-white/30 bg-white/5"
+          className={`group rounded-xl border-2 border-dashed px-4 py-6 text-center transition-all cursor-pointer outline-none focus:ring-2 focus:ring-brand-teal/30 ${
+            isDragging
+              ? "border-emerald-500 bg-emerald-50"
+              : "border-slate-300 bg-slate-50 hover:border-brand-teal/60 hover:bg-teal-50/40"
           }`}
           role="button"
           aria-label="Ievelciet failus šeit vai klikšķiniet, lai izvēlētos"
           tabIndex={0}
        >
-          <p className="text-sm text-white/80">
-            Ievelciet failus šeit vai <span className="underline">izvēlieties</span>
+          <p className="text-sm text-slate-600">
+            Ievelciet failus šeit vai <span className="font-semibold text-brand-teal underline">izvēlieties</span>
           </p>
           <input
             ref={fileInputRef}
@@ -356,18 +365,18 @@ export default function ContactFormModern(){
             aria-hidden="true"
             tabIndex={-1}
           />
-          <p className="mt-2 text-xs text-white/60">Atbalstītie formāti: attēli, PDF, DOCX u.c. (kopā līdz 8 MB)</p>
-          <p className={`mt-2 text-xs ${overLimit ? "text-red-300" : "text-white/70"}`}>
+          <p className="mt-2 text-xs text-slate-500">Atbalstītie formāti: attēli, PDF, DOCX u.c. (kopā līdz 8 MB)</p>
+          <p className={`mt-1 text-xs ${overLimit ? "text-red-600 font-medium" : "text-slate-500"}`}>
             Kopējais apjoms: {(totalBytes / (1024 * 1024)).toFixed(2)} MB {overLimit ? "- pārsniedz atļautos 8 MB" : ""}
           </p>
         </div>
         {imagePreviews.length > 0 && (
           <div className="mt-4">
-            <div className="text-xs text-white/70 mb-2">Attēlu priekšskatījumi</div>
+            <div className="text-xs text-slate-500 mb-2">Attēlu priekšskatījumi</div>
             <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
               {imagePreviews.map((p) => (
                 <li key={p.key} className="flex flex-col items-center gap-2">
-                  <div className="relative h-16 w-16 overflow-hidden rounded-md border border-white/15">
+                  <div className="relative h-16 w-16 overflow-hidden rounded-lg border border-slate-200">
                     <Image
                       src={p.url}
                       alt={p.name}
@@ -377,7 +386,7 @@ export default function ContactFormModern(){
                       unoptimized
                     />
                   </div>
-                  <span className="w-16 truncate text-[10px] text-white/70" title={p.name}>{p.name}</span>
+                  <span className="w-16 truncate text-[10px] text-slate-500" title={p.name}>{p.name}</span>
                 </li>
               ))}
             </ul>
@@ -386,12 +395,12 @@ export default function ContactFormModern(){
         {files.length > 0 && (
           <ul className="mt-3 space-y-2" aria-live="polite">
             {files.map((f, idx) => (
-              <li key={`${f.name}-${f.size}-${f.lastModified}`} className="flex items-center justify-between rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm text-white/90">
-                <span className="truncate mr-3">{f.name} <span className="opacity-60">({Math.round(f.size / 1024)} KB)</span></span>
+              <li key={`${f.name}-${f.size}-${f.lastModified}`} className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700">
+                <span className="truncate mr-3">{f.name} <span className="text-slate-400">({Math.round(f.size / 1024)} KB)</span></span>
                 <button
                   type="button"
                   onClick={() => removeFile(idx)}
-                  className="ml-3 inline-flex items-center rounded-md bg-white/10 px-2 py-1 text-xs text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30"
+                  className="ml-3 inline-flex items-center rounded-md border border-slate-300 bg-white px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-teal/30"
                   aria-label={`Noņemt failu ${f.name}`}
                 >Noņemt</button>
               </li>
@@ -400,22 +409,22 @@ export default function ContactFormModern(){
         )}
       </div>
 
-      {/* Row 4: Policy + Submit */}
-      <div className="mt-8">
+      {/* Row 5: reCAPTCHA */}
+      <div className="mt-6">
         {siteKey ? (
           <div ref={recaptchaContainerRef} className="inline-block" aria-live="polite" />
         ) : (
-          <p className="text-sm text-red-200">
+          <p className="text-sm text-red-600">
             ReCAPTCHA nav konfigurēts. Lūdzu sazinieties ar sistēmas administratoru.
           </p>
         )}
       </div>
 
-      <div className="mt-8 flex items-center justify-start">
+      <div className="mt-6">
         <button
           type="submit"
-          className={`inline-flex items-center justify-center px-6 py-3 rounded-md text-white font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${
-            overLimit ? "bg-red-700 hover:bg-red-600" : "bg-blue-600 hover:bg-blue-500"
+          className={`inline-flex w-full sm:w-auto items-center justify-center px-8 py-3 rounded-xl text-white font-semibold shadow-sm transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${
+            overLimit ? "bg-red-600 hover:bg-red-500" : "bg-emerald-600 hover:bg-emerald-700"
           }`}
           disabled={status === "loading" || overLimit || !captchaToken}
         >
@@ -426,12 +435,12 @@ export default function ContactFormModern(){
       <p
         id="contact-status"
         aria-live="polite"
-        className={`mt-4 ${
+        className={`mt-3 text-sm ${
           status === "success"
-            ? "text-emerald-300"
+            ? "text-emerald-600 font-medium"
             : status === "error"
-            ? "text-red-300"
-            : "text-white/70"
+            ? "text-red-600 font-medium"
+            : "text-slate-500"
         }`}
       >
         {message}
