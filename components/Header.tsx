@@ -50,7 +50,9 @@ export default function Header(){
       const y = window.scrollY
       const next = Math.max(0, Math.min(1, 1 - y / threshold))
       setOpacity(next)
-      setScrolled(y > 8)
+      // Histerēze (tā pati kā PromoTicker): sakļaujas tikai zem 40px,
+      // atgriežas tikai virs 10px — pie sliekšņa nekas neraustās
+      setScrolled(prev => (y > 40 ? true : y < 10 ? false : prev))
     }
     const onScroll = () => {
       cancelAnimationFrame(raf)
@@ -166,7 +168,7 @@ export default function Header(){
   return (
     <>
     <header
-      className={`fixed top-[var(--ticker-h,0px)] left-0 right-0 z-50 backdrop-blur-xl transition-[background,box-shadow,border,top] duration-300 border-b ${headerAmbientClass}`}
+      className={`fixed top-[var(--ticker-h,0px)] left-0 right-0 z-50 backdrop-blur-xl transition-[background,box-shadow,border] duration-300 border-b ${headerAmbientClass}`}
     >
       {/* Top info bar — ritinot uz leju saplok */}
       <div className={`bg-white/5 text-white text-xs overflow-hidden transition-all duration-300 ${scrolled ? 'max-h-0 opacity-0' : 'max-h-10 opacity-100'}`}>
