@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   }
 }
 
-/* Saziņas kanāli — katra kartīte ir viens reāls veids, kā mūs sasniegt.
+/* Saziņas kanāli - katra kartīte ir viens reāls veids, kā mūs sasniegt.
    Ikonu SVG ceļi (24x24, stroke) definēti lokāli, lai lapa paliek bez atkarībām. */
 const channels = [
   {
@@ -95,7 +95,7 @@ export default function Page() {
           </h1>
           <p className="mt-3 text-slate-600 leading-relaxed">
             Vēlies uzzināt cenas savam projektam vai ir citi jautājumi? Zvani, raksti vai
-            aizpildi formu — atbildēsim vienas darba dienas laikā.
+            aizpildi formu - atbildēsim vienas darba dienas laikā.
           </p>
         </div>
 
@@ -129,7 +129,7 @@ export default function Page() {
             <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
               <h2 className="text-xl font-bold text-slate-900">Nosūti ziņu</h2>
               <p className="mt-1 text-sm text-slate-500">
-                Lauki ar <span className="text-red-500">*</span> ir obligāti. Vari pievienot arī failus — piemēram, loga izmērus vai foto.
+                Lauki ar <span className="text-red-500">*</span> ir obligāti. Vari pievienot arī failus - piemēram, loga izmērus vai foto.
               </p>
               <div className="mt-6">
                 <Suspense fallback={<ContactFormFallback />}>
@@ -153,7 +153,7 @@ export default function Page() {
 
       </div>
 
-      {/* Karte — pilnā platumā, aizpilda lapas apakšu */}
+      {/* Karte - pilnā platumā, aizpilda lapas apakšu */}
       <section className="border-t border-slate-200">
         <div className="container px-6 py-6 flex flex-wrap items-end justify-between gap-3">
           <div>
@@ -172,7 +172,7 @@ export default function Page() {
             Saņemt norādes
           </a>
         </div>
-        {/* Iframe bez konteinera atkāpēm — no malas līdz malai */}
+        {/* Iframe bez konteinera atkāpēm - no malas līdz malai */}
         <iframe
           title="Karte: Ozolciema iela 8, Rīga"
           className="block w-full h-[420px] md:h-[560px] border-t border-slate-200"

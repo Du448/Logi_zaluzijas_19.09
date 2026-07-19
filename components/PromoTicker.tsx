@@ -3,22 +3,22 @@
 import { useEffect, useState } from 'react'
 
 /**
- * PromoTicker — bezgalīga ritoša paziņojumu josla (seamless marquee) lapas pašā augšā.
+ * PromoTicker - bezgalīga ritoša paziņojumu josla (seamless marquee) lapas pašā augšā.
  *
  * Tehnika: .vx-ticker-track satur DIVAS identiskas .vx-ticker-group kopijas
  * (otrā ar aria-hidden), un track animējas no translateX(0) līdz translateX(-50%).
- * Kad pirmā kopija pilnībā aizslīdējusi, otrā ir tieši tās vietā — šuve nav redzama.
+ * Kad pirmā kopija pilnībā aizslīdējusi, otrā ir tieši tās vietā - šuve nav redzama.
  *
  * Sinhronizācija ar galveni: VISU vertikālo kustību vada viens CSS mainīgais
  * --ticker-h (30px / 26px mobilajā, 0 kad josla paslēpta). Tas ir reģistrēts ar
  * @property kā <length> un tam ir transition uz :root, tāpēc joslas pozīcija
  * (top: calc(var(--ticker-h) - augstums)), galvenes top un satura atkāpe visi
- * seko vienai un tai pašai animētajai vērtībai — kustība ir pilnīgi sinhrona,
+ * seko vienai un tai pašai animētajai vērtībai - kustība ir pilnīgi sinhrona,
  * bez spraugām un bez joslas pavīdēšanas.
  */
 
-// Paziņojuma teksts — atkārtojas grupā vairākas reizes, lai grupa būtu platāka par ekrānu
-const MESSAGE = 'AKCIJA! — 15% VISĀM ŽALŪZIJĀM LĪDZ VASARAS BEIGĀM!'
+// Paziņojuma teksts - atkārtojas grupā vairākas reizes, lai grupa būtu platāka par ekrānu
+const MESSAGE = 'AKCIJA! - 15% VISĀM ŽALŪZIJĀM LĪDZ VASARAS BEIGĀM!'
 const REPEATS = 4
 
 // Histerēze, lai pie sliekšņa robežas nekas neraustītos:
@@ -41,7 +41,7 @@ export default function PromoTicker() {
 
   // --ticker-h reģistrācija kā animējams <length>. CSS @property rīkojums
   // body iekšienē ievietotā <style> tagā Chrome ne vienmēr nostrādā, tāpēc
-  // reģistrējam arī ar JS; atkārtota reģistrācija met kļūdu — to apklusinām.
+  // reģistrējam arī ar JS; atkārtota reģistrācija met kļūdu - to apklusinām.
   useEffect(() => {
     try {
       if (typeof CSS !== 'undefined' && 'registerProperty' in CSS) {
@@ -106,7 +106,7 @@ export default function PromoTicker() {
 
       {/* dangerouslySetInnerHTML novērš servera/klienta teksta escapēšanas atšķirības style tagā */}
       <style dangerouslySetInnerHTML={{ __html: `
-        /* Reģistrēts kā <length>, lai vērtību var animēt ar transition —
+        /* Reģistrēts kā <length>, lai vērtību var animēt ar transition -
            tā visa no --ticker-h atkarīgā ģeometrija kustas vienā taktī */
         @property --ticker-h {
           syntax: '<length>';
@@ -165,7 +165,7 @@ export default function PromoTicker() {
           text-transform: uppercase;
         }
 
-        /* Aizvēršanas poga — ar tādu pašu sarkano fonu, teksts aizslīd zem tās */
+        /* Aizvēršanas poga - ar tādu pašu sarkano fonu, teksts aizslīd zem tās */
         .vx-ticker-close {
           position: absolute;
           top: 0;

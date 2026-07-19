@@ -8,7 +8,7 @@ import ShareButton from '@/components/ShareButton'
 
 /**
  * Galvenes navigācijas saite ar aktīvās lapas indikatoru.
- * Pasvītrojums izaug no centra: uz hover — vienmēr, aktīvajai lapai — paliek redzams.
+ * Pasvītrojums izaug no centra: uz hover - vienmēr, aktīvajai lapai - paliek redzams.
  */
 function NavLink({ href, label, active }: { href: string; label: string; active: boolean }){
   return (
@@ -74,7 +74,7 @@ export default function Header(){
       const next = Math.max(0, Math.min(1, 1 - y / threshold))
       setOpacity(next)
       // Histerēze (tā pati kā PromoTicker): sakļaujas tikai zem 40px,
-      // atgriežas tikai virs 10px — pie sliekšņa nekas neraustās
+      // atgriežas tikai virs 10px - pie sliekšņa nekas neraustās
       setScrolled(prev => (y > 40 ? true : y < 10 ? false : prev))
       // Lasīšanas progress galvenes apakšmalā
       const scrollable = document.documentElement.scrollHeight - vh
@@ -177,8 +177,8 @@ export default function Header(){
   const isActive = (href: string) => pathname === href || !!pathname?.startsWith(`${href}/`)
   const productPaths = ['/logi', '/zaluzijas', '/piederumi', '/bidamasistemas', '/iestiklot-lodziju']
   const productsActive = productPaths.some(isActive)
-  // Divi toņa stāvokļi: virs hero — tikai mīksts aizsegs no augšas (attēls paliek
-  // redzams), ritinot — sablīvēts tumša stikla slānis ar matētu apakšmalu.
+  // Divi toņa stāvokļi: virs hero - tikai mīksts aizsegs no augšas (attēls paliek
+  // redzams), ritinot - sablīvēts tumša stikla slānis ar matētu apakšmalu.
   const headerAmbientClass = isSheetOpen
     ? 'bg-slate-950/95 backdrop-blur-2xl border-white/10 shadow-[0_20px_60px_rgba(2,6,23,0.55)]'
     : scrolled
@@ -236,7 +236,7 @@ export default function Header(){
       ref={headerRef}
       className={`fixed top-[var(--ticker-h,0px)] left-0 right-0 z-50 transition-[background,box-shadow,border-color,backdrop-filter] duration-500 border-b ${headerAmbientClass}`}
     >
-      {/* Kursora spotlight — silts atspīdums logo tonī, seko pelei */}
+      {/* Kursora spotlight - silts atspīdums logo tonī, seko pelei */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[var(--spot,0)] transition-opacity duration-500 motion-reduce:hidden"
         style={{
@@ -250,7 +250,7 @@ export default function Header(){
         className={`pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`}
         aria-hidden="true"
       />
-      {/* Lasīšanas progress — plāna līnija galvenes apakšmalā */}
+      {/* Lasīšanas progress - plāna līnija galvenes apakšmalā */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] overflow-hidden" aria-hidden="true">
         <div
           className="h-full origin-left bg-gradient-to-r from-amber-400 via-amber-300 to-brand-teal transition-opacity duration-500"
@@ -258,7 +258,7 @@ export default function Header(){
         />
       </div>
 
-      {/* Top info bar — ritinot uz leju saplok */}
+      {/* Top info bar - ritinot uz leju saplok */}
       <div className={`relative bg-white/5 text-white text-xs overflow-hidden transition-all duration-300 ${scrolled ? 'max-h-0 opacity-0' : 'max-h-10 opacity-100'}`}>
         <div className="container flex items-center justify-between py-1.5">
           {/* Left: phone + email */}
@@ -285,7 +285,7 @@ export default function Header(){
         >
           {/* Logo image */}
           <Link href="/" className="relative flex items-center gap-3 group" aria-label="InterjeraRisinājumi">
-            {/* Silts oreols aiz logo — parādās uz hover */}
+            {/* Silts oreols aiz logo - parādās uz hover */}
             <span
               className="pointer-events-none absolute -inset-3 rounded-full bg-amber-400/0 blur-xl transition-colors duration-500 group-hover:bg-amber-400/20"
               aria-hidden="true"

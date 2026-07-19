@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { ikUrl } from '@/lib/imagekit'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 export type CatalogCard = {
@@ -409,6 +409,7 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
   const [selectedTag, setSelectedTag] = useState<string>('Visi')
   const [sortBy, setSortBy] = useState<'az' | 'za' | 'popularity'>('popularity')
   const [highlightedIds, setHighlightedIds] = useState<Record<string, { starClass: string; ringClass: string }>>({})
+  const [propsOpen, setPropsOpen] = useState(false)
 
   const popularityIndexMap = useMemo(() => {
     const map = new Map<string, number>()
@@ -491,13 +492,15 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
     <div className="mt-6">
       <section>
         <div className="space-y-6">
-          <div className="space-y-3 max-w-2xl">
-            <h2 className="text-3xl font-semibold text-slate-900">Atrodi sev piemērotāko žalūziju risinājumu</h2>
-            <p className="text-slate-600">
-              Izvēlies no plašā žalūziju klāsta – no klasiskām rullo žalūzijām līdz moderniem automatizētiem risinājumiem.
-              Mēs piedāvājam individuālu pieeju, precīzus mērījumus un kvalitatīvu uzstādīšanu.
-            </p>
-            <div className="mt-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+          <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
+            <div className="space-y-3">
+              <h2 className="text-3xl font-semibold text-slate-900">Atrodi sev piemērotāko žalūziju risinājumu</h2>
+              <p className="text-slate-600">
+                Izvēlies no plašā žalūziju klāsta – no klasiskām rullo žalūzijām līdz moderniem automatizētiem risinājumiem.
+                Mēs piedāvājam individuālu pieeju, precīzus mērījumus un kvalitatīvu uzstādīšanu.
+              </p>
+            </div>
+            <div className="p-4 bg-blue-50 rounded-xl border border-blue-100">
               <h3 className="font-semibold text-blue-900 mb-2">Kā izvēlēties?</h3>
               <ul className="list-disc list-inside text-sm text-blue-800 space-y-1">
                 <li><strong>Rullo un Kasešu:</strong> Populārākā izvēle mājokļiem, pieejami dažādi audumi.</li>
@@ -507,8 +510,49 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
               </ul>
             </div>
           </div>
-          <div className="grid gap-5">
-            {VALUE_PROPS.map((item, index) => (
+          <button
+            type="button"
+            onClick={() => setPropsOpen((v) => !v)}
+            aria-expanded={propsOpen}
+            aria-controls="value-props-panel"
+            className="flex w-full items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-left shadow-sm transition hover:border-slate-300 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+          >
+            <span className="flex flex-col">
+              <span className="text-base font-semibold text-slate-900">Risinājumi pēc tavas vajadzības</span>
+              <span className="text-sm text-slate-500">
+                {propsOpen ? 'Klikšķini, lai sakļautu' : `${VALUE_PROPS.length} idejas – pilnīga tumsa, gaismas kontrole, siltums un vairāk`}
+              </span>
+            </span>
+            <span className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors', propsOpen ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700')}>
+              <motion.svg
+                animate={{ rotate: propsOpen ? 180 : 0 }}
+                transition={{ duration: 0.25 }}
+                className="h-4 w-4"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M4 6l4 4 4-4" />
+              </motion.svg>
+            </span>
+          </button>
+          <AnimatePresence initial={false}>
+            {propsOpen && (
+              <motion.div
+                key="value-props"
+                id="value-props-panel"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                className="overflow-hidden"
+              >
+                <div className="columns-1 gap-5 pt-5 sm:columns-2 lg:columns-3">
+                  {VALUE_PROPS.map((item, index) => (
               <motion.button
                 key={item.title}
                 type="button"
@@ -516,37 +560,38 @@ export default function ZaluzijasHeroAndGrid({ items }: Props) {
                 whileHover={{ y: -6 }}
                 whileTap={{ scale: 0.98 }}
                 className={cn(
-                  'relative overflow-hidden rounded-3xl bg-gradient-to-br p-6 text-left text-white transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-white/60',
+                  'relative mb-5 block w-full break-inside-avoid overflow-hidden rounded-2xl bg-gradient-to-br p-5 text-left text-white transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-white/60',
                   item.gradient,
                   'hover:scale-[1.015]'
                 )}
               >
                 <div className="absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.35),_transparent_55%)]" aria-hidden="true" />
-                <div className="relative z-10 flex flex-col gap-4">
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-white/85">
-                      Klikšķini, lai uzzinātu vairāk
-                      <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M4 12l6-6" />
-                        <path d="M6 4h6v6" />
-                      </svg>
-                    </span>
-                    {item.tags && item.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {item.tags.map((tag) => (
-                          <span key={`${item.title}-${tag.label}`} className={cn('inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold shadow-sm', tag.chipClass)}>
-                            <span>{tag.label}</span>
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <h2 className="text-xl font-semibold leading-snug">{item.title}</h2>
-                  <p className="text-lg leading-relaxed text-white/85">{item.description}</p>
+                <div className="relative z-10 flex flex-col gap-2.5">
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-white/80">
+                    Klikšķini, lai uzzinātu vairāk
+                    <svg className="h-3 w-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M4 12l6-6" />
+                      <path d="M6 4h6v6" />
+                    </svg>
+                  </span>
+                  <h2 className="text-lg font-semibold leading-snug">{item.title}</h2>
+                  <p className="text-sm leading-relaxed text-white/85">{item.description}</p>
+                  {item.tags && item.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {item.tags.map((tag) => (
+                        <span key={`${item.title}-${tag.label}`} className={cn('inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold shadow-sm', tag.chipClass)}>
+                          {tag.label}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </motion.button>
-            ))}
-          </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 

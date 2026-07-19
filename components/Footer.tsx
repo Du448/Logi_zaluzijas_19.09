@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-// Kolonnu virsraksta stils — klusas etiķetes, tāda pati izretināšana kā lapu eyebrow tekstiem
+// Kolonnu virsraksta stils - klusas etiķetes, tāda pati izretināšana kā lapu eyebrow tekstiem
 const labelCls = "text-xs font-medium uppercase tracking-[0.14em] text-white/40"
 const linkCls = "text-white/70 transition-colors hover:text-white"
 
@@ -22,7 +22,7 @@ export default function Footer() {
   return (
     <footer className="bg-slate-900 text-white">
       <div className="container px-6">
-        {/* Aicinājums — bez kastes, tikai gaisa telpa un viena atdalošā līnija */}
+        {/* Aicinājums - bez kastes, tikai gaisa telpa un viena atdalošā līnija */}
         <div className="flex flex-col gap-8 border-b border-white/10 py-16 md:flex-row md:items-end md:justify-between md:gap-12 md:py-20">
           <div className="max-w-xl">
             <h2 className="text-balance text-3xl font-medium leading-[1.15] tracking-[-0.02em] sm:text-4xl">
@@ -50,7 +50,7 @@ export default function Footer() {
           </Link>
         </div>
 
-        {/* Kolonnas — ceturtā vieta tagad ir aizpildīta ar tiešajiem kontaktiem */}
+        {/* Kolonnas - ceturtā vieta tagad ir aizpildīta ar tiešajiem kontaktiem */}
         <div className="grid gap-10 py-12 text-sm md:grid-cols-2 lg:grid-cols-4">
           <div>
             <h3 className={labelCls}>Sazinies</h3>

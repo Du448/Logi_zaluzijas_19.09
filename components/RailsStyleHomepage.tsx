@@ -14,6 +14,29 @@ function CheckIcon({ className }: { className?: string }) {
   )
 }
 
+// Hero virsraksts pa vārdiem - katrs vārds ieplūst atsevišķi, veidojot plūdenu "rakstīšanās" efektu
+const HERO_HEADLINE = 'Padariet savu mājokli siltu, klusu un modernu ar profesionāli uzstādītiem PVC logiem un žalūzijām no'
+const HERO_WORDS = HERO_HEADLINE.split(' ')
+
+// Vecāks orķestrē vārdu secību; katrs bērns startē ar nelielu nobīdi
+const heroContainer = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.05, delayChildren: 0.15 },
+  },
+}
+
+// Katrs vārds paceļas no apakšas un no izplūduma kļūst ass
+const heroWord = {
+  hidden: { opacity: 0, y: '0.6em', filter: 'blur(8px)' },
+  visible: {
+    opacity: 1,
+    y: '0em',
+    filter: 'blur(0px)',
+    transition: { duration: 0.6, ease: [0.22, 0.61, 0.36, 1] as const },
+  },
+}
+
 export default function RailsStyleHomepage() {
   const productCards = [
     {
@@ -159,15 +182,19 @@ export default function RailsStyleHomepage() {
 
         <div className="relative z-10 container mx-auto px-6 pt-20 pb-16">
           <div className="max-w-4xl text-left font-['FS_Me','FS Me',ui-sans-serif]">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="mb-8"
-            >
-              <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
-                Padariet savu mājokli siltu, klusu un modernu ar profesionāli uzstādītiem PVC logiem un žalūzijām no{' '}
-                <span className="relative inline-block align-middle">
+            <div className="mb-8">
+              <motion.h1
+                variants={heroContainer}
+                initial="hidden"
+                animate="visible"
+                className="text-4xl sm:text-5xl md:text-7xl font-bold text-white leading-[1.08] tracking-tight mb-6 drop-shadow-[0_2px_14px_rgba(0,0,0,0.35)]"
+              >
+                {HERO_WORDS.map((word, i) => (
+                  <motion.span key={`${word}-${i}`} variants={heroWord} className="inline-block mr-[0.25em]">
+                    {word}
+                  </motion.span>
+                ))}
+                <motion.span variants={heroWord} className="relative inline-block align-middle">
                   <span
                     className="pointer-events-none absolute inset-0 rounded-lg bg-gradient-to-r from-amber-400/40 via-yellow-200/30 to-amber-500/40 blur-sm"
                     aria-hidden="true"
@@ -175,17 +202,22 @@ export default function RailsStyleHomepage() {
                   <span className="relative z-10 inline-block px-1 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 drop-shadow-[0_0_18px_rgba(251,191,36,0.55)]">
                     VestaLUX
                   </span>
-                </span>
-              </h1>
-              <p className="text-xl text-white max-w-3xl leading-relaxed text-left">
+                </motion.span>
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 1.0, ease: 'easeOut' }}
+                className="text-lg sm:text-xl text-white/90 max-w-3xl leading-relaxed tracking-wide drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)] text-left"
+              >
                 Ilgadēja pieredze, uzticami risinājumi un garantēta kvalitāte visā Latvijā
-              </p>
-            </motion.div>
+              </motion.p>
+            </div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 1.15 }}
               className="flex flex-col sm:flex-row gap-4 justify-start mb-12"
             >
               <LightWaveLink
@@ -205,7 +237,7 @@ export default function RailsStyleHomepage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 1.35 }}
               className="flex flex-wrap justify-start gap-3 text-sm"
             >
               <span className="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full text-gray-700 border border-gray-200">
