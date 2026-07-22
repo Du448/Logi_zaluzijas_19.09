@@ -11,6 +11,7 @@ import CookieConsent from '@/components/CookieConsent'
 import { ScrollToTopButton } from '@/components/ScrollToTopButton'
 import AnalyticsScripts from '@/components/AnalyticsScripts'
 import StructuredData from '@/components/StructuredData'
+import PromoTicker from '@/components/PromoTicker'
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['300','400','500','700'] })
 
@@ -54,9 +55,9 @@ export const metadata: Metadata = {
     images: ['https://ik.imagekit.io/vbvwdejj5/22380411.jpg?updatedAt=1758275325013']
   },
   icons: {
-    icon: 'https://ik.imagekit.io/vbvwdejj5/Untitled%20Design%20-%201%20-%20Edited%20-%20Edited.png?updatedAt=1758095814942',
-    shortcut: 'https://ik.imagekit.io/vbvwdejj5/Untitled%20Design%20-%201%20-%20Edited%20-%20Edited.png?updatedAt=1758095814942',
-    apple: 'https://ik.imagekit.io/vbvwdejj5/Untitled%20Design%20-%201%20-%20Edited%20-%20Edited.png?updatedAt=1758095814942'
+    icon: 'https://ik.imagekit.io/vbvwdejj5/download%20(19)%20-%20Edited%20-%20Edited.png?updatedAt=1760521246953',
+    shortcut: 'https://ik.imagekit.io/vbvwdejj5/download%20(19)%20-%20Edited%20-%20Edited.png?updatedAt=1760521246953',
+    apple: 'https://ik.imagekit.io/vbvwdejj5/download%20(19)%20-%20Edited%20-%20Edited.png?updatedAt=1760521246953'
   }
 }
 
@@ -71,8 +72,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AnalyticsScripts />
         <CartProvider>
           <ScrollReveal />
+          <PromoTicker />
           <Header />
-          <main className="pt-20 md:pt-24">{children}</main>
+          <main className="pt-[calc(5rem+var(--ticker-h,0px))] md:pt-[calc(6rem+var(--ticker-h,0px))]">{children}</main>
           <PreFooterSwitcher />
           <Footer />
           <CookieConsent />
