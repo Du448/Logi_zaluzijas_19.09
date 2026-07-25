@@ -196,7 +196,7 @@ export default function Page() {
                 efficiencyNote: 'Plašāks profils un termo ieliktņi nodrošina augstāku efektivitāti.'
               },
               {
-                img: 'https://ik.imagekit.io/vbvwdejj5/ChatGPT%20Image%20Sep%2014,%202025,%2010_14_05%20PM.png?updatedAt=1757878716920',
+                img: 'https://ik.imagekit.io/vbvwdejj5/Rehau%20synego%20MD1?updatedAt=1757917205578',
                 alt: 'REHAU Synego MD',
                 title: 'REHAU Synego MD',
                 desc: 'Vācu inženierija ar vidusblīvējumu maksimālai aizsardzībai pret aukstumu, troksni un mitrumu.',
