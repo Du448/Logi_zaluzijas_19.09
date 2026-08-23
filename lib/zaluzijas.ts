@@ -626,7 +626,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      <div class='mt-1 font-medium text-gray-900'>Rullo žalūziju “SCREEN” uzstādīšanas instrukcija (pie rāmja)</div>" +
       "    </div>" +
       "    <div class='p-5 rounded-xl border border-gray-200 bg-white text-center hover:shadow-md transition'>" +
-      "      <a class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent text-inherit hover:bg-transparent' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Alum%C4%ABnija/Instrukcijas/Rullo%20%C5%BEal%C5%ABziju%20_SCREEN_%20uzst%C4%81d%C4%AB%C5%A1anas%20%20(pie%20sienas).pdf?updatedAt=1756976402339' target='_blank' rel='noopener noreferrer'>" +
+      "      <a class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent text-inherit hover:bg-transparent' href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Screen/Instrukcijas/Pie%20sienas.pdf?updatedAt=1756975941813' target='_blank' rel='noopener noreferrer'>" +
       "        <span class='sr-only'>Atvērt</span>" +
       "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
       "      </a>" +
