@@ -271,7 +271,7 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "      <div class='font-medium'>Vertikālo žalūziju uzstādīšanas instrukcija (pie sienas)</div>" +
       "    </div>" +
       "    <div class='group mx-auto w-full max-w-[22rem] text-center p-2 text-sm bg-white rounded-xl border border-gray-200 transition hover:shadow-lg hover:-translate-y-1 hover:border-sky-200'>" +
-      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Vertik%C4%81l%C4%81s/Instrukcijas/Vertik%C4%81lo%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija%20(loga%20ail%C4%93).pdf?updatedAt=1756901064891' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
+      "      <a href='https://ik.imagekit.io/vbvwdejj5/%C5%BDal%C5%ABzijas%20-%20kr%C4%81sas%20un%20instrukcijas/Vertik%C4%81l%C4%81s/Instrukcijas/Vertik%C4%81lo%20%C5%BEal%C5%ABziju%20uzst%C4%81d%C4%AB%C5%A1anas%20instrukcija%20(loga%20ail%C4%93.pdf?updatedAt=1756901064891' target='_blank' rel='noopener noreferrer' class='mb-2 inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-transparent hover:bg-transparent text-inherit'>" +
       "        <span class='sr-only'>Atvērt</span>" +
       "        <video class='w-12 h-12 rounded-md object-cover' src='https://ik.imagekit.io/vbvwdejj5/download%20(1).mp4?updatedAt=1760619387335' muted playsinline preload='metadata' onmouseenter='this.play()' onmouseleave='this.pause();this.currentTime=0;'></video>" +
       "      </a>" +
