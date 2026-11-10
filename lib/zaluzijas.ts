@@ -130,6 +130,9 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "</div>",
     features: "",
     images: [
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20251213_121027.jpg',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20251213_121025.jpg',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20260228_152503.jpg',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/b_ZF_4_.jpg?updatedAt=1756983418099',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/b_ZF_6_.jpg?updatedAt=1756983418113',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Rullo%20kase%C5%A1u%20%C5%BEaluzijas/Vario25_uprof_rieksts.png?updatedAt=1759842315200',
@@ -562,6 +565,9 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "</div>",
     features: "",
     images: [
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20260524_134704.jpg',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20260524_114209.jpg',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20260524_114227.jpg',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Kase%C5%A1u%20%C5%BEal%C5%ABzijas%20Diena-nakts/2057cb2b-3777-4828-94f7-318f8d05def5.jpg?updatedAt=1756983471394',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Kase%C5%A1u%20%C5%BEal%C5%ABzijas%20Diena-nakts/(Promoted)%20MYshade%20Zebra%20Blinds%20for%20Windows_.jpg?updatedAt=1756983471393',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Kase%C5%A1u%20%C5%BEal%C5%ABzijas%20Diena-nakts/Hunter%20Douglas%20Silhouette%20Window%20Shadings%20in%20an_.jpg?updatedAt=1756983471375',
@@ -980,6 +986,9 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "<li><strong>Kopšana.</strong> Lai nodrošinātu žalūziju ilgmūžību, tām nav ieteicama mitrā tīrīšana. Ūdens nokļūšana uz lamelēm var izraisīt to deformāciju un krāsas izmaiņas. Tādēļ koka žalūzijas nav piemērotas telpām ar augstu mitruma līmeni.</li>" +
       "</ul>",
     images: [
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20260609_201046.jpg',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20260609_200223.jpg',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20260609_200855.jpg',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Koka%20%C5%BEal%C5%ABzijas/3130e29c-30dc-4779-8030-65b12b9eb65c.jpg?updatedAt=1756983435797',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Koka%20%C5%BEal%C5%ABzijas/bamboo%20blinds%20in%20the%20kitchen%20interior%20_kitchen_.jpg?updatedAt=1756983435741',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/Koka%20%C5%BEal%C5%ABzijas/Wood%20Blinds%20_WintopiaPhilKo%20_Combi%20_WindowBlinds_.jpg?updatedAt=1756983435740',
@@ -1352,6 +1361,11 @@ const productsBase: Record<string, Omit<Product, 'id'>> = {
       "<li><strong>Vienkārša kopšana un finansiāla izdevība.</strong> Materiāls ir viegli tīrāms un nav pakļauts pelējuma ietekmei. Turklāt mīkstie logi ir finansiāli izdevīgāks risinājums nekā stikla vai plastikāta konstrukcijas.</li>" +
       "</ul>",
     images: [
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20260823_165920.jpg',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20260823_165830.jpg',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20260815_200057.jpg',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20260823_163336.jpg',
+      'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/miksti_zaluzija_11.10.26/20260823_163802.jpg',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/M%C4%ABkstie%20logi/M-24.jpg?updatedAt=1756983448672',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/M%C4%ABkstie%20logi/myagkie-okna-iz-pvh-dlya-besedok-i-terras-preimushchestva-i-nedostatki-1.jpg?updatedAt=1756983448661',
       'https://ik.imagekit.io/vbvwdejj5/Visas%20%C5%BEal%C5%ABziju%20bildes/M%C4%ABkstie%20logi/IMG_20191025_160204-scaled-e1682802284679.jpg?updatedAt=1756983448652',
