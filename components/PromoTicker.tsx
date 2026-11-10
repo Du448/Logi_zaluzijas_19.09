@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react'
  */
 
 // Paziņojuma teksts - atkārtojas grupā vairākas reizes, lai grupa būtu platāka par ekrānu
-const MESSAGE = 'AKCIJA! - 15% VISĀM ŽALŪZIJĀM LĪDZ VASARAS BEIGĀM!'
+const MESSAGE = 'AKCIJA! - 20% LĪDZ JAUNAJAM GADAM!'
 const REPEATS = 4
 
 // Histerēze, lai pie sliekšņa robežas nekas neraustītos:
@@ -127,7 +127,7 @@ export default function PromoTicker() {
           right: 0;
           z-index: 70;              /* virs galvenes (z-50) un tās meklētāja (z-60) */
           height: 30px;             /* fiksēts, lai slēpjoties josla slīd, nevis saplok */
-          background: #E00000;
+          background: #3B8BEB;
           overflow: hidden;
           white-space: nowrap;
         }
@@ -172,7 +172,7 @@ export default function PromoTicker() {
           right: 0;
           height: 100%;
           width: 34px;
-          background: #E00000;
+          background: #3B8BEB;
           color: #FFFFFF;
           border: 0;
           font-size: 16px;
